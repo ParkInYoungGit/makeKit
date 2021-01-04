@@ -37,14 +37,17 @@
             android:icon="@drawable/img_logo"
             >>>>>>> dd266fff4f962725f87b21e89de98981dadc5214
             android:theme="@style/Theme.MakeKit.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".makekit_activity.LoginActivity" />
-        <activity android:name=".makekit_activity.MainActivity" />
+        <activity android:name=".makekit_activity.MainActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+
+        </intent-filter>
+        </activity>
     </application>
 
 </manifest>
