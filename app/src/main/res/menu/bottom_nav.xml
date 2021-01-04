@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_1"
+        android:icon="@drawable/ic_home"
+        android:checked="true"
+        android:title="홈" />
+
+    <item
+        android:id="@+id/navigation_2"
+        android:icon="@drawable/ic_category"
+        android:title="카테고리" />
+
+    <item
+        android:id="@+id/navigation_3"
+        android:icon="@drawable/ic_search"
+        android:title="검색"
+        />
+
+    <item
+        android:id="@+id/navigation_4"
+        android:icon="@drawable/ic_chat"
+        android:title="채팅"
+        />
+
+    <item
+        android:id="@+id/navigation_5"
+        android:icon="@drawable/ic_user"
+        android:title="마이킷"
+        />
+
+</menu>
