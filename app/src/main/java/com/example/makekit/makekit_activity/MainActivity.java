@@ -2,7 +2,7 @@ package com.example.makekit.makekit_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.content.Intent;
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.SectionPageAdapter;
 import com.example.makekit.makekit_fragment.BannerViewFragmentFirst;
@@ -33,9 +33,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
+
+    private EditText et_address;
     private BottomNavigationView mBottomNV;
     private ViewPager mViewPager;
     SectionPageAdapter adapter = new SectionPageAdapter(getSupportFragmentManager());
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    
         mBottomNV = findViewById(R.id.nav_view);
         mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() { //NavigationItemSelecte
             @Override
@@ -79,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mBottomNV.setSelectedItemId(R.id.navigation_1);
+
+
+
+
+
+
+
+
 
     }
 

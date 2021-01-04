@@ -135,6 +135,59 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/InputLayoutAddress"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1.8"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_background"
+                android:hint="주소입력"
+                android:paddingLeft="10dp"
+                android:textSize="18dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/InputLayoutAddress_detail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1.8"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_address_detail"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_background"
+                android:hint="상세주소입력"
+                android:paddingLeft="10dp"
+                android:textSize="18dp" />
+            <Button
+                android:layout_marginLeft="40dp"
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="주소찾기"
+                android:background="@drawable/button_background"/>
+
+        </LinearLayout>
+
+
+
+
+
+
+
         <TextView
             android:id="@+id/tv_pwCheckMsg_join"
             android:layout_width="wrap_content"
@@ -177,7 +230,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:padding="50dp"
                 android:text="제 1 장 환영합니다!
 제 1 조 (목적)
