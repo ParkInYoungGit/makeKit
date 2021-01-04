@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.makekit">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MakeKit">
+        <activity android:name=".makekit_activity.IntroViewActivity"></activity>
+        <activity android:name=".makekit_activity.FindPwActivity" />
+        <activity android:name=".makekit_activity.FindIdActivity" />
+        <activity android:name=".makekit_activity.SplashActivity" />
+        <activity android:name=".makekit_activity.OrderViewActivity" />
+        <activity android:name=".makekit_activity.PaymentActivity" />
+        <activity android:name=".makekit_activity.ProdutctViewActivity" />
+        <activity android:name=".makekit_activity.ReviewListActivity" />
+        <activity android:name=".makekit_activity.LikeSellerActivity" />
+        <activity android:name=".makekit_activity.SaleListActivity" />
+        <activity android:name=".makekit_activity.BuyListActivity" />
+        <activity android:name=".makekit_activity.UserModifyActivity" />
+        <activity android:name=".makekit_activity.ChatcontentActivity" />
+        <activity android:name=".makekit_activity.MapActivity" />
+        <activity android:name=".makekit_activity.OrderActivity" />
+        <activity android:name=".makekit_activity.CartActivity" />
+        <activity android:name=".makekit_activity.LikeProductActivity" />
+        <activity
+            android:name=".makekit_activity.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.MakeKit.NoActionBar" />
+        <activity android:name=".makekit_activity.LoginActivity" />
+        <activity android:name=".makekit_activity.JoinActivity" />
+    </application>
+
+</manifest>
