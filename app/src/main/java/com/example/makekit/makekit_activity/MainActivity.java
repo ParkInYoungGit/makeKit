@@ -25,6 +25,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     SectionPageAdapter adapter = new SectionPageAdapter(getSupportFragmentManager());
     Button btnStart;
     ActionBar actionBar;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
