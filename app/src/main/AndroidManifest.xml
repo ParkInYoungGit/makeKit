@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.makekit">
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
@@ -8,7 +10,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.MakeKit">
+        <activity android:name=".makekit_activity.WebViewActivity"></activity>
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
         <activity android:name=".makekit_activity.FindIdActivity" />
@@ -26,9 +30,12 @@
         <activity android:name=".makekit_activity.OrderActivity" />
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
-        <activity
+        <activity android:name=".makekit_activity.JoinActivity">
+            android:icon="@drawable/img_logo"
+
             android:name=".makekit_activity.MainActivity"
             android:icon="@drawable/img_logo"
+            >>>>>>> dd266fff4f962725f87b21e89de98981dadc5214
             android:theme="@style/Theme.MakeKit.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".makekit_activity.LoginActivity" />
-        <activity android:name=".makekit_activity.JoinActivity" />
+        <activity android:name=".makekit_activity.MainActivity" />
     </application>
 
 </manifest>
