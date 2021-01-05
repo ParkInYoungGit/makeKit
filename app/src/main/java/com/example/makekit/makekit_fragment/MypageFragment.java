@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.BuyListActivity;
 import com.example.makekit.makekit_activity.LikeProductActivity;
+import com.example.makekit.makekit_activity.NoticeActivity;
 import com.example.makekit.makekit_activity.ReviewListActivity;
 import com.example.makekit.makekit_activity.SaleListActivity;
 import com.example.makekit.makekit_activity.UserModifyActivity;
@@ -87,6 +88,13 @@ public class MypageFragment extends Fragment {
             }
         });
 
+        v.findViewById(R.id.notice_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NoticeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return v;
     }
