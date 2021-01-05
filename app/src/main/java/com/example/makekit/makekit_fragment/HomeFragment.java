@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        recyclerView = v.findViewById(R.id.recyclerView);
+        recyclerView = v.findViewById(R.id.recyclerViewHot);
 
         //LinearLayoutManager.HORIZONTAL로 넘기는 방향설정 가능 (첫번쨰파라미터는 context 세번쨰파라미터는 아이템이 보이는 방향을 애기한다.)
         //세번쨰파라미터는 예를들어 채팅방같은 경우 메세지가 아래에서 위로 올라가는 방향같은거 설정
