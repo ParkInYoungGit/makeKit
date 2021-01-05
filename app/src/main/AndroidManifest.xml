@@ -30,12 +30,12 @@
         <activity android:name=".makekit_activity.OrderActivity" />
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
+        <activity android:name=".makekit_activity.SearchActivity" />
         <activity android:name=".makekit_activity.JoinActivity">
             android:icon="@drawable/img_logo"
 
             android:name=".makekit_activity.MainActivity"
             android:icon="@drawable/img_logo"
-            >>>>>>> dd266fff4f962725f87b21e89de98981dadc5214
             android:theme="@style/Theme.MakeKit.NoActionBar">
 
         </activity>

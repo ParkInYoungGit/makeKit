@@ -2,34 +2,25 @@ package com.example.makekit.makekit_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.content.Intent;
+
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.SectionPageAdapter;
-import com.example.makekit.makekit_fragment.BannerViewFragmentFirst;
-import com.example.makekit.makekit_fragment.BannerViewFragmentSecond;
-import com.example.makekit.makekit_fragment.BannerViewFragmentThird;
 import com.example.makekit.makekit_fragment.CategoryFragment;
 import com.example.makekit.makekit_fragment.ChatListFragment;
 import com.example.makekit.makekit_fragment.HomeFragment;
 import com.example.makekit.makekit_fragment.MypageFragment;
-import com.example.makekit.makekit_fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -62,9 +53,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.getBackground().setAlpha(0);
 //        bottomNavigationView.setBackground(null);
+
         FloatingActionButton fab = findViewById(R.id.fab_search);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
+<<<<<<< HEAD
             public void onClick(View view) {
 //                Intent intent = new Intent(MainActivity.this, SearchFragment.class);
 //                startActivity(intent);
@@ -77,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
                 Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
                 fragment = new SearchFragment();
                 fragmentTransaction.add(R.id.search_fragment, fragment, tag);
+=======
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+>>>>>>> b304213b141104565fe516a0bc2839c095a217fb
             }
         });
 
@@ -153,16 +151,7 @@ public class MainActivity extends AppCompatActivity {
 //                bundle.putString("useremail", email);
 //                bundle.putString("macIP", macIP);
 //                fragment.setArguments(bundle);
-            } else if (id == R.id.fab_search) {
-
-                fragment = new ChatListFragment();
-//                Bundle bundle = new Bundle(2);
-//                bundle.putString("useremail", email);
-//                bundle.putString("macIP", macIP);
-//                fragment.setArguments(bundle);
-            }
-
-            else if (id == R.id.navigation_4) {
+            } else if (id == R.id.navigation_4) {
 
                 fragment = new ChatListFragment();
 //                Bundle bundle = new Bundle(2);
@@ -213,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_cart:
 
                 // 장바구니로 가는 버튼
-//                Intent intent = new Intent(MainActivity.this, MypagePWActivity01.class);
-//                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                startActivity(intent);
                 return true;
 
 

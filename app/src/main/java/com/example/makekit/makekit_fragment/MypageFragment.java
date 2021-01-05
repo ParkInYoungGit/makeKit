@@ -16,9 +16,12 @@ import com.example.makekit.makekit_activity.BuyListActivity;
 import com.example.makekit.makekit_activity.LikeProductActivity;
 import com.example.makekit.makekit_activity.ReviewListActivity;
 import com.example.makekit.makekit_activity.SaleListActivity;
+import com.example.makekit.makekit_activity.UserModifyActivity;
 
 
 public class MypageFragment extends Fragment {
+
+    Button setting_btn, notice_btn, chatlist_btn;
 
 
 
@@ -26,6 +29,16 @@ public class MypageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Fragment는 Activity가 아니기때문에 리턴값과 레이아웃을 변수로 정해준다.
         View v = inflater.inflate(R.layout.fragment_mypage, container, false);
+
+        setting_btn = v.findViewById(R.id.setting_btn);
+        setting_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), UserModifyActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return v;
 //
 //        v.findViewById(R.id.buylist_btn).setOnClickListener(new View.OnClickListener() {
