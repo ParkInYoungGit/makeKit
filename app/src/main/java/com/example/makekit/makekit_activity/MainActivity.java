@@ -40,7 +40,7 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
 
     private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
-
+    Fragment fragment = new Fragment();
     private EditText et_address;
     private BottomNavigationView mBottomNV;
     private ViewPager mViewPager;
@@ -63,13 +63,22 @@ public class MainActivity extends AppCompatActivity {
         toolbar.getBackground().setAlpha(0);
 //        bottomNavigationView.setBackground(null);
         FloatingActionButton fab = findViewById(R.id.fab_search);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 //                Intent intent = new Intent(MainActivity.this, SearchFragment.class);
 //                startActivity(intent);
-//            }
-//        });
+
+                String tag = String.valueOf(R.id.fab_search);
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+                fragment = new SearchFragment();
+                fragmentTransaction.add(R.id.search_fragment, fragment, tag);
+            }
+        });
 
         actionBar = getSupportActionBar();
         actionBar.setLogo(R.drawable.img_logo);
