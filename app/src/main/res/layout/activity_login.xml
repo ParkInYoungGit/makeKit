@@ -8,8 +8,8 @@
     tools:context=".makekit_activity.LoginActivity">
 
     <ImageView
-        android:layout_width="168dp"
-        android:layout_height="182dp"
+        android:layout_width="158dp"
+        android:layout_height="172dp"
         android:adjustViewBounds="true"
         android:src="@drawable/mainicon"
         android:layout_gravity="center"
