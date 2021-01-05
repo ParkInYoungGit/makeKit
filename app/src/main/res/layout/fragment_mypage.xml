@@ -38,6 +38,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/buylist_btn"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -45,6 +46,7 @@
             android:text="구매내역" />
 
         <Button
+            android:id="@+id/salelist_btn"
             android:layout_marginLeft="10dp"
             android:layout_width="0px"
             android:layout_height="match_parent"
@@ -53,6 +55,7 @@
             android:text="판매내역" />
 
         <Button
+            android:id="@+id/likelist_btn"
             android:layout_marginLeft="10dp"
             android:layout_width="0px"
             android:layout_height="match_parent"
@@ -61,6 +64,7 @@
             android:text="찜" />
 
         <Button
+            android:id="@+id/reviewlist_btn"
             android:layout_marginLeft="10dp"
             android:layout_width="0px"
             android:layout_height="match_parent"
@@ -78,12 +82,14 @@
         android:layout_weight="5">
 
         <Button
+            android:id="@+id/notice_btn"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
             android:text="공지사항"/>
         <Button
+            android:id="@+id/chatlist_btn"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
