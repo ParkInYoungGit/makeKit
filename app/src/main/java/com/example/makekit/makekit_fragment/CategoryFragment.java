@@ -23,7 +23,9 @@ public class CategoryFragment extends Fragment {
         // Fragment는 Activity가 아니기때문에 리턴값과 레이아웃을 변수로 정해준다.
         View v = inflater.inflate(R.layout.fragment_category, container, false);
 
+
 //        listView = v.findViewById(R.id.lv_rec);
+
 
 
         return v;
