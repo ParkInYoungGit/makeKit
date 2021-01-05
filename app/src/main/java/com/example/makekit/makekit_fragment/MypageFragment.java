@@ -53,42 +53,42 @@ public class MypageFragment extends Fragment {
 //            }
 //        });
 
-        return v;
-//
-//        v.findViewById(R.id.buylist_btn).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), BuyListActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        v.findViewById(R.id.salelist_btn).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), SaleListActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        v.findViewById(R.id.likelist_btn).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), LikeProductActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        v.findViewById(R.id.reviewlist_btn).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), ReviewListActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//
 
+
+        v.findViewById(R.id.buylist_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), BuyListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        v.findViewById(R.id.salelist_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SaleListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        v.findViewById(R.id.likelist_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LikeProductActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        v.findViewById(R.id.reviewlist_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ReviewListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        return v;
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {

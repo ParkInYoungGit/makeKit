@@ -31,7 +31,7 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
 
     private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
-
+    Fragment fragment = new Fragment();
     private EditText et_address;
     private BottomNavigationView mBottomNV;
     private ViewPager mViewPager;
@@ -57,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab_search);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
+
+            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, SearchFragment.class);
+//                startActivity(intent);
+
+
+
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(intent);
