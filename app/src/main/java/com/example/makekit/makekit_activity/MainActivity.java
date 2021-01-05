@@ -187,8 +187,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_cart:
 
                 // 장바구니로 가는 버튼
-//                Intent intent = new Intent(MainActivity.this, MypagePWActivity01.class);
-//                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                startActivity(intent);
                 return true;
 
 
