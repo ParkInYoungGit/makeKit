@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MakeKit" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.MakeKit" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#F8DA19</item>
         <item name="colorPrimaryVariant">#FFDE06</item>
@@ -17,6 +17,12 @@
     <style name="Theme.MakeKit.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name ="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#F8DA19</item>
+        <item name="colorPrimaryVariant">#FFDE06</item>
+        <item name="colorOnPrimary">@color/black</item>
     </style>
 
     <style name="Theme.MakeKit.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

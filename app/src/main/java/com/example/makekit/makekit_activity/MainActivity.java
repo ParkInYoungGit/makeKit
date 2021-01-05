@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     SectionPageAdapter adapter = new SectionPageAdapter(getSupportFragmentManager());
     Button btnStart;
     ActionBar actionBar;
-
+    BottomNavigationView bottomNavigationView;
 
 
     @Override
@@ -58,23 +58,24 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.getBackground().setAlpha(0);
+//        bottomNavigationView.setBackground(null);
 
         actionBar = getSupportActionBar();
         actionBar.setLogo(R.drawable.img_logo);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                // 물건 판매글 작성으로
-//                Intent intent = new Intent(MainActivity.this, RegisterPeopleActivity.class);
-//                startActivity(intent);
-            }
-        });
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//                // 물건 판매글 작성으로
+////                Intent intent = new Intent(MainActivity.this, RegisterPeopleActivity.class);
+////                startActivity(intent);
+//            }
+//        });
 
 
     
