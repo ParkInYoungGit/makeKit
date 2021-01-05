@@ -53,12 +53,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+        bottomNavigationView = findViewById(R.id.nav_view);
+        bottomNavigationView.setBackground(null);
+        bottomNavigationView.getMenu().getItem(2).isEnabled();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.getBackground().setAlpha(0);
 //        bottomNavigationView.setBackground(null);
+        FloatingActionButton fab = findViewById(R.id.fab_search);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, SearchFragment.class);
+//                startActivity(intent);
+//            }
+//        });
 
         actionBar = getSupportActionBar();
         actionBar.setLogo(R.drawable.img_logo);
@@ -80,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     
         mBottomNV = findViewById(R.id.nav_view);
+
         mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() { //NavigationItemSelecte
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -99,11 +111,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
 
 
     private void BottomNavigate(int id) {  //BottomNavigation 페이지 변경 (하단 탭 3개 선택)
-        String tag = String.valueOf(id);
+        String tag = String.valueOf(id+R.id.fab_search);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -130,14 +144,16 @@ public class MainActivity extends AppCompatActivity {
 //                bundle.putString("useremail", email);
 //                bundle.putString("macIP", macIP);
 //                fragment.setArguments(bundle);
-            } else if (id == R.id.navigation_3) {
+            } else if (id == R.id.fab_search) {
 
-                fragment = new SearchFragment();
+                fragment = new ChatListFragment();
 //                Bundle bundle = new Bundle(2);
 //                bundle.putString("useremail", email);
 //                bundle.putString("macIP", macIP);
 //                fragment.setArguments(bundle);
-            } else if (id == R.id.navigation_4) {
+            }
+
+            else if (id == R.id.navigation_4) {
 
                 fragment = new ChatListFragment();
 //                Bundle bundle = new Bundle(2);
