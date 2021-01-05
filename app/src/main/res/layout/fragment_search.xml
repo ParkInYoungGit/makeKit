@@ -5,10 +5,37 @@
     android:layout_height="match_parent"
     tools:context=".makekit_fragment.SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/layout_outline"
+        >
+
+        <EditText
+            android:id="@+id/search_ET_Second"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            android:hint="검색어를 입력해주세요."
+            android:gravity="top"
+            android:padding="5dp"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            />
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:maxHeight="40dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_search"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
 
 </FrameLayout>
