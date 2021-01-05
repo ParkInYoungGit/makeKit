@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,7 +24,6 @@ public class HomeFragment extends Fragment {
     private ViewPager mViewPager;
 //    ProductAdapter adapter = new ProductAdapter(getActivity().getSupportFragmentManager());
 //    SectionPageAdapter adapter = new SectionPageAdapter(getChildFragmentManager());
-    Button btnStart;
     RecyclerView recyclerView;
     ProductAdapter adapter;
 
@@ -32,6 +32,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Fragment는 Activity가 아니기때문에 리턴값과 레이아웃을 변수로 정해준다.
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+
 
 
         // 앱소개 뷰페이저
