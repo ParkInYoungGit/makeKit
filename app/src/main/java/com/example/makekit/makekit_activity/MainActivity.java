@@ -57,24 +57,16 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab_search);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-<<<<<<< HEAD
+
             public void onClick(View view) {
 //                Intent intent = new Intent(MainActivity.this, SearchFragment.class);
 //                startActivity(intent);
 
-                String tag = String.valueOf(R.id.fab_search);
 
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
-                fragment = new SearchFragment();
-                fragmentTransaction.add(R.id.search_fragment, fragment, tag);
-=======
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(intent);
->>>>>>> b304213b141104565fe516a0bc2839c095a217fb
             }
         });
 
