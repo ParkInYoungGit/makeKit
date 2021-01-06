@@ -1,38 +1,118 @@
 package com.example.makekit.makekit_bean;
 
 public class Product {
-    String title;
-    String content;
-    int img;
+    String productNo;
+    String productName;
+    String productType;
+    String productPrice;
+    String productStock;
+    String productContent;
+    String productFilename;
+    String productDfilename;
+    String productAFilename;
+    String productInsertDate;
+    String productDeleteDate;
 
-    public Product(String title, String content, int img) {
-        this.title = title;
-        this.content = content;
-        this.img = img;
+    public Product(String productNo, String productName, String productType, String productPrice, String productStock, String productContent, String productFilename, String productDfilename, String productAFilename, String productInsertDate, String productDeleteDate) {
+        this.productNo = productNo;
+        this.productName = productName;
+        this.productType = productType;
+        this.productPrice = productPrice;
+        this.productStock = productStock;
+        this.productContent = productContent;
+        this.productFilename = productFilename;
+        this.productDfilename = productDfilename;
+        this.productAFilename = productAFilename;
+        this.productInsertDate = productInsertDate;
+        this.productDeleteDate = productDeleteDate;
     }
 
-    public String getTitle() {
-        return title;
+    public String getProductNo() {
+        return productNo;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setProductNo(String productNo) {
+        this.productNo = productNo;
     }
 
-    public String getContent() {
-        return content;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public int getImg() {
-        return img;
+    public String getProductType() {
+        return productType;
     }
 
-    public void setImg(int img) {
-        this.img = img;
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
+
+    public String getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(String productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public String getProductStock() {
+        return productStock;
+    }
+
+    public void setProductStock(String productStock) {
+        this.productStock = productStock;
+    }
+
+    public String getProductContent() {
+        return productContent;
+    }
+
+    public void setProductContent(String productContent) {
+        this.productContent = productContent;
+    }
+
+    public String getProductFilename() {
+        return productFilename;
+    }
+
+    public void setProductFilename(String productFilename) {
+        this.productFilename = productFilename;
+    }
+
+    public String getProductDfilename() {
+        return productDfilename;
+    }
+
+    public void setProductDfilename(String productDfilename) {
+        this.productDfilename = productDfilename;
+    }
+
+    public String getProductAFilename() {
+        return productAFilename;
+    }
+
+    public void setProductAFilename(String productAFilename) {
+        this.productAFilename = productAFilename;
+    }
+
+    public String getProductInsertDate() {
+        return productInsertDate;
+    }
+
+    public void setProductInsertDate(String productInsertDate) {
+        this.productInsertDate = productInsertDate;
+    }
+
+    public String getProductDeleteDate() {
+        return productDeleteDate;
+    }
+
+    public void setProductDeleteDate(String productDeleteDate) {
+        this.productDeleteDate = productDeleteDate;
     }
 }
 
