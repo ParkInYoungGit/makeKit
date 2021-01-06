@@ -13,6 +13,10 @@ public class Product {
     String productInsertDate;
     String productDeleteDate;
 
+    public Product(String productName) {
+        this.productName = productName;
+    }
+
     public Product(String productNo, String productName, String productType, String productPrice, String productStock, String productContent, String productFilename, String productDfilename, String productAFilename, String productInsertDate, String productDeleteDate) {
         this.productNo = productNo;
         this.productName = productName;

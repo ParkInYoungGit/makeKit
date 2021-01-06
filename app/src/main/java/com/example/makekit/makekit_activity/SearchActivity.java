@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,11 +31,12 @@ public class SearchActivity extends AppCompatActivity {
     String urlAddrBase = null;
     String urlAddrGetData = null;
     ArrayList<Product> products;
+    ArrayList<String> productsName;
     SearchAdapter adapter;
     ListView listView;
     String IP;
     String email;
-    EditText search_EdT;
+    AutoCompleteTextView search_EdT;
     ImageView search_Iv;
 
     @Override
@@ -51,6 +54,7 @@ public class SearchActivity extends AppCompatActivity {
         //
         //
         //
+        urlAddrBase = "http://" + IP + ":8080/makeKit/";
 
         search_Iv.setOnClickListener(mClickListener);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -63,19 +67,38 @@ public class SearchActivity extends AppCompatActivity {
     View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            connectGetData();
+            connectGetSearchData();
 
         }
     };
 
-    private void connectGetData() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        connectGetProductName();
+    }
+
+    private void connectGetSearchData() {
         try {
-            urlAddrBase = "http://" + IP + ":8080/makeKit/Image/";
-            NetworkTask_DH networkTask = new NetworkTask_DH(SearchActivity.this, urlAddrGetData, "select");
+
+            urlAddrGetData = urlAddrBase+"getProductAll_Infromation.jsp/?search="+search_EdT.getText().toString();
+            NetworkTask_DH networkTask = new NetworkTask_DH(SearchActivity.this, urlAddrGetData, "search");
             Object obj = networkTask.execute().get();
             products = (ArrayList<Product>) obj;
             adapter = new SearchAdapter(SearchActivity.this, R.layout.search_layout, products, urlAddrBase); // 아댑터에 값을 넣어준다.
             listView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void connectGetProductName() {
+        try {
+            urlAddrGetData = urlAddrBase+"getProductName.jsp";
+            NetworkTask_DH networkTask = new NetworkTask_DH(SearchActivity.this, urlAddrGetData, "productName");
+            Object obj = networkTask.execute().get();
+            productsName = (ArrayList<String>) obj;
+            search_EdT.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, productsName));
+
         } catch (Exception e) {
             e.printStackTrace();
         }

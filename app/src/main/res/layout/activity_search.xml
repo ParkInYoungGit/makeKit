@@ -16,7 +16,7 @@
         android:background="@drawable/layout_outline"
         >
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/search_ET"
             android:layout_width="0px"
             android:layout_height="wrap_content"
