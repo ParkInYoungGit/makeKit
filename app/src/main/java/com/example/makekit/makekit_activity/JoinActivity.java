@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -142,18 +141,13 @@ public class JoinActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btnEmailCheck_join: // email 인증
-
-                    SendMail mailServer = new SendMail();
-                    String code = mailServer.sendSecurityCode(getApplicationContext(), email.getText().toString());
+                    SendMail sendMail = new SendMail();
+                    String code = sendMail.sendSecurityCode(getApplicationContext(), email.getText().toString());
 
                     Intent intent = new Intent(JoinActivity.this, EmailCheckActivity.class);
-                    intent.putExtra("user", user);
                     intent.putExtra("codeAuth", code);
-                    finish();
                     startActivity(intent);
 
-                    emailInput = email.getText().toString().trim();
-                    emailCheck(emailInput);
                     break;
 
                 case R.id.submitBtn_join:  // 가입 버튼 클릭 시
@@ -189,44 +183,6 @@ public class JoinActivity extends AppCompatActivity {
         } else {
             email.setError(null);
         }
-    }
-
-    // email 중복 체크
-    private void emailCheck(String emailInput) {
-        int count = 0;
-
-        if (emailInput.length() == 0) {
-            Toast.makeText(JoinActivity.this, "Email을 입력해주세요.", Toast.LENGTH_SHORT).show();
-
-        } else {
-            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-                Toast.makeText(JoinActivity.this, "이메일 형식으로 입력해주세요.", Toast.LENGTH_SHORT).show();
-
-            } else {
-                String urlAddr2 = "";
-                urlAddr2 = urlJsp + "user_query_all.jsp?email=" + emailInput;
-
-                Log.v(TAG, "email : " + emailInput);
-
-                ArrayList<User> result = connectSelectData(urlJsp);
-
-                for (int i = 0; i < result.size(); i++) {
-                    if (emailInput.equals(result.get(i).getEmail())) {
-                        count++;
-                    }
-                }
-
-                if (count == 0) {
-                    email.setEnabled(false);
-                    Toast.makeText(JoinActivity.this, "Email 사용이 가능합니다.", Toast.LENGTH_SHORT).show();
-                    btnCheck = 1;
-                } else {
-                    Toast.makeText(JoinActivity.this, "동일한 Email이 존재합니다.", Toast.LENGTH_SHORT).show();
-                    btnCheck = 0;
-                }
-            }
-        }
-
     }
 
     // pw 입력란 text 변경 시 listener
