@@ -1,10 +1,6 @@
 package com.example.makekit.makekit_activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ChattingContentsAdapter;
@@ -24,6 +23,7 @@ public class ChatcontentActivity extends AppCompatActivity {
 
     String urlAddrBase = null;
     String macIP, email, chattingNumber, receiver;
+    int intChattingNumber = 0;
     ArrayList<ChattingBean> chattingContents;
     ChattingContentsAdapter adapter;
     ListView listView;
@@ -67,28 +67,28 @@ public class ChatcontentActivity extends AppCompatActivity {
             }
         };
 
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    while (isRun){
-                        connectGetData();
-                        Thread.sleep(500);
-                        if(judgement()==chattingContents.size()){
-                            Message msg = handler.obtainMessage();
-                            msg.what = 1;
-                            handler.sendMessage(msg);
-                        }else {
-                            Message msg = handler.obtainMessage();
-                            msg.what = 0;
-                            handler.sendMessage(msg);
-                        }
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
+//        thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try{
+//                    while (isRun){
+//                        connectGetData();
+//                        Thread.sleep(500);
+//                        if(judgement()==chattingContents.size()){
+//                            Message msg = handler.obtainMessage();
+//                            msg.what = 1;
+//                            handler.sendMessage(msg);
+//                        }else {
+//                            Message msg = handler.obtainMessage();
+//                            msg.what = 0;
+//                            handler.sendMessage(msg);
+//                        }
+//                    }
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +108,12 @@ public class ChatcontentActivity extends AppCompatActivity {
         chattingJudge = new ArrayList<ChattingBean>();
         chattingContents = new ArrayList<ChattingBean>();
         isRun = true;
-        connectGetData();
+        // 첫 대화이면 가장 큰 채팅 번호를 불러와서 1 증가 시켜 채팅 방을 만든다.
+        if(chattingNumber.equals(null)){
+            connectGetChattingNumber();
+        }else {
+            connectGetData();
+        }
         adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
         listView.setAdapter(adapter);
         thread.start();
@@ -136,16 +141,30 @@ public class ChatcontentActivity extends AppCompatActivity {
         }
     }
 
-    private int judgement(){
-        int j = 0;
-        for(int i =0 ; i<chattingContents.size(); i++){
-            int contents = chattingContents.get(i).getChattingNumber();
-            int judge = chattingJudge.get(i).getChattingNumber();
-            if(contents == judge){
-                j++;
-            }else {
-            }
+    private void connectGetChattingNumber(){
+        try {
+            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"/jsp/getChattingNumber.jsp?userinfo_userEmail_sender="+email, "getChattingNumber");
+            Object obj = networkTask.execute().get();
+            chattingNumber = (String) obj;
+            intChattingNumber = Integer.parseInt(chattingNumber)+1;
+            chattingNumber = Integer.toString(intChattingNumber);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        return j;
     }
+//
+//    private int judgement(){
+//        int j = 0;
+//        for(int i =0 ; i<chattingContents.size(); i++){
+//            int contents = chattingContents.get(i).getChattingNumber();
+//            int judge = chattingJudge.get(i).getChattingNumber();
+//            if(contents == judge){
+//                j++;
+//            }else {
+//            }
+//        }
+//        return j;
+//    }
+
+
 }
