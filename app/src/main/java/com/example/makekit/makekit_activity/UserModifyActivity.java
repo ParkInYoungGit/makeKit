@@ -63,10 +63,10 @@ public class UserModifyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_modify);
 
 
-        macIP = "192.168.35.251";
-        email = "con@naver.com";
+        macIP = "192.168.200.197";
+        email = "son@naver.com";
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp";  // 폴더까지만 지정
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp/";  // 폴더까지만 지정
 
         urlAddr1 = urlAddrBase + "user_info_all.jsp?userEmail=" + email;
 //        urlAddr3 = urlAddrBase + "user_update.jsp?userEmail=" + user_email;
@@ -111,14 +111,14 @@ public class UserModifyActivity extends AppCompatActivity {
         update_btn = findViewById(R.id.user_update_btn);
         update_btn.setOnClickListener(onClickListener);
 
-<<<<<<< HEAD
+
         findViewById(R.id.user_birth).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker(v);
             }
         });
-=======
+
         user_address = (EditText) findViewById(R.id.user_address);
 
         Button btn_update_user = (Button) findViewById(R.id.userModiAddress_button);
@@ -133,7 +133,6 @@ public class UserModifyActivity extends AppCompatActivity {
             });
         }
 
->>>>>>> 64d72b2ff3d6b4189aeb8f0a633db6349ddda5b5
     }
 
 
@@ -199,7 +198,7 @@ public class UserModifyActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-<<<<<<< HEAD
+
 
     public void showDatePicker(View view) {
         DialogFragment newFragment = new DatePickerFragment();
@@ -214,8 +213,8 @@ public class UserModifyActivity extends AppCompatActivity {
 
         Toast.makeText(this,"Date: "+dateMessage,Toast.LENGTH_SHORT).show();
     }
-}
-=======
+
+
     // 이메일 주소 찾기
     public void onActivityResult ( int requestCode, int resultCode, Intent intent)
     {
@@ -249,4 +248,4 @@ public class UserModifyActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 }
->>>>>>> 64d72b2ff3d6b4189aeb8f0a633db6349ddda5b5
+
