@@ -31,6 +31,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.makekit.makekit_asynctask.SellerNetworkTask;
+import com.example.makekit.makekit_bean.User;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -119,7 +121,7 @@ public class MapActivity extends AppCompatActivity
     double lat;
     double lng;
     ArrayList<Address> data;
-    String sellerEmail;
+    String sellerEmail, macIP, urlAddr;
 
 
     @Override
@@ -128,6 +130,17 @@ public class MapActivity extends AppCompatActivity
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_map);
+
+        Intent intent = getIntent();
+        intent.getStringExtra("macIP");
+
+        /////////////////////////////
+        // ip 수정하쟈!
+        /////////////////////////////
+        macIP="192.168.219.164";
+
+
+        urlAddr = "http://" + macIP + ":8080/makekit/jsp/";
 
         locationRequest = new LocationRequest()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -673,10 +686,18 @@ public class MapActivity extends AppCompatActivity
         data = new ArrayList<Address>();
 
         ArrayList<String> address = new ArrayList<String>();
-        address.add("서울특별시 강남구 강남대로 402");
-        address.add("서울특별시 강남구 강남대로서 510-1");
-        address.add("경기도 성남시 대왕판교로 477");
-        address.add("서울특별시 서초구 잠원동 39-12");
+
+        String urlAddr1 = "";
+        urlAddr1 = urlAddr + "search_seller_map.jsp";
+
+        Log.v(TAG, urlAddr1);
+
+        ArrayList<User> result = connectSelectData(urlAddr1);
+
+        for(int j=0; j<result.size(); j++) {
+            address.add(result.get(j).getAddress());
+        }
+
 
         try {
             for(int i=0; i<address.size(); i++) {
@@ -707,7 +728,7 @@ public class MapActivity extends AppCompatActivity
 
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(setLatLng);
-                    markerOptions.title("위치" + (i + 1));
+                    markerOptions.title(result.get(i).getName());
                     //markerOptions.snippet(list.get(0).get);
                     markerOptions.draggable(false);
 
@@ -718,5 +739,22 @@ public class MapActivity extends AppCompatActivity
         }
 
     }
+
+    //connection Select
+    private ArrayList<User> connectSelectData(String urlAddr){
+        ArrayList<User> result1 = null;
+
+        try{
+            SellerNetworkTask selectNetworkTask = new SellerNetworkTask(MapActivity.this, urlAddr);
+            Object obj = selectNetworkTask.execute().get();
+            result1 = (ArrayList<User>) obj;
+
+        } catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return result1;
+    }
+
 
 }//-------------
