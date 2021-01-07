@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.makekit">
-    <meta-data android:name="com.kakao.sdk.AppKey" android:value="2665d1b7d7c17c66c63f06b53a93690d"/>
+
+    <meta-data
+        android:name="com.kakao.sdk.AppKey"
+        android:value="2665d1b7d7c17c66c63f06b53a93690d" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+<<<<<<< HEAD
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+=======
 <!--    <uses-permission android:name="android.permission.INTERNET">-->
 <!--    </uses-permission>-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION">
@@ -14,6 +22,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+>>>>>>> eeb4857d71ae892633498c08d01fc14eb0780ac5
 
     <application
         android:allowBackup="false"
@@ -24,6 +33,10 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/Theme.MakeKit"
         android:usesCleartextTraffic="true">
+<<<<<<< HEAD
+        <activity android:name=".makekit_activity.ProductList"></activity>
+        <activity android:name=".makekit_activity.NoticeActivity" />
+=======
 
         <!--  구글 API 추가      -->
         <meta-data
@@ -34,6 +47,7 @@
         <!-- 끝      -->
 
         <activity android:name=".makekit_activity.NoticeActivity"></activity>
+>>>>>>> eeb4857d71ae892633498c08d01fc14eb0780ac5
         <activity android:name=".makekit_activity.WebViewActivity" />
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
