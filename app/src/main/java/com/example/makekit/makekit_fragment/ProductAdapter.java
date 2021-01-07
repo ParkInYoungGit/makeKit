@@ -117,9 +117,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
         //setItem 메소드는 SingerItem 객체를 전달받아 뷰홀더 안에 있는 뷰에 데이터를 설정하는 역할을 합니다.
         public void setItem(Product item) {
-            title.setText(item.getTitle());
-            content.setText(item.getContent());
-            imageView.setImageResource(item.getImg());
+//            title.setText(item.getTitle());
+//            content.setText(item.getContent());
+//            imageView.setImageResource(item.getImg());
         }
 
 
