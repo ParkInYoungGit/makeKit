@@ -152,7 +152,7 @@ public class UserModifyActivity extends AppCompatActivity {
     private ArrayList<User> connectSelectGetData(String urlAddr2) {
 
         try {
-            UserNetworkTask userNetworkTask = new UserNetworkTask(UserModifyActivity.this, urlAddr2);
+            UserNetworkTask userNetworkTask = new UserNetworkTask(UserModifyActivity.this, urlAddr2, "select");
             Object obj = userNetworkTask.execute().get();
             members = (ArrayList<User>) obj;
         } catch (Exception e){
