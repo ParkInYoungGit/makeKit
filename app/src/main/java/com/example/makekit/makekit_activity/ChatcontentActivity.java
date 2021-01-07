@@ -3,6 +3,7 @@ package com.example.makekit.makekit_activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,9 +41,9 @@ public class ChatcontentActivity extends AppCompatActivity {
         editText = findViewById(R.id.chattingContents_ET);
         insertButton = findViewById(R.id.chattingContents_Btn);
         listView = findViewById(R.id.chattingContents_LV);
-//        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
-//        email = sf.getString("useremail");
-//        macIP = sf.getString("macIP");
+        Intent intent = getIntent();
+        email = intent.getStringExtra("useremail");
+        macIP = intent.getStringExtra("macIP");
 
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 
@@ -90,7 +91,7 @@ public class ChatcontentActivity extends AppCompatActivity {
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"/JSP/insertChatting.jsp?userid=??????????????&contents="+editText.getText().toString(), "inputChatting");
+                NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"/jsp/insertChatting.jsp?userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver=?????????&chattingContents="+editText.getText().toString(), "inputChatting");
                 networkTask.execute();
                 connectGetData();
                 editText.setText("");
@@ -124,7 +125,7 @@ public class ChatcontentActivity extends AppCompatActivity {
 
     private void connectGetData(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"/JSP/chatting.jsp??????????????????????", "chattingContents");
+            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"/jsp/chatting.jsp?userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver=????????????????", "chattingContents");
             Object obj = networkTask.execute().get();
             chattingContents = (ArrayList<ChattingBean>) obj;
             chattingJudge.addAll(chattingContents);
