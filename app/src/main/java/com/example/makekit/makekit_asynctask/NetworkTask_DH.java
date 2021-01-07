@@ -27,6 +27,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     ArrayList<String> productsName;
     ArrayList<ChattingBean> chattingContents;
     ArrayList<ChattingBean> chattingList;
+    String chattingNumber;
     String where = null;
 
     public NetworkTask_DH(Context context, String mAddr, String where) {
@@ -84,6 +85,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     result = parserAction(stringBuffer.toString());
                 }else if (where.equals("getChattingList")){
                     parserChattingList(stringBuffer.toString());
+                }else if (where.equals("getChattingNumber")){
+                    parserChattingNumber(stringBuffer.toString());
                 }
 
 
@@ -109,6 +112,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return chattingContents;
         }else if(where.equals("inputChatting")){
             return chattingList;
+        }else if (where.equals("getChattingNumber")){
+            return chattingNumber;
         }
         else {
             return result;
@@ -213,4 +218,19 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             e.printStackTrace();
         }
     }
+
+    private void parserChattingNumber(String s){
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+//            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+//            chattingNumber = null;
+//            for(int i = 0; i < jsonArray.length(); i++){
+//                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+//                chattingNumber = jsonObject1.getString("chattingNumber");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
