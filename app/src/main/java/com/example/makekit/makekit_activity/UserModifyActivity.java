@@ -1,9 +1,11 @@
 package com.example.makekit.makekit_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.scroll.pickertest.DatePickerFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,6 +50,7 @@ public class UserModifyActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +60,7 @@ public class UserModifyActivity extends AppCompatActivity {
         macIP = "192.168.35.251";
         email = "con@naver.com";
 
-        urlAddrBase = "http://" + macIP + ":8080/makejsp/";  // 폴더까지만 지정
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp";  // 폴더까지만 지정
 
         urlAddr1 = urlAddrBase + "user_info_all.jsp?userEmail=" + email;
 //        urlAddr3 = urlAddrBase + "user_update.jsp?userEmail=" + user_email;
@@ -101,7 +105,15 @@ public class UserModifyActivity extends AppCompatActivity {
         update_btn = findViewById(R.id.user_update_btn);
         update_btn.setOnClickListener(onClickListener);
 
+        findViewById(R.id.user_birth).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker(v);
+            }
+        });
     }
+
+
 
     @Override
     public void onResume() {
@@ -163,5 +175,19 @@ public class UserModifyActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void showDatePicker(View view) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(),"datePicker");
+    }
+
+    public void processDatePickerResult(int year, int month, int day){
+        String month_string = Integer.toString(month+1);
+        String day_string = Integer.toString(day);
+        String year_string = Integer.toString(year);
+        String dateMessage = (month_string + "/" + day_string + "/" + year_string);
+
+        Toast.makeText(this,"Date: "+dateMessage,Toast.LENGTH_SHORT).show();
     }
 }

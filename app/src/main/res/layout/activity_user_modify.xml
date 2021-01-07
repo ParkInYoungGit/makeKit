@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".makekit_activity.UserModifyActivity">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0px"
+        android:layout_marginTop="40dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="30dp"
         android:text="회원정보수정"
-        android:layout_marginTop="40dp"
-        />
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="30dp">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/user"
-        android:layout_gravity="center"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/user" />
     </androidx.cardview.widget.CardView>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -53,10 +55,10 @@
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/button_background"
+                    android:enabled="false"
                     android:hint="이메일"
                     android:paddingLeft="10dp"
                     android:textSize="18dp"
-                    android:enabled="false"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -75,10 +77,10 @@
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/button_background"
+                    android:enabled="false"
                     android:hint="이름"
                     android:paddingLeft="10dp"
                     android:textSize="18dp"
-                    android:enabled="false"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -160,17 +162,17 @@
                     android:hint="상세주소입력"
                     android:paddingLeft="10dp"
                     android:textSize="18dp" />
+
                 <Button
-                    android:layout_marginLeft="40dp"
                     android:id="@+id/button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="주소찾기"
-                    android:background="@drawable/button_background"/>
+                    android:layout_marginLeft="40dp"
+                    android:background="@drawable/button_background"
+                    android:text="주소찾기" />
 
             </LinearLayout>
-
 
 
             <TextView
@@ -225,12 +227,13 @@
                     android:layout_gravity="top"
                     android:background="@drawable/button_background"
                     android:hint="생일"
-                    android:inputType="phone"
+                    android:inputType="date"
                     android:maxLength="13"
                     android:paddingLeft="10dp"
                     android:textSize="18dp"
 
                     />
+
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -238,15 +241,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:gravity="right">
+                android:gravity="right"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/user_update_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="수정완료"
-                    android:background="@drawable/button_background"/>
+                    android:background="@drawable/button_background"
+                    android:text="수정완료" />
 
 
             </LinearLayout>

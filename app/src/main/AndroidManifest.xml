@@ -7,10 +7,10 @@
         android:value="2665d1b7d7c17c66c63f06b53a93690d" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-<<<<<<< HEAD
+
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-=======
+
 <!--    <uses-permission android:name="android.permission.INTERNET">-->
 <!--    </uses-permission>-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION">
@@ -22,7 +22,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
->>>>>>> eeb4857d71ae892633498c08d01fc14eb0780ac5
+
 
     <application
         android:allowBackup="false"
@@ -33,10 +33,10 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/Theme.MakeKit"
         android:usesCleartextTraffic="true">
-<<<<<<< HEAD
+
         <activity android:name=".makekit_activity.ProductList"></activity>
         <activity android:name=".makekit_activity.NoticeActivity" />
-=======
+
 
         <!--  구글 API 추가      -->
         <meta-data
@@ -45,9 +45,7 @@
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
         <!-- 끝      -->
-
         <activity android:name=".makekit_activity.NoticeActivity"></activity>
->>>>>>> eeb4857d71ae892633498c08d01fc14eb0780ac5
         <activity android:name=".makekit_activity.WebViewActivity" />
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
@@ -60,7 +58,7 @@
         <activity android:name=".makekit_activity.LikeSellerActivity" />
         <activity android:name=".makekit_activity.SaleListActivity" />
         <activity android:name=".makekit_activity.BuyListActivity" />
-        <activity android:name=".makekit_activity.UserModifyActivity" />
+        <activity android:name=".makekit_activity.MainActivity" />
         <activity android:name=".makekit_activity.ChatcontentActivity" />
         <activity android:name=".makekit_activity.MapActivity" >
 
@@ -69,7 +67,7 @@
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
         <activity android:name=".makekit_activity.SearchActivity" />
-        <activity android:name=".makekit_activity.MainActivity">
+        <activity android:name=".makekit_activity.UserModifyActivity">
             android:icon="@drawable/img_logo"
 
             android:name=".makekit_activity.MainActivity"
