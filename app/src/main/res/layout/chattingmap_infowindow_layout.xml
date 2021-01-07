@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical" >
+
+
+        <TextView
+            android:id="@+id/title_chattingmapinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="위치 보내기" />
+
+
+
+    <ImageView
+        android:id="@+id/imageMove__chattingmapinfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:adjustViewBounds="true"
+        android:src="@drawable/storemove"
+        android:maxHeight="50px"
+        android:maxWidth="50px"
+        />
+
+<!--    <Button-->
+<!--        android:id="@+id/buttonStore_info"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="7"-->
+<!--        android:text="이동" />-->
+
+</LinearLayout>
