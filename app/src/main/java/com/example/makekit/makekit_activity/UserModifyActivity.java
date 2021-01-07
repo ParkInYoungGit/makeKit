@@ -46,7 +46,6 @@ public class UserModifyActivity extends AppCompatActivity {
     UserAdapter adapter;
 
 
-
     String macIP;
     String email;
 
@@ -55,16 +54,14 @@ public class UserModifyActivity extends AppCompatActivity {
     Button update_btn;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_modify);
 
 
-        macIP = "192.168.200.197";
-        email = "son@naver.com";
+        macIP = "192.168.35.251";
+        email = "con@naver.com";
 
         urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp/";  // 폴더까지만 지정
 
@@ -107,7 +104,6 @@ public class UserModifyActivity extends AppCompatActivity {
         //  ---------------------------------------------  Update
 
 
-
         update_btn = findViewById(R.id.user_update_btn);
         update_btn.setOnClickListener(onClickListener);
 
@@ -136,7 +132,6 @@ public class UserModifyActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -155,7 +150,7 @@ public class UserModifyActivity extends AppCompatActivity {
             UserNetworkTask userNetworkTask = new UserNetworkTask(UserModifyActivity.this, urlAddr2, "select");
             Object obj = userNetworkTask.execute().get();
             members = (ArrayList<User>) obj;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return members;
@@ -181,20 +176,20 @@ public class UserModifyActivity extends AppCompatActivity {
     };
 
     // people Update data 송부
-    private void updatePeople(){
+    private void updatePeople() {
         String urlAddr3 = "";
-        urlAddr3 = urlAddrBase + "user_update.jsp?userEmail=" + useremail +"&userPw="+userpw+"&userName="+username+"&userAddress="+useraddress+"&userAddressDetail="+useraddressdetail+"&userTel="+usertel+"&userBirth="+userbirth;
+        urlAddr3 = urlAddrBase + "user_update.jsp?userEmail=" + useremail + "&userPw=" + userpw + "&userName=" + username + "&userAddress=" + useraddress + "&userAddressDetail=" + useraddressdetail + "&userTel=" + usertel + "&userBirth=" + userbirth;
         Log.v(TAG, urlAddr3);
 
         connectUpdateData(urlAddr3);
 
     }
 
-    private void connectUpdateData(String urlAddr){
-        try{
+    private void connectUpdateData(String urlAddr) {
+        try {
             CUDNetworkTask updatenetworkTask = new CUDNetworkTask(UserModifyActivity.this, urlAddr);
             updatenetworkTask.execute().get();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -202,22 +197,26 @@ public class UserModifyActivity extends AppCompatActivity {
 
     public void showDatePicker(View view) {
         DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(),"datePicker");
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    public void processDatePickerResult(int year, int month, int day){
-        String month_string = Integer.toString(month+1);
+    public void processDatePickerResult(int year, int month, int day) {
+        String month_string = Integer.toString(month + 1);
         String day_string = Integer.toString(day);
         String year_string = Integer.toString(year);
         String dateMessage = (month_string + "/" + day_string + "/" + year_string);
 
-        Toast.makeText(this,"Date: "+dateMessage,Toast.LENGTH_SHORT).show();
+        EditText birth = (EditText) findViewById(R.id.tf_user_birth);
+
+        birth.setText(dateMessage);
+
+
+        Toast.makeText(this, "Date: " + dateMessage, Toast.LENGTH_SHORT).show();
     }
 
 
     // 이메일 주소 찾기
-    public void onActivityResult ( int requestCode, int resultCode, Intent intent)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         switch (requestCode) {
             case SEARCH_ADDRESS_ACTIVITY:
