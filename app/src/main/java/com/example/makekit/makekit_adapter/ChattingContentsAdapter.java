@@ -18,11 +18,14 @@ public class ChattingContentsAdapter extends BaseAdapter {
     int layout = 0;
     ArrayList<ChattingBean> data = null;
     LayoutInflater inflater = null;
+    String email, receiver;
 
-    public ChattingContentsAdapter(Context mContext, int layout, ArrayList<ChattingBean> data) {
+    public ChattingContentsAdapter(Context mContext, int layout, ArrayList<ChattingBean> data, String email, String receiver) {
         this.mContext = mContext;
         this.layout = layout;
         this.data = data;
+        this.email = email;
+        this.receiver = receiver;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

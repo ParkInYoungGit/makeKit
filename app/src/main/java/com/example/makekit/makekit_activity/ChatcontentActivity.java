@@ -58,7 +58,7 @@ public class ChatcontentActivity extends AppCompatActivity {
                         chattingContents.clear();
                         chattingJudge.clear();
                         connectGetData();
-                        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents);
+                        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
                         listView.setAdapter(adapter);
                         break;
                     case 1:
