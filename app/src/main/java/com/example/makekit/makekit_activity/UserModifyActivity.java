@@ -59,7 +59,7 @@ public class UserModifyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_modify);
 
 
-        macIP = "192.168.200.197";
+        macIP = "192.168.35.251";
         email = "con@naver.com";
 
         urlAddrBase = "http://" + macIP + ":8080/makejsp/";  // 폴더까지만 지정

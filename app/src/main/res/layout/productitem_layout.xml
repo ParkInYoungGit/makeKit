@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+<LinearLayout
+    android:id="@+id/ll_productlist"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/productitem" />
+
+        <TextView
+            android:id="@+id/product_title"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[대림농원] 바삭대추"
+            android:textSize="20dp"
+
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5,000원"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/product_subtitle"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="바삭하고 건강에좋은 대추"
+            android:textSize="10dp"
+            android:textColor="#9E9E9E"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+</LinearLayout>
