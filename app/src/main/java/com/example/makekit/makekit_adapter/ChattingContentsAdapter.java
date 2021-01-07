@@ -1,6 +1,7 @@
 package com.example.makekit.makekit_adapter;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,13 +56,15 @@ public class ChattingContentsAdapter extends BaseAdapter {
         TextView tv_sendid = convertView.findViewById(R.id.sendId);
         TextView tv_sendContent = convertView.findViewById(R.id.sendContent);
 
-       // tv_sendid.setText(data.get(position).getSendid());
-      //  tv_sendContent.setText(data.get(position).getSendContents());
 
-        if ((position % 2)==1){
-            convertView.setBackgroundColor(0x50000000);
+
+
+        if (data.get(position).getUserinfo_userEmail_sender().equals(email)){
+            tv_sendContent.setText(data.get(position).getChattingContents());
+            tv_sendContent.setGravity(Gravity.RIGHT);
         }else {
-            convertView.setBackgroundColor(0x50dddddd);
+            tv_sendid.setText(data.get(position).getUserinfo_userEmail_sender());
+            tv_sendContent.setText(data.get(position).getChattingContents());
         }
 
         return convertView;
