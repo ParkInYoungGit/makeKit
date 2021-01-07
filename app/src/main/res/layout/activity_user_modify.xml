@@ -59,7 +59,9 @@
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                android:inputType="textEmailAddress"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_email"
@@ -202,7 +204,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:errorEnabled="true"
-
+                android:inputType="phone"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -212,7 +214,6 @@
                     android:layout_gravity="top"
                     android:background="@drawable/button_background"
                     android:hint="휴대폰"
-                    android:inputType="phone"
                     android:maxLength="13"
                     android:paddingLeft="10dp"
                     android:textSize="18dp"

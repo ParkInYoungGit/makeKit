@@ -54,17 +54,13 @@ public class MainActivity extends AppCompatActivity {
         toolbar.getBackground().setAlpha(0);
 //        bottomNavigationView.setBackground(null);
 
+        // 검색 페이지로 이동
         FloatingActionButton fab = findViewById(R.id.fab_search);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
 
             public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, SearchFragment.class);
-//                startActivity(intent);
 
-
-
-//            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(intent);
             }
