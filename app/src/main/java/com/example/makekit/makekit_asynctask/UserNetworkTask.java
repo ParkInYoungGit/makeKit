@@ -24,12 +24,23 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
     String where = null;
     ProgressDialog progressDialog = null;
     ArrayList<User> members;
+    ArrayList<User> user = null;
+    int loginCheck = 0;
+
 
     public UserNetworkTask(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
         this.members = new ArrayList<User>();
         Log.v(TAG, "Start : "+ mAddr);
+    }
+
+    public UserNetworkTask(Context context, String mAddr, String where) {
+        this.context = context;
+        this.mAddr = mAddr;
+        this.where = where;
+        this.user = new ArrayList<User>();
+        Log.v(TAG, "Start : " + mAddr);
     }
 
 //    public PeopleNetworkTask(FirstFragment firstFragment, String mAddr) {
@@ -61,7 +72,10 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
         InputStreamReader inputStreamReader = null;
 
         BufferedReader bufferedReader = null;
+        String result = null;
         Log.v(TAG, "before try");
+
+
         try{
             Log.v(TAG, "after try");
             URL url = new URL(mAddr);
@@ -77,11 +91,16 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
                     String strline = bufferedReader.readLine();
                     if(strline == null) break;
                     stringBuffer.append(strline + "\n");
-
                 }
                 Log.v(TAG, "StringBuffer : "+stringBuffer.toString());
 
-
+                if (where.equals("select")) {
+                    parserSelect(stringBuffer.toString());
+                } else if (where.equals("loginCount")) {
+                    parserLoginCheck(stringBuffer.toString());
+                } else {
+                    result = parserAction(stringBuffer.toString());
+                }
                     peopleParser(stringBuffer.toString());
 
 
@@ -99,7 +118,15 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
             }
         }
 
-            return members;
+        if (where.equals("select")) {
+            return user;
+
+        } else if (where.equals("loginCount")) {
+            return loginCheck;
+
+        }else{
+            return result;
+        }
 
     }
 
@@ -132,8 +159,6 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
             for(int i = 0 ; i<jsonArray.length() ; i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
-
-
                 String useremail = jsonObject1.getString("userEmail");
                 String userpw = jsonObject1.getString("userPw");
                 String username = jsonObject1.getString("userName");
@@ -141,9 +166,6 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
                 String useraddressdetail = jsonObject1.getString("userAddressDetail");
                 String usertel = jsonObject1.getString("userTel");
                 String userbirth = jsonObject1.getString("userBirth");
-
-
-
 
                 User user = new User(useremail, userpw, username, useraddress, useraddressdetail, usertel, userbirth);
                 members.add(user);
@@ -154,4 +176,73 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
         }
     }
 
+    // select action
+    private void parserSelect(String s) {
+        Log.v(TAG, "Parser()");
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
+            user.clear();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String email = jsonObject1.getString("userName");
+                String name = jsonObject1.getString("userEmail");
+                String pw = jsonObject1.getString("userPw");
+                String address = jsonObject1.getString("userAddress");
+                String addressDetail = jsonObject1.getString("userAddressDetail");
+                String tel = jsonObject1.getString("userTel");
+                String birth = jsonObject1.getString("userBirth");
+
+                User users = new User(email, name, pw, address, addressDetail, tel, birth);
+                user.add(users);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // insert/update action
+    private String parserAction(String s) {
+        Log.v(TAG, "parserAction()");
+        String returnResult = null;
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            returnResult = jsonObject.getString("result");
+            Log.v(TAG, returnResult);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return returnResult;
+    }
+
+    private void parserLoginCheck(String s) {
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                int count = jsonObject1.getInt("count");
+
+                loginCheck = count;
+                Log.v("여기", "parserLoginCheck : " + count);
+
+                Log.v(TAG, "----------------------------------");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 }
+
+

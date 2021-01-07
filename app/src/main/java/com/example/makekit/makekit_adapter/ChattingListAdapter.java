@@ -12,14 +12,14 @@ import com.example.makekit.makekit_bean.ChattingBean;
 
 import java.util.ArrayList;
 
-public class ChattingContentsAdapter extends BaseAdapter {
+public class ChattingListAdapter extends BaseAdapter {
 
     Context mContext = null;
     int layout = 0;
     ArrayList<ChattingBean> data = null;
     LayoutInflater inflater = null;
 
-    public ChattingContentsAdapter(Context mContext, int layout, ArrayList<ChattingBean> data) {
+    public ChattingListAdapter(Context mContext, int layout, ArrayList<ChattingBean> data) {
         this.mContext = mContext;
         this.layout = layout;
         this.data = data;
@@ -34,10 +34,8 @@ public class ChattingContentsAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-
-        return data.get(position);//////////////////////////////////////////////////////////
-
-
+        return data.get(position); ///////////////////////////////////////
+    }
 
     @Override
     public long getItemId(int position) {
@@ -46,20 +44,14 @@ public class ChattingContentsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView==null){
+
+        if (convertView == null) {
             convertView = inflater.inflate(this.layout, parent, false);
         }
-        TextView tv_sendid = convertView.findViewById(R.id.sendId);
-        TextView tv_sendContent = convertView.findViewById(R.id.sendContent);
+        TextView tv_sendID = convertView.findViewById(R.id.chattingListSendId_TV);
+        TextView tv_sendContents = convertView.findViewById(R.id.chattingListSendContents_TV);
 
-       // tv_sendid.setText(data.get(position).getSendid());
-      //  tv_sendContent.setText(data.get(position).getSendContents());
 
-        if ((position % 2)==1){
-            convertView.setBackgroundColor(0x50000000);
-        }else {
-            convertView.setBackgroundColor(0x50dddddd);
-        }
 
         return convertView;
     }

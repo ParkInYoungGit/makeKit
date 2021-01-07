@@ -3,7 +3,9 @@ package com.example.makekit.makekit_asynctask;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.example.makekit.makekit_bean.ChattingBean;
 import com.example.makekit.makekit_bean.Product;
 
 import org.json.JSONArray;
@@ -23,6 +25,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     ProgressDialog progressDialog = null;
     ArrayList<Product> products;
     ArrayList<String> productsName;
+    ArrayList<ChattingBean> chattingContents;
+    ArrayList<ChattingBean> chattingList;
     String where = null;
 
     public NetworkTask_DH(Context context, String mAddr, String where) {
@@ -30,6 +34,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
         this.mAddr = mAddr;
         this.products = new ArrayList<Product>();
         this.productsName = new ArrayList<String>();
+        this.chattingContents = new ArrayList<ChattingBean>();
+        this.chattingList = new ArrayList<ChattingBean>();
         this.where = where;
     }
 
@@ -72,6 +78,12 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     parserSelect(stringBuffer.toString());
                 }else if(where.equals("productName")){
                     parserProductName(stringBuffer.toString());
+                }else if (where.equals("chattingContents")){
+                    parserChattingContents(stringBuffer.toString());
+                }else if (where.equals("inputChatting")){
+                    result = parserAction(stringBuffer.toString());
+                }else if (where.equals("getChattingList")){
+                    parserChattingList(stringBuffer.toString());
                 }
 
 
@@ -93,7 +105,12 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return products;
         }else if (where.equals("productName")){
             return productsName;
-        }else {
+        }else if(where.equals("chattingContents")){
+            return chattingContents;
+        }else if(where.equals("inputChatting")){
+            return chattingList;
+        }
+        else {
             return result;
         }
 
@@ -133,7 +150,6 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
 //
 //                Product product = new Product(code, name, dept, phone);
 //                products.add(product);
-//                Log.v(TAG, member.toString());
 //            }
         }catch (Exception e){
             e.printStackTrace();
@@ -150,11 +166,51 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
 //                String productName = jsonObject1.getString("productName");
 //
 //                productsName.add(productName);
-//                Log.v(TAG, member.toString());
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
+    private void parserChattingContents(String s){
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+//            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+//            chattingContents.clear();
+//            for(int i = 0; i < jsonArray.length(); i++){
+//                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+//                String productName = jsonObject1.getString("productName");
+//
+//                chattingContents.add(productName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    private String parserAction(String s){
 
+        String returnValue = null;
+
+        try {
+
+            JSONObject jsonObject = new JSONObject(s);
+            returnValue = jsonObject.getString("result");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return returnValue;
+    }
+    private void parserChattingList(String s){
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+//            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+//            chattingList.clear();
+//            for(int i = 0; i < jsonArray.length(); i++){
+//                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+//                String productName = jsonObject1.getString("productName");
+//
+//                chattingList.add(productName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
