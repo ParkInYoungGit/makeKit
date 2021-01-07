@@ -18,11 +18,13 @@ public class ChattingListAdapter extends BaseAdapter {
     int layout = 0;
     ArrayList<ChattingBean> data = null;
     LayoutInflater inflater = null;
+    String email;
 
-    public ChattingListAdapter(Context mContext, int layout, ArrayList<ChattingBean> data) {
+    public ChattingListAdapter(Context mContext, int layout, ArrayList<ChattingBean> data, String email) {
         this.mContext = mContext;
         this.layout = layout;
         this.data = data;
+        this.email = email;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -34,7 +36,7 @@ public class ChattingListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return data.get(position); ///////////////////////////////////////
+        return data.get(position).getChattingNumber();
     }
 
     @Override
@@ -50,6 +52,13 @@ public class ChattingListAdapter extends BaseAdapter {
         }
         TextView tv_sendID = convertView.findViewById(R.id.chattingListSendId_TV);
         TextView tv_sendContents = convertView.findViewById(R.id.chattingListSendContents_TV);
+
+        if(email.equals(data.get(position).getUserinfo_userEmail_receiver())){
+            tv_sendID.setText(data.get(position).getUserinfo_userEmail_sender());
+        }else {
+            tv_sendID.setText(data.get(position).getUserinfo_userEmail_receiver());
+        }
+        tv_sendContents.setText(data.get(position).getChattingContents());
 
 
 

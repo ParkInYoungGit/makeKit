@@ -51,6 +51,12 @@ public class ChatListFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ChatcontentActivity.class);
                 intent.putExtra("useremail", email);
                 intent.putExtra("macIP", macIP);
+                if(email.equals(chattingBeanArrayList.get(position).getUserinfo_userEmail_receiver())){
+                    intent.putExtra("receiver", chattingBeanArrayList.get(position).getUserinfo_userEmail_sender());
+                }else {
+                    intent.putExtra("receiver", chattingBeanArrayList.get(position).getUserinfo_userEmail_receiver());
+                }
+                intent.putExtra("chattingNumber", chattingBeanArrayList.get(position).getChattingNumber());
             }
         });
 
@@ -70,7 +76,7 @@ public class ChatListFragment extends Fragment {
             NetworkTask_DH networkTask_dh = new NetworkTask_DH(getContext(), urlGetData, "getChattingList");
             Object obj = networkTask_dh.execute().get();
             chattingBeanArrayList = (ArrayList<ChattingBean>) obj;
-            adapter = new ChattingListAdapter(getContext(), R.layout.chatting_list_layout, chattingBeanArrayList);
+            adapter = new ChattingListAdapter(getContext(), R.layout.chatting_list_layout, chattingBeanArrayList, email);
             listView.setAdapter(adapter);
         }catch (Exception e){
             e.printStackTrace();

@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".makekit_activity.UserModifyActivity">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0px"
+        android:layout_marginTop="40dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="30dp"
         android:text="회원정보수정"
-        android:layout_marginTop="40dp"
-        />
-    <androidx.cardview.widget.CardView
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+
+
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="30dp">
+        android:orientation="vertical"
+        >
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="30dp"
+        android:layout_gravity="center">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/user"
         android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -45,18 +58,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_email"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
+                    android:enabled="false"
                     android:hint="이메일"
                     android:paddingLeft="10dp"
                     android:textSize="18dp"
-                    android:enabled="false"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -67,18 +80,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_name"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
+                    android:enabled="false"
                     android:hint="이름"
                     android:paddingLeft="10dp"
                     android:textSize="18dp"
-                    android:enabled="false"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -89,13 +102,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_pw"
                     android:layout_width="250dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:hint="비밀번호 (8자 이상)"
                     android:inputType="textPassword"
@@ -109,13 +122,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="0.8"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_pwcheck"
                     android:layout_width="250dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:hint="비밀번호 확인"
                     android:inputType="textPassword"
@@ -124,19 +137,26 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/tv_pwCheckMsg_user"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="0.5" />
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/InputLayoutUser_Address"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_address"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:hint="주소입력"
                     android:paddingLeft="10dp"
@@ -149,36 +169,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_addressdetail"
                     android:layout_width="250dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:hint="상세주소입력"
                     android:paddingLeft="10dp"
                     android:textSize="18dp" />
+
                 <Button
-                    android:layout_marginLeft="40dp"
-                    android:id="@+id/button"
+
+                    android:id="@+id/userModiAddress_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="주소찾기"
-                    android:background="@drawable/button_background"/>
+                    android:layout_marginLeft="40dp"
+                    android:background="@drawable/button_background"
+                    android:text="주소찾기" />
 
             </LinearLayout>
 
-
-
-            <TextView
-                android:id="@+id/tv_pwCheckMsg_user"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginLeft="20dp"
-                android:layout_weight="0.6" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/InputLayoutUser_Tel"
@@ -186,7 +200,7 @@
                 android:layout_height="0dp"
                 android:layout_gravity="top"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true"
 
                 >
@@ -194,7 +208,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_tel"
                     android:layout_width="250dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:background="@drawable/button_background"
                     android:hint="휴대폰"
@@ -213,7 +227,7 @@
                 android:layout_height="0dp"
                 android:layout_gravity="top"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true"
 
                 >
@@ -221,36 +235,38 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_birth"
                     android:layout_width="250dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:background="@drawable/button_background"
                     android:hint="생일"
-                    android:inputType="phone"
+                    android:inputType="date"
                     android:maxLength="13"
                     android:paddingLeft="10dp"
                     android:textSize="18dp"
 
                     />
 
+
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:gravity="right">
-
-                <Button
-                    android:id="@+id/user_update_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="수정완료"
-                    android:background="@drawable/button_background"/>
 
 
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
+        android:orientation="horizontal"
+        android:gravity="right">
+
+        <Button
+            android:id="@+id/user_update_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수정완료"
+            android:background="@drawable/button_background"/>
+
+
+    </LinearLayout>
 </LinearLayout>
