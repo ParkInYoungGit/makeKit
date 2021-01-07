@@ -35,7 +35,7 @@
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
         <activity android:name=".makekit_activity.SearchActivity" />
-        <activity android:name=".makekit_activity.JoinActivity">
+        <activity android:name=".makekit_activity.MainActivity">
             android:icon="@drawable/img_logo"
 
             android:name=".makekit_activity.MainActivity"
@@ -43,7 +43,7 @@
             android:theme="@style/Theme.MakeKit.NoActionBar">
         </activity>
         <activity android:name=".makekit_activity.LoginActivity" />
-        <activity android:name=".makekit_activity.MainActivity">
+        <activity android:name=".makekit_activity.JoinActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

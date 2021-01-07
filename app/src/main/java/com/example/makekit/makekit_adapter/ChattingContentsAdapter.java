@@ -34,8 +34,10 @@ public class ChattingContentsAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
+
         return data.get(position);//////////////////////////////////////////////////////////
-    }
+
+
 
     @Override
     public long getItemId(int position) {
