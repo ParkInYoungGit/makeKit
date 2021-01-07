@@ -57,12 +57,12 @@ public class HomeFragment extends Fragment {
 
         adapter = new ProductAdapter(getContext());
         //아이템추가
-        adapter.addItem(new Product("도시락", "5000" , R.drawable.img_product1));
-        adapter.addItem(new Product("도시락2", "5000" , R.drawable.img_product1));
-        adapter.addItem(new Product("도시락3", "5000" , R.drawable.img_product1));
-        adapter.addItem(new Product("도시락4", "5000" , R.drawable.img_product1));
-        adapter.addItem(new Product("도시락5", "5000" , R.drawable.img_product1));
-        adapter.addItem(new Product("도시락6", "5000" , R.drawable.img_product1));
+//        adapter.addItem(new Product("도시락", "5000" , R.drawable.img_product1));
+//        adapter.addItem(new Product("도시락2", "5000" , R.drawable.img_product1));
+//        adapter.addItem(new Product("도시락3", "5000" , R.drawable.img_product1));
+//        adapter.addItem(new Product("도시락4", "5000" , R.drawable.img_product1));
+//        adapter.addItem(new Product("도시락5", "5000" , R.drawable.img_product1));
+//        adapter.addItem(new Product("도시락6", "5000" , R.drawable.img_product1));
 
 
 
