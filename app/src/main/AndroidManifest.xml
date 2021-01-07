@@ -35,7 +35,7 @@
         <activity android:name=".makekit_activity.EmailCheckActivity"></activity>
         <activity android:name=".makekit_activity.NoticeActivity" />
         <activity android:name=".makekit_activity.ProductList"></activity>
-        <activity android:name=".makekit_activity.NoticeActivity" />
+<!--        <activity android:name=".makekit_activity.NoticeActivity" />-->
 
 
         <!--  구글 API 추가      -->
@@ -66,7 +66,7 @@
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
         <activity android:name=".makekit_activity.SearchActivity" />
-        <activity android:name=".makekit_activity.UserModifyActivity">
+        <activity android:name=".makekit_activity.JoinActivity">
             android:icon="@drawable/img_logo"
 
             android:name=".makekit_activity.MainActivity"
@@ -80,7 +80,7 @@
         </activity>
         <activity android:name=".makekit_activity.LoginActivity" />
 
-        <activity android:name=".makekit_activity.JoinActivity">
+        <activity android:name=".makekit_activity.UserModifyActivity">
 
         </activity>
     </application>

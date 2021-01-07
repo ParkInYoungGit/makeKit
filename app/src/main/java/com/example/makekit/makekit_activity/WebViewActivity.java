@@ -1,12 +1,12 @@
 package com.example.makekit.makekit_activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.makekit.R;
 
@@ -45,7 +45,7 @@ public class WebViewActivity extends AppCompatActivity {
             }
         });
 
-        macIP = "192.168.200.197";
+        macIP = "192.168.35.133";
         browser.loadUrl("http://"+macIP+":8080/makejsp/daum.html");
 
     }

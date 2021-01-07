@@ -1,10 +1,6 @@
 package com.example.makekit.makekit_activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ChattingContentsAdapter;
@@ -68,28 +67,28 @@ public class ChatcontentActivity extends AppCompatActivity {
             }
         };
 
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    while (isRun){
-                        connectGetData();
-                        Thread.sleep(500);
-                        if(judgement()==chattingContents.size()){
-                            Message msg = handler.obtainMessage();
-                            msg.what = 1;
-                            handler.sendMessage(msg);
-                        }else {
-                            Message msg = handler.obtainMessage();
-                            msg.what = 0;
-                            handler.sendMessage(msg);
-                        }
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
+//        thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try{
+//                    while (isRun){
+//                        connectGetData();
+//                        Thread.sleep(500);
+//                        if(judgement()==chattingContents.size()){
+//                            Message msg = handler.obtainMessage();
+//                            msg.what = 1;
+//                            handler.sendMessage(msg);
+//                        }else {
+//                            Message msg = handler.obtainMessage();
+//                            msg.what = 0;
+//                            handler.sendMessage(msg);
+//                        }
+//                    }
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,19 +152,19 @@ public class ChatcontentActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    private int judgement(){
-        int j = 0;
-        for(int i =0 ; i<chattingContents.size(); i++){
-            int contents = chattingContents.get(i).getChattingNumber();
-            int judge = chattingJudge.get(i).getChattingNumber();
-            if(contents == judge){
-                j++;
-            }else {
-            }
-        }
-        return j;
-    }
+//
+//    private int judgement(){
+//        int j = 0;
+//        for(int i =0 ; i<chattingContents.size(); i++){
+//            int contents = chattingContents.get(i).getChattingNumber();
+//            int judge = chattingJudge.get(i).getChattingNumber();
+//            if(contents == judge){
+//                j++;
+//            }else {
+//            }
+//        }
+//        return j;
+//    }
 
 
 }
