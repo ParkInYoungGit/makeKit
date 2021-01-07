@@ -109,7 +109,7 @@ public class ChatcontentActivity extends AppCompatActivity {
         chattingContents = new ArrayList<ChattingBean>();
         isRun = true;
         connectGetData();
-        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents);
+        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
         listView.setAdapter(adapter);
         thread.start();
     }
