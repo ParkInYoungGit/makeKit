@@ -1,8 +1,5 @@
 package com.example.makekit.makekit_activity;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -14,15 +11,18 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
+import com.example.makekit.makekit_method.SendMail;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -141,7 +141,17 @@ public class JoinActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btnEmailCheck_join: // email 중복 체크
+                case R.id.btnEmailCheck_join: // email 인증
+
+                    SendMail mailServer = new SendMail();
+                    String code = mailServer.sendSecurityCode(getApplicationContext(), email.getText().toString());
+
+                    Intent intent = new Intent(JoinActivity.this, EmailCheckActivity.class);
+                    intent.putExtra("user", user);
+                    intent.putExtra("codeAuth", code);
+                    finish();
+                    startActivity(intent);
+
                     emailInput = email.getText().toString().trim();
                     emailCheck(emailInput);
                     break;
