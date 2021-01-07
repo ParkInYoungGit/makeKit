@@ -214,6 +214,10 @@ public class UserModifyActivity extends AppCompatActivity {
         String year_string = Integer.toString(year);
         String dateMessage = (month_string + "/" + day_string + "/" + year_string);
 
+        EditText birth = (EditText) findViewById(R.id.tf_user_birth);
+
+        birth.setText(dateMessage);
+
         Toast.makeText(this, "Date: " + dateMessage, Toast.LENGTH_SHORT).show();
     }
 
