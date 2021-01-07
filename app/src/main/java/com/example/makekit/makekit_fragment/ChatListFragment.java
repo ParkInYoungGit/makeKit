@@ -65,7 +65,7 @@ public class ChatListFragment extends Fragment {
     }
 
     private void connectGetData(){
-        urlGetData = urlAddrBase+"/???????????????.jsp";
+        urlGetData = urlAddrBase+"/chattingList.jsp?userinfo_userEmail_sender="+email;
         try{
             NetworkTask_DH networkTask_dh = new NetworkTask_DH(getContext(), urlGetData, "getChattingList");
             Object obj = networkTask_dh.execute().get();
