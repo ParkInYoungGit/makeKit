@@ -34,8 +34,7 @@ public class SearchActivity extends AppCompatActivity {
     ArrayList<String> productsName;
     SearchAdapter adapter;
     ListView listView;
-    String IP;
-    String email;
+    String macIP, email;
     AutoCompleteTextView search_EdT;
     ImageView search_Iv;
 
@@ -48,13 +47,11 @@ public class SearchActivity extends AppCompatActivity {
         search_EdT = findViewById(R.id.search_ET);
         search_Iv = findViewById(R.id.search_Iv);
 
-        // ip와 email 받아오기
-        //
-        //
-        //
-        //
-        //
-        urlAddrBase = "http://" + IP + ":8080/makeKit/";
+        //        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+//        email = sf.getString("useremail");
+//        macIP = sf.getString("macIP");
+
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 
         search_Iv.setOnClickListener(mClickListener);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
