@@ -96,12 +96,14 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
 
                 if (where.equals("select")) {
                     parserSelect(stringBuffer.toString());
+                } else if (where.equals("selectUser")) {
+                    peopleParser(stringBuffer.toString());
                 } else if (where.equals("loginCount")) {
                     parserLoginCheck(stringBuffer.toString());
                 } else {
                     result = parserAction(stringBuffer.toString());
                 }
-                    peopleParser(stringBuffer.toString());
+
 
 
             }
@@ -123,6 +125,9 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
 
         } else if (where.equals("loginCount")) {
             return loginCheck;
+
+        } else if (where.equals("selectUser")) {
+            return user;
 
         }else{
             return result;
@@ -155,7 +160,7 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
             Log.v(TAG, "parser() in");
-            members.clear();
+            user.clear();
             for(int i = 0 ; i<jsonArray.length() ; i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
@@ -167,8 +172,8 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
                 String usertel = jsonObject1.getString("userTel");
                 String userbirth = jsonObject1.getString("userBirth");
 
-                User user = new User(useremail, userpw, username, useraddress, useraddressdetail, usertel, userbirth);
-                members.add(user);
+                User user2 = new User(useremail, userpw, username, useraddress, useraddressdetail, usertel, userbirth);
+                user.add(user2);
             }
 
         } catch (Exception e){

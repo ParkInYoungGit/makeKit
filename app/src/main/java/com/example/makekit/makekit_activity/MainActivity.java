@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnStart;
     ActionBar actionBar;
     BottomNavigationView bottomNavigationView;
+    String macIP;
+    String email;
 
 
     @Override
@@ -53,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.getBackground().setAlpha(0);
 //        bottomNavigationView.setBackground(null);
+
+        macIP = "192.168.200.197";
+        email = "son@naver.com";
 
         // 검색 페이지로 이동
         FloatingActionButton fab = findViewById(R.id.fab_search);
@@ -141,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 //                fragment.setArguments(bundle);
             } else if (id == R.id.navigation_4) {
 
-                fragment = new ChatListFragment();
+//                fragment = new ChatListFragment();
 //                Bundle bundle = new Bundle(2);
 //                bundle.putString("useremail", email);
 //                bundle.putString("macIP", macIP);
@@ -149,10 +155,10 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.navigation_5) {
 
                 fragment = new MypageFragment();
-//                Bundle bundle = new Bundle(2);
-//                bundle.putString("useremail", email);
-//                bundle.putString("macIP", macIP);
-//                fragment.setArguments(bundle);
+                Bundle bundle = new Bundle(2);
+                bundle.putString("useremail", email);
+                bundle.putString("macIP", macIP);
+                fragment.setArguments(bundle);
 
             }
 
