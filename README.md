@@ -7,7 +7,7 @@
 
 공통 변수명 정리///
 
-ip는 "macIp"
+ip는 "macI"
 
 email은 "useremail"
 
