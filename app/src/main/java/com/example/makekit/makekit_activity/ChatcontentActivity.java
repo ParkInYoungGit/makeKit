@@ -24,6 +24,7 @@ public class ChatcontentActivity extends AppCompatActivity {
 
     String urlAddrBase = null;
     String macIP, email, chattingNumber, receiver;
+    int intChattingNumber = 0;
     ArrayList<ChattingBean> chattingContents;
     ChattingContentsAdapter adapter;
     ListView listView;
@@ -108,7 +109,12 @@ public class ChatcontentActivity extends AppCompatActivity {
         chattingJudge = new ArrayList<ChattingBean>();
         chattingContents = new ArrayList<ChattingBean>();
         isRun = true;
-        connectGetData();
+        // 첫 대화이면 가장 큰 채팅 번호를 불러와서 1 증가 시켜 채팅 방을 만든다.
+        if(chattingNumber.equals(null)){
+            connectGetChattingNumber();
+        }else {
+            connectGetData();
+        }
         adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
         listView.setAdapter(adapter);
         thread.start();
@@ -136,6 +142,18 @@ public class ChatcontentActivity extends AppCompatActivity {
         }
     }
 
+    private void connectGetChattingNumber(){
+        try {
+            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"/jsp/getChattingNumber.jsp?userinfo_userEmail_sender="+email, "getChattingNumber");
+            Object obj = networkTask.execute().get();
+            chattingNumber = (String) obj;
+            intChattingNumber = Integer.parseInt(chattingNumber)+1;
+            chattingNumber = Integer.toString(intChattingNumber);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     private int judgement(){
         int j = 0;
         for(int i =0 ; i<chattingContents.size(); i++){
@@ -148,4 +166,6 @@ public class ChatcontentActivity extends AppCompatActivity {
         }
         return j;
     }
+
+
 }
