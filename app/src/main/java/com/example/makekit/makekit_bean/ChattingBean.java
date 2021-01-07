@@ -4,15 +4,13 @@ public class ChattingBean {
 
     String userinfo_userEmail_sender;
     String userinfo_userEmail_receiver;
-    String product_prdNo;
     String chattingContents;
     String chattingInsertDate;
-    int chattingNumber;
+    String chattingNumber;
 
-    public ChattingBean(String userinfo_userEmail_sender, String userinfo_userEmail_receiver, String product_prdNo, String chattingContents, String chattingInsertDate, int chattingNumber) {
+    public ChattingBean(String userinfo_userEmail_sender, String userinfo_userEmail_receiver, String chattingContents, String chattingInsertDate, String chattingNumber) {
         this.userinfo_userEmail_sender = userinfo_userEmail_sender;
         this.userinfo_userEmail_receiver = userinfo_userEmail_receiver;
-        this.product_prdNo = product_prdNo;
         this.chattingContents = chattingContents;
         this.chattingInsertDate = chattingInsertDate;
         this.chattingNumber = chattingNumber;
@@ -34,13 +32,6 @@ public class ChattingBean {
         this.userinfo_userEmail_receiver = userinfo_userEmail_receiver;
     }
 
-    public String getProduct_prdNo() {
-        return product_prdNo;
-    }
-
-    public void setProduct_prdNo(String product_prdNo) {
-        this.product_prdNo = product_prdNo;
-    }
 
     public String getChattingContents() {
         return chattingContents;
@@ -58,11 +49,11 @@ public class ChattingBean {
         this.chattingInsertDate = chattingInsertDate;
     }
 
-    public int getChattingNumber() {
+    public String getChattingNumber() {
         return chattingNumber;
     }
 
-    public void setChattingNumber(int chattingNumber) {
+    public void setChattingNumber(String chattingNumber) {
         this.chattingNumber = chattingNumber;
     }
 }

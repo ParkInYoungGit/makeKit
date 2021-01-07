@@ -136,26 +136,25 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     private void parserSelect(String s){
         try {
             JSONObject jsonObject = new JSONObject(s);
-//            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
-//            products.clear();
-//            for(int i = 0; i < jsonArray.length(); i++){
-//                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-//                String productNo = jsonObject1.getString("productNo");
-//                String productName = jsonObject1.getString("productName");
-//                String productType = jsonObject1.getString("productType");
-//                String productPrice = jsonObject1.getString("productPrice");
-//                String productStock = jsonObject1.getString("productStock");
-//                String productContent = jsonObject1.getString("productContent");
-//                String productFilename = jsonObject1.getString("productFilename");
-//                String productDFilename = jsonObject1.getString("productDFilename");
-//                String productAFilename = jsonObject1.getString("productAFilename");
-//                String productInsertDate = jsonObject1.getString("productInsertDate");
-//                String productDeleteDate = jsonObject1.getString("productDeleteDate");
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            products.clear();
+            for(int i = 0; i < jsonArray.length(); i++){
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String productNo = jsonObject1.getString("productNo");
+                String productName = jsonObject1.getString("productName");
+                String productType = jsonObject1.getString("productType");
+                String productPrice = jsonObject1.getString("productPrice");
+                String productStock = jsonObject1.getString("productStock");
+                String productContent = jsonObject1.getString("productContent");
+                String productFilename = jsonObject1.getString("productFilename");
+                String productDFilename = jsonObject1.getString("productDFilename");
+                String productAFilename = jsonObject1.getString("productAFilename");
+                String productInsertDate = jsonObject1.getString("productInsertDate");
+                String productDeleteDate = jsonObject1.getString("productDeleteDate");
 
-//
-//                Product product = new Product(code, name, dept, phone);
-//                products.add(product);
-//            }
+                Product product = new Product(productNo, productName, productType, productPrice, productStock, productContent, productFilename, productDFilename, productAFilename, productInsertDate, productDeleteDate);
+                products.add(product);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -164,13 +163,14 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     private void parserProductName(String s){
         try {
             JSONObject jsonObject = new JSONObject(s);
-//            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
-//            productsName.clear();
-//            for(int i = 0; i < jsonArray.length(); i++){
-//                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-//                String productName = jsonObject1.getString("productName");
-//
-//                productsName.add(productName);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            productsName.clear();
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String productName = jsonObject1.getString("productName");
+
+                productsName.add(productName);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -179,13 +179,20 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     private void parserChattingContents(String s){
         try {
             JSONObject jsonObject = new JSONObject(s);
-//            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
-//            chattingContents.clear();
-//            for(int i = 0; i < jsonArray.length(); i++){
-//                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-//                String productName = jsonObject1.getString("productName");
-//
-//                chattingContents.add(productName);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            chattingContents.clear();
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String userinfo_userEmail_sender = jsonObject1.getString("userinfo_userEmail_sender");
+                String userinfo_userEmail_receiver = jsonObject1.getString("userinfo_userEmail_receiver");
+                String chattingContent = jsonObject1.getString("chattingContents");
+                String chattingInsertDate = jsonObject1.getString("chattingInsertDate");
+                String chattingNumber = jsonObject1.getString("chattingNumber");
+
+                ChattingBean chattingBean = new ChattingBean(userinfo_userEmail_sender, userinfo_userEmail_receiver, chattingContent, chattingInsertDate, chattingNumber);
+
+                chattingContents.add(chattingBean);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -207,13 +214,20 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     private void parserChattingList(String s){
         try {
             JSONObject jsonObject = new JSONObject(s);
-//            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
-//            chattingList.clear();
-//            for(int i = 0; i < jsonArray.length(); i++){
-//                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-//                String productName = jsonObject1.getString("productName");
-//
-//                chattingList.add(productName);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            chattingList.clear();
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String userinfo_userEmail_sender = jsonObject1.getString("userinfo_userEmail_sender");
+                String userinfo_userEmail_receiver = jsonObject1.getString("userinfo_userEmail_receiver");
+                String chattingContent = jsonObject1.getString("chattingContents");
+                String chattingInsertDate = jsonObject1.getString("chattingInsertDate");
+                String chattingNumber = jsonObject1.getString("chattingNumber");
+
+                ChattingBean chattingBean = new ChattingBean(userinfo_userEmail_sender, userinfo_userEmail_receiver, chattingContent, chattingInsertDate, chattingNumber);
+
+                chattingList.add(chattingBean);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -222,12 +236,12 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     private void parserChattingNumber(String s){
         try {
             JSONObject jsonObject = new JSONObject(s);
-//            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
-//            chattingNumber = null;
-//            for(int i = 0; i < jsonArray.length(); i++){
-//                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-//                chattingNumber = jsonObject1.getString("chattingNumber");
-
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            chattingNumber = null;
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                chattingNumber = jsonObject1.getString("chattingNumber");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
