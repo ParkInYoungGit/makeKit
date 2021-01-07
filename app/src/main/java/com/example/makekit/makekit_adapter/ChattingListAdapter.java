@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
+import com.example.makekit.R;
 import com.example.makekit.makekit_bean.ChattingBean;
 
 import java.util.ArrayList;
@@ -46,6 +48,8 @@ public class ChattingListAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(this.layout, parent, false);
         }
+        TextView tv_sendID = convertView.findViewById(R.id.chattingListSendId_TV);
+        TextView tv_sendContents = convertView.findViewById(R.id.chattingListSendContents_TV);
 
 
 
