@@ -227,6 +227,8 @@ public class MapActivity extends AppCompatActivity
         setDefaultLocation();
 
 
+
+
         sellerLocation();
 
         //런타임 퍼미션 처리
