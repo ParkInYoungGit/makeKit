@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -59,6 +60,12 @@ public class JoinActivity extends AppCompatActivity {
 
         urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
         urlImage = "http://" + macIP + ":8080/makeKit/image/";
+
+        // 권한
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .permitDiskReads()
+                .permitDiskWrites()
+                .permitNetwork().build());
 
 
         // 화면 구성

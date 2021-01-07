@@ -15,7 +15,7 @@ public class SendMail extends AppCompatActivity {
         try {
             GMailSender gMailSender = new GMailSender(user, password);
             code = gMailSender.getEmailCode();
-            String body = "[사람들의 소중한 주소록] 인증번호는 "  + code +" 입니다." ;
+            String body = "[Make it] 인증번호는 "  + code +" 입니다." ;
             gMailSender.sendMail("이메일 인증코드 발송 메일입니다.", body, sendTo);
             Toast.makeText(context, "이메일을 성공적으로 보냈습니다.", Toast.LENGTH_SHORT).show();
 

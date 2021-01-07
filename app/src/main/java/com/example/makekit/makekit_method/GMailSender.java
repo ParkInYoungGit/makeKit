@@ -1,14 +1,13 @@
 package com.example.makekit.makekit_method;
 
 
-import android.se.omapi.Session;
 import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.PasswordAuthentication;
+
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -19,6 +18,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
 
 public class GMailSender extends javax.mail.Authenticator {
     final static String TAG = "GMailSender";
@@ -64,7 +64,7 @@ public class GMailSender extends javax.mail.Authenticator {
         return newCode;
     }
 
-    protected PasswordAuthentication getPasswordAuthentication() {
+    protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
         //해당 메서드에서 사용자의 계정(id & password)을 받아 인증받으며 인증 실패시 기본값으로 반환됨.
         return new PasswordAuthentication(user, password);
     }
