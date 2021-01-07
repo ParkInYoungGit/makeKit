@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -67,7 +66,7 @@ public class EmailCheckActivity extends AppCompatActivity {
                 GMailSender gMailSender = new GMailSender(user, password);
 
                 if(code.equals(num)){
-                    Toast.makeText(this, "인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                   //Toast.makeText(this, "인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     alertCheck();
                 } else {
                     sendNum.setText("");
@@ -121,7 +120,7 @@ public class EmailCheckActivity extends AppCompatActivity {
                         .setMessage( "이메일 인증이 완료되었습니다!")
                         .setIcon(R.mipmap.ic_launcher)
                         .setCancelable(false) // 버튼으로만 대화상자 닫기가 된다. (미작성 시 다른부분 눌러도 대화상자 닫힌다)
-                        .setPositiveButton("닫기", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // 닫기 시 FindIDActivity 종료
