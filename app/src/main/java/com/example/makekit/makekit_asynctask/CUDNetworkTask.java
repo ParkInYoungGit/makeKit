@@ -74,13 +74,14 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
         String result = null;
-
-
+        Log.v(TAG, "before try");
         try{
+            Log.v(TAG, "after try");
             URL url = new URL(mAddr);
+            Log.v(TAG, "mAddr : "+mAddr);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
-
+            Log.v(TAG, "Accept : "+httpURLConnection.getResponseCode());
 
             if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
                 inputStream = httpURLConnection.getInputStream();
@@ -92,7 +93,8 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
                     if(strline == null) break;
                     stringBuffer.append(strline + "\n");
                 }
-//                result = parserRegister(stringBuffer.toString());
+                Log.v(TAG, "StringBuffer : "+stringBuffer.toString());
+                result = parserUpdate(stringBuffer.toString());
 
             }
 
@@ -108,32 +110,13 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
                 e2.printStackTrace();
             }
         }
-
-//        if(where.equals("Register")){
-//            return result;
-//
-//        }
-//        if(where.equals("modifyPeople")){
-//            return null;}
-//
-//        if(where.equals("deletePeople")){
-//            return null;}
-//
-//        if(where.equals("favoriteCount")) {
-//            return favoriteCheck;
-//
-//        } else if(where.equals("emergencyCount")){
-//            return emergencyCheck;
-//
-//        } else{
-            return null;
-//        }
+            return result;
 
     }
 
 
     // update action
-    private String parserRegister(String s){
+    private String parserUpdate(String s){
         Log.v(TAG,"parserModifyPeople()");
         String returnResult = null;
 
@@ -166,22 +149,8 @@ public class CUDNetworkTask extends AsyncTask<Integer, String, Object> {
 //        return returnResult;
     }
 
-    private void parserfavoriteCheck(String s){
-        try {
-            JSONObject jsonObject = new JSONObject(s);
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
-    private void parserModifyPeople(String s){
-        try {
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
 
 

@@ -44,7 +44,9 @@ public class WebViewActivity extends AppCompatActivity {
                 browser.loadUrl("javascript:sample2_execDaumPostcode();");
             }
         });
-        macIP = "192.168.35.133";
-        browser.loadUrl("http://"+macIP+":8080/makeKit/daum.html");
+
+        macIP = "192.168.200.197";
+        browser.loadUrl("http://"+macIP+":8080/makejsp/daum.html");
+
     }
 }
