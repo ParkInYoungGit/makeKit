@@ -119,7 +119,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 //            title.setText(item.getTitle());
 //            content.setText(item.getContent());
 //            imageView.setImageResource(item.getImg());
-//        }
+        }
+
 
 
             //클릭이벤트처리

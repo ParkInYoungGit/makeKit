@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.scroll.pickertest.DatePickerFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -28,6 +31,9 @@ import com.example.makekit.makekit_bean.User;
 import java.util.ArrayList;
 
 public class UserModifyActivity extends AppCompatActivity {
+
+    private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
+
 
     final static String TAG = "First";
 
@@ -105,12 +111,29 @@ public class UserModifyActivity extends AppCompatActivity {
         update_btn = findViewById(R.id.user_update_btn);
         update_btn.setOnClickListener(onClickListener);
 
+<<<<<<< HEAD
         findViewById(R.id.user_birth).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker(v);
             }
         });
+=======
+        user_address = (EditText) findViewById(R.id.user_address);
+
+        Button btn_update_user = (Button) findViewById(R.id.userModiAddress_button);
+
+        if (btn_update_user != null) {
+            btn_update_user.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(UserModifyActivity.this, WebViewActivity.class);
+                    startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
+                }
+            });
+        }
+
+>>>>>>> 64d72b2ff3d6b4189aeb8f0a633db6349ddda5b5
     }
 
 
@@ -176,6 +199,7 @@ public class UserModifyActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
 
     public void showDatePicker(View view) {
         DialogFragment newFragment = new DatePickerFragment();
@@ -191,3 +215,38 @@ public class UserModifyActivity extends AppCompatActivity {
         Toast.makeText(this,"Date: "+dateMessage,Toast.LENGTH_SHORT).show();
     }
 }
+=======
+    // 이메일 주소 찾기
+    public void onActivityResult ( int requestCode, int resultCode, Intent intent)
+    {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch (requestCode) {
+            case SEARCH_ADDRESS_ACTIVITY:
+                if (resultCode == RESULT_OK) {
+                    String data = intent.getExtras().getString("data");
+                    if (data != null) {
+                        user_address.setText(data);
+                    }
+                }
+                break;
+        }
+    }
+
+    // 화면 touch 시 키보드 숨기기
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View focusView = getCurrentFocus();
+        if (focusView != null) {
+            Rect rect = new Rect();
+            focusView.getGlobalVisibleRect(rect);
+            int x = (int) ev.getX(), y = (int) ev.getY();
+            if (!rect.contains(x, y)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if (imm != null)
+                    imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
+                focusView.clearFocus();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+}
+>>>>>>> 64d72b2ff3d6b4189aeb8f0a633db6349ddda5b5

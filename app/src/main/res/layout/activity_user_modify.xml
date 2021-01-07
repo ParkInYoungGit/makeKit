@@ -15,6 +15,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="회원정보수정"
+<<<<<<< HEAD
         android:textSize="30dp"
         android:textStyle="bold" />
 
@@ -30,6 +31,29 @@
             android:src="@drawable/user" />
     </androidx.cardview.widget.CardView>
 
+=======
+        android:layout_marginTop="40dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="30dp"
+        android:layout_gravity="center">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/user"
+        android:layout_gravity="center"/>
+    </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+>>>>>>> 64d72b2ff3d6b4189aeb8f0a633db6349ddda5b5
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -47,13 +71,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_email"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:enabled="false"
                     android:hint="이메일"
@@ -69,13 +93,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_name"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:enabled="false"
                     android:hint="이름"
@@ -91,13 +115,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_pw"
                     android:layout_width="250dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:hint="비밀번호 (8자 이상)"
                     android:inputType="textPassword"
@@ -111,13 +135,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="0.8"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_pwcheck"
                     android:layout_width="250dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:hint="비밀번호 확인"
                     android:inputType="textPassword"
@@ -126,19 +150,26 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/tv_pwCheckMsg_user"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="0.5" />
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/InputLayoutUser_Address"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_address"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:hint="주소입력"
                     android:paddingLeft="10dp"
@@ -151,20 +182,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_addressdetail"
                     android:layout_width="250dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:hint="상세주소입력"
                     android:paddingLeft="10dp"
                     android:textSize="18dp" />
 
                 <Button
+<<<<<<< HEAD
                     android:id="@+id/button"
+=======
+                    android:layout_marginLeft="40dp"
+                    android:id="@+id/userModiAddress_button"
+>>>>>>> 64d72b2ff3d6b4189aeb8f0a633db6349ddda5b5
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -175,12 +211,17 @@
             </LinearLayout>
 
 
+<<<<<<< HEAD
             <TextView
                 android:id="@+id/tv_pwCheckMsg_user"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="0.6" />
+=======
+
+
+>>>>>>> 64d72b2ff3d6b4189aeb8f0a633db6349ddda5b5
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/InputLayoutUser_Tel"
@@ -188,7 +229,7 @@
                 android:layout_height="0dp"
                 android:layout_gravity="top"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true"
 
                 >
@@ -196,7 +237,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_tel"
                     android:layout_width="250dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:background="@drawable/button_background"
                     android:hint="휴대폰"
@@ -215,7 +256,7 @@
                 android:layout_height="0dp"
                 android:layout_gravity="top"
                 android:layout_margin="10dp"
-                android:layout_weight="1.8"
+                android:layout_weight="1"
                 app:errorEnabled="true"
 
                 >
@@ -223,7 +264,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_birth"
                     android:layout_width="250dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:background="@drawable/button_background"
                     android:hint="생일"
@@ -237,6 +278,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+<<<<<<< HEAD
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -251,9 +293,25 @@
                     android:background="@drawable/button_background"
                     android:text="수정완료" />
 
+=======
+>>>>>>> 64d72b2ff3d6b4189aeb8f0a633db6349ddda5b5
 
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
+        android:orientation="horizontal"
+        android:gravity="right">
+
+        <Button
+            android:id="@+id/user_update_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수정완료"
+            android:background="@drawable/button_background"/>
+
+
+    </LinearLayout>
 </LinearLayout>
