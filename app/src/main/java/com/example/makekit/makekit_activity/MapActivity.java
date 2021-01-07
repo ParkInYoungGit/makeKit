@@ -4,82 +4,67 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.makekit.makekit_asynctask.SellerNetworkTask;
+import com.example.makekit.makekit_bean.MyClustItem;
 import com.example.makekit.makekit_bean.User;
-import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import noman.googleplaces.PlacesListener;
-import noman.googleplaces.NRPlaces;
 import noman.googleplaces.Place;
-import noman.googleplaces.PlaceType;
 import noman.googleplaces.PlacesException;
 
 import com.example.makekit.R;
+import com.google.maps.android.clustering.ClusterManager;
 
 public class MapActivity extends AppCompatActivity
         implements OnMapReadyCallback,
-        ActivityCompat.OnRequestPermissionsResultCallback, PlacesListener, GoogleMap.OnInfoWindowClickListener {
+        ActivityCompat.OnRequestPermissionsResultCallback, PlacesListener, GoogleMap.OnInfoWindowClickListener{
 
     private GoogleMap mMap;
     private Marker currentMarker = null;
     private Marker setMarker = null;
+    //private ClusterManager<MyClustItem> myClustItemClusterManager;
+
 
     // 말풍선 레이아웃
     private ViewGroup infoWindow;
@@ -137,7 +122,7 @@ public class MapActivity extends AppCompatActivity
         /////////////////////////////
         // ip 수정하쟈!
         /////////////////////////////
-        macIP="192.168.219.164";
+        //macIP="192.168.219.164";
 
 
         urlAddr = "http://" + macIP + ":8080/makekit/jsp/";
@@ -228,11 +213,19 @@ public class MapActivity extends AppCompatActivity
             }
         });
 
+//        //////////////////////////////////////////////////////////////
+//        // cluster
+//        myClustItemClusterManager = new ClusterManager<>(this, mMap);
+//        mMap.setOnCameraIdleListener(myClustItemClusterManager);
+//        mMap.setOnMarkerClickListener(myClustItemClusterManager);
+
+
         Geocoder geocoder = new Geocoder(this);
 
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에
         //지도의 초기위치를 서울로 이동
         setDefaultLocation();
+
 
         sellerLocation();
 
@@ -734,6 +727,10 @@ public class MapActivity extends AppCompatActivity
 
 
                     setMarker = mMap.addMarker(markerOptions);
+//                    MyClustItem myClustItem = new MyClustItem(lat, lng);
+//                    myClustItemClusterManager.addItem(myClustItem);
+//                    Log.v(TAG, String.valueOf(myClustItemClusterManager));
+
                 }
             }
         }
@@ -755,6 +752,5 @@ public class MapActivity extends AppCompatActivity
         }
         return result1;
     }
-
 
 }//-------------
