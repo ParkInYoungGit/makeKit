@@ -12,7 +12,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.7"
         >
         <ImageView
             android:id="@+id/makekitLogo"
@@ -54,8 +54,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_weight="0.5"
-    >
+        android:layout_weight="0.3">
 
         <ImageView
             android:id="@+id/login_kakao"
@@ -65,13 +64,18 @@
             android:visibility="gone"
             />
 
+
         <ImageView
             android:id="@+id/login_google"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginLeft="30dp"
             android:src="@drawable/google"
+            android:visibility="gone"
             />
+
+
+
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -86,15 +90,32 @@
             />
 
         <Button
+            android:id="@+id/login_join_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="다른 방법으로 회원가입하기"/>
+            android:text="다른 방법으로 회원가입하기"
+            android:layout_marginTop="10dp"/>
 
         <TextView
+            android:id="@+id/login_members"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="기존 회원 로그인"
+            />
+
+        <TextView
+            android:id="@+id/non_members"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="회원가입 없이 둘러보기"
             />
        <TextView
@@ -110,6 +131,7 @@
             android:text="로그아웃 하기"
             android:visibility="gone"
             />
+
 
     </LinearLayout>
 
