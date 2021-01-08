@@ -42,6 +42,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
@@ -156,6 +157,23 @@ public class MapActivity extends AppCompatActivity
         this.infoTitle = (TextView)infoWindow.findViewById(R.id.title_info);
         this.infoStore = (TextView)infoWindow.findViewById(R.id.store_info);
         this.infoMove = (ImageView)infoWindow.findViewById(R.id.imageMove_info);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                LatLng latLng
+//                        = new LatLng(37.5031
+//                        , 127.0245);
+                LatLng latLng
+                        = new LatLng(currentPosition.latitude
+                        , currentPosition.longitude);
+
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(latLng);
+                mMap.moveCamera(cameraUpdate);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+            }
+        });
 
     }
 
@@ -326,6 +344,7 @@ public class MapActivity extends AppCompatActivity
                 ///////////////////////////////////////////////////////
                 //현재 위치에 마커 생성하고 이동
                 setCurrentLocation(location, markerTitle, markerSnippet);
+
 
 
             }
