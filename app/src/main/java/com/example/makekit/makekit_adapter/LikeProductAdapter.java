@@ -3,7 +3,9 @@ package com.example.makekit.makekit_adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,31 +19,43 @@ import java.util.ArrayList;
 public class LikeProductAdapter extends RecyclerView.Adapter<LikeProductAdapter.MyViewHolder> {
 
     private ArrayList<Product> mDataset;
+    private String urlImage;
+    private String urlImageReal;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-
+        WebView webViewLeft;
+        WebView webViewRight;
+        TextView productNameLeft;
+        TextView productNameRight;
+        TextView productPriceLeft;
+        TextView productPriceRight;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            webViewLeft = itemView.findViewById(R.id.searchImageViewLeft);
+            webViewRight = itemView.findViewById(R.id.searchImageViewRight);
+            productNameLeft = itemView.findViewById(R.id.searchTextViewNameLeft);
+            productNameRight = itemView.findViewById(R.id.searchTextViewNameRight);
+            productPriceLeft = itemView.findViewById(R.id.searchTextViewPriceLeft);
+            productPriceRight = itemView.findViewById(R.id.searchTextViewPriceRight);
         }
     }
 
-    public LikeProductAdapter(LikeProductActivity likeProductActivity, int layout, ArrayList<Product> myDataset){
+    public LikeProductAdapter(LikeProductActivity likeProductActivity, int layout, ArrayList<Product> myDataset, String urlimage){
         mDataset = myDataset;
+        urlImage = urlimage;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // create a new view
-//        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.member, parent, false);
-//        //     반복할 xml 파일
-//        MyViewHolder vh = new MyViewHolder(v);
-//        return vh;
-        return null;
+        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.search_layout, parent, false);
+        //     반복할 xml 파일
+        MyViewHolder vh = new MyViewHolder(v);
+        return vh;
     }
 
     @Override
@@ -49,9 +63,23 @@ public class LikeProductAdapter extends RecyclerView.Adapter<LikeProductAdapter.
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         //데이터를 받은걸 올리기
-//        holder.mName.setText(mDataset.get(position).getMember());
-//        holder.mPicture.setImageResource(mDataset.get(position).getIcon());
-//        holder.mNumber.setText(mDataset.get(position).getNumber());
+        if(mDataset.get(position).getProductAFilename().equals("null")){
+            urlImageReal = urlImage+"ic_default.jpg";
+        }else {
+            urlImageReal = urlImage+mDataset.get(position).getProductAFilename();
+        }
+
+        if((position % 2) == 1){
+            holder.webViewLeft.loadUrl(urlImageReal);
+            holder.productNameLeft.setText("["+mDataset.get(position).getProductType()+"]"+ mDataset.get(position).getProductName());
+            holder.productPriceLeft.setText(mDataset.get(position).getProductPrice()+" 원");
+
+        }else{
+            holder.webViewRight.loadUrl(urlImageReal);
+            holder.productNameRight.setText("["+mDataset.get(position).getProductType()+"]"+ mDataset.get(position).getProductName());
+            holder.productPriceRight.setText(mDataset.get(position).getProductPrice()+" 원");
+        }
+
     }
 
     @Override

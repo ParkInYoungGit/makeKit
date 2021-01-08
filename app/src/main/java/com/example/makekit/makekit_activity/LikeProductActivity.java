@@ -44,7 +44,7 @@ public class LikeProductActivity extends AppCompatActivity {
         super.onResume();
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         connectGetData();
-        mAdapter = new LikeProductAdapter(LikeProductActivity.this, R.layout.search_layout, products);
+        mAdapter = new LikeProductAdapter(LikeProductActivity.this, R.layout.search_layout, products, urlAddrBase+"image/");
         recyclerView.setAdapter(mAdapter);
     }
 
