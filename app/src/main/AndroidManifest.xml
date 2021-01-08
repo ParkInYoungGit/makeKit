@@ -48,7 +48,7 @@
             android:required="false" />
         <!-- 끝 -->
 
-        <activity android:name=".MapChattingActivity"></activity>
+        <activity android:name=".makekit_activity.MapChattingActivity"></activity>
         <activity android:name=".makekit_activity.WebViewActivity" />
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
