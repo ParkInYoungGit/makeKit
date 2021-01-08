@@ -49,9 +49,6 @@
         <!-- 끝 -->
 
         <activity android:name=".MapChattingActivity"></activity>
-        <activity android:name=".makekit_activity.EmailCheckActivity"></activity>
-        <activity android:name=".makekit_activity.NoticeActivity" />
-        <activity android:name=".makekit_activity.ProductList"></activity>
         <activity android:name=".makekit_activity.WebViewActivity" />
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
@@ -64,7 +61,6 @@
         <activity android:name=".makekit_activity.LikeSellerActivity" />
         <activity android:name=".makekit_activity.SaleListActivity" />
         <activity android:name=".makekit_activity.BuyListActivity" />
-        <activity android:name=".makekit_activity.MainActivity" />
         <activity android:name=".makekit_activity.ChatcontentActivity" />
         <activity android:name=".makekit_activity.MapActivity"></activity>
         <activity android:name=".makekit_activity.MainActivity"
@@ -76,26 +72,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".makekit_activity.ChatcontentActivity" />
-        <activity android:name=".makekit_activity.MapActivity"/>
         <activity android:name=".makekit_activity.OrderActivity" />
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
         <activity android:name=".makekit_activity.SearchActivity" />
 
-        <activity android:name=".makekit_activity.LoginActivity">
-            android:icon="@drawable/img_logo"
-
-            android:name=".makekit_activity.MainActivity"
-            android:icon="@drawable/img_logo"
-            android:theme="@style/Theme.MakeKit.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-        <activity android:name=".makekit_activity.UserModifyActivity">
-        </activity>
-        <activity android:name=".makekit_activity.JoinActivity" />
+        <activity android:name=".makekit_activity.LoginActivity"></activity>
         <activity android:name=".makekit_activity.UserModifyActivity"></activity>
-        <activity android:name=".makekit_activity.LoginActivity" />
+        <activity android:name=".makekit_activity.JoinActivity" />
     </application>
 
 </manifest>
