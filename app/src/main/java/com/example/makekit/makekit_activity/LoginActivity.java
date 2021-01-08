@@ -141,15 +141,18 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent;
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.login_google:
                     signInGoogle();
                     break;
                 case R.id.login_join_btn: //다른 방법으로 회원가입
-//                    intent = new Intent(LoginActivity.this, OtherJoinActivity.class);
-
+                    intent = new Intent(LoginActivity.this, JoinActivity.class);
+                    startActivity(intent);
                     break;
-
+                case R.id.non_members: // 비회원 둘러보기
+                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    break;
             }
         }
     };
