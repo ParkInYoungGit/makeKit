@@ -1,5 +1,6 @@
 package com.example.makekit.makekit_activity;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -13,3 +14,7 @@ public class OtherJoinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_other_join);
     }
 }
+
+public class OtherJoinActivity {
+}
+

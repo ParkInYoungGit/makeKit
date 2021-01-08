@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.makekit.makekit_bean.ChattingBean;
 import com.example.makekit.makekit_bean.Product;
+import com.example.makekit.makekit_bean.User;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,6 +28,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     ArrayList<String> productsName;
     ArrayList<ChattingBean> chattingContents;
     ArrayList<ChattingBean> chattingList;
+    ArrayList<User> users;
     String chattingNumber;
     String where = null;
 
@@ -37,6 +39,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
         this.productsName = new ArrayList<String>();
         this.chattingContents = new ArrayList<ChattingBean>();
         this.chattingList = new ArrayList<ChattingBean>();
+        this.users = new ArrayList<User>();
         this.where = where;
     }
 
@@ -87,6 +90,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     parserChattingList(stringBuffer.toString());
                 }else if (where.equals("getChattingNumber")){
                     parserChattingNumber(stringBuffer.toString());
+                }else if (where.equals("LikeSeller")){
+                    parserLikeSeller(stringBuffer.toString());
                 }
 
 
@@ -114,6 +119,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return chattingList;
         }else if (where.equals("getChattingNumber")){
             return chattingNumber;
+        }else if (where.equals("LikeSeller")){
+            return users;
         }
         else {
             return result;
@@ -197,20 +204,18 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             e.printStackTrace();
         }
     }
+
     private String parserAction(String s){
-
         String returnValue = null;
-
         try {
-
             JSONObject jsonObject = new JSONObject(s);
             returnValue = jsonObject.getString("result");
-
         }catch (Exception e){
             e.printStackTrace();
         }
         return returnValue;
     }
+
     private void parserChattingList(String s){
         try {
             JSONObject jsonObject = new JSONObject(s);
@@ -241,6 +246,23 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             for(int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
                 chattingNumber = jsonObject1.getString("chattingNumber");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void parserLikeSeller(String s){
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            users.clear();
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String userinfo_like_userEmail = jsonObject1.getString("userinfo_like_userEmail");
+                User user = new User(userinfo_like_userEmail);
+
+                users.add(user);
             }
         }catch (Exception e){
             e.printStackTrace();
