@@ -118,7 +118,7 @@ public class UserModifyActivity extends AppCompatActivity {
         update_btn = findViewById(R.id.user_update_btn);
         update_btn.setOnClickListener(onClickListener);
 
-        findViewById(R.id.user_birth).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.user_birth_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker(v);
@@ -134,6 +134,7 @@ public class UserModifyActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(UserModifyActivity.this, WebViewActivity.class);
+                    i.putExtra("macIP", macIP);
                     startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
                 }
             });
@@ -214,7 +215,7 @@ public class UserModifyActivity extends AppCompatActivity {
         String year_string = Integer.toString(year);
         String dateMessage = (month_string + "/" + day_string + "/" + year_string);
 
-        EditText birth = (EditText) findViewById(R.id.tf_user_birth);
+        EditText birth = (EditText) findViewById(R.id.user_birth);
 
         birth.setText(dateMessage);
 

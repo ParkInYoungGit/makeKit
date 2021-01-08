@@ -14,11 +14,8 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- kyeongmi -->
 
-
-    <!-- kyeongmi -->
     <!-- 현 위치 가져오기 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -34,6 +31,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MakeKit"
         android:usesCleartextTraffic="true">
+        <activity android:name=".makekit_activity.TempLogin"></activity>
+        <activity android:name=".makekit_activity.EmailCheckActivity" />
+        <activity android:name=".makekit_activity.NoticeActivity" />
+        <activity android:name=".makekit_activity.ProductList" /> <!-- <activity android:name=".makekit_activity.NoticeActivity" /> -->
+
 
 
         <!-- 구글 API 추가 -->
@@ -47,19 +49,6 @@
         <!-- 끝 -->
 
         <activity android:name=".MapChattingActivity"></activity>
-        <activity android:name=".makekit_activity.EmailCheckActivity"></activity>
-        <activity android:name=".makekit_activity.NoticeActivity" />
-        <activity android:name=".makekit_activity.ProductList"></activity>
-
-
-        <!--  구글 API 추가      -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDSE8np8XqqfILhQ7CLcFMC339smKhwItY" />
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-
-        <!-- 끝      -->
-
         <activity android:name=".makekit_activity.WebViewActivity" />
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
@@ -72,6 +61,8 @@
         <activity android:name=".makekit_activity.LikeSellerActivity" />
         <activity android:name=".makekit_activity.SaleListActivity" />
         <activity android:name=".makekit_activity.BuyListActivity" />
+        <activity android:name=".makekit_activity.ChatcontentActivity" />
+        <activity android:name=".makekit_activity.MapActivity"></activity>
         <activity android:name=".makekit_activity.MainActivity"
                   android:icon="@drawable/img_logo"
                   android:theme="@style/Theme.MakeKit.NoActionBar">
@@ -81,19 +72,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".makekit_activity.ChatcontentActivity" />
-        <activity android:name=".makekit_activity.MapActivity"/>
         <activity android:name=".makekit_activity.OrderActivity" />
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
         <activity android:name=".makekit_activity.SearchActivity" />
-        <activity android:name=".makekit_activity.UserModifyActivity">
 
-        </activity>
-        <activity android:name=".makekit_activity.LoginActivity" />
-        <activity android:name=".makekit_activity.JoinActivity"></activity>
-
-
+        <activity android:name=".makekit_activity.LoginActivity"></activity>
+        <activity android:name=".makekit_activity.UserModifyActivity"></activity>
+        <activity android:name=".makekit_activity.JoinActivity" />
     </application>
 
 </manifest>

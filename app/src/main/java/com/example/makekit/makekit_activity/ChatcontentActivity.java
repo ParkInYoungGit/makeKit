@@ -21,8 +21,7 @@ import java.util.ArrayList;
 
 public class ChatcontentActivity extends AppCompatActivity {
 
-    String urlAddrBase = null;
-    String macIP, email, chattingNumber, receiver;
+    String macIP, email, chattingNumber, receiver, urlAddrBase;
     int intChattingNumber = 0;
     ArrayList<ChattingBean> chattingContents;
     ChattingContentsAdapter adapter;
