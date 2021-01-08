@@ -7,6 +7,10 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+
+    <string name="kakao_login">카카오톡으로 시작하기</string>
+    <string name="kakao_app_key">f2d8fb4aeb0237f82647add92f60e987</string>
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
