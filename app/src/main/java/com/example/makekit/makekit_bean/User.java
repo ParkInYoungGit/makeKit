@@ -12,9 +12,18 @@ public class User {
     String tel;
     String birth;
 
+    // 1/8 Daehwan 추가
+    // email만 받아오는 constructor
+
+    public User(String email) {
+        this.email = email;
+    }
+
+
     //////////////////////////////////////////////////////////////////////////////
     // 1/7 kyeongmi 추가
     // seller constructor
+
     public User(String email, String name, String address, String addressdetail) {
         this.email = email;
         this.name = name;
