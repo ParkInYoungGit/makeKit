@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.QuickContactBadge;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.ChatcontentActivity;
+import com.example.makekit.makekit_activity.MapActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +24,9 @@ import com.example.makekit.makekit_activity.ChatcontentActivity;
 public class ProductQuestionFragment extends Fragment {
 
     View v;
+    String sellerEmail;
+
+    final static String TAG = "ProductQuestionFragment";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,19 +62,21 @@ public class ProductQuestionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
 
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_product_question,container,false);
+        Log.v(TAG, "onCreate" + getArguments());
 
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString("sellerEmail");
+            mParam2 = getArguments().getString("productNo");
+        }
         Button btnQuestion = v.findViewById(R.id.btnChattingQuestion_productview);
+        Log.v(TAG, "ONCREATEVIEW" + mParam1 + mParam2 );
 
         btnQuestion.setOnClickListener(mClickListener);
 
@@ -83,7 +90,10 @@ public class ProductQuestionFragment extends Fragment {
 
                 // 1:1 문의 클릭 시 판매자 대화창 이동
                 case R.id.btnChattingQuestion_productview:
-                    Intent intent = new Intent(getActivity(), ChatcontentActivity.class );
+                    Intent intent = new Intent(getActivity(), MapActivity.class );
+                    intent.putExtra("sellerEmail", mParam1);
+                    intent.putExtra("productNo", mParam2);
+                    Log.v(TAG, "email" + mParam1);
                     startActivity(intent);
                     break;
 

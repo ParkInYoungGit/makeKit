@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_margin="20dp"
             android:gravity="center|top"
-            android:text="상품 및 직거래 문의는 1:1 문의를 이용해주세요."
+            android:text="상품 및 직거래 문의는 \n1:1 문의를 이용해주세요."
             android:textSize="18dp"
             android:textStyle="bold" />
     </LinearLayout>
