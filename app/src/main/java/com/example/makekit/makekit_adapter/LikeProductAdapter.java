@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.LikeProductActivity;
 import com.example.makekit.makekit_bean.Product;
+import com.example.makekit.makekit_fragment.ProductAdapter;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,7 @@ public class LikeProductAdapter extends RecyclerView.Adapter<LikeProductAdapter.
     private ArrayList<Product> mDataset;
     private String urlImage;
     private String urlImageReal;
+    private AdapterView.OnItemClickListener mListener = null;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -39,7 +42,19 @@ public class LikeProductAdapter extends RecyclerView.Adapter<LikeProductAdapter.
             productNameRight = itemView.findViewById(R.id.searchTextViewNameRight);
             productPriceLeft = itemView.findViewById(R.id.searchTextViewPriceLeft);
             productPriceRight = itemView.findViewById(R.id.searchTextViewPriceRight);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //////// 클릭했을 때 상품 상세페이지로 이동할 수 있도록 Intent 적용
+
+                }
+            });
         }
+
+
     }
 
     public LikeProductAdapter(LikeProductActivity likeProductActivity, int layout, ArrayList<Product> myDataset, String urlimage){
@@ -85,6 +100,10 @@ public class LikeProductAdapter extends RecyclerView.Adapter<LikeProductAdapter.
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
+        this.mListener = listener ;
     }
 
 }
