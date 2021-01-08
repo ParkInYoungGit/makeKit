@@ -74,6 +74,8 @@
                     android:background="@drawable/button_background"
                     android:hint="이메일"
                     android:inputType="textEmailAddress"
+                    android:text="Single Line"
+                    android:singleLine="true"
                     android:paddingLeft="10dp"
                     android:textSize="18dp" />
 
@@ -150,6 +152,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/button_background"
                 android:hint="주소입력"
+                android:text="Single Line"
+                android:singleLine="true"
                 android:paddingLeft="10dp"
                 android:textSize="18dp" />
 
@@ -169,6 +173,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/button_background"
                 android:hint="상세주소입력"
+                android:text="Single Line"
+                android:singleLine="true"
                 android:paddingLeft="10dp"
                 android:textSize="18dp" />
 

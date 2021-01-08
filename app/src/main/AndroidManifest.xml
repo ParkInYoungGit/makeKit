@@ -30,7 +30,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MakeKit"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:name=".makekit_method.KakaoApplication"> <!-- 카카오 어플리케이션 등록 -->
         <activity android:name=".makekit_activity.TempLogin"></activity>
         <activity android:name=".makekit_activity.EmailCheckActivity" />
         <activity android:name=".makekit_activity.NoticeActivity" />
@@ -49,9 +50,6 @@
         <!-- 끝 -->
 
         <activity android:name=".MapChattingActivity"></activity>
-        <activity android:name=".makekit_activity.EmailCheckActivity"></activity>
-        <activity android:name=".makekit_activity.NoticeActivity" />
-        <activity android:name=".makekit_activity.ProductList"></activity>
         <activity android:name=".makekit_activity.WebViewActivity" />
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
@@ -66,36 +64,41 @@
         <activity android:name=".makekit_activity.BuyListActivity" />
         <activity android:name=".makekit_activity.MainActivity" />
         <activity android:name=".makekit_activity.ChatcontentActivity" />
-        <activity android:name=".makekit_activity.MapActivity"></activity>
-        <activity android:name=".makekit_activity.MainActivity"
+
+        <activity android:name=".makekit_activity.LoginActivity"
                   android:icon="@drawable/img_logo"
                   android:theme="@style/Theme.MakeKit.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <meta-data
+                    android:name="com.kakao.sdk.AppKey"
+                    android:value="@string/kakao_app_key" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".makekit_activity.ChatcontentActivity" />
+
+            <!-- Ria _ KAKAO ReDirect URI -->
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
+            <data android:host="oauth"
+                android:scheme="kakaof2d8fb4aeb0237f82647add92f60e987" />
+        </intent-filter>
+    </activity>
+
         <activity android:name=".makekit_activity.MapActivity"/>
         <activity android:name=".makekit_activity.OrderActivity" />
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
         <activity android:name=".makekit_activity.SearchActivity" />
-
-        <activity android:name=".makekit_activity.LoginActivity">
-            android:icon="@drawable/img_logo"
-
-            android:name=".makekit_activity.MainActivity"
-            android:icon="@drawable/img_logo"
-            android:theme="@style/Theme.MakeKit.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
         <activity android:name=".makekit_activity.UserModifyActivity">
         </activity>
         <activity android:name=".makekit_activity.JoinActivity" />
-        <activity android:name=".makekit_activity.UserModifyActivity"></activity>
-        <activity android:name=".makekit_activity.LoginActivity" />
+
     </application>
 
 </manifest>
