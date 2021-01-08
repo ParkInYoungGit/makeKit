@@ -59,7 +59,7 @@
         <activity android:name=".makekit_activity.ChatcontentActivity" />
         <activity android:name=".makekit_activity.MapActivity" />
         <activity
-            android:name=".makekit_activity.MainActivity"
+            android:name=".makekit_activity.LoginActivity"
             android:icon="@drawable/img_logo"
             android:theme="@style/Theme.MakeKit.NoActionBar" >
             <intent-filter>
@@ -86,7 +86,7 @@
         <activity android:name=".makekit_activity.UserModifyActivity">
         </activity>
         <activity android:name=".makekit_activity.JoinActivity" />
-        <activity android:name=".makekit_activity.LoginActivity"></activity>
+        <activity android:name=".makekit_activity.MainActivity"/>
         <activity android:name=".makekit_activity.OrderActivity" />
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />

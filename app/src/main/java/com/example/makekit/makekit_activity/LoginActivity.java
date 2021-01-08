@@ -96,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (oAuthToken != null) {
                     // 로그인 성공시 처리해야하는 것들 요기에
 
+
                 }
                 if (throwable != null) {
                     // 오류값을 핸들링 해주는 곳
