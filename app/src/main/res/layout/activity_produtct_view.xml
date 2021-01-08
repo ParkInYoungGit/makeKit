@@ -4,6 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".makekit_activity.ProdutctViewActivity">
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayour_productview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_productContent_productview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="상품설명" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_productDetail_productview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="상세정보" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_productReview_productview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="후기" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_productQuestion_productview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="상품문의" />
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpager_productview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

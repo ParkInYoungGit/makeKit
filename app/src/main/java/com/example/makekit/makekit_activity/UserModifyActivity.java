@@ -29,6 +29,7 @@ import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class UserModifyActivity extends AppCompatActivity {
 
@@ -46,7 +47,6 @@ public class UserModifyActivity extends AppCompatActivity {
     UserAdapter adapter;
 
 
-
     String macIP;
     String email;
 
@@ -55,24 +55,32 @@ public class UserModifyActivity extends AppCompatActivity {
     Button update_btn;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_modify);
 
+        // 아이피와 이메일 받기
+        Intent intent = getIntent();
+        macIP = intent.getStringExtra("macIP");
+        email = intent.getStringExtra("useremail");
 
-        macIP = "192.168.200.197";
-        email = "son@naver.com";
 
+
+//        macIP = "192.168.200.197";
+//        email = "son@naver.com";
+
+        // jsp 사용할 폴더 지정
         urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp/";  // 폴더까지만 지정
+        urlAddr1 = urlAddrBase + "user_info_all.jsp?email=" + email;
 
-        urlAddr1 = urlAddrBase + "user_info_all.jsp?userEmail=" + email;
-//        urlAddr3 = urlAddrBase + "user_update.jsp?userEmail=" + user_email;
 
-        connectSelectGetData(urlAddr1);
 
+        // ========================================== 이메일 + 아이디값 셀렉트에 보내주기
+        connectSelectGetData(urlAddr1);   // urlAddr1을  connectSelectGetData의 urlAddr2로 보내준다
+
+
+        // ========================================== 텍스트뷰 가져오기
         user_email = findViewById(R.id.user_email);
         user_name = findViewById(R.id.user_name);
         user_pw = findViewById(R.id.user_pw);
@@ -107,10 +115,8 @@ public class UserModifyActivity extends AppCompatActivity {
         //  ---------------------------------------------  Update
 
 
-
         update_btn = findViewById(R.id.user_update_btn);
         update_btn.setOnClickListener(onClickListener);
-
 
         findViewById(R.id.user_birth).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,26 +142,23 @@ public class UserModifyActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
-
+        // Select
         urlAddr1 = urlAddrBase + "user_info_all.jsp?userEmail=" + email;
         connectSelectGetData(urlAddr1);
         Log.v(TAG, "onResume()");
-
-
     }
 
-    // NetworkTask에서 값을 가져오는 메소드
+    // NetworkTask에서 값을 가져오는 메소드 (Select)  String urlAddr2는 urlAddr1을 받아서 UserNetworkTask로 보내준다
     private ArrayList<User> connectSelectGetData(String urlAddr2) {
 
         try {
-            UserNetworkTask userNetworkTask = new UserNetworkTask(UserModifyActivity.this, urlAddr2);
+            UserNetworkTask userNetworkTask = new UserNetworkTask(UserModifyActivity.this, urlAddr2, "selectUser");
             Object obj = userNetworkTask.execute().get();
             members = (ArrayList<User>) obj;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return members;
@@ -181,20 +184,20 @@ public class UserModifyActivity extends AppCompatActivity {
     };
 
     // people Update data 송부
-    private void updatePeople(){
+    private void updatePeople() {
         String urlAddr3 = "";
-        urlAddr3 = urlAddrBase + "user_update.jsp?userEmail=" + useremail +"&userPw="+userpw+"&userName="+username+"&userAddress="+useraddress+"&userAddressDetail="+useraddressdetail+"&userTel="+usertel+"&userBirth="+userbirth;
+        urlAddr3 = urlAddrBase + "user_update.jsp?userEmail=" + useremail + "&userPw=" + userpw + "&userName=" + username + "&userAddress=" + useraddress + "&userAddressDetail=" + useraddressdetail + "&userTel=" + usertel + "&userBirth=" + userbirth;
         Log.v(TAG, urlAddr3);
 
         connectUpdateData(urlAddr3);
 
     }
 
-    private void connectUpdateData(String urlAddr){
-        try{
+    private void connectUpdateData(String urlAddr) {
+        try {
             CUDNetworkTask updatenetworkTask = new CUDNetworkTask(UserModifyActivity.this, urlAddr);
             updatenetworkTask.execute().get();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -202,22 +205,25 @@ public class UserModifyActivity extends AppCompatActivity {
 
     public void showDatePicker(View view) {
         DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(),"datePicker");
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    public void processDatePickerResult(int year, int month, int day){
-        String month_string = Integer.toString(month+1);
+    public void processDatePickerResult(int year, int month, int day) {
+        String month_string = Integer.toString(month + 1);
         String day_string = Integer.toString(day);
         String year_string = Integer.toString(year);
         String dateMessage = (month_string + "/" + day_string + "/" + year_string);
 
-        Toast.makeText(this,"Date: "+dateMessage,Toast.LENGTH_SHORT).show();
+        EditText birth = (EditText) findViewById(R.id.tf_user_birth);
+
+        birth.setText(dateMessage);
+
+        Toast.makeText(this, "Date: " + dateMessage, Toast.LENGTH_SHORT).show();
     }
 
 
     // 이메일 주소 찾기
-    public void onActivityResult ( int requestCode, int resultCode, Intent intent)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         switch (requestCode) {
             case SEARCH_ADDRESS_ACTIVITY:
