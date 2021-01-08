@@ -3,12 +3,17 @@ package com.example.makekit.makekit_fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.makekit.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +21,13 @@ import com.example.makekit.R;
  * create an instance of this fragment.
  */
 public class ProductReviewFragment extends Fragment {
+
+    View v;
+
+    private RecyclerView.LayoutManager layoutManager;
+    RecyclerView recyclerView;
+
+    final static String TAG = "ProductReviewFragment";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +72,38 @@ public class ProductReviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product_review, container, false);
+
+        v = inflater.inflate(R.layout.fragment_product_question,container,false);
+        Log.v(TAG, "onCreate" + getArguments());
+
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString("sellerEmail");
+            mParam2 = getArguments().getString("productNo");
+        }
+
+
+        return v;
     }
+
+    // select review
+    private void connectGetData() {
+        try {
+//            AddressNetworkTask networkTask = new AddressNetworkTask(getActivity(), urlAddr); //onCreate 에 urlAddr 이 선언된것이 들어옴
+//
+//            // object 에서 선언은 되었지만 실질적으로 리턴한것은 arraylist
+//            Object object = networkTask.execute().get();
+//            addresses = (ArrayList<Address>) object;
+//            Log.v(TAG, "addresses size = " + String.valueOf(addresses.size()));
+//            //StudentAdapter.java 의 생성자를 받아온다.
+//            adapter = new AddressAdapter(getActivity(), R.layout.item_contact, addresses);
+//            recyclerView.setAdapter(adapter);
+//            recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
+//            layoutManager = new LinearLayoutManager(getContext());
+//            recyclerView.setLayoutManager(layoutManager);
+//
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

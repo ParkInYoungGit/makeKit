@@ -1,5 +1,6 @@
 package com.example.makekit.makekit_activity;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,29 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_bean.User;
 
 import java.util.ArrayList;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.CustomViewHolder> {
+
+    Context mContext = null;
+    int layout = 0;
+    ArrayList<ProductData> data = null;
+    LayoutInflater inflater = null;
+    String urlImage;
+
+    public ProductListAdapter(Context mContext, int layout, ArrayList<ProductData> data, String urlImage) {
+        this.mContext = mContext;
+        this.layout = layout;
+        this.data = data;
+        this.urlImage = urlImage;
+        this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
     private ArrayList<ProductData> arrayList;
 
-    public ProductListAdapter(ArrayList<ProductData> arrayList) {
+    public ProductListAdapter(ProductList mContext, int productitem_layout, ArrayList<ProductData> arrayList, String urlAddrBase) {
         this.arrayList = arrayList;
     }
 

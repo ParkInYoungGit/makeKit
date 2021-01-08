@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.makekit">
+    package="com.example.makekit" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -29,7 +32,12 @@
         <activity android:name=".makekit_activity.EmailCheckActivity" />
         <activity android:name=".makekit_activity.NoticeActivity" />
         <activity android:name=".makekit_activity.ProductList" />
-
+        <activity android:name=".makekit_activity.OtherJoinActivity" >
+        </activity>
+        <activity android:name=".makekit_activity.TempLogin" />
+        <activity android:name=".makekit_activity.EmailCheckActivity" />
+        <activity android:name=".makekit_activity.NoticeActivity" />
+        <activity android:name=".makekit_activity.ProductList" /> <!-- <activity android:name=".makekit_activity.NoticeActivity" /> -->
         <!-- 구글 API 추가 -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -39,9 +47,8 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
         <!-- 끝 -->
-
-        <activity android:name=".MapChattingActivity"></activity>
-
+        
+        <activity android:name=".makekit_activity.MapChattingActivity"></activity>
         <activity android:name=".makekit_activity.WebViewActivity" />
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
@@ -55,10 +62,14 @@
         <activity android:name=".makekit_activity.SaleListActivity" />
         <activity android:name=".makekit_activity.BuyListActivity" />
         <activity android:name=".makekit_activity.ChatcontentActivity" />
-
-        <activity android:name=".makekit_activity.LoginActivity"
+        <activity android:name=".makekit_activity.MainActivity"
                   android:icon="@drawable/img_logo"
                   android:theme="@style/Theme.MakeKit.NoActionBar">
+        <activity android:name=".makekit_activity.MapActivity" />
+        <activity
+            android:name=".makekit_activity.MainActivity"
+            android:icon="@drawable/img_logo"
+            android:theme="@style/Theme.MakeKit.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -67,7 +78,6 @@
                 android:name="com.kakao.sdk.AppKey"
                 android:value="@string/kakao_app_key" />
         </activity>
-
 
             <!-- Ria _ KAKAO ReDirect URI -->
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
@@ -88,6 +98,12 @@
         <activity android:name=".makekit_activity.JoinActivity" />
         <activity android:name=".makekit_activity.LoginActivity"></activity>
         <activity android:name=".makekit_activity.UserModifyActivity"></activity>
+        <activity android:name=".makekit_activity.OrderActivity" />
+        <activity android:name=".makekit_activity.CartActivity" />
+        <activity android:name=".makekit_activity.LikeProductActivity" />
+        <activity android:name=".makekit_activity.SearchActivity" />
+        <activity android:name=".makekit_activity.LoginActivity" />
+        <activity android:name=".makekit_activity.UserModifyActivity" />
         <activity android:name=".makekit_activity.JoinActivity" />
 
     </application>

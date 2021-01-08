@@ -61,18 +61,18 @@ public class UserModifyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_modify);
 
         // 아이피와 이메일 받기
-        Intent intent = getIntent();
-        macIP = intent.getStringExtra("macIP");
-        email = intent.getStringExtra("useremail");
+//        Intent intent = getIntent();
+//        macIP = intent.getStringExtra("macIP");
+//        email = intent.getStringExtra("useremail");
 
 
 
-//        macIP = "192.168.200.197";
-//        email = "son@naver.com";
+        macIP = "192.168.2.14";
+        email = "son@naver.com";
 
         // jsp 사용할 폴더 지정
         urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp/";  // 폴더까지만 지정
-        urlAddr1 = urlAddrBase + "user_info_all.jsp?email=" + email;
+        urlAddr1 = urlAddrBase + "user_info_all.jsp?userEmail=" + email;
 
 
 

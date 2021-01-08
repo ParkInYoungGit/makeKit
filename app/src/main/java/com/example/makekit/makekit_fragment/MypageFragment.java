@@ -72,7 +72,7 @@ public class MypageFragment extends Fragment {
         v.findViewById(R.id.salelist_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SaleListActivity.class);
+                Intent intent = new Intent(getContext(), SaleListActivity.class);
                 startActivity(intent);
             }
         });
@@ -80,7 +80,7 @@ public class MypageFragment extends Fragment {
         v.findViewById(R.id.likelist_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LikeProductActivity.class);
+                Intent intent = new Intent(getContext(), LikeProductActivity.class);
                 startActivity(intent);
             }
         });
@@ -88,7 +88,7 @@ public class MypageFragment extends Fragment {
         v.findViewById(R.id.reviewlist_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ReviewListActivity.class);
+                Intent intent = new Intent(getContext(), ReviewListActivity.class);
                 startActivity(intent);
             }
         });
@@ -96,7 +96,7 @@ public class MypageFragment extends Fragment {
         v.findViewById(R.id.notice_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NoticeActivity.class);
+                Intent intent = new Intent(getContext(), NoticeActivity.class);
                 startActivity(intent);
             }
         });

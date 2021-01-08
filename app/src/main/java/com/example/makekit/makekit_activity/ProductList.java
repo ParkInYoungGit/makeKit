@@ -5,9 +5,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_adapter.UserAdapter;
+import com.example.makekit.makekit_asynctask.NetworkTask;
+import com.example.makekit.makekit_bean.Product;
+import com.example.makekit.makekit_bean.User;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -18,6 +27,17 @@ private ProductListAdapter productListAdapter;
 private RecyclerView recyclerView;
 private LinearLayoutManager linearLayoutManager;
 
+TextView product_title;
+TextView product_subtitle;
+TextView product_price;
+WebView product_image;
+
+String title, subtitle, price;
+String macIP, urlAddrBase, urlAddr1;
+
+    ArrayList<ProductData> product;   // 빈, 어댑터
+    ArrayList<ProductData> searchArr;   // 빈, 어댑터
+    ProductListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +45,7 @@ private LinearLayoutManager linearLayoutManager;
         setContentView(R.layout.activity_product_list);
 
 
-
+        macIP = "192.168.2.14";
 
 
         recyclerView = (RecyclerView)findViewById(R.id.rv_product);
@@ -34,13 +54,48 @@ private LinearLayoutManager linearLayoutManager;
 
         arrayList = new ArrayList<>();
 
-        productListAdapter = new ProductListAdapter(arrayList);
+       // productListAdapter = new ProductListAdapter(arrayList);
         recyclerView.setAdapter(productListAdapter);
+    }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        urlAddr1 = urlAddrBase + "people_query_all_no.jsp?";
+        connectGetData(urlAddr1);
+
+        searchArr.addAll(product);
+
+    }
+
+    // NetworkTask에서 값을 가져오는 메소드
+    private void connectGetData(String urlAddr) {
+        try {
+            urlAddrBase = "http://" + macIP + ":8080/test/";
+            NetworkTask NetworkTask = new NetworkTask(ProductList.this, urlAddr);
+            Object obj = NetworkTask.execute().get();
+            product = (ArrayList<ProductData>) obj;
+            adapter = new ProductListAdapter(ProductList.this, R.layout.productitem_layout, product, urlAddrBase); // 아댑터에 값을 넣어준다.
+            recyclerView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
 
 
-
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void search(String charText) {
+        product.clear();
+        if (charText.length() == 0) {
+            product.addAll(searchArr);
+        }
+        else {
+            for (int i = 0; i < searchArr.size(); i++) {
+                if (searchArr.get(i).getProduct_title().contains(charText)) {
+                    product.add(searchArr.get(i));
+                }
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 }

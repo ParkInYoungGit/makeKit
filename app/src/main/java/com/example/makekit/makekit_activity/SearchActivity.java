@@ -4,25 +4,18 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.Product;
-import com.example.makekit.makekit_fragment.ProductAdapter;
-import com.example.makekit.makekit_fragment.SearchAdapter;
+import com.example.makekit.makekit_adapter.SearchAdapter;
 
 import java.util.ArrayList;
 
