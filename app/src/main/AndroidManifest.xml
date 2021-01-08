@@ -2,24 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.makekit">
 
-    <meta-data
-        android:name="com.kakao.sdk.AppKey"
-        android:value="2665d1b7d7c17c66c63f06b53a93690d" />
-
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- kyeongmi -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- Ria -->
 
     <!-- 현 위치 가져오기 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAG" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -35,9 +28,7 @@
         <activity android:name=".makekit_activity.TempLogin"></activity>
         <activity android:name=".makekit_activity.EmailCheckActivity" />
         <activity android:name=".makekit_activity.NoticeActivity" />
-        <activity android:name=".makekit_activity.ProductList" /> <!-- <activity android:name=".makekit_activity.NoticeActivity" /> -->
-
-
+        <activity android:name=".makekit_activity.ProductList" />
 
         <!-- 구글 API 추가 -->
         <meta-data
@@ -49,7 +40,7 @@
             android:required="false" />
         <!-- 끝 -->
 
-        <activity android:name=".MapChattingActivity"></activity>
+<!--        <activity android:name=".makekit_activity.MapChattingActivity"></activity>-->
         <activity android:name=".makekit_activity.WebViewActivity" />
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
@@ -70,11 +61,11 @@
                   android:theme="@style/Theme.MakeKit.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <meta-data
-                    android:name="com.kakao.sdk.AppKey"
-                    android:value="@string/kakao_app_key" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data
+                android:name="com.kakao.sdk.AppKey"
+                android:value="@string/kakao_app_key" />
         </activity>
 
             <!-- Ria _ KAKAO ReDirect URI -->

@@ -146,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                     signInGoogle();
                     break;
                 case R.id.login_join_btn: //다른 방법으로 회원가입
-                    intent = new Intent(LoginActivity.this, OtherJoinActivity.class);
+//                    intent = new Intent(LoginActivity.this, OtherJoinActivity.class);
 
                     break;
 
