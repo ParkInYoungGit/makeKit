@@ -13,28 +13,28 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_Item1_productview"
+            android:id="@+id/tab_productContent_productview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="상품설명" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_Item2_productview"
+            android:id="@+id/tab_productDetail_productview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="상세정보" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_Item3_productview"
+            android:id="@+id/tab_productReview_productview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="후기" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_Item4_productview"
+            android:id="@+id/tab_productQuestion_productview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="상품 문의" />
+            android:text="상품문의" />
 
 
     </com.google.android.material.tabs.TabLayout>
