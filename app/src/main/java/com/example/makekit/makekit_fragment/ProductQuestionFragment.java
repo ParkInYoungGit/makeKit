@@ -90,7 +90,7 @@ public class ProductQuestionFragment extends Fragment {
 
                 // 1:1 문의 클릭 시 판매자 대화창 이동
                 case R.id.btnChattingQuestion_productview:
-                    Intent intent = new Intent(getActivity(), MapActivity.class );
+                    Intent intent = new Intent(getActivity(), ChatcontentActivity.class );
                     intent.putExtra("sellerEmail", mParam1);
                     intent.putExtra("productNo", mParam2);
                     Log.v(TAG, "email" + mParam1);

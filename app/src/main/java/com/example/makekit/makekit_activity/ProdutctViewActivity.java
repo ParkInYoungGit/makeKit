@@ -42,7 +42,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPagerProductAdapter viewPagerProductAdapter;
 
-    String sellerEmail ,productNo;
+    String sellerEmail ,productNo, macIP;
     FrameLayout framelayout;
 
 
@@ -54,10 +54,9 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
         // 판매자 메일 받아오기
         Intent intent = getIntent();
-
-        //sellerEmail = intent.getStringExtra("sellerEmail");
+        macIP = intent.getStringExtra("macIP");
+        sellerEmail = intent.getStringExtra("sellerEmail");
         productNo = intent.getStringExtra("productNo");
-        sellerEmail = "qkr@naver.com";
         framelayout = findViewById(R.id.framelayout_productview);
 
         FloatingActionButton fab = findViewById(R.id.fab_prodcutview);
@@ -90,28 +89,33 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
                Fragment selected = null;
                Bundle bundle = new Bundle();
-               bundle.putString("sellerEmail", sellerEmail);
-               bundle.putString("productNo", productNo);
+
                /* 선택된 탭에 따라 화면에 보이는 프래그먼트 변경 */
                switch(position){
                    case 0:
                        selected = new ProductContentFragment();
                        selected.setArguments(bundle);
-
+                       bundle.putString("sellerEmail", sellerEmail);
+                       bundle.putString("productNo", productNo);
                        break;
                    case 1:
                        selected = new ProductDetailFragment();
                        selected.setArguments(bundle);
-
+                       bundle.putString("sellerEmail", sellerEmail);
+                       bundle.putString("productNo", productNo);
                        break;
                    case 2:
                        selected = new ProductReviewFragment();
                        selected.setArguments(bundle);
+                       bundle.putString("macIP", macIP);
+                       bundle.putString("productNo", productNo);
                        break;
 
                    case 3:
                        selected = new ProductQuestionFragment();
                        selected.setArguments(bundle);
+                       bundle.putString("sellerEmail", sellerEmail);
+                       bundle.putString("productNo", productNo);
                        Log.v(TAG, String.valueOf(bundle));
 
                        break;

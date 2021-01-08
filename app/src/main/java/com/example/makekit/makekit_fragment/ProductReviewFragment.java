@@ -1,10 +1,13 @@
 package com.example.makekit.makekit_fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_adapter.ProductAdapter;
+import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
+import com.example.makekit.makekit_bean.Review;
 
 import java.util.ArrayList;
 
@@ -23,6 +29,11 @@ import java.util.ArrayList;
 public class ProductReviewFragment extends Fragment {
 
     View v;
+    String urlAddr;
+    String urlAddrBase = null;
+
+    ArrayList<Review> reviews;
+    ProductAdapter productAdapter;
 
     private RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView;
@@ -73,35 +84,47 @@ public class ProductReviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        v = inflater.inflate(R.layout.fragment_product_question,container,false);
+        v = inflater.inflate(R.layout.fragment_product_review, container, false);
         Log.v(TAG, "onCreate" + getArguments());
 
         if (getArguments() != null) {
-            mParam1 = getArguments().getString("sellerEmail");
+            mParam1 = getArguments().getString("macIP");
             mParam2 = getArguments().getString("productNo");
         }
 
+        recyclerView = v.findViewById(R.id.reviewList_productview);
 
+        mParam1 = "192.168.219.164";
+        mParam2 = "44";
+
+        urlAddrBase = "http://" + mParam1 + ":8080/makekit/";
+        urlAddr = urlAddrBase + "jsp/review_productview_all.jsp?productno=" + mParam2;
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        connectSelectData();
+    }
+
     // select review
-    private void connectGetData() {
+    private void connectSelectData() {
         try {
-//            AddressNetworkTask networkTask = new AddressNetworkTask(getActivity(), urlAddr); //onCreate 에 urlAddr 이 선언된것이 들어옴
-//
-//            // object 에서 선언은 되었지만 실질적으로 리턴한것은 arraylist
-//            Object object = networkTask.execute().get();
-//            addresses = (ArrayList<Address>) object;
-//            Log.v(TAG, "addresses size = " + String.valueOf(addresses.size()));
-//            //StudentAdapter.java 의 생성자를 받아온다.
-//            adapter = new AddressAdapter(getActivity(), R.layout.item_contact, addresses);
-//            recyclerView.setAdapter(adapter);
-//            recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
-//            layoutManager = new LinearLayoutManager(getContext());
-//            recyclerView.setLayoutManager(layoutManager);
-//
-        }catch (Exception e){
+            ReviewNetworkTask reviewNetworkTask = new ReviewNetworkTask(getActivity(), urlAddr);
+
+            Object object = reviewNetworkTask.execute().get();
+            reviews = (ArrayList<Review>) object;
+
+            productAdapter = new ProductAdapter(getActivity(), R.layout.custom_productview_review, reviews, urlAddrBase);
+            recyclerView.setAdapter(productAdapter);
+            recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
+            layoutManager = new LinearLayoutManager(getContext());
+            SnapHelper snapHelper = new PagerSnapHelper();
+            recyclerView.setLayoutManager(layoutManager);
+            snapHelper.attachToRecyclerView(recyclerView);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
