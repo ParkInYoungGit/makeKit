@@ -33,7 +33,8 @@ public class WebViewActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
-
+        Intent intent = getIntent();
+        macIP = intent.getStringExtra("macIP");
         browser = (WebView) findViewById(R.id.webView);
         browser.getSettings().setJavaScriptEnabled(true);
         browser.addJavascriptInterface(new MyJavaScriptInterface(), "Android");
@@ -45,8 +46,8 @@ public class WebViewActivity extends AppCompatActivity {
             }
         });
 
-        macIP = "192.168.35.133";
-        browser.loadUrl("http://"+macIP+":8080/makejsp/daum.html");
+//        macIP = "192.168.200.197";
+        browser.loadUrl("http://"+macIP+":8080/makeKit/jsp/daum.html");
 
     }
 }

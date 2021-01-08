@@ -40,7 +40,8 @@
             android:required="false" />
         <!-- 끝 -->
 
-<!--        <activity android:name=".makekit_activity.MapChattingActivity"></activity>-->
+        <activity android:name=".MapChattingActivity"></activity>
+
         <activity android:name=".makekit_activity.WebViewActivity" />
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
@@ -53,7 +54,6 @@
         <activity android:name=".makekit_activity.LikeSellerActivity" />
         <activity android:name=".makekit_activity.SaleListActivity" />
         <activity android:name=".makekit_activity.BuyListActivity" />
-        <activity android:name=".makekit_activity.MainActivity" />
         <activity android:name=".makekit_activity.ChatcontentActivity" />
 
         <activity android:name=".makekit_activity.LoginActivity"
@@ -67,6 +67,7 @@
                 android:name="com.kakao.sdk.AppKey"
                 android:value="@string/kakao_app_key" />
         </activity>
+
 
             <!-- Ria _ KAKAO ReDirect URI -->
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
@@ -82,12 +83,11 @@
     </activity>
 
         <activity android:name=".makekit_activity.MapActivity"/>
-        <activity android:name=".makekit_activity.OrderActivity" />
-        <activity android:name=".makekit_activity.CartActivity" />
-        <activity android:name=".makekit_activity.LikeProductActivity" />
-        <activity android:name=".makekit_activity.SearchActivity" />
         <activity android:name=".makekit_activity.UserModifyActivity">
         </activity>
+        <activity android:name=".makekit_activity.JoinActivity" />
+        <activity android:name=".makekit_activity.LoginActivity"></activity>
+        <activity android:name=".makekit_activity.UserModifyActivity"></activity>
         <activity android:name=".makekit_activity.JoinActivity" />
 
     </application>
