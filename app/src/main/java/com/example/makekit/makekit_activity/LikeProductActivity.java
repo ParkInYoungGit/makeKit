@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_adapter.LikeProductAdapter;
+import com.example.makekit.makekit_asynctask.NetworkTask_DH;
+import com.example.makekit.makekit_bean.ChattingBean;
 import com.example.makekit.makekit_bean.Product;
 
 import java.util.ArrayList;
@@ -29,14 +32,30 @@ public class LikeProductActivity extends AppCompatActivity {
         email = intent.getStringExtra("useremail");
         macIP = intent.getStringExtra("macIP");
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
-
         recyclerView = findViewById(R.id.recyclerViewLike);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-
-
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        connectGetData();
+        mAdapter = new LikeProductAdapter(LikeProductActivity.this, R.layout.search_layout, products);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    private void connectGetData(){
+        try {
+            NetworkTask_DH networkTask = new NetworkTask_DH(LikeProductActivity.this, urlAddrBase+"/jsp/getLikeProductAll.jsp?userinfo_userEmail="+email, "search");        // 불러오는게 똑같아서
+            Object obj = networkTask.execute().get();
+            products = (ArrayList<Product>) obj;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
