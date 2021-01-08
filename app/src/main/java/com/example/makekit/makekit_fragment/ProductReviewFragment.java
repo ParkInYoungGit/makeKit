@@ -101,7 +101,8 @@ public class ProductReviewFragment extends Fragment {
 //            layoutManager = new LinearLayoutManager(getContext());
 //            recyclerView.setLayoutManager(layoutManager);
 //
-s          e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

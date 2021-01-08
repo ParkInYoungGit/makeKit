@@ -1,5 +1,6 @@
 package com.example.makekit.makekit_fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_activity.ProductList;
+import com.example.makekit.makekit_activity.SaleListActivity;
 import com.example.makekit.makekit_bean.Product;
 
 public class CategoryFragment extends Fragment {
@@ -26,7 +29,15 @@ public class CategoryFragment extends Fragment {
 
 //        listView = v.findViewById(R.id.lv_rec);
 
-
+v.findViewById(R.id.korean).setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(getContext(), ProductList.class);
+        String korean = "korean";
+        intent.putExtra("korean",korean);
+        startActivity(intent);
+    }
+});
 
         return v;
     }
