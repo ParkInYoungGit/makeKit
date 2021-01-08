@@ -11,44 +11,35 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.makekit.R;
 
-public class LoginActivity extends AppCompatActivity {
-
-    final static String TAG = "LoginActivity";
-
-
+public class TempLogin extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_temp_login);
+        findViewById(R.id.join_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TempLogin.this,JoinActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        findViewById(R.id.findId_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TempLogin.this,FindIdActivity.class);
+                startActivity(intent);
+            }
+        });
 
-
-
-
-       findViewById(R.id.join_btn).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(LoginActivity.this,JoinActivity.class);
-               startActivity(intent);
-           }
-       });
-
-       findViewById(R.id.findId_btn).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(LoginActivity.this,FindIdActivity.class);
-               startActivity(intent);
-           }
-       });
-
-       findViewById(R.id.findPW_btn).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(LoginActivity.this,FindPwActivity.class);
-               startActivity(intent);
-           }
-       });
+        findViewById(R.id.findPW_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TempLogin.this,FindPwActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
