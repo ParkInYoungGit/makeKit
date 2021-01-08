@@ -43,10 +43,9 @@ import kotlin.jvm.functions.Function2;
 public class LoginActivity extends AppCompatActivity {
 
     final static String TAG = "LoginActivity";
-    private View btnLogin, btnLogout;
+    private View btnLogin, btnLogout, login_google;
     private TextView nickName;
     private ImageView profileIMG;
-    ImageView login_google;
     SignInButton google;
     Button login_join_btn;
     TextView non_members;
@@ -65,6 +64,11 @@ public class LoginActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btn_logout);
         nickName = findViewById(R.id.nickname);
         profileIMG = findViewById(R.id.profile);
+
+
+        // naver 로그인 세팅
+
+
 
         // 구글 로그인 세팅
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
