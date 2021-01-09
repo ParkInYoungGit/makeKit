@@ -30,6 +30,7 @@ public class ProductReviewFragment extends Fragment {
     View v;
     String urlAddr;
     String urlAddrBase = null;
+    String macIP, productNo;
 
     ArrayList<Review> reviews;
     ProductReviewAdapter productReviewAdapter;
@@ -73,10 +74,13 @@ public class ProductReviewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(TAG, "onCreate REVIEW" + getArguments());
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getString("macIP");
+            mParam2 = getArguments().getString("productNo");
         }
+
+
     }
 
     @Override
@@ -84,20 +88,22 @@ public class ProductReviewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_product_review, container, false);
-        Log.v(TAG, "onCreate" + getArguments());
+        Log.v(TAG, "onCreateView REVIEW" + getArguments());
+
+        recyclerView = v.findViewById(R.id.reviewList_productview);
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString("macIP");
             mParam2 = getArguments().getString("productNo");
+            macIP = mParam1;
+            productNo = mParam2;
         }
-
-        recyclerView = v.findViewById(R.id.reviewList_productview);
-
-        mParam1 = "192.168.219.164";
-        mParam2 = "44";
+//        mParam1 = "192.168.219.164";
+//        mParam2 = "44";
 
         urlAddrBase = "http://" + mParam1 + ":8080/makekit/";
         urlAddr = urlAddrBase + "jsp/review_productview_all.jsp?productno=" + mParam2;
+        Log.v(TAG, "주소" + urlAddr);
         connectSelectData();
         return v;
     }
@@ -105,6 +111,7 @@ public class ProductReviewFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.v(TAG, "onResume REVIEW");
         connectSelectData();
     }
 

@@ -50,18 +50,6 @@ public class ProductReviewAdapter extends RecyclerView.Adapter<ProductReviewAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
-//        // 프로필 사진에 아무것도 설정 안해놨을 경우. 그냥 mipmap 사진 갖다 씀
-//        if (data.get(position).getAddressImage().contains("baseline_account_circle_black_48")){
-//            holder.img.setImageResource(R.mipmap.baseline_account_circle_black_48);
-//        }else{ // 사진을 설정해 놓은 경우. network 통해 다운받아서 보여줌. 이때 이미 폰에 존재하면 중복생성X
-//
-//            urlAddr = "http://" + ShareVar.macIP + ":8080/test/";
-//            urlAddr = urlAddr + data.get(position).getAddressImage();
-//            Log.v("AddressAdapter", "urlAddr = " + urlAddr);
-//            ViewImageNetworkTask networkTask = new ViewImageNetworkTask(mContext, urlAddr, holder.img);
-//            networkTask.execute(100); // 10초. 이것만 쓰면 pre post do back 등 알아서 실행
-//        }
-
         Log.v(TAG, data.get(position).getReviewImage());
         Log.v(TAG, urlImage);
 
@@ -100,15 +88,10 @@ public class ProductReviewAdapter extends RecyclerView.Adapter<ProductReviewAdap
 
         }
 
-
-
-
-
         holder.tv_reviewContent.setText(data.get(position).getReviewContent());
         holder.tv_reviewWriter.setText(data.get(position).getReviewWriterName());
         holder.tv_reviewWriteDate.setText(data.get(position).getReviewDate());
         holder.tv_reviewStar.setText(data.get(position).getReviewStar() + " 점");
-
 
     }
 
@@ -137,14 +120,6 @@ public class ProductReviewAdapter extends RecyclerView.Adapter<ProductReviewAdap
 //    @Override
 //    public long getItemId(int position) {
 //        return Integer.parseInt(data.get(position).getOrderDetailNo());
-//    }
-
-//    static class WebViewClientClass extends WebViewClient {//페이지 이동
-//        @Override
-//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            view.loadUrl(url);
-//            return true;
-//        }
 //    }
 
 }
