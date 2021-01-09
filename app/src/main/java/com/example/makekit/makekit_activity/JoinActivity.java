@@ -34,6 +34,9 @@ public class JoinActivity extends AppCompatActivity {
     public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자
     public static final String pattern2 = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
 
+    String user = "2bbeen@gmail.com"; // 보내는 계정의 id
+    String password = "93elsl211!"; // 보내는 계정의 pw
+
     String macIP, urlJsp, urlImage;
     EditText email, name, pw, pwCheck, phone, address, addressDetail;
     String emailInput = null;
@@ -149,7 +152,7 @@ public class JoinActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.btnEmailCheck_join: // email 인증
                     SendMail sendMail = new SendMail();
-                    String code = sendMail.sendSecurityCode(getApplicationContext(), email.getText().toString());
+                    String code = sendMail.sendSecurityCode2(getApplicationContext(), email.getText().toString(), user, password);
 
                     Intent intent = new Intent(JoinActivity.this, EmailCheckActivity.class);
                     intent.putExtra("codeAuth", code);
@@ -402,7 +405,8 @@ public class JoinActivity extends AppCompatActivity {
         // user 입력 data 송부
         private void insertUser(String userEmail, String userName, String userPW, String userTel, String Address, String AddressDetail) {
             String urlAddr1 = "";
-            urlAddr1 = urlJsp + "userInfoInsert.jsp?email" + userEmail + "&name=" + userName + "&pw=" + userPW + "&phone=" + userTel + "&address=" + Address + "&addressDetail=" + AddressDetail;
+            urlAddr1 = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&phone=" + userTel + "&address=" + Address + "&addressDetail=" + AddressDetail;
+
 
             String result = connectInsertData(urlAddr1);
 

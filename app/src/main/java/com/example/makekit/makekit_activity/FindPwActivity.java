@@ -1,8 +1,6 @@
 package com.example.makekit.makekit_activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -35,8 +33,8 @@ public class FindPwActivity extends AppCompatActivity {
     ////////////////////////////////////////////
     ////////////////////////////////////////////
 
-    String user = "@gmail.com"; // 보내는 계정의 id
-    String password = ""; // 보내는 계정의 pw
+    String user = "2bbeen@gmail.com"; // 보내는 계정의 id
+    String password = "93elsl211!"; // 보내는 계정의 pw
 
     EditText name, email;
     TextView check;

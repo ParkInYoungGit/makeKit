@@ -275,11 +275,11 @@ public class FindIdActivity extends AppCompatActivity {
     }
 
     // user Info 검색
-    private ArrayList<User> connectSelectData(String urlJsp){
+    private ArrayList<User> connectSelectData(String urlAddr1){
         ArrayList<User> user = null;
 
         try{
-            UserNetworkTask selectNetworkTask = new UserNetworkTask(FindIdActivity.this, urlJsp, "select");
+            UserNetworkTask selectNetworkTask = new UserNetworkTask(FindIdActivity.this, urlAddr1, "select");
             Object obj = selectNetworkTask.execute().get();
             user = (ArrayList<User>) obj;
 
