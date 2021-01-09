@@ -80,6 +80,16 @@
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/temp_findIDPW"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textColor="#888888"
+                android:text="아이디/비밀번호가 기억나지 않으세요?" />
+
             <CheckBox
                 android:id="@+id/save_chb"
                 android:layout_width="wrap_content"
@@ -91,7 +101,7 @@
 
 
             <Button
-                android:id="@+id/login_btn"
+                android:id="@+id/templogin_btn"
                 android:layout_gravity="center"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
@@ -114,9 +124,8 @@
         android:gravity="center_vertical">
 
 
-
         <Button
-            android:id="@+id/join_btn"
+            android:id="@+id/tempjoin_btn"
             android:layout_gravity="center"
             android:layout_width="170dp"
             android:layout_height="40dp"
@@ -124,25 +133,7 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:text="회원가입" />
-        <Button
-            android:id="@+id/findId_btn"
-            android:layout_gravity="center"
-            android:layout_width="170dp"
-            android:layout_height="40dp"
-            android:background="@drawable/button_background"
-            android:layout_margin="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:text="ID 찾기" />
-        <Button
-            android:id="@+id/findPW_btn"
-            android:layout_gravity="center"
-            android:layout_width="170dp"
-            android:layout_height="40dp"
-            android:background="@drawable/button_background"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:text="PW 찾기" />
+
 
     </LinearLayout>
 
