@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -43,7 +44,8 @@ public class ProdutctViewActivity extends AppCompatActivity {
     private ViewPagerProductAdapter viewPagerProductAdapter;
 
     String sellerEmail ,productNo, macIP;
-    FrameLayout framelayout;
+    //FrameLayout framelayout;
+    LinearLayout linearLayout;
 
 
     @Override
@@ -54,19 +56,22 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
         // 판매자 메일 받아오기
         Intent intent = getIntent();
-        macIP = intent.getStringExtra("macIP");
-        sellerEmail = intent.getStringExtra("sellerEmail");
-        productNo = intent.getStringExtra("productNo");
-        framelayout = findViewById(R.id.framelayout_productview);
+//        macIP = intent.getStringExtra("macIP");
+//        sellerEmail = intent.getStringExtra("sellerEmail");
+//        productNo = intent.getStringExtra("productNo");
+        macIP = "192.168.219.164";
+        productNo = "44";
+        //framelayout = findViewById(R.id.framelayout_productview);
+        linearLayout = findViewById(R.id.linearlayout_productview);
 
-        FloatingActionButton fab = findViewById(R.id.fab_prodcutview);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                ScrollView scrollView = findViewById(R.id.sv_productview);
-//                scrollView.fullScroll(ScrollView.FOCUS_UP);
-            }
-        });
+//        FloatingActionButton fab = findViewById(R.id.fab_prodcutview);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                ScrollView scrollView = findViewById(R.id.sv_productview);
+////                scrollView.fullScroll(ScrollView.FOCUS_UP);
+//            }
+//        });
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_productview);
         viewPager = (ViewPager) findViewById(R.id.viewpager_productview);
@@ -87,7 +92,10 @@ public class ProdutctViewActivity extends AppCompatActivity {
            public void onTabSelected(TabLayout.Tab tab) {
                int position = tab.getPosition(); //탭 버튼의 index 참조
 
-               Fragment selected = null;
+
+               FragmentManager fragmentManager = getSupportFragmentManager();
+               FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+               Fragment selected = fragmentManager.findFragmentByTag(String.valueOf(position));
                Bundle bundle = new Bundle();
 
                /* 선택된 탭에 따라 화면에 보이는 프래그먼트 변경 */
@@ -95,13 +103,13 @@ public class ProdutctViewActivity extends AppCompatActivity {
                    case 0:
                        selected = new ProductContentFragment();
                        selected.setArguments(bundle);
-                       bundle.putString("sellerEmail", sellerEmail);
+                       bundle.putString("macIP", macIP);
                        bundle.putString("productNo", productNo);
                        break;
                    case 1:
                        selected = new ProductDetailFragment();
                        selected.setArguments(bundle);
-                       bundle.putString("sellerEmail", sellerEmail);
+                       bundle.putString("macIP", macIP);
                        bundle.putString("productNo", productNo);
                        break;
                    case 2:
@@ -119,17 +127,24 @@ public class ProdutctViewActivity extends AppCompatActivity {
                        Log.v(TAG, String.valueOf(bundle));
 
                        break;
+
                    default:
+                       fragmentTransaction.show(selected);
 
                        break;
                }
 
-               ProdutctViewActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_productview, selected).commit();
+               ProdutctViewActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.linearlayout_productview, selected).commit();
            }
 
            @Override
            public void onTabUnselected(TabLayout.Tab tab) {
-
+//               int position = tab.getPosition(); //탭 버튼의 index 참조
+//
+//               Fragment selected = null;
+//               Bundle bundle = new Bundle();
+//               bundle.putString("macIP", "192.168.219.164");
+//               bundle.putString("productNo", "44");
            }
 
            @Override
@@ -139,6 +154,8 @@ public class ProdutctViewActivity extends AppCompatActivity {
        });
     }
 
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

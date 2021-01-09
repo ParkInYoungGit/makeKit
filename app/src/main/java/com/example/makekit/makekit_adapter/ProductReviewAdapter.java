@@ -1,34 +1,26 @@
 package com.example.makekit.makekit_adapter;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_bean.Review;
-import com.example.makekit.makekit_fragment.ProductReviewFragment;
 
 import java.util.ArrayList;
 
 // review 리스트
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder>{
+public class ProductReviewAdapter extends RecyclerView.Adapter<ProductReviewAdapter.MyViewHolder>{
 
     final static String TAG = "ProductAdapter";
 
@@ -39,7 +31,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     private String urlImage;
     private String urlImageReal;
 
-    public ProductAdapter(Context mContext, int layout, ArrayList<Review> data, String urlImage) {
+    public ProductReviewAdapter(Context mContext, int layout, ArrayList<Review> data, String urlImage) {
         this.mContext = mContext;
         this.layout = layout;
         this.data = data;
@@ -58,18 +50,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
-//        // 프로필 사진에 아무것도 설정 안해놨을 경우. 그냥 mipmap 사진 갖다 씀
-//        if (data.get(position).getAddressImage().contains("baseline_account_circle_black_48")){
-//            holder.img.setImageResource(R.mipmap.baseline_account_circle_black_48);
-//        }else{ // 사진을 설정해 놓은 경우. network 통해 다운받아서 보여줌. 이때 이미 폰에 존재하면 중복생성X
-//
-//            urlAddr = "http://" + ShareVar.macIP + ":8080/test/";
-//            urlAddr = urlAddr + data.get(position).getAddressImage();
-//            Log.v("AddressAdapter", "urlAddr = " + urlAddr);
-//            ViewImageNetworkTask networkTask = new ViewImageNetworkTask(mContext, urlAddr, holder.img);
-//            networkTask.execute(100); // 10초. 이것만 쓰면 pre post do back 등 알아서 실행
-//        }
-
         Log.v(TAG, data.get(position).getReviewImage());
         Log.v(TAG, urlImage);
 
@@ -79,28 +59,39 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
             Log.v(TAG, urlImage + "image/" + data.get(position).getReviewImage());
             urlImageReal = urlImage+ "image/" + data.get(position).getReviewImage();
-            holder.img_reviewImage.loadUrl(urlImageReal);
+           // holder.img_reviewImage.loadUrl(urlImageReal);
 
-            WebSettings webSettings = holder.img_reviewImage.getSettings();
+            // Initial webview
+            holder.img_reviewImage.setWebViewClient(new WebViewClient());
 
-            webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
-            webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+
+
+            // Enable JavaScript
+            holder.img_reviewImage.getSettings().setJavaScriptEnabled(true);
+            holder.img_reviewImage.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+            // Enable Zoom
+            holder.img_reviewImage.getSettings().setBuiltInZoomControls(true);
+            holder.img_reviewImage.getSettings().setSupportZoom(true);
+            holder.img_reviewImage.getSettings().setSupportZoom(true); //zoom mode 사용.
+            holder.img_reviewImage.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
+
+
+            // Adjust web display
+            holder.img_reviewImage.getSettings().setLoadWithOverviewMode(true);
+            holder.img_reviewImage.getSettings().setUseWideViewPort(true);
+            holder.img_reviewImage.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+            holder.img_reviewImage.setInitialScale(30);
+
+            // url은 알아서 설정 예) http://m.naver.com/
+            holder.img_reviewImage.loadUrl(urlImageReal); // 접속 URL
+
+
         }
-
-
-        holder.img_reviewImage.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        holder.img_reviewImage.setHorizontalScrollBarEnabled(false); //가로 스크롤
-        holder.img_reviewImage.setVerticalScrollBarEnabled(false);   //세로 스크롤
-
-        holder.img_reviewImage.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
-        holder.img_reviewImage.setScrollbarFadingEnabled(false);
-
 
         holder.tv_reviewContent.setText(data.get(position).getReviewContent());
         holder.tv_reviewWriter.setText(data.get(position).getReviewWriterName());
         holder.tv_reviewWriteDate.setText(data.get(position).getReviewDate());
         holder.tv_reviewStar.setText(data.get(position).getReviewStar() + " 점");
-
 
     }
 
@@ -126,17 +117,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         }
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-//    static class WebViewClientClass extends WebViewClient {//페이지 이동
-//        @Override
-//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            view.loadUrl(url);
-//            return true;
-//        }
+//    @Override
+//    public long getItemId(int position) {
+//        return Integer.parseInt(data.get(position).getOrderDetailNo());
 //    }
 
 }

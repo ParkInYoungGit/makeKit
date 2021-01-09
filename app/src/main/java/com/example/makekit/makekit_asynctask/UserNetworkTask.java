@@ -194,8 +194,8 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                String email = jsonObject1.getString("userName");
-                String name = jsonObject1.getString("userEmail");
+                String email = jsonObject1.getString("userEmail");
+                String name = jsonObject1.getString("userName");
                 String pw = jsonObject1.getString("userPw");
                 String address = jsonObject1.getString("userAddress");
                 String addressDetail = jsonObject1.getString("userAddressDetail");
