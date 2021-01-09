@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layoutMap_chatting"
-    tools:context=".MapChattingActivity">
+    tools:context=".makekit_activity.MapChattingActivity">
     <LinearLayout
         android:padding="10dp"
         android:orientation="horizontal"

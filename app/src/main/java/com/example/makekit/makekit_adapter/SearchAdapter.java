@@ -1,4 +1,4 @@
-package com.example.makekit.makekit_fragment;
+package com.example.makekit.makekit_adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -6,9 +6,28 @@
     tools:context=".makekit_fragment.ProductQuestionFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Question" />
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnChattingQuestion_productview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="10dp"
+            android:text="1:1 문의하기" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:gravity="center|top"
+            android:text="상품 및 직거래 문의는 \n1:1 문의를 이용해주세요."
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </FrameLayout>

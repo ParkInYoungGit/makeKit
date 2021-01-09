@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.makekit" >
 
-    <meta-data
-        android:name="com.kakao.sdk.AppKey"
-        android:value="2665d1b7d7c17c66c63f06b53a93690d" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,10 +10,12 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- kyeongmi -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- Ria -->
+
     <!-- 현 위치 가져오기 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAG" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -28,11 +26,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MakeKit"
+
         android:usesCleartextTraffic="true" >
         <activity android:name=".makekit_activity.TempLogin" />
+
+       <android:usesCleartextTraffic="true"
+        android:name=".makekit_method.KakaoApplication"> <!-- 카카오 어플리케이션 등록 -->
+        <activity android:name=".makekit_activity.TempLogin"></activity>
+
         <activity android:name=".makekit_activity.EmailCheckActivity" />
         <activity android:name=".makekit_activity.NoticeActivity" />
-        <activity android:name=".makekit_activity.ProductList" /> <!-- <activity android:name=".makekit_activity.NoticeActivity" /> -->
+        <activity android:name=".makekit_activity.ProductList" />
+        <!-- <activity android:name=".makekit_activity.NoticeActivity" /> -->
         <!-- 구글 API 추가 -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -40,8 +45,10 @@
 
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false" /> <!-- 끝 -->
-        <activity android:name=".MapChattingActivity" />
+            android:required="false" />
+        <!-- 끝 -->
+        
+        <activity android:name=".makekit_activity.MapChattingActivity"></activity>
         <activity android:name=".makekit_activity.WebViewActivity" />
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
@@ -57,22 +64,40 @@
         <activity android:name=".makekit_activity.ChatcontentActivity" />
         <activity android:name=".makekit_activity.MapActivity" />
         <activity
-            android:name=".makekit_activity.MainActivity"
+            android:name=".makekit_activity.LoginActivity"
             android:icon="@drawable/img_logo"
             android:theme="@style/Theme.MakeKit.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data
+                android:name="com.kakao.sdk.AppKey"
+                android:value="@string/kakao_app_key" />
         </activity>
+
+            <!-- Ria _ KAKAO ReDirect URI -->
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
+            <data android:host="oauth"
+                android:scheme="kakaof2d8fb4aeb0237f82647add92f60e987" />
+        </intent-filter>
+    </activity>
+        <activity android:name=".makekit_activity.UserModifyActivity">
+        </activity>
+        <activity android:name=".makekit_activity.JoinActivity" />
+        <activity android:name=".makekit_activity.MainActivity"/>
         <activity android:name=".makekit_activity.OrderActivity" />
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
         <activity android:name=".makekit_activity.SearchActivity" />
-        <activity android:name=".makekit_activity.LoginActivity" />
-        <activity android:name=".makekit_activity.UserModifyActivity" />
-        <activity android:name=".makekit_activity.JoinActivity" />
+
+
     </application>
 
 </manifest>

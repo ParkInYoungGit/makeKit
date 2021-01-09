@@ -8,10 +8,12 @@ android {
 
     defaultConfig {
         applicationId "com.example.makekit"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -55,6 +57,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
+    // 1.9 kyeongmi 추가
+    //사진을 서버에 올리기 위한 라이브러리
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0-RC1'
+
     // 구글 API
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.1.0'
@@ -65,4 +71,20 @@ dependencies {
 
     implementation 'com.google.maps.android:android-maps-utils:0.5'
 
+    // 카카오
+    implementation "com.kakao.sdk:v2-user:2.2.0" // 카카오 로그인
+    implementation "com.kakao.sdk:v2-talk:2.2.0" // 친구, 메시지(카카오톡)
+    implementation "com.kakao.sdk:v2-link:2.2.0" // 메시지(카카오링크)
+    implementation 'com.github.bumptech.glide:glide:4.11.0' // 프로필 이미지 핸들링
+
+    // 구글 로그인
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.google.firebase:firebase-auth:19.0.0'
+
+
 }
+
+apply plugin: 'com.google.gms.google-services'
