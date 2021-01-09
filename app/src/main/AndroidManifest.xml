@@ -51,7 +51,7 @@
         <activity android:name=".makekit_activity.SplashActivity" />
         <activity android:name=".makekit_activity.OrderViewActivity" />
         <activity android:name=".makekit_activity.PaymentActivity" />
-        <activity android:name=".makekit_activity.LoginActivity" >
+        <activity android:name=".makekit_activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -88,7 +88,7 @@
         <activity android:name=".makekit_activity.UserModifyActivity">
         </activity>
         <activity android:name=".makekit_activity.JoinActivity" />
-        <activity android:name=".makekit_activity.MainActivity"/>
+        <activity android:name=".makekit_activity.LoginActivity"/>
         <activity android:name=".makekit_activity.OrderActivity" />
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
