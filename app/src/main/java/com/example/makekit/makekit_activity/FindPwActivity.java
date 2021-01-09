@@ -161,7 +161,7 @@ public class FindPwActivity extends AppCompatActivity {
                     check.setText("");
                     SendMail mailServer = new SendMail();
 
-                    String code = mailServer.sendSecurityCode(getApplicationContext(), email.getText().toString());
+                    String code = mailServer.sendSecurityCode2(getApplicationContext(), email.getText().toString(),user, password);
 
 
                     Intent intent = new Intent(FindPwActivity.this, EmailFindPwActivity.class);
