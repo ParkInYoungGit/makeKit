@@ -72,7 +72,7 @@ public class SearchActivity extends AppCompatActivity {
     private void connectGetSearchData() {
         try {
 
-            urlAddrGetData = urlAddrBase+"getProductAll_Infromation.jsp/?search="+search_EdT.getText().toString();
+            urlAddrGetData = urlAddrBase+"getProductAll_Infromation.jsp?search="+search_EdT.getText().toString();
             NetworkTask_DH networkTask = new NetworkTask_DH(SearchActivity.this, urlAddrGetData, "search");
             Object obj = networkTask.execute().get();
             products = (ArrayList<Product>) obj;
