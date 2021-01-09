@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra("macIP", macIP);
+                intent.putExtra("useremail", email);
                 startActivity(intent);
             }
         });
