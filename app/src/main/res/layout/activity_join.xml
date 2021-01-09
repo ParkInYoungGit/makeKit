@@ -136,6 +136,13 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/tv_pwCheckMsg_join"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0.6" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/InputLayoutAddress"
@@ -177,14 +184,6 @@
 
         </LinearLayout>
 
-
-
-        <TextView
-            android:id="@+id/tv_pwCheckMsg_join"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="0.6" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/InputLayoutPhone_join"

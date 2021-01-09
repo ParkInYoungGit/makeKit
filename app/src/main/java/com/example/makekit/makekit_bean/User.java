@@ -1,7 +1,5 @@
 package com.example.makekit.makekit_bean;
 
-import java.util.ArrayList;
-
 public class User {
 
     String email;
@@ -32,7 +30,7 @@ public class User {
     }
     //////////////////////////////////////////////////////////////////////////////
 
-    public User(String email, String pw, String name, String address, String addressdetail, String tel, String birth) {
+    public User(String email, String name, String pw, String address, String addressdetail, String tel, String birth) {
         this.email = email;
         this.name = name;
         this.pw = pw;
@@ -41,6 +39,9 @@ public class User {
         this.tel = tel;
         this.birth = birth;
     }
+
+    /////////////////////////////////////////////////////////////////////////////
+
 
     public String getEmail() { return email; }
 

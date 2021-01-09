@@ -1,13 +1,8 @@
 package com.example.makekit.makekit_activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Build;
@@ -25,6 +20,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
@@ -46,7 +45,7 @@ public class FindIdActivity extends AppCompatActivity {
     EditText phone, name, codeNum;
     TextView fieldCheck;
     String macIP, urlJsp, useremail;
-    ArrayList<User> users;
+    ArrayList<User> user;
     //String SMSContents = "1234";
     String smsCode = createSMSCode();
 
@@ -221,14 +220,14 @@ public class FindIdActivity extends AppCompatActivity {
         int count = 0;
 
         String userName = name.getText().toString().trim();
-        String userPhone = phone.getText().toString().trim();
+        String userTel = phone.getText().toString().trim();
 
         if(userName.length() == 0){
             fieldCheck.setText("이름을 입력해주세요");
             name.setFocusableInTouchMode(true);
             name.requestFocus();
 
-        } else if(userPhone.length() == 0){
+        } else if(userTel.length() == 0){
             fieldCheck.setText("휴대폰 번호을 입력해주세요");
             phone.setFocusableInTouchMode(true);
             phone.requestFocus();
@@ -246,11 +245,11 @@ public class FindIdActivity extends AppCompatActivity {
             } else {
                 String urlAddr1 = "";
                 urlAddr1 = urlJsp + "userFind.jsp";
-                users = connectSelectData(urlAddr1);
+                user = connectSelectData(urlAddr1);
 
-                for (int i = 0; i < users.size(); i++) {
-                    if (userName.equals(users.get(i).getName()) && userPhone.equals(users.get(i).getTel())) {
-                        useremail = users.get(i).getEmail();
+                for (int i = 0; i < user.size(); i++) {
+                    if (userName.equals(user.get(i).getName()) && userTel.equals(user.get(i).getTel())) {
+                        useremail = user.get(i).getEmail();
                         count++;
                     }
                 }
@@ -263,7 +262,7 @@ public class FindIdActivity extends AppCompatActivity {
 
                 } else {
                     //sendSMS(userPhone, "[1234] 발송");
-                    sendMessage(userPhone);
+                    sendMessage(userTel);
                     countDownTimer();
                     //fieldCheck.setText("");
                     layoutSMS.setVisibility(View.VISIBLE);

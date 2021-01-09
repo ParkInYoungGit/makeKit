@@ -1,6 +1,5 @@
 package com.example.makekit.makekit_activity;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -67,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        macIP = "192.168.0.81";
+        macIP = "192.168.35.133";
 
         btnLogin = findViewById(R.id.login_kakao);
         btnLogout = findViewById(R.id.btn_logout);

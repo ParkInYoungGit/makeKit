@@ -1,7 +1,6 @@
 package com.example.makekit.makekit_activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -87,6 +86,11 @@ public class JoinActivity extends AppCompatActivity {
 
         address = findViewById(R.id.et_address); // 주소 검색
 
+        phone.addTextChangedListener(changeListener3);
+        pw.addTextChangedListener(changeListener2);
+        pwCheck.addTextChangedListener(changeListener1);
+        email.addTextChangedListener(changeListener);
+
         findViewById(R.id.btnEmailCheck_join).setOnClickListener(mClickListener);
         findViewById(R.id.submitBtn_join).setOnClickListener(mClickListener);
 
@@ -150,7 +154,6 @@ public class JoinActivity extends AppCompatActivity {
                     Intent intent = new Intent(JoinActivity.this, EmailCheckActivity.class);
                     intent.putExtra("codeAuth", code);
                     startActivity(intent);
-
                     break;
 
                 case R.id.submitBtn_join:  // 가입 버튼 클릭 시
@@ -277,6 +280,34 @@ public class JoinActivity extends AppCompatActivity {
         }
     };
 
+    // pw 입력란 text 변경 시 listener
+    TextWatcher changeListener1 = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            // pwcheck 입력 시 일치 여부 message
+            if(pwCheck.getText().toString().trim().length() != 0){
+                if((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())){
+                    pwCheckMsg.setTextColor(getResources().getColor(R.color.blue));
+                    pwCheckMsg.setText("비밀번호 일치");
+
+                } else {
+                    pwCheckMsg.setTextColor(getResources().getColor(R.color.red));
+                    pwCheckMsg.setText("비밀번호 불일치");
+                }
+            }
+        }
+    };
+
 
 
         // 입력란 field check
@@ -351,9 +382,6 @@ public class JoinActivity extends AppCompatActivity {
                             }
                         }
 
-                    } else {
-                        Toast.makeText(JoinActivity.this, "Email 중복 채크 해주세요.", Toast.LENGTH_SHORT).show();
-
                     }
                 }
 
@@ -365,7 +393,7 @@ public class JoinActivity extends AppCompatActivity {
             new AlertDialog.Builder(JoinActivity.this)
                     .setTitle("MakeKit 서비스 안내")
                     .setMessage(field + " 입력해주세요.")
-                    .setIcon(R.mipmap.ic_launcher)
+                    .setIcon(R.drawable.alert)
                     .setCancelable(false) // 버튼으로만 대화상자 닫기가 된다. (미작성 시 다른부분 눌러도 대화상자 닫힌다)
                     .setPositiveButton("닫기", null)  // 페이지 이동이 없으므로 null
                     .show();
