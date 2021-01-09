@@ -44,7 +44,7 @@ public class SaleListAdapter extends RecyclerView.Adapter<SaleListAdapter.MyView
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    
+
                 }
             });
         }
@@ -63,15 +63,16 @@ public class SaleListAdapter extends RecyclerView.Adapter<SaleListAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        if(mDataset.get(position).getOrderReviewImg().equals("null")){
+        if(mDataset.get(position).getProductAFilename().equals("null")){
             urlImageReal = urlImage+"ic_default.jpg";
         }else {
-            urlImageReal = urlImage+mDataset.get(position).getOrderReviewImg();
+            urlImageReal = urlImage+mDataset.get(position).getProductAFilename();
         }
-        holder.orderDate.setText("주문 날짜 : " + mDataset.get(position).getOrderDate());
+        holder.orderDate.setText("상품 번호 : " + mDataset.get(position).getProductNo());
         holder.webView.loadUrl(urlImageReal);
         holder.productName.setText(mDataset.get(position).getProductName());
         holder.productQuantity.setText(mDataset.get(position).getProductStock());
+        holder.productPrice.setText("가격(1개) : "+ mDataset.get(position).getProductPrice());
     }
 
     @Override

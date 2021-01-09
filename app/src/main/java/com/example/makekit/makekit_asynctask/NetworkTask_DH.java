@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.makekit.makekit_bean.ChattingBean;
+import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_bean.User;
 
@@ -29,6 +30,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     ArrayList<ChattingBean> chattingContents;
     ArrayList<ChattingBean> chattingList;
     ArrayList<User> users;
+    ArrayList<Order> orders;
     String chattingNumber;
     String where = null;
 
@@ -92,6 +94,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     parserChattingNumber(stringBuffer.toString());
                 }else if (where.equals("LikeSeller")){
                     parserLikeSeller(stringBuffer.toString());
+                }else if (where.equals("getSalesList")){
+                    parserSalesList(stringBuffer.toString());
                 }
 
 
@@ -121,6 +125,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return chattingNumber;
         }else if (where.equals("LikeSeller")){
             return users;
+        }else if (where.equals("getSalesList")){
+            return orders;
         }
         else {
             return result;
@@ -263,6 +269,27 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 User user = new User(userinfo_like_userEmail);
 
                 users.add(user);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    private void parserSalesList(String s){
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            orders.clear();
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String productNo = jsonObject1.getString("productNo");
+                String productAFilename = jsonObject1.getString("productAFilename");
+                String productName = jsonObject1.getString("productName");
+                String productStock = jsonObject1.getString("productStock");
+                String productPrice = jsonObject1.getString("productPrice");
+
+                Order order = new Order(productNo, productName, productPrice, productStock, productAFilename);
+
+                orders.add(order);
             }
         }catch (Exception e){
             e.printStackTrace();

@@ -32,10 +32,19 @@ public class Order {
     String productName;
     String productPrice;
     String productStock;
+    String productAFilename;
 
     // constructor는 원하는 만큼 생성
     //
-    
+
+
+    public Order(String productNo, String productName, String productPrice, String productStock, String productAFilename) {
+        this.productNo = productNo;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productStock = productStock;
+        this.productAFilename = productAFilename;
+    }
 
     public String getOrderNo() {
         return orderNo;
@@ -235,5 +244,13 @@ public class Order {
 
     public void setProductStock(String productStock) {
         this.productStock = productStock;
+    }
+
+    public String getProductAFilename() {
+        return productAFilename;
+    }
+
+    public void setProductAFilename(String productAFilename) {
+        this.productAFilename = productAFilename;
     }
 }
