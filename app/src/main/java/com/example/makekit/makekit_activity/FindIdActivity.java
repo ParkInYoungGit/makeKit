@@ -72,8 +72,6 @@ public class FindIdActivity extends AppCompatActivity {
        useremail = intent.getStringExtra("useremail");
 
         urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
-        Log.d(TAG, macIP );
-
 
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -354,7 +352,7 @@ public class FindIdActivity extends AppCompatActivity {
         new androidx.appcompat.app.AlertDialog.Builder(FindIdActivity.this)
                 .setTitle("MakeKit 서비스 안내")
                 .setMessage( name.getText().toString().trim() + "님의 Email은 \n" + useremail + " 입니다.")
-                .setIcon(R.drawable.img_logo)
+                .setIcon(R.drawable.alert)
                 .setCancelable(false) // 버튼으로만 대화상자 닫기가 된다. (미작성 시 다른부분 눌러도 대화상자 닫힌다)
                 .setPositiveButton("닫기", new DialogInterface.OnClickListener() {
                     @Override

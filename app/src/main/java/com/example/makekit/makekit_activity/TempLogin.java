@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -51,6 +52,9 @@ public class TempLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp_login);
 
+        Intent intent = getIntent(); /*데이터 수신*/
+        macIP = intent.getStringExtra("macIP");
+
         login = findViewById(R.id.templogin_btn);
         join = findViewById(R.id.tempjoin_btn);
         findidpw = findViewById(R.id.temp_findIDPW);
@@ -67,18 +71,13 @@ public class TempLogin extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.templogin_btn:
-
+                case R.id.templogin_btn: // 로그인
                     loginCheck();
-
-                    intent = new Intent(TempLogin.this, MainActivity.class);
-                    intent.putExtra("macIP", macIP);
-                    startActivity(intent);
                     break;
-                case R.id.temp_findIDPW:
+                case R.id.temp_findIDPW: // id/pw찾기
 
                     new AlertDialog.Builder(TempLogin.this, android.R.style.Theme_DeviceDefault_Light_Dialog)
-                            .setIcon(R.drawable.img_logo)
+                            .setIcon(R.drawable.alert)
                             .setTitle("MakeKit 서비스 안내")
                             .setMessage("찾고자 하는 서비스를 선택해주세요!")
                             // 버튼명   // 버튼 리스너명
@@ -92,7 +91,6 @@ public class TempLogin extends AppCompatActivity {
                     intent.putExtra("macIP", macIP);
                     startActivity(intent);
                     break;
-
             }
 
         }
@@ -122,7 +120,6 @@ public class TempLogin extends AppCompatActivity {
         userpw = loginPw.getText().toString();
 
         urlJsp = urlJsp + "useremail=" + useremail + "&userpw=" + userpw;
-
 
         count = loginCount();
 
