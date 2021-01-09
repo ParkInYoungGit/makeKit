@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
-    final static String TAG = "PeopleNetworkTask";
+    final static String TAG = "UserNetWorkTask";
     Context context = null;
     String mAddr = null;
     String where = null;

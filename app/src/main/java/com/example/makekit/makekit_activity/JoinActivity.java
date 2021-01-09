@@ -381,7 +381,7 @@ public class JoinActivity extends AppCompatActivity {
                             } else {
 
                                 if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
-                                    insertUser(userEmail, userName, userPW, userTel, Address, AddressDetail);
+                                    insertUser(userEmail, userName, userPW, Address, AddressDetail, userTel);
 
                                 } else {
                                     pwCheck.setText("");
@@ -410,9 +410,9 @@ public class JoinActivity extends AppCompatActivity {
         }
 
         // user 입력 data 송부
-        private void insertUser(String userEmail, String userName, String userPW, String userTel, String Address, String AddressDetail) {
+        private void insertUser(String userEmail, String userName, String userPW, String Address, String AddressDetail, String userTel) {
             String urlAddr1 = "";
-            urlAddr1 = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&phone=" + userTel + "&address=" + Address + "&addressDetail=" + AddressDetail;
+            urlAddr1 = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&address=" + Address + "&addressDetail=" + AddressDetail + "&phone=" + userTel;
 
             String result = connectInsertData(urlAddr1);
 
