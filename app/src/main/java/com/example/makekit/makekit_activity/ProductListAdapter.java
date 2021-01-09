@@ -52,7 +52,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void onBindViewHolder(@NonNull ProductListAdapter.CustomViewHolder holder, int position) {
 //실제 추가될때 생명주기
 
-        holder.product_image.setImageResource(arrayList.get(position).getProduct_image());
+//        holder.product_image.setImageResource(arrayList.get(position).getProduct_image());
         holder.product_title.setText(arrayList.get(position).getProduct_title());
         holder.product_subtitle.setText(arrayList.get(position).getSub_title());
         holder.product_price.setText(arrayList.get(position).getProduct_price());

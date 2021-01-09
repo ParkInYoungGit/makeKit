@@ -171,8 +171,10 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
                 String useraddressdetail = jsonObject1.getString("userAddressDetail");
                 String usertel = jsonObject1.getString("userTel");
                 String userbirth = jsonObject1.getString("userBirth");
+                String userimage = jsonObject1.getString("userImage");
 
-                User user2 = new User(useremail, userpw, username, useraddress, useraddressdetail, usertel, userbirth);
+
+                User user2 = new User(useremail, userpw, username, useraddress, useraddressdetail, usertel, userbirth, userimage);
                 user.add(user2);
             }
 
