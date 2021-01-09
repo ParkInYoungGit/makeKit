@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.getBackground().setAlpha(0);
 //        bottomNavigationView.setBackground(null);
 
-        macIP = "192.168.2.2";
+        macIP = "192.168.200.197";
         email = "son@naver.com";
 
         // 검색 페이지로 이동
@@ -141,10 +141,10 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.navigation_2) {
 
                 fragment = new CategoryFragment();
-//                Bundle bundle = new Bundle(2);
-//                bundle.putString("useremail", email);
-//                bundle.putString("macIP", macIP);
-//                fragment.setArguments(bundle);
+                Bundle bundle = new Bundle(2);
+                bundle.putString("useremail", email);
+                bundle.putString("macIP", macIP);
+                fragment.setArguments(bundle);
             } else if (id == R.id.navigation_4) {
 
 //                fragment = new ChatListFragment();

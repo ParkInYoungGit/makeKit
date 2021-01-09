@@ -27,9 +27,24 @@ public class Order {
     String orderReview;
     String orderReviewImg;
 
-    // constructor는 원하는 만큼 생성
+    // 오더와 연결 되어있는 상품 관련
+    String productNo;
+    String productName;
+    String productPrice;
+    String productStock;
+    String productAFilename;
 
-    
+    // constructor는 원하는 만큼 생성
+    //
+
+
+    public Order(String productNo, String productName, String productPrice, String productStock, String productAFilename) {
+        this.productNo = productNo;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productStock = productStock;
+        this.productAFilename = productAFilename;
+    }
 
     public String getOrderNo() {
         return orderNo;
@@ -197,5 +212,45 @@ public class Order {
 
     public void setOrderReviewImg(String orderReviewImg) {
         this.orderReviewImg = orderReviewImg;
+    }
+
+    public String getProductNo() {
+        return productNo;
+    }
+
+    public void setProductNo(String productNo) {
+        this.productNo = productNo;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(String productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public String getProductStock() {
+        return productStock;
+    }
+
+    public void setProductStock(String productStock) {
+        this.productStock = productStock;
+    }
+
+    public String getProductAFilename() {
+        return productAFilename;
+    }
+
+    public void setProductAFilename(String productAFilename) {
+        this.productAFilename = productAFilename;
     }
 }

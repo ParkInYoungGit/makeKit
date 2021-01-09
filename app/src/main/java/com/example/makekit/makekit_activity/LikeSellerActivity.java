@@ -38,6 +38,7 @@ public class LikeSellerActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        users = new ArrayList<User>();
     }
 
     @Override

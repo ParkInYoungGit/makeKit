@@ -9,6 +9,7 @@ public class User {
     String addressdetail;
     String tel;
     String birth;
+    String image;
 
     // 1/8 Daehwan 추가
     // email만 받아오는 constructor
@@ -30,6 +31,7 @@ public class User {
     }
     //////////////////////////////////////////////////////////////////////////////
 
+
     public User(String email, String name, String pw, String address, String addressdetail, String tel, String birth) {
         this.email = email;
         this.name = name;
@@ -40,8 +42,23 @@ public class User {
         this.birth = birth;
     }
 
-    /////////////////////////////////////////////////////////////////////////////
+    public User(String email, String pw, String name, String address, String addressdetail, String tel, String birth, String image) {
+        this.email = email;
+        this.name = name;
+        this.pw = pw;
+        this.address = address;
+        this.addressdetail = addressdetail;
+        this.tel = tel;
+        this.birth = birth;
+        this.image = image;
+    }
 
+    public String getImage() { return image; }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+>>>>>>> d6e73bc4ab85f4e1441bc1851fe30acdce185e77
 
     public String getEmail() { return email; }
 
