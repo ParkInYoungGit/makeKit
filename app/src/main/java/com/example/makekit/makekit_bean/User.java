@@ -58,7 +58,6 @@ public class User {
     public void setImage(String image) {
         this.image = image;
     }
->>>>>>> d6e73bc4ab85f4e1441bc1851fe30acdce185e77
 
     public String getEmail() { return email; }
 
