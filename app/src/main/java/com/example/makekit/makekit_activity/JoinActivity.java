@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -34,7 +35,10 @@ public class JoinActivity extends AppCompatActivity {
     public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자
     public static final String pattern2 = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
 
-    String macIP, urlJsp, urlImage;
+    String user = "2bbeen@gmail.com"; // 보내는 계정의 id
+    String password = "93elsl211!"; // 보내는 계정의 pw
+
+    String macIP, urlJsp, urlImage, urlAddr;
     EditText email, name, pw, pwCheck, phone, address, addressDetail;
     String emailInput = null;
     TextView pwCheckMsg;
@@ -148,12 +152,18 @@ public class JoinActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btnEmailCheck_join: // email 인증
+                    emailInput = email.getText().toString().trim();
+                    emailCheck(emailInput);
+
+
                     SendMail sendMail = new SendMail();
-                    String code = sendMail.sendSecurityCode(getApplicationContext(), email.getText().toString());
+                    String code = sendMail.sendSecurityCode2(getApplicationContext(), email.getText().toString(), user, password);
 
                     Intent intent = new Intent(JoinActivity.this, EmailCheckActivity.class);
                     intent.putExtra("codeAuth", code);
                     startActivity(intent);
+
+
                     break;
 
                 case R.id.submitBtn_join:  // 가입 버튼 클릭 시
@@ -371,7 +381,7 @@ public class JoinActivity extends AppCompatActivity {
                             } else {
 
                                 if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
-                                    insertUser(userEmail, userName, userPW, userTel, Address, AddressDetail);
+                                    insertUser(userEmail, userName, userPW, Address, AddressDetail, userTel);
 
                                 } else {
                                     pwCheck.setText("");
@@ -400,9 +410,9 @@ public class JoinActivity extends AppCompatActivity {
         }
 
         // user 입력 data 송부
-        private void insertUser(String userEmail, String userName, String userPW, String userTel, String Address, String AddressDetail) {
+        private void insertUser(String userEmail, String userName, String userPW, String Address, String AddressDetail, String userTel) {
             String urlAddr1 = "";
-            urlAddr1 = urlJsp + "userInfoInsert.jsp?email" + userEmail + "&name=" + userName + "&pw=" + userPW + "&phone=" + userTel + "&address=" + Address + "&addressDetail=" + AddressDetail;
+            urlAddr1 = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&address=" + Address + "&addressDetail=" + AddressDetail + "&phone=" + userTel;
 
             String result = connectInsertData(urlAddr1);
 
@@ -411,7 +421,6 @@ public class JoinActivity extends AppCompatActivity {
 
             } else {
                 Toast.makeText(JoinActivity.this, userName + "님 회원가입 실패하였습니다.", Toast.LENGTH_SHORT).show();
-
             }
 
             finish();
@@ -434,12 +443,51 @@ public class JoinActivity extends AppCompatActivity {
             return result;
         }
 
+
+    // email 중복 체크
+    private void emailCheck(String emailInput){
+        int count = 0;
+
+        if (emailInput.length() == 0) {
+            Toast.makeText(JoinActivity.this, "Email을 입력해주세요.", Toast.LENGTH_SHORT).show();
+
+        } else {
+            if(!android.util.Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+                Toast.makeText(JoinActivity.this, "이메일 형식으로 입력해주세요.", Toast.LENGTH_SHORT).show();
+
+            } else {
+                String urlAddr2 = "";
+                urlAddr2 = urlJsp + "user_query_all.jsp?email=" + emailInput;
+
+                Log.v(TAG, "email : " + emailInput);
+
+                ArrayList<User> result = connectSelectData(urlAddr2);
+
+                for (int i = 0; i < result.size(); i++) {
+                    if (emailInput.equals(result.get(i).getEmail())) {
+                        count++;
+                    }
+                }
+
+                if (count == 0) {
+                    email.setEnabled(false);
+                    Toast.makeText(JoinActivity.this, "Email 사용이 가능합니다.", Toast.LENGTH_SHORT).show();
+                    btnCheck = 1;
+                } else {
+                    Toast.makeText(JoinActivity.this, "동일한 Email이 존재합니다.", Toast.LENGTH_SHORT).show();
+                    btnCheck = 0;
+                }
+            }
+        }
+
+    }
+
         //connection Select
-        private ArrayList<User> connectSelectData(String urlJsp) {
+        private ArrayList<User> connectSelectData(String urlAddr){
             ArrayList<User> result1 = null;
 
             try {
-                UserNetworkTask selectNetworkTask = new UserNetworkTask(JoinActivity.this, urlJsp, "select");
+                UserNetworkTask selectNetworkTask = new UserNetworkTask(JoinActivity.this, urlAddr, "select");
                 Object obj = selectNetworkTask.execute().get();
                 result1 = (ArrayList<User>) obj;
 
@@ -449,6 +497,7 @@ public class JoinActivity extends AppCompatActivity {
             }
             return result1;
         }
+
 
 
 } // End  -----------------------------------------------------------------------------

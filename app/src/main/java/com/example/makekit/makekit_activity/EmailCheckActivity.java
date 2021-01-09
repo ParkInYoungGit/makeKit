@@ -118,7 +118,7 @@ public class EmailCheckActivity extends AppCompatActivity {
                 new androidx.appcompat.app.AlertDialog.Builder(EmailCheckActivity.this)
                         .setTitle("MakeKit 서비스 안내")
                         .setMessage( "이메일 인증이 완료되었습니다!")
-                        .setIcon(R.mipmap.ic_launcher)
+                        .setIcon(R.drawable.alert)
                         .setCancelable(false) // 버튼으로만 대화상자 닫기가 된다. (미작성 시 다른부분 눌러도 대화상자 닫힌다)
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
