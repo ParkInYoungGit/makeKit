@@ -123,6 +123,7 @@ public class UserModifyActivity extends AppCompatActivity {
         user_tel = findViewById(R.id.user_tel);
         user_birth = findViewById(R.id.user_birth);
         tv_editPeopleImage = findViewById(R.id.tv_editPeopleImage);
+        fieldCheck = findViewById(R.id.tv_fieldCheck_findId);
 //
 
         user_pwcheck = findViewById(R.id.user_pwcheck);
@@ -276,7 +277,7 @@ public class UserModifyActivity extends AppCompatActivity {
                     }
                     updatePeople();
                     checkField();
-                    userInfoCheck();
+//                    userInfoCheck();
                     break;
 
                 case R.id.tv_editPeopleImage:
@@ -470,7 +471,7 @@ public class UserModifyActivity extends AppCompatActivity {
     }
 
     // name text
-    TextWatcher changeListener_tel = new TextWatcher() {
+    TextWatcher changeListener_name = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -489,7 +490,7 @@ public class UserModifyActivity extends AppCompatActivity {
 
 
     // phone text
-    TextWatcher changeListener_name = new TextWatcher() {
+    TextWatcher changeListener_tel = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             fieldCheck.setText("");
@@ -537,24 +538,24 @@ public class UserModifyActivity extends AppCompatActivity {
     };
 
     // user 정보 확인
-    private void userInfoCheck() {
-
-        String userName = user_name.getText().toString().trim();
-        String userPhone = user_tel.getText().toString().trim();
-
-        if (userName.length() == 0) {
-            fieldCheck.setText("이름을 입력해주세요");
-            user_name.setFocusableInTouchMode(true);
-            user_name.requestFocus();
-
-        } else if (userPhone.length() == 0) {
-            fieldCheck.setText("휴대폰 번호을 입력해주세요");
-            user_tel.setFocusableInTouchMode(true);
-            user_tel.requestFocus();
-
-        }
-
-    }
+//    private void userInfoCheck() {
+//
+//        String userName = user_name.getText().toString().trim();
+//        String userPhone = user_tel.getText().toString().trim();
+//
+//        if (userName.length() == 0) {
+//            fieldCheck.setText("이름을 입력해주세요");
+//            user_name.setFocusableInTouchMode(true);
+//            user_name.requestFocus();
+//
+//        } else if (userPhone.length() == 0) {
+//            fieldCheck.setText("휴대폰 번호을 입력해주세요");
+//            user_tel.setFocusableInTouchMode(true);
+//            user_tel.requestFocus();
+//
+//        }
+//
+//    }
 
 
     private void doMultiPartRequest() {

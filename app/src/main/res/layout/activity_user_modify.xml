@@ -247,7 +247,19 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/tv_fieldCheck_findId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
 
+                android:textColor="@color/red"
+                />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/InputLayoutUser_Birth"
