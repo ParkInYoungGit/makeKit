@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ViewPagerProductAdapter;
@@ -86,6 +87,9 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
         viewPager.setAdapter(viewPagerProductAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        findViewById(R.id.btnCart_productview).setOnClickListener(mClickListener);
+        findViewById(R.id.btnPurchase_productview).setOnClickListener(mClickListener);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
            @Override
@@ -158,4 +162,47 @@ public class ProdutctViewActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
+
+    View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.btnCart_productview:
+                    if(loginCheck() == true){
+                        Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
+                        startActivity(intent);
+                    }
+
+                    break;
+
+                /////////////////////////////////////////////
+                // 구매하기 페이지 다시 확인하기!
+                /////////////////////////////////////////////
+                case R.id.btnPurchase_productview:
+                    if(loginCheck() == true){
+                        Intent intent = new Intent(ProdutctViewActivity.this, OrderActivity.class);
+                        startActivity(intent);
+                    }
+
+                    break;
+            }
+        }
+    };
+
+    private boolean loginCheck(){
+        ///////////////////////////////
+        // email 받아오는 값 확인해서 수정하기
+
+        String userEmail = "qkr@naver.com";
+
+        if(userEmail == null){
+            Toast.makeText(this, "로그인이 필요합니다. \n로그인 후 이용해주세요.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(ProdutctViewActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return false;
+        }
+        return true;
+    }
+
 }

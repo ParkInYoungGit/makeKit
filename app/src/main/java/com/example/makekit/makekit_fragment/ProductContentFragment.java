@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +14,10 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ProductReviewAdapter;
@@ -20,6 +25,7 @@ import com.example.makekit.makekit_asynctask.ProductNetworkTask;
 import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
 import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_bean.Review;
+import com.sun.mail.imap.protocol.INTERNALDATE;
 
 import org.w3c.dom.Text;
 
@@ -34,16 +40,20 @@ import java.util.ArrayList;
 
 //////////////////////////////////////////
 // jsp makekit 부분 makeKit 으로 변경 필요!!!
+// 싱픔 찜 추가하기!
 //////////////////////////////////////////
 
 
 public class ProductContentFragment extends Fragment {
 
-    TextView productName, productPrice, productContent;
+    TextView productName, productPrice, productContent, productTotalPrice, purchaseNumInput;
     WebView productFilename, productDfilename, productAFilename;
+    Button btnPlus, btnMinus;
+    int purchaseNum;
+    int count = 1;
 
     View v;
-    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2;
+    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, price;
     ArrayList<Product> products;
     final static String TAG = "ProductContentFragment";
 
@@ -110,13 +120,20 @@ public class ProductContentFragment extends Fragment {
         productContent = v.findViewById(R.id.productContent_productviewcontent);
         productFilename  = v.findViewById(R.id.productImage_productviewcontent);
         productDfilename = v.findViewById(R.id.prdouctdetail_productviewcontent);
-        //productAFilename
+        btnMinus = v.findViewById(R.id.btnMinusProudct_productviewcontent);
+        btnPlus = v.findViewById(R.id.btnPlusProudct_productviewcontent);
+        productTotalPrice = v.findViewById(R.id.productTotalPrice_productviewcontent);
+        purchaseNumInput = v.findViewById(R.id.purchaseNum_productviewcontent);
+        purchaseNumInput.setText("1");
 
         connectSelectData();
 
         productName.setText(products.get(0).getProductName());
         productContent.setText(products.get(0).getProductContent());
         productPrice.setText(products.get(0).getProductPrice() + "원");
+        int total = Integer.parseInt(products.get(0).getProductPrice()) + 2500;
+        Log.v(TAG, String.valueOf(total));
+        productTotalPrice.setText(Integer.toString(total) + "원");
 
             urlImageReal1 = urlAddrBase+ "image/" + products.get(0).getProductFilename();
             urlImageReal2 = urlAddrBase+ "image/" + products.get(0).getProductDfilename();
@@ -166,9 +183,45 @@ public class ProductContentFragment extends Fragment {
 //            // url은 알아서 설정 예) http://m.naver.com/
             productDfilename.loadUrl(urlImageReal2); // 접속 URL
 
+            btnMinus.setOnClickListener(mClickListener);
+            btnPlus.setOnClickListener(mClickListener);
+
 
         return v;
     }
+
+    View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.btnMinusProudct_productviewcontent:
+                    if(purchaseNumInput.getText().toString().equals("1")){
+                        count = 1;
+                        Toast.makeText(getContext(), "최수 수량은 1개입니다.", Toast.LENGTH_SHORT).show();
+                        purchaseNumInput.setText("1");
+
+                    } else {
+                        count--;
+                        purchaseNumInput.setText(""+count);
+
+                        int total = (Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500;
+                        productTotalPrice.setText(Integer.toString(total) + " 원");
+
+                    }
+                    break;
+
+                case R.id.btnPlusProudct_productviewcontent:
+
+                    count++;
+                    purchaseNumInput.setText(""+count);
+
+                    int total = (Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500;
+                    productTotalPrice.setText(Integer.toString(total) + " 원");
+                    break;
+            }
+        }
+    };
+
 
     @Override
     public void onResume() {

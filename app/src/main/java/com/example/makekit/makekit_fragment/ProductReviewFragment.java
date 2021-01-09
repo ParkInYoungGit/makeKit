@@ -81,6 +81,8 @@ public class ProductReviewFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.v(TAG, "onCreate REVIEW" + getArguments());
         if (getArguments() != null) {
+
+        } else {
             mParam1 = getArguments().getString("macIP");
             mParam2 = getArguments().getString("productNo");
         }
@@ -100,8 +102,6 @@ public class ProductReviewFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString("macIP");
             mParam2 = getArguments().getString("productNo");
-            macIP = mParam1;
-            productNo = mParam2;
         }
 //        mParam1 = "192.168.219.164";
 //        mParam2 = "44";
