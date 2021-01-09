@@ -1,6 +1,5 @@
 package com.example.makekit.makekit_fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_adapter.ProductAdapter;
+import com.example.makekit.makekit_adapter.ProductReviewAdapter;
 import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
 import com.example.makekit.makekit_bean.Review;
 
@@ -33,7 +32,7 @@ public class ProductReviewFragment extends Fragment {
     String urlAddrBase = null;
 
     ArrayList<Review> reviews;
-    ProductAdapter productAdapter;
+    ProductReviewAdapter productReviewAdapter;
 
     private RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView;
@@ -99,6 +98,7 @@ public class ProductReviewFragment extends Fragment {
 
         urlAddrBase = "http://" + mParam1 + ":8080/makekit/";
         urlAddr = urlAddrBase + "jsp/review_productview_all.jsp?productno=" + mParam2;
+        connectSelectData();
         return v;
     }
 
@@ -116,13 +116,11 @@ public class ProductReviewFragment extends Fragment {
             Object object = reviewNetworkTask.execute().get();
             reviews = (ArrayList<Review>) object;
 
-            productAdapter = new ProductAdapter(getActivity(), R.layout.custom_productview_review, reviews, urlAddrBase);
-            recyclerView.setAdapter(productAdapter);
+            productReviewAdapter = new ProductReviewAdapter(getActivity(), R.layout.custom_productview_review, reviews, urlAddrBase);
+            recyclerView.setAdapter(productReviewAdapter);
             recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
             layoutManager = new LinearLayoutManager(getContext());
-            SnapHelper snapHelper = new PagerSnapHelper();
             recyclerView.setLayoutManager(layoutManager);
-            snapHelper.attachToRecyclerView(recyclerView);
 
         } catch (Exception e) {
             e.printStackTrace();
