@@ -402,7 +402,8 @@ public class JoinActivity extends AppCompatActivity {
         // user 입력 data 송부
         private void insertUser(String userEmail, String userName, String userPW, String userTel, String Address, String AddressDetail) {
             String urlAddr1 = "";
-            urlAddr1 = urlJsp + "userInfoInsert.jsp?email" + userEmail + "&name=" + userName + "&pw=" + userPW + "&phone=" + userTel + "&address=" + Address + "&addressDetail=" + AddressDetail;
+            urlAddr1 = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&phone=" + userTel + "&address=" + Address + "&addressDetail=" + AddressDetail;
+
 
             String result = connectInsertData(urlAddr1);
 
