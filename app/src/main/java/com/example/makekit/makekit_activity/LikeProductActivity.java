@@ -37,6 +37,8 @@ public class LikeProductActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        products = new ArrayList<Product>();
+
     }
 
     @Override

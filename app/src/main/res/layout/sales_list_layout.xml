@@ -29,6 +29,7 @@
         android:orientation="horizontal"
         >
         <WebView
+            android:id="@+id/salelist_WebView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
