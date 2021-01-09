@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -33,7 +34,7 @@ TextView product_price;
 WebView product_image;
 
 String title, subtitle, price;
-String macIP, urlAddrBase, urlAddr1;
+String macIP, urlAddrBase, urlAddr1, email;
 
     ArrayList<ProductData> product;   // 빈, 어댑터
     ArrayList<ProductData> searchArr;   // 빈, 어댑터
@@ -44,8 +45,11 @@ String macIP, urlAddrBase, urlAddr1;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
-
-        macIP = "192.168.2.14";
+        // 아이피와 이메일 받기
+        Intent intent = getIntent();
+        macIP = intent.getStringExtra("macIP");
+        email = intent.getStringExtra("useremail");
+//        macIP = "192.168.2.14";
 
 
         recyclerView = (RecyclerView)findViewById(R.id.rv_product);

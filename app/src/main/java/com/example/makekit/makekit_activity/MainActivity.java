@@ -141,10 +141,10 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.navigation_2) {
 
                 fragment = new CategoryFragment();
-//                Bundle bundle = new Bundle(2);
-//                bundle.putString("useremail", email);
-//                bundle.putString("macIP", macIP);
-//                fragment.setArguments(bundle);
+                Bundle bundle = new Bundle(2);
+                bundle.putString("useremail", email);
+                bundle.putString("macIP", macIP);
+                fragment.setArguments(bundle);
             } else if (id == R.id.navigation_4) {
 
 //                fragment = new ChatListFragment();
