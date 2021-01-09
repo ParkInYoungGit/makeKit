@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.scroll.pickertest.DatePickerFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,9 +32,18 @@ import com.example.makekit.makekit_asynctask.CUDNetworkTask;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class UserModifyActivity extends AppCompatActivity {
 
@@ -44,7 +55,18 @@ public class UserModifyActivity extends AppCompatActivity {
 
     private int _beforeLenght = 0;
     private int _afterLenght = 0;
+    int imageCheck = 0;
 
+    // 사진 올리고 내리기 위한 변수들
+    private final int REQ_CODE_SELECT_IMAGE = 100;
+    private String img_path = new String();
+    private Bitmap image_bitmap_copy = null;
+    private Bitmap image_bitmap = null;
+    String imageName = null;
+    private String f_ext = null;
+    File tempSelectFile;
+
+    String url;
 
     String urlAddrBase = null;
     String urlAddr1 = null;
@@ -62,11 +84,11 @@ public class UserModifyActivity extends AppCompatActivity {
 
     EditText user_pwcheck, user_tel, user_name;
     TextView user_email, user_pw, user_address, user_addressdetail, user_birth, tv_pwCheckMsg_user, currentPW;
-    String useremail, username, userpw, useraddress, useraddressdetail, usertel, userbirth;
+    String useremail, username, userpw, useraddress, useraddressdetail, usertel, userbirth, userimage;
     Button update_btn;
-    WebView user_image;
     TextView fieldCheck;
-
+    WebView user_image;
+    TextView tv_editPeopleImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,14 +122,15 @@ public class UserModifyActivity extends AppCompatActivity {
         user_addressdetail = findViewById(R.id.user_addressdetail);
         user_tel = findViewById(R.id.user_tel);
         user_birth = findViewById(R.id.user_birth);
-
+        tv_editPeopleImage = findViewById(R.id.tv_editPeopleImage);
+//
 
         user_pwcheck = findViewById(R.id.user_pwcheck);
         tv_pwCheckMsg_user = findViewById(R.id.tv_pwCheckMsg_user);
 
         //  --------------------------------------------- Select DB에서 받아오기
 
-        String userimage = members.get(0).getImage();
+//        String userimage = members.get(0).getImage();
         if (members.get(0).getImage().equals("null")) {
             urlImage = urlAddrBase + "image/ic_defaultpeople.jpg";
             user_image.loadUrl(urlImage);
@@ -175,6 +198,7 @@ public class UserModifyActivity extends AppCompatActivity {
 
         update_btn = findViewById(R.id.user_update_btn);
         update_btn.setOnClickListener(onClickListener);
+        tv_editPeopleImage.setOnClickListener(onClickListener);
 
         findViewById(R.id.user_birth_btn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,17 +252,42 @@ public class UserModifyActivity extends AppCompatActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            useremail = user_email.getText().toString();
-            userpw = user_pw.getText().toString();
-            username = user_name.getText().toString();
-            useraddress = user_address.getText().toString();
-            useraddressdetail = user_addressdetail.getText().toString();
-            usertel = user_tel.getText().toString();
-            userbirth = user_birth.getText().toString();
-            checkField();
-            updatePeople();
-//            userInfoCheck();
+            Intent intent;
+            switch (v.getId()) {
+                case R.id.user_update_btn:
+                    if (imageCheck == 1) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                doMultiPartRequest();
+                            }
+                        }).start();
+                    }
+                    Log.v(TAG, "image Name : " + imageName);
+                    useremail = user_email.getText().toString();
+                    userpw = user_pw.getText().toString();
+                    username = user_name.getText().toString();
+                    useraddress = user_address.getText().toString();
+                    useraddressdetail = user_addressdetail.getText().toString();
+                    usertel = user_tel.getText().toString();
+                    userbirth = user_birth.getText().toString();
+                    if (imageCheck == 1) {
+                        userimage = imageName;
+                    }
+                    updatePeople();
+                    checkField();
+                    userInfoCheck();
+                    break;
 
+                case R.id.tv_editPeopleImage:
+                    intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                    intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+                    break;
+
+
+            }
         }
     };
 
@@ -474,14 +523,13 @@ public class UserModifyActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            String phoneCheck =user_tel.getText().toString().trim();
+            String phoneCheck = user_tel.getText().toString().trim();
             boolean flag = Pattern.matches(pattern2, phoneCheck);
 
-            if(phoneCheck.length() == 0){
+            if (phoneCheck.length() == 0) {
                 user_tel.setError(null);
-            }
-            else {
-                if(flag == false) {
+            } else {
+                if (flag == false) {
                     user_tel.setError("휴대폰 번호를 다시 입력해주세요.");
                 }
             }
@@ -489,17 +537,17 @@ public class UserModifyActivity extends AppCompatActivity {
     };
 
     // user 정보 확인
-    private void userInfoCheck(){
+    private void userInfoCheck() {
 
         String userName = user_name.getText().toString().trim();
         String userPhone = user_tel.getText().toString().trim();
 
-        if(userName.length() == 0){
+        if (userName.length() == 0) {
             fieldCheck.setText("이름을 입력해주세요");
             user_name.setFocusableInTouchMode(true);
             user_name.requestFocus();
 
-        } else if(userPhone.length() < 13){
+        } else if (userPhone.length() == 0) {
             fieldCheck.setText("휴대폰 번호을 입력해주세요");
             user_tel.setFocusableInTouchMode(true);
             user_tel.requestFocus();
@@ -509,7 +557,32 @@ public class UserModifyActivity extends AppCompatActivity {
     }
 
 
+    private void doMultiPartRequest() {
 
+        File f = new File(img_path);
+
+        DoActualRequest(f);
+    }
+
+    //서버 보내기
+    private void DoActualRequest(File file) {
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody body = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", file.getName(),
+                        RequestBody.create(MediaType.parse("image/*"), file))
+                .build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 //    // user pw 수 data 송부
 //    private void updateUser(String userPW) {
 //        String urlAddr1 = "";
