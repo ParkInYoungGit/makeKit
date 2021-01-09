@@ -1,5 +1,6 @@
 package com.example.makekit.makekit_activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -40,9 +41,9 @@ public class SearchActivity extends AppCompatActivity {
         search_EdT = findViewById(R.id.search_ET);
         search_Iv = findViewById(R.id.search_Iv);
 
-        //        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
-//        email = sf.getString("useremail");
-//        macIP = sf.getString("macIP");
+        Intent intent = getIntent();
+        email = intent.getStringExtra("useremail");
+        macIP = intent.getStringExtra("macIP");
 
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 
