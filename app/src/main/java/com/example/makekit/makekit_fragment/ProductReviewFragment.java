@@ -25,6 +25,11 @@ import java.util.ArrayList;
  * Use the {@link ProductReviewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+//////////////////////////////////////////
+// jsp makekit 부분 makeKit 으로 변경 필요!!!
+//////////////////////////////////////////
+
 public class ProductReviewFragment extends Fragment {
 
     View v;

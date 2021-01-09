@@ -31,6 +31,12 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 
+
+//////////////////////////////////////////
+// jsp makekit 부분 makeKit 으로 변경 필요!!!
+//////////////////////////////////////////
+
+
 public class ProductContentFragment extends Fragment {
 
     TextView productName, productPrice, productContent;
