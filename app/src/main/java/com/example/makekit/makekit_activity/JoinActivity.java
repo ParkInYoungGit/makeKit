@@ -53,10 +53,11 @@ public class JoinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_join);
 
         // intent 및 받아오는 변수 정리
-        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+        // SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         //macIP = sf.getString("macIP","");
-        macIP = "192.168.2.17";
-        //macIP = "192.168.35.133";
+
+        Intent intent = getIntent(); /*데이터 수신*/
+        macIP = intent.getStringExtra("macIP");
 
         urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
         urlImage = "http://" + macIP + ":8080/makeKit/image/";
@@ -94,6 +95,7 @@ public class JoinActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {//클릭했을 경우 발생할 이벤트 작성
                     Intent i = new Intent(JoinActivity.this, WebViewActivity.class);
+                    i.putExtra("macIP", macIP);
                     startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
                 }
                 return false;
@@ -274,9 +276,6 @@ public class JoinActivity extends AppCompatActivity {
             }
         }
     };
-
-
-
 
 
 

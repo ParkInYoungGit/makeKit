@@ -42,7 +42,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
         <!-- 끝 -->
-        
+
         <activity android:name=".makekit_activity.MapChattingActivity"></activity>
         <activity android:name=".makekit_activity.WebViewActivity" />
         <activity android:name=".makekit_activity.IntroViewActivity" />
@@ -51,7 +51,12 @@
         <activity android:name=".makekit_activity.SplashActivity" />
         <activity android:name=".makekit_activity.OrderViewActivity" />
         <activity android:name=".makekit_activity.PaymentActivity" />
-        <activity android:name=".makekit_activity.ProdutctViewActivity" />
+        <activity android:name=".makekit_activity.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".makekit_activity.ReviewListActivity" />
         <activity android:name=".makekit_activity.LikeSellerActivity" />
         <activity android:name=".makekit_activity.SaleListActivity" />
@@ -59,34 +64,31 @@
         <activity android:name=".makekit_activity.ChatcontentActivity" />
         <activity android:name=".makekit_activity.MapActivity" />
         <activity
-            android:name=".makekit_activity.LoginActivity"
+            android:name=".makekit_activity.ProdutctViewActivity"
             android:icon="@drawable/img_logo"
             android:theme="@style/Theme.MakeKit.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
             <meta-data
                 android:name="com.kakao.sdk.AppKey"
                 android:value="@string/kakao_app_key" />
         </activity>
 
-            <!-- Ria _ KAKAO ReDirect URI -->
+        <!-- Ria _ KAKAO ReDirect URI -->
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-            <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
-            <data android:host="oauth"
-                android:scheme="kakaof2d8fb4aeb0237f82647add92f60e987" />
-        </intent-filter>
-    </activity>
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
+                <data android:host="oauth"
+                    android:scheme="kakaof2d8fb4aeb0237f82647add92f60e987" />
+            </intent-filter>
+        </activity>
         <activity android:name=".makekit_activity.UserModifyActivity">
         </activity>
         <activity android:name=".makekit_activity.JoinActivity" />
-        <activity android:name=".makekit_activity.MainActivity"/>
+        <activity android:name=".makekit_activity.LoginActivity"/>
         <activity android:name=".makekit_activity.OrderActivity" />
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />

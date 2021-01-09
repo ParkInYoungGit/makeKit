@@ -24,8 +24,8 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
         String mAddr = null;
         String where = null;
         ProgressDialog progressDialog = null;
-        ArrayList<ProductData> productData;
-        ArrayList<User> user = null;
+        ArrayList<ProductData> productData = null;
+
         int loginCheck = 0;
 
 
@@ -122,13 +122,13 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
             }
 
             if (where.equals("select")) {
-                return user;
+                return productData;
 
             } else if (where.equals("loginCount")) {
                 return loginCheck;
 
             } else if (where.equals("selectUser")) {
-                return user;
+                return productData;
 
             }else{
                 return result;
@@ -159,22 +159,19 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
             Log.v(TAG, "parser()");
             try {
                 JSONObject jsonObject = new JSONObject(s);
-                JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
+                JSONArray jsonArray = new JSONArray(jsonObject.getString("product_info"));
                 Log.v(TAG, "parser() in");
-                user.clear();
+                productData.clear();
                 for(int i = 0 ; i<jsonArray.length() ; i++){
                     JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
-                    String useremail = jsonObject1.getString("userEmail");
-                    String userpw = jsonObject1.getString("userPw");
-                    String username = jsonObject1.getString("userName");
-                    String useraddress = jsonObject1.getString("userAddress");
-                    String useraddressdetail = jsonObject1.getString("userAddressDetail");
-                    String usertel = jsonObject1.getString("userTel");
-                    String userbirth = jsonObject1.getString("userBirth");
+                    String productName = jsonObject1.getString("productName");
+                    String productPrice = jsonObject1.getString("productPrice");
+                    String productSubTitle = jsonObject1.getString("productSubTitle");
+                    String productFilename = jsonObject1.getString("productFilename");
 
-                    User user2 = new User(useremail, userpw, username, useraddress, useraddressdetail, usertel, userbirth);
-                    user.add(user2);
+                    ProductData productData2 = new ProductData(productName, productPrice, productSubTitle, productFilename);
+                    productData.add(productData2);
                 }
 
             } catch (Exception e){
@@ -188,21 +185,18 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
             try {
                 JSONObject jsonObject = new JSONObject(s);
-                JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
-                user.clear();
+                JSONArray jsonArray = new JSONArray(jsonObject.getString("product_info"));
+                productData.clear();
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                    String email = jsonObject1.getString("userName");
-                    String name = jsonObject1.getString("userEmail");
-                    String pw = jsonObject1.getString("userPw");
-                    String address = jsonObject1.getString("userAddress");
-                    String addressDetail = jsonObject1.getString("userAddressDetail");
-                    String tel = jsonObject1.getString("userTel");
-                    String birth = jsonObject1.getString("userBirth");
+                    String productName = jsonObject1.getString("productName");
+                    String productPrice = jsonObject1.getString("productPrice");
+                    String productSubTitle = jsonObject1.getString("productSubTitle");
+                    String productFilename = jsonObject1.getString("productFilename");
 
-                    User users = new User(email, name, pw, address, addressDetail, tel, birth);
-                    user.add(users);
+                    ProductData productData2 = new ProductData(productName, productPrice, productSubTitle, productFilename);
+                    productData.add(productData2);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -245,7 +239,5 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
 }

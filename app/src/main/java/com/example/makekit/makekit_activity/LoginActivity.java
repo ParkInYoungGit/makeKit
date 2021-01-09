@@ -1,5 +1,6 @@
 package com.example.makekit.makekit_activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -45,10 +46,16 @@ public class LoginActivity extends AppCompatActivity {
     final static String TAG = "LoginActivity";
     private View btnLogin, btnLogout, login_google;
     private TextView nickName;
-    private ImageView profileIMG;
+    private ImageView profileIMG, logoIMG;
     SignInButton google;
-    Button login_join_btn;
-    TextView non_members;
+    Button login_join_btn, GotoMain;
+    TextView non_members, login_members;
+    String macIP;
+    String username;
+    String userfamilyname;
+    String useremail;
+    String userid;
+    Uri userphoto;
 
     private FirebaseAuth mAuth = null;
     private GoogleSignInClient mGoogleSignInClient;
@@ -60,13 +67,25 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        macIP = "192.168.0.81";
+
         btnLogin = findViewById(R.id.login_kakao);
         btnLogout = findViewById(R.id.btn_logout);
         nickName = findViewById(R.id.nickname);
         profileIMG = findViewById(R.id.profile);
+        GotoMain = findViewById(R.id.GotoMain);
+        logoIMG = findViewById(R.id.makekitLogo);
+        login_join_btn = findViewById(R.id.login_join_btn);
+
+        GotoMain = findViewById(R.id.GotoMain);
+        non_members = findViewById(R.id.non_members);
+        login_members = findViewById(R.id.login_members);
 
 
-        // naver 로그인 세팅
+        login_join_btn.setOnClickListener(mOnclickListener);
+        GotoMain.setOnClickListener(mOnclickListener);
+        non_members.setOnClickListener(mOnclickListener);
+        login_members.setOnClickListener(mOnclickListener);
 
 
 
@@ -83,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
             Intent intent = new Intent(getApplication(), MainActivity.class);
+
             startActivity(intent);
             finish();
         }
@@ -95,8 +115,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (oAuthToken != null) {
                     // 로그인 성공시 처리해야하는 것들 요기에
-
-
                 }
                 if (throwable != null) {
                     // 오류값을 핸들링 해주는 곳
@@ -140,7 +158,6 @@ public class LoginActivity extends AppCompatActivity {
 
     } // onCreate End -------------------------------------------------------------------
 
-    // 구글
     View.OnClickListener mOnclickListener = new View.OnClickListener() {
         Intent intent;
         @Override
@@ -152,16 +169,32 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case R.id.login_join_btn: //다른 방법으로 회원가입
                     intent = new Intent(LoginActivity.this, JoinActivity.class);
+                    intent.putExtra("macIP", macIP);
                     startActivity(intent);
                     break;
                 case R.id.non_members: // 비회원 둘러보기
                     intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("macIP", macIP);
+                    startActivity(intent);
+                    break;
+                case R.id.login_members: // 기존 회원 로그인
+                    intent = new Intent(LoginActivity.this, TempLogin.class);
+                    intent.putExtra("macIP", macIP);
+                    startActivity(intent);
+
+                    break;
+                case R.id.GotoMain: // 메인으로 가기
+                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("useremail", useremail);
+                    intent.putExtra("macIP", macIP);
                     startActivity(intent);
                     break;
             }
         }
     };
 
+
+    // 구글 -----------------------------------------------------------------------------
     @Override
     public void onStart() {
         super.onStart();
@@ -191,28 +224,26 @@ public class LoginActivity extends AppCompatActivity {
             firebaseAuthWithGoogle(account);
             // Signed in successfully, show authenticated UI.
             if (account != null) {//google 인텐트 보내는 값 (유저 데이터)
-                String username = account.getGivenName();
-                String userfamilyname = account.getFamilyName();
-                String useremail = account.getEmail();
-                String userid = account.getId();
-                Uri userphoto = account.getPhotoUrl();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("useremail",useremail);//유저 이메일 주소 넘기기
-                intent.putExtra("userid",userid);//유저 이메일 주소 넘기기
-                startActivity(intent);
+               username = account.getGivenName();
+               userfamilyname = account.getFamilyName();
+               useremail = account.getEmail();
+               userid = account.getId();
+               userphoto = account.getPhotoUrl();
+//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                intent.putExtra("useremail",useremail);//유저 이메일 주소 넘기기
+//                intent.putExtra("userid",userid);//유저 이메일 주소 넘기기
+//                startActivity(intent);
 
-
-                btnLogin.setVisibility(View.GONE);
-                login_google.setVisibility(View.GONE);
-                btnLogout.setVisibility(View.VISIBLE);
+//                logoIMG.setVisibility(View.GONE);
+//                btnLogin.setVisibility(View.GONE);
+//                login_google.setVisibility(View.GONE);
+//                btnLogout.setVisibility(View.VISIBLE);
+//                GotoMain.setVisibility(View.VISIBLE);
             }
-
-
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-
         }
     }
     // [END handleSignInResult]
@@ -248,6 +279,8 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) { //update ui code here
         if (user != null) {
             Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("macIP", macIP);
+            intent.putExtra("useremail", useremail);
             startActivity(intent);
             finish();
         }
@@ -275,6 +308,7 @@ public class LoginActivity extends AppCompatActivity {
     // 카카오 로그인 여부 확인해 화면 갱신
     private void updateKakaoLoginUi(){
         UserApiClient.getInstance().me(new Function2<User, Throwable, Unit>() {
+            Intent intent;
             @Override  // 여부확인하여 invoke method로 callback
             public Unit invoke(User user, Throwable throwable) {
                 if(user != null){
@@ -287,13 +321,25 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i(TAG, "invoke: gender =" + user.getKakaoAccount().getGender());
                     Log.i(TAG, "invoke: age =" + user.getKakaoAccount().getAgeRange());
 
+//                    new AlertDialog.Builder(LoginActivity.this)
+//                            .setIcon(R.drawable.img_logo)
+//                            .setTitle("MakeKit 서비스 안내")
+//                            .setMessage("대화 상자를 열었습니다.")
+//                            // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
+//                            .setCancelable(false)
+//                            // 이제 닫기 눌러야만 꺼짐!
+//                            .setPositiveButton("닫기", null)
+//                            .show();
+
                     nickName.setText(user.getKakaoAccount().getProfile().getNickname());
                     Glide.with(profileIMG).load(user.getKakaoAccount().getProfile().getThumbnailImageUrl()).circleCrop().into(profileIMG);
 
                     // 버튼
+//                    logoIMG.setVisibility(View.GONE);
                     btnLogin.setVisibility(View.GONE);
                     login_google.setVisibility(View.GONE);
                     btnLogout.setVisibility(View.VISIBLE);
+                    GotoMain.setVisibility(View.VISIBLE);
                 } else {
                     nickName.setText(null);
                     profileIMG.setImageBitmap(null);
@@ -301,6 +347,7 @@ public class LoginActivity extends AppCompatActivity {
                     login_google.setVisibility(View.VISIBLE);
                     btnLogin.setVisibility(View.VISIBLE);
                     btnLogout.setVisibility(View.GONE);
+                    GotoMain.setVisibility(View.GONE);
                 }
                 return null;
             }

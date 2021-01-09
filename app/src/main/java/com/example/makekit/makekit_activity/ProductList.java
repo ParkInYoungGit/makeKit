@@ -62,7 +62,7 @@ String macIP, urlAddrBase, urlAddr1;
     @Override
     public void onResume() {
         super.onResume();
-        urlAddr1 = urlAddrBase + "people_query_all_no.jsp?";
+        urlAddr1 = urlAddrBase + "product_category.jsp?";
         connectGetData(urlAddr1);
 
         searchArr.addAll(product);
@@ -72,7 +72,8 @@ String macIP, urlAddrBase, urlAddr1;
     // NetworkTask에서 값을 가져오는 메소드
     private void connectGetData(String urlAddr) {
         try {
-            urlAddrBase = "http://" + macIP + ":8080/test/";
+            urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp/"+urlAddr1;
+
             NetworkTask NetworkTask = new NetworkTask(ProductList.this, urlAddr);
             Object obj = NetworkTask.execute().get();
             product = (ArrayList<ProductData>) obj;
