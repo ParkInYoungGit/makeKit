@@ -66,28 +66,28 @@ public class ChatcontentActivity extends AppCompatActivity {
             }
         };
 
-//        thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try{
-//                    while (isRun){
-//                        connectGetData();
-//                        Thread.sleep(500);
-//                        if(judgement()==chattingContents.size()){
-//                            Message msg = handler.obtainMessage();
-//                            msg.what = 1;
-//                            handler.sendMessage(msg);
-//                        }else {
-//                            Message msg = handler.obtainMessage();
-//                            msg.what = 0;
-//                            handler.sendMessage(msg);
-//                        }
-//                    }
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    while (isRun){
+                        connectGetData();
+                        Thread.sleep(500);
+                        if(judgement()==chattingContents.size()){
+                            Message msg = handler.obtainMessage();
+                            msg.what = 1;
+                            handler.sendMessage(msg);
+                        }else {
+                            Message msg = handler.obtainMessage();
+                            msg.what = 0;
+                            handler.sendMessage(msg);
+                        }
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
 
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,19 +151,19 @@ public class ChatcontentActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-//
-//    private int judgement(){
-//        int j = 0;
-//        for(int i =0 ; i<chattingContents.size(); i++){
-//            int contents = chattingContents.get(i).getChattingNumber();
-//            int judge = chattingJudge.get(i).getChattingNumber();
-//            if(contents == judge){
-//                j++;
-//            }else {
-//            }
-//        }
-//        return j;
-//    }
+
+    private int judgement(){
+        int j = 0;
+        for(int i =0 ; i<chattingContents.size(); i++){
+            int contents = Integer.parseInt(chattingContents.get(i).getChattingNumber());
+            int judge = Integer.parseInt(chattingJudge.get(i).getChattingNumber());
+            if(contents == judge){
+                j++;
+            }else {
+            }
+        }
+        return j;
+    }
 
 
 }
