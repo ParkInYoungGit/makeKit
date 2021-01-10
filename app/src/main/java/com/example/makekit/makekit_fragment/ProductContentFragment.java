@@ -22,9 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_activity.ProdutctViewActivity;
 import com.example.makekit.makekit_adapter.ProductReviewAdapter;
 import com.example.makekit.makekit_asynctask.ProductNetworkTask;
 import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
+import com.example.makekit.makekit_asynctask.WishlistNetworkTask;
 import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_bean.Review;
 import com.sun.mail.imap.protocol.INTERNALDATE;
@@ -56,8 +58,10 @@ public class ProductContentFragment extends Fragment {
     int count = 1;
 
     View v;
-    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, urlImageReal3, price, macIP, productNo;
+    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, urlImageReal3, price, macIP, productNo, urlAddr1, userEmail, result, urlAddr2, urlAddr3;
     ArrayList<Product> products;
+    String favoriteCheck;
+
     final static String TAG = "ProductContentFragment";
 
     // TODO: Rename parameter arguments, choose names that match
@@ -69,10 +73,11 @@ public class ProductContentFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ProductContentFragment(String macIP, String productNo) {
+    public ProductContentFragment(String macIP, String productNo, String userEmail) {
         // Required empty public constructor
         this.macIP = macIP;
         this.productNo = productNo;
+        this.userEmail = userEmail;
     }
 
     /**
@@ -85,7 +90,7 @@ public class ProductContentFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static ProductContentFragment newInstance(String param1, String param2) {
-        ProductContentFragment fragment = new ProductContentFragment("macIP", "productNo");
+        ProductContentFragment fragment = new ProductContentFragment("macIP", "productNo", "userEmail");
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -116,10 +121,11 @@ public class ProductContentFragment extends Fragment {
 //        mParam1 = "192.168.219.164";
 //        mParam2 = "44";
 
+
         urlAddrBase = "http://" + macIP + ":8080/makekit/";
         urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
         Log.v(TAG, "주소" + urlAddr);
-
+        urlAddr1 = urlAddrBase + "jsp/wishlist_productview_check.jsp?productno=" + productNo + "&useremail=" + userEmail;
 
         favoriteStatus = v.findViewById(R.id.favorite_productviewcontent);
         productName = v.findViewById(R.id.productNmae_prodcutviewcontent);
@@ -136,6 +142,13 @@ public class ProductContentFragment extends Fragment {
 //        purchaseNumInput.setText("1");
 
         connectSelectData();
+        connectSelectFavoriteData();
+
+        if(favoriteCheck != null){
+            favoriteStatus.setImageResource(R.drawable.ic_favorite);
+        } else {
+            favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
+        }
 
         // , 표시 하기
         DecimalFormat myFormatter = new DecimalFormat("###,###");
@@ -228,6 +241,8 @@ public class ProductContentFragment extends Fragment {
             // url은 알아서 설정 예) http://m.naver.com/
             productAFilename.loadUrl(urlImageReal3); // 접속 URL
 
+        favoriteStatus.setOnClickListener(mClickListener);
+
         return v;
     }
 //
@@ -282,6 +297,74 @@ public class ProductContentFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // select 상품 찜
+    private void connectSelectFavoriteData() {
+        try {
+            WishlistNetworkTask wishlistNetworkTask = new WishlistNetworkTask(getActivity(), urlAddr1, "selectdate");
+
+            Object object = wishlistNetworkTask.execute().get();
+            favoriteCheck = (String) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.favorite_productviewcontent:
+                    if(favoriteCheck == null){
+                        urlAddr2 = urlAddrBase + "jsp/insert_wishlistproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
+                        insertFavorite(urlAddr2);
+                        if(result.equals("1")){
+                            favoriteStatus.setImageResource(R.drawable.ic_favorite);
+                        } else{
+                            Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        urlAddr3 = urlAddrBase + "jsp/delete_wishlitproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
+                        deleteFavorite(urlAddr3);
+                        if(result.equals("1")){
+                            favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
+                        } else{
+                            Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    break;
+            }
+        }
+    };
+
+    private String insertFavorite(String urlAddr){
+        try {
+            WishlistNetworkTask wishlistNetworkTask = new WishlistNetworkTask(getActivity(), urlAddr2, "insert");
+
+            Object object = wishlistNetworkTask.execute().get();
+            result = (String) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private String deleteFavorite(String urlAddr){
+        try {
+            WishlistNetworkTask wishlistNetworkTask = new WishlistNetworkTask(getActivity(), urlAddr3, "delete");
+
+            Object object = wishlistNetworkTask.execute().get();
+            result = (String) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

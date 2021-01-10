@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ViewPagerProductAdapter;
 import com.example.makekit.makekit_asynctask.ProductNetworkTask;
+import com.example.makekit.makekit_asynctask.WishlistNetworkTask;
 import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_fragment.ProductContentFragment;
 import com.example.makekit.makekit_fragment.ProductDetailFragment;
@@ -49,7 +50,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
     Button btnPlus, btnMinus;
     int count = 1;
 
-    String sellerEmail ,productNo, macIP, urlAddr, urlAddrBase;
+    String sellerEmail ,productNo, macIP, urlAddr, urlAddrBase, userEmail;
     //FrameLayout framelayout;
     LinearLayout ll_close, ll_open, openContent, openTotalPrice, openDeliveryMethod;
     ArrayList<Product> products;
@@ -63,12 +64,18 @@ public class ProdutctViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_produtct_view);
         Log.v(TAG, "onCreate");
 
+        /////////////////////////////////////////////////
+        // 값 받아오는 걸로 넘기기
+        /////////////////////////////////////////////////
+
         Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
 //        productNo = intent.getStringExtra("productNo");
 
+
         macIP = "192.168.219.164";
         productNo = "44";
+        userEmail = "qkr@naver.com";
 
         urlAddrBase = "http://" + macIP + ":8080/makekit/";
         urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
@@ -79,7 +86,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
         viewPagerProductAdapter = new ViewPagerProductAdapter(getSupportFragmentManager());
 
         //     Add Fragment
-        viewPagerProductAdapter.AddFrmt(new ProductContentFragment(macIP, productNo), "상품설명");
+        viewPagerProductAdapter.AddFrmt(new ProductContentFragment(macIP, productNo, userEmail), "상품설명");
         viewPagerProductAdapter.AddFrmt(new ProductDetailFragment(macIP, productNo), "상세설명");
         viewPagerProductAdapter.AddFrmt(new ProductReviewFragment(macIP, productNo), "후기");
         viewPagerProductAdapter.AddFrmt(new ProductQuestionFragment(macIP, productNo), "문의");
@@ -114,6 +121,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
         connectSelectData();
 
+
         int total = Integer.parseInt(products.get(0).getProductPrice()) + 2500;
         Log.v(TAG, String.valueOf(total));
         myFormatter = new DecimalFormat("###,###");
@@ -123,6 +131,8 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
         findViewById(R.id.btnCart_productview).setOnClickListener(mClickListener);
         findViewById(R.id.btnPurchase_productview).setOnClickListener(mClickListener);
+        findViewById(R.id.btnCartOpen_productview).setOnClickListener(mClickListener);
+        findViewById(R.id.btnPurchaseOpen_productview).setOnClickListener(mClickListener);
         btnMinus.setOnClickListener(mClickListener);
         btnPlus.setOnClickListener(mClickListener);
 
@@ -167,6 +177,11 @@ public class ProdutctViewActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
+                case R.id.favorite_productviewcontent:
+
+
+                    break;
+
                 case R.id.btnMinusProudct_productview:
                     if(purchaseNumInput.getText().toString().equals("1")){
                         count = 1;
@@ -203,13 +218,12 @@ public class ProdutctViewActivity extends AppCompatActivity {
                            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
 
                        } else {
-                           Toast.makeText(ProdutctViewActivity.this, "장바구니", Toast.LENGTH_SHORT).show();
+                               Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
+                               intent.putExtra("productNo", productNo);
+                               intent.putExtra("productQuantity", count);
+                               intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
+                               startActivity(intent);
 
-                           Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
-                           intent.putExtra("productNo", productNo);
-                           intent.putExtra("productQuantity", count);
-                           intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
-                           startActivity(intent);
                        }
                     }
 
@@ -223,7 +237,6 @@ public class ProdutctViewActivity extends AppCompatActivity {
                             slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
 
                         } else {
-                            Toast.makeText(ProdutctViewActivity.this, "구매하기", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(ProdutctViewActivity.this, OrderActivity.class);
                             intent.putExtra("productNo", productNo);
                             intent.putExtra("productQuantity", count);
@@ -233,6 +246,27 @@ public class ProdutctViewActivity extends AppCompatActivity {
                     }
 
                     break;
+
+                case R.id.btnCartOpen_productview:
+                    if(loginCheck() == true) {
+
+                        Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
+                        intent.putExtra("productNo", productNo);
+                        intent.putExtra("productQuantity", count);
+                        intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
+                        startActivity(intent);
+                    }
+                    break;
+
+                case R.id.btnPurchaseOpen_productview:
+
+                    if(loginCheck() == true) {
+                        Intent intent = new Intent(ProdutctViewActivity.this, OrderActivity.class);
+                        intent.putExtra("productNo", productNo);
+                        intent.putExtra("productQuantity", count);
+                        intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
+                        startActivity(intent);
+                    }
             }
         }
     };
@@ -276,7 +310,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
         String userEmail = "qkr@naver.com";
 
-        if(userEmail == null){
+        if(userEmail == null || userEmail.equals("")){
             Toast.makeText(this, "로그인이 필요합니다. \n로그인 후 이용해주세요.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ProdutctViewActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -299,4 +333,6 @@ public class ProdutctViewActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
 }
