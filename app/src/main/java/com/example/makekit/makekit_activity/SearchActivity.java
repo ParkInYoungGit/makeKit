@@ -55,7 +55,7 @@ public class SearchActivity extends AppCompatActivity {
         Log.v(TAG, "urlAddrBase : "+urlAddrBase);
         products = new ArrayList<Product>();
         layoutManager = new GridLayoutManager(this,2);
-        searchAdapter = new SearchAdapter();
+        searchAdapter = new SearchAdapter(urlAddrBase);
 
         search_Iv.setOnClickListener(mClickListener);
 
