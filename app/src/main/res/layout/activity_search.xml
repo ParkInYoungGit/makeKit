@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="10dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:background="@drawable/layout_outline"
         >
 
@@ -40,13 +40,26 @@
             android:layout_gravity="center"
             />
     </LinearLayout>
-    <ListView
-        android:id="@+id/searchListView"
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="30"
+        android:orientation="horizontal"
+        >
+
+    <ListView
+        android:id="@+id/searchListViewLeft"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="9"
-        android:layout_margin="10dp"
+        android:layout_weight="1"
         />
+        <ListView
+            android:id="@+id/searchListViewRigt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
 
 
 </LinearLayout>
