@@ -1,5 +1,6 @@
 package com.example.makekit.makekit_activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +57,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         return holder;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(ProductListAdapter.CustomViewHolder holder, int position) {
 //실제 추가될때 생명주기
@@ -72,6 +75,26 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
             webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
             webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+            // Initial webview
+            holder.product_image.setWebViewClient(new WebViewClient());
+
+            // Enable JavaScript
+            holder.product_image.getSettings().setJavaScriptEnabled(true);
+            holder.product_image.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+            // WebView 세팅
+//            holder.product_image.setBackgroundColor(R.color.white); //배경
+            holder.product_image.setHorizontalScrollBarEnabled(false); //가로 스크롤
+            holder.product_image.setVerticalScrollBarEnabled(false);   //세로 스크롤
+            holder.product_image.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+            holder.product_image.setScrollbarFadingEnabled(false);
+            holder.product_image.setInitialScale(30);
+
+            // 웹뷰 멀티 터치 가능하게 (줌기능)
+            webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+            webSettings.setSupportZoom(false);
+
+//            holder.product_image.loadUrl(urlImageReal);
         }
 
 
@@ -84,16 +107,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
 
 
-//        holder.product_image.setImageResource(arrayList.get(position).getProduct_image());
         holder.product_title.setText(data.get(position).getProduct_title());
         holder.product_subtitle.setText(data.get(position).getSub_title());
         holder.product_price.setText(data.get(position).getProduct_price());
 
-
-
-        holder.product_title.setText(arrayList.get(position).getProduct_title());
-        holder.product_subtitle.setText(arrayList.get(position).getSub_title());
-        holder.product_price.setText(arrayList.get(position).getProduct_price());
 
 
         holder.itemView.setTag(position);//클릭했을때
