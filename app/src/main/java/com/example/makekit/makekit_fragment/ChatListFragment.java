@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import java.util.ArrayList;
 
 public class ChatListFragment extends Fragment {
 
+    String TAG = "ChatListFragment!";
+
     String urlAddrBase, urlGetData;
     String macIP, email;
     ArrayList<ChattingBean> chattingBeanArrayList;
@@ -42,8 +45,12 @@ public class ChatListFragment extends Fragment {
         sendID = v.findViewById(R.id.chattingListSendId_TV);
         sendContents= v.findViewById(R.id.chattingListSendContents_TV);
 
+        chattingBeanArrayList = new ArrayList<ChattingBean>();
+
         email = getArguments().getString("useremail");
         macIP = getArguments().getString("macIP");
+        Log.v(TAG, email);
+        Log.v(TAG, macIP);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,6 +64,7 @@ public class ChatListFragment extends Fragment {
                     intent.putExtra("receiver", chattingBeanArrayList.get(position).getUserinfo_userEmail_receiver());
                 }
                 intent.putExtra("chattingNumber", chattingBeanArrayList.get(position).getChattingNumber());
+                startActivity(intent);
             }
         });
 
@@ -72,10 +80,13 @@ public class ChatListFragment extends Fragment {
 
     private void connectGetData(){
         urlGetData = urlAddrBase+"/chattingList.jsp?userinfo_userEmail_sender="+email;
+        chattingBeanArrayList.clear();
         try{
             NetworkTask_DH networkTask_dh = new NetworkTask_DH(getContext(), urlGetData, "getChattingList");
             Object obj = networkTask_dh.execute().get();
             chattingBeanArrayList = (ArrayList<ChattingBean>) obj;
+            Log.v(TAG, chattingBeanArrayList.get(0).getChattingContents());
+            Log.v(TAG, chattingBeanArrayList.get(0).getUserinfo_userEmail_receiver());
             adapter = new ChattingListAdapter(getContext(), R.layout.chatting_list_layout, chattingBeanArrayList, email);
             listView.setAdapter(adapter);
         }catch (Exception e){

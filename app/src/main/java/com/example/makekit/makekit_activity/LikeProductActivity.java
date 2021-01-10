@@ -10,7 +10,6 @@ import android.os.Bundle;
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.LikeProductAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
-import com.example.makekit.makekit_bean.ChattingBean;
 import com.example.makekit.makekit_bean.Product;
 
 import java.util.ArrayList;

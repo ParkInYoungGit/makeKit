@@ -14,6 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 //        bottomNavigationView.setBackground(null);
 
 
-        macIP = "172.20.10.8";
+        macIP = "192.168.200.193";
 
         email = "son@naver.com";
 
@@ -108,15 +109,6 @@ public class MainActivity extends AppCompatActivity {
         });
         mBottomNV.setSelectedItemId(R.id.navigation_1);
 
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -150,12 +142,24 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("macIP", macIP);
                 fragment.setArguments(bundle);
             } else if (id == R.id.navigation_4) {
-
-//                fragment = new ChatListFragment();
-//                Bundle bundle = new Bundle(2);
-//                bundle.putString("useremail", email);
-//                bundle.putString("macIP", macIP);
-//                fragment.setArguments(bundle);
+                Log.v("email", "email:"+email);
+                if(email.equals(null)){
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setIcon(R.drawable.img_logo)
+                            .setTitle("MakeKit 서비스 안내")
+                            .setMessage("채팅 목록입니다.\n채팅 목록은 로그인을 하셔야만 들어가실 수 있습니다.")
+                            // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
+                            .setCancelable(false)
+                            // 이제 닫기 눌러야만 꺼짐!
+                            .setPositiveButton("닫기", null)
+                            .show();
+                }else {
+                    fragment = new ChatListFragment();
+                    Bundle bundle = new Bundle(2);
+                    bundle.putString("useremail", email);
+                    bundle.putString("macIP", macIP);
+                    fragment.setArguments(bundle);
+                }
             } else if (id == R.id.navigation_5) {
 
                 fragment = new MypageFragment();

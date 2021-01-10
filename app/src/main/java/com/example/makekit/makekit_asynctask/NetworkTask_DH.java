@@ -47,11 +47,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
 
     @Override
     protected void onPreExecute() {
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setTitle("Dialogue");
-        progressDialog.setMessage("Get ....");
-        progressDialog.show();
+
     }
 
     @Override
@@ -122,7 +118,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return productsName;
         }else if(where.equals("chattingContents")){
             return chattingContents;
-        }else if(where.equals("inputChatting")){
+        }else if(where.equals("getChattingList")){
             return chattingList;
         }else if (where.equals("getChattingNumber")){
             return chattingNumber;
@@ -140,7 +136,6 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-        progressDialog.dismiss();
     }
 
     @Override
