@@ -53,7 +53,7 @@ public class ProductContentFragment extends Fragment {
     int count = 1;
 
     View v;
-    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, price, macIP, productNo;
+    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, urlImageReal3, price, macIP, productNo;
     ArrayList<Product> products;
     final static String TAG = "ProductContentFragment";
 
@@ -122,6 +122,7 @@ public class ProductContentFragment extends Fragment {
         productContent = v.findViewById(R.id.productContent_productviewcontent);
         productFilename  = v.findViewById(R.id.productImage_productviewcontent);
         productDfilename = v.findViewById(R.id.prdouctdetail_productviewcontent);
+        productAFilename = v.findViewById(R.id.prdouctdetailSecond_productviewcontent);
         btnMinus = v.findViewById(R.id.btnMinusProudct_productviewcontent);
         btnPlus = v.findViewById(R.id.btnPlusProudct_productviewcontent);
         productTotalPrice = v.findViewById(R.id.productTotalPrice_productviewcontent);
@@ -139,11 +140,13 @@ public class ProductContentFragment extends Fragment {
 
             urlImageReal1 = urlAddrBase+ "image/" + products.get(0).getProductFilename();
             urlImageReal2 = urlAddrBase+ "image/" + products.get(0).getProductDfilename();
+            urlImageReal3 = urlAddrBase+ "image/" + products.get(0).getProductAFilename();
 
+            // 썸네일 이미지
             // Initial webview
             productFilename.setWebViewClient(new WebViewClient());
 
-        // Enable JavaScript
+            // Enable JavaScript
             productFilename.getSettings().setJavaScriptEnabled(true);
              productFilename.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
             // Enable Zoom
@@ -163,7 +166,7 @@ public class ProductContentFragment extends Fragment {
             // url은 알아서 설정 예) http://m.naver.com/
              productFilename.loadUrl(urlImageReal1); // 접속 URL
 
-
+            // 설명 이미지
             // Initial webview
             productDfilename.setWebViewClient(new WebViewClient());
             // Enable JavaScript
@@ -189,6 +192,29 @@ public class ProductContentFragment extends Fragment {
             btnMinus.setOnClickListener(mClickListener);
             btnPlus.setOnClickListener(mClickListener);
 
+            // 원산지 이미지
+            // Initial webview
+            productAFilename.setWebViewClient(new WebViewClient());
+
+            // Enable JavaScript
+            productAFilename.getSettings().setJavaScriptEnabled(true);
+            productAFilename.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+            // Enable Zoom
+            productAFilename.getSettings().setBuiltInZoomControls(true);
+            productAFilename.getSettings().setSupportZoom(true);
+            productAFilename.getSettings().setSupportZoom(true); //zoom mode 사용.
+            productAFilename.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
+
+
+            // Adjust web display
+            productAFilename.getSettings().setLoadWithOverviewMode(true);
+            productAFilename.getSettings().setUseWideViewPort(true);
+            productAFilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+            productAFilename.setBackgroundColor(0);
+            productAFilename.setInitialScale(30);
+
+            // url은 알아서 설정 예) http://m.naver.com/
+            productAFilename.loadUrl(urlImageReal3); // 접속 URL
 
         return v;
     }

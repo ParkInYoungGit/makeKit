@@ -26,7 +26,8 @@
                 <WebView
                     android:id="@+id/productImage_productviewcontent"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     />
 
 
@@ -223,13 +224,21 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="40dp"
+                android:gravity="center"
 
                 />
 
                 <WebView
                     android:id="@+id/prdouctdetail_productviewcontent"
                     android:layout_width="match_parent"
-                    android:layout_height="1000dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    />
+
+                <WebView
+                    android:id="@+id/prdouctdetailSecond_productviewcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     />
 
         </LinearLayout>
