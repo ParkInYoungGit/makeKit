@@ -122,7 +122,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return productsName;
         }else if(where.equals("chattingContents")){
             return chattingContents;
-        }else if(where.equals("inputChatting")){
+        }else if(where.equals("getChattingList")){
             return chattingList;
         }else if (where.equals("getChattingNumber")){
             return chattingNumber;
