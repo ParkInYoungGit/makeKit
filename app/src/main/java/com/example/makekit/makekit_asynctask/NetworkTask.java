@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class NetworkTask extends AsyncTask<Integer, String, Object> {
-        final static String TAG = "PeopleNetworkTask";
+        final static String TAG = "NetworkTask";
         Context context = null;
         String mAddr = null;
         String where = null;
@@ -36,6 +36,14 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
             Log.v(TAG, "Start : "+ mAddr);
         }
 
+
+    public NetworkTask(Context context, String mAddr, String where) {
+        this.context = context;
+        this.mAddr = mAddr;
+        this.where = where;
+        this.productData = new ArrayList<ProductData>();
+        Log.v(TAG, "Start : " + mAddr);
+    }
 //        public UserNetworkTask(Context context, String mAddr, String where) {
 //            this.context = context;
 //            this.mAddr = mAddr;
@@ -63,78 +71,7 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
 
 
-        @Override
-        protected Object doInBackground(Integer... integers) {
-            Log.v(TAG, "doInBackground()");
 
-            StringBuffer stringBuffer = new StringBuffer();
-
-            InputStream inputStream = null;
-            InputStreamReader inputStreamReader = null;
-
-            BufferedReader bufferedReader = null;
-            String result = null;
-            Log.v(TAG, "before try");
-
-
-            try{
-                Log.v(TAG, "after try");
-                URL url = new URL(mAddr);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setConnectTimeout(10000);
-                Log.v(TAG, "Accept : "+httpURLConnection.getResponseCode());
-                if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
-                    inputStream = httpURLConnection.getInputStream();
-                    inputStreamReader = new InputStreamReader(inputStream);
-                    bufferedReader = new BufferedReader(inputStreamReader);
-
-                    while (true){
-                        String strline = bufferedReader.readLine();
-                        if(strline == null) break;
-                        stringBuffer.append(strline + "\n");
-                    }
-                    Log.v(TAG, "StringBuffer : "+stringBuffer.toString());
-
-                    if (where.equals("select")) {
-                        parserSelect(stringBuffer.toString());
-                    } else if (where.equals("selectUser")) {
-                        peopleParser(stringBuffer.toString());
-                    } else if (where.equals("loginCount")) {
-                        parserLoginCheck(stringBuffer.toString());
-                    } else {
-                        result = parserAction(stringBuffer.toString());
-                    }
-
-
-
-                }
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }finally {
-                try{
-                    if(bufferedReader != null) bufferedReader.close();
-                    if(inputStreamReader != null) inputStreamReader.close();
-                    if(inputStream != null) inputStream.close();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-
-            if (where.equals("select")) {
-                return productData;
-
-            } else if (where.equals("loginCount")) {
-                return loginCheck;
-
-            } else if (where.equals("selectUser")) {
-                return productData;
-
-            }else{
-                return result;
-            }
-
-        }
 
         @Override
         protected void onProgressUpdate(String... values) {
@@ -154,7 +91,67 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
             Log.v(TAG, "onCancelled()");
             super.onCancelled();
         }
+    @Override
+    protected Object doInBackground(Integer... integers) {
+        Log.v(TAG, "doInBackground()");
 
+        StringBuffer stringBuffer = new StringBuffer();
+
+        InputStream inputStream = null;
+        InputStreamReader inputStreamReader = null;
+
+        BufferedReader bufferedReader = null;
+        String result = null;
+        Log.v(TAG, "before try");
+
+
+        try{
+            Log.v(TAG, "after try");
+            URL url = new URL(mAddr);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setConnectTimeout(10000);
+            Log.v(TAG, "Accept : "+httpURLConnection.getResponseCode());
+            if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+                inputStream = httpURLConnection.getInputStream();
+                inputStreamReader = new InputStreamReader(inputStream);
+                bufferedReader = new BufferedReader(inputStreamReader);
+
+                while (true){
+                    String strline = bufferedReader.readLine();
+                    if(strline == null) break;
+                    stringBuffer.append(strline + "\n");
+                }
+                Log.v(TAG, "StringBuffer : "+stringBuffer.toString());
+
+                if (where.equals("productSelect")) {
+                    parserSelect(stringBuffer.toString());
+
+                }
+
+
+
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try{
+                if(bufferedReader != null) bufferedReader.close();
+                if(inputStreamReader != null) inputStreamReader.close();
+                if(inputStream != null) inputStream.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        if (where.equals("productSelect")) {
+            return productData;
+
+        }
+        return result;
+
+
+    }
         private void peopleParser(String s){
             Log.v(TAG, "parser()");
             try {
@@ -186,7 +183,9 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
             try {
                 JSONObject jsonObject = new JSONObject(s);
                 JSONArray jsonArray = new JSONArray(jsonObject.getString("product_info"));
+                Log.v(TAG, "parser() in");
                 productData.clear();
+
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
@@ -197,6 +196,10 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
                     ProductData productData2 = new ProductData(productName, productPrice, productSubTitle, productFilename);
                     productData.add(productData2);
+                    Log.v(TAG, productName);
+                    Log.v(TAG, productPrice);
+                    Log.v(TAG, productSubTitle);
+                    Log.v(TAG, productFilename);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -221,23 +224,23 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
             return returnResult;
         }
 
-        private void parserLoginCheck(String s) {
-            try {
-                JSONObject jsonObject = new JSONObject(s);
-                JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
-
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-
-                    int count = jsonObject1.getInt("count");
-
-                    loginCheck = count;
-                    Log.v("여기", "parserLoginCheck : " + count);
-
-                    Log.v(TAG, "----------------------------------");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+//        private void parserLoginCheck(String s) {
+//            try {
+//                JSONObject jsonObject = new JSONObject(s);
+//                JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
+//
+//                for (int i = 0; i < jsonArray.length(); i++) {
+//                    JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+//
+//                    int count = jsonObject1.getInt("count");
+//
+//                    loginCheck = count;
+//                    Log.v("여기", "parserLoginCheck : " + count);
+//
+//                    Log.v(TAG, "----------------------------------");
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
 }
