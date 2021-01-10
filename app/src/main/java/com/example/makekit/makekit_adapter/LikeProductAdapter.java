@@ -37,11 +37,8 @@ public class LikeProductAdapter extends RecyclerView.Adapter<LikeProductAdapter.
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             webViewLeft = itemView.findViewById(R.id.searchImageViewLeft);
-            webViewRight = itemView.findViewById(R.id.searchImageViewRight);
             productNameLeft = itemView.findViewById(R.id.searchTextViewNameLeft);
-            productNameRight = itemView.findViewById(R.id.searchTextViewNameRight);
             productPriceLeft = itemView.findViewById(R.id.searchTextViewPriceLeft);
-            productPriceRight = itemView.findViewById(R.id.searchTextViewPriceRight);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
