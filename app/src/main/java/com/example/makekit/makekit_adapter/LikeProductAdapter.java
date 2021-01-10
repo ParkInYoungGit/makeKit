@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.LikeProductActivity;
 import com.example.makekit.makekit_bean.Product;
-import com.example.makekit.makekit_fragment.ProductAdapter;
 
 import java.util.ArrayList;
 
@@ -36,9 +35,9 @@ public class LikeProductAdapter extends RecyclerView.Adapter<LikeProductAdapter.
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            webViewLeft = itemView.findViewById(R.id.searchImageViewLeft);
-            productNameLeft = itemView.findViewById(R.id.searchTextViewNameLeft);
-            productPriceLeft = itemView.findViewById(R.id.searchTextViewPriceLeft);
+            webViewLeft = itemView.findViewById(R.id.searchImageView);
+            productNameLeft = itemView.findViewById(R.id.searchTextViewName);
+            productPriceLeft = itemView.findViewById(R.id.searchTextViewPrice);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -11,17 +11,17 @@
         android:layout_margin="5dp"
         >
         <WebView
-            android:id="@+id/searchImageViewLeft"
+            android:id="@+id/searchImageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             ></WebView>
         <TextView
-            android:id="@+id/searchTextViewNameLeft"
+            android:id="@+id/searchTextViewName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
         <TextView
-            android:id="@+id/searchTextViewPriceLeft"
+            android:id="@+id/searchTextViewPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

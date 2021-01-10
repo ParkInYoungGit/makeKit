@@ -40,26 +40,13 @@
             android:layout_gravity="center"
             />
     </LinearLayout>
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="30"
-        android:orientation="horizontal"
-        >
-
-    <ListView
-        android:id="@+id/searchListViewLeft"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_margin="10dp"
         />
-        <ListView
-            android:id="@+id/searchListViewRigt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-    </LinearLayout>
 
 
 </LinearLayout>
