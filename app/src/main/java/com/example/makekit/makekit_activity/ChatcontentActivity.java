@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class ChatcontentActivity extends AppCompatActivity {
 
+    String TAG = "ChatContents";
     String macIP, email, chattingNumber, receiver, urlAddrBase;
     int intChattingNumber = 0;
     ArrayList<ChattingBean> chattingContents;
@@ -92,7 +93,7 @@ public class ChatcontentActivity extends AppCompatActivity {
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"/jsp/insertChatting.jsp?chattingNumber="+chattingNumber+"&userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver+"&chattingContents="+editText.getText().toString(), "inputChatting");
+                NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/insertChatting.jsp?chattingNumber="+chattingNumber+"&userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver+"&chattingContents="+editText.getText().toString(), "inputChatting");
                 networkTask.execute();
                 connectGetData();
                 editText.setText("");
@@ -131,7 +132,7 @@ public class ChatcontentActivity extends AppCompatActivity {
 
     private void connectGetData(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"/jsp/chatting.jsp?userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver, "chattingContents");
+            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/chatting.jsp?userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver, "chattingContents");
             Object obj = networkTask.execute().get();
             chattingContents = (ArrayList<ChattingBean>) obj;
             chattingJudge.addAll(chattingContents);
@@ -142,7 +143,7 @@ public class ChatcontentActivity extends AppCompatActivity {
 
     private void connectGetChattingNumber(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"/jsp/getChattingNumber.jsp?userinfo_userEmail_sender="+email, "getChattingNumber");
+            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/getChattingNumber.jsp?userinfo_userEmail_sender="+email, "getChattingNumber");
             Object obj = networkTask.execute().get();
             chattingNumber = (String) obj;
             intChattingNumber = Integer.parseInt(chattingNumber)+1;
