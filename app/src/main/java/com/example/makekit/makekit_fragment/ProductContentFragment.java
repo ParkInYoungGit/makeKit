@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_activity.LoginActivity;
 import com.example.makekit.makekit_activity.ProdutctViewActivity;
 import com.example.makekit.makekit_adapter.ProductReviewAdapter;
 import com.example.makekit.makekit_asynctask.ProductNetworkTask;
@@ -317,22 +318,24 @@ public class ProductContentFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.favorite_productviewcontent:
-                    if(favoriteCheck == null){
-                        urlAddr2 = urlAddrBase + "jsp/insert_wishlistproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
-                        insertFavorite(urlAddr2);
-                        if(result.equals("1")){
-                            favoriteStatus.setImageResource(R.drawable.ic_favorite);
-                        } else{
-                            Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-                        }
+                    if(loginCheck() == true) {
+                        if (favoriteCheck == null) {
+                            urlAddr2 = urlAddrBase + "jsp/insert_wishlistproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
+                            insertFavorite(urlAddr2);
+                            if (result.equals("1")) {
+                                favoriteStatus.setImageResource(R.drawable.ic_favorite);
+                            } else {
+                                Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
 
-                    } else {
-                        urlAddr3 = urlAddrBase + "jsp/delete_wishlitproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
-                        deleteFavorite(urlAddr3);
-                        if(result.equals("1")){
-                            favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
-                        } else{
-                            Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            urlAddr3 = urlAddrBase + "jsp/delete_wishlitproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
+                            deleteFavorite(urlAddr3);
+                            if (result.equals("1")) {
+                                favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
+                            } else {
+                                Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
 
@@ -343,7 +346,7 @@ public class ProductContentFragment extends Fragment {
 
     private String insertFavorite(String urlAddr){
         try {
-            WishlistNetworkTask wishlistNetworkTask = new WishlistNetworkTask(getActivity(), urlAddr2, "insert");
+            WishlistNetworkTask wishlistNetworkTask = new WishlistNetworkTask(getActivity(), urlAddr, "insert");
 
             Object object = wishlistNetworkTask.execute().get();
             result = (String) object;
@@ -356,7 +359,7 @@ public class ProductContentFragment extends Fragment {
 
     private String deleteFavorite(String urlAddr){
         try {
-            WishlistNetworkTask wishlistNetworkTask = new WishlistNetworkTask(getActivity(), urlAddr3, "delete");
+            WishlistNetworkTask wishlistNetworkTask = new WishlistNetworkTask(getActivity(), urlAddr, "delete");
 
             Object object = wishlistNetworkTask.execute().get();
             result = (String) object;
@@ -365,6 +368,20 @@ public class ProductContentFragment extends Fragment {
             e.printStackTrace();
         }
         return result;
+    }
+
+    private boolean loginCheck(){
+        ///////////////////////////////
+        // email 받아오는 값 확인해서 수정하기
+
+
+        if(userEmail == null || userEmail.equals("")){
+            Toast.makeText(getContext(), "로그인이 필요합니다. \n로그인 후 이용해주세요.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            return false;
+        }
+        return true;
     }
 
 }

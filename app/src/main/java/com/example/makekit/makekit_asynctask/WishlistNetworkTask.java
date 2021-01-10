@@ -23,6 +23,7 @@ public class WishlistNetworkTask extends AsyncTask<Integer, String, Object> {
             String mAddr = null;
             String insertDate;
             String where = null;
+            int count = 0;
 
     public WishlistNetworkTask(Context context, String mAddr, String where) {
         this.context = context;
@@ -89,7 +90,9 @@ public class WishlistNetworkTask extends AsyncTask<Integer, String, Object> {
                    // productParser(stringBuffer.toString());
                 } else if (where.equals("selectdate")){
                     result = wishCheckParser(stringBuffer.toString());
-                } else {
+                } else if (where.equals("selectseller")){
+                    result = sellerFavoriteCheckParser(stringBuffer.toString());
+                } else{
                     result = parserAction(stringBuffer.toString());
                 }
 
@@ -153,5 +156,31 @@ public class WishlistNetworkTask extends AsyncTask<Integer, String, Object> {
 
         return returnResult;
     }
+
+    // seller 찜 검색
+    private String sellerFavoriteCheckParser(String s){
+        String sellerEmail = null;
+        Log.v(TAG, "parser()");
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("selleFavorite_info"));
+            Log.v(TAG, "parser() in");
+            //insertDate.clear();
+            for(int i = 0 ; i<jsonArray.length() ; i++){
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                String userEamil = jsonObject1.getString("userEamil");
+                sellerEmail = jsonObject1.getString("sellerEmail");
+                String productNo = jsonObject1.getString("productNo");
+
+                //insertDate.add(wishlistInsertDate);
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return sellerEmail;
+    }
+
 
 }

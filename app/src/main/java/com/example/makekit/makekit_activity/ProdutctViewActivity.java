@@ -87,9 +87,9 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
         //     Add Fragment
         viewPagerProductAdapter.AddFrmt(new ProductContentFragment(macIP, productNo, userEmail), "상품설명");
-        viewPagerProductAdapter.AddFrmt(new ProductDetailFragment(macIP, productNo), "상세설명");
         viewPagerProductAdapter.AddFrmt(new ProductReviewFragment(macIP, productNo), "후기");
         viewPagerProductAdapter.AddFrmt(new ProductQuestionFragment(macIP, productNo), "문의");
+        viewPagerProductAdapter.AddFrmt(new ProductDetailFragment(macIP, productNo, userEmail), "팜매자정보");
 
         viewPager.setAdapter(viewPagerProductAdapter);
         tabLayout.setupWithViewPager(viewPager);
