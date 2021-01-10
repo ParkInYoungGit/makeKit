@@ -51,7 +51,9 @@
         <activity android:name=".makekit_activity.SplashActivity" />
         <activity android:name=".makekit_activity.OrderViewActivity" />
         <activity android:name=".makekit_activity.PaymentActivity" />
-        <activity android:name=".makekit_activity.ProdutctViewActivity" >
+        <activity android:name=".makekit_activity.ProdutctViewActivity" />
+        <activity android:name=".makekit_activity.PhoneFindPwActivity" />
+        <activity android:name=".makekit_activity.EmailFindPwActivity" >
 
         </activity>
         <activity android:name=".makekit_activity.ReviewListActivity" />
