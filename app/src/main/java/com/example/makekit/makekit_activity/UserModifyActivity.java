@@ -1,12 +1,15 @@
 package com.example.makekit.makekit_activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.scroll.pickertest.DatePickerFragment;
 import android.text.Editable;
@@ -33,8 +36,12 @@ import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -95,6 +102,12 @@ public class UserModifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_modify);
 
+        // Thread 사용
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .permitDiskReads()
+                .permitDiskWrites()
+                .permitNetwork().build());
+
         // 아이피와 이메일 받기
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
@@ -112,6 +125,7 @@ public class UserModifyActivity extends AppCompatActivity {
         // ========================================== 이메일 + 아이디값 셀렉트에 보내주기
         connectSelectGetData(urlAddr1);   // urlAddr1을  connectSelectGetData의 urlAddr2로 보내준다
         urlImage = urlAddrBase + "image/" + members.get(0).getImage();
+
 
         // ========================================== 텍스트뷰 가져오기
         user_image = findViewById(R.id.user_image);
@@ -151,6 +165,7 @@ public class UserModifyActivity extends AppCompatActivity {
             //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
             user_image.setBackgroundColor(0); //배경색
+            user_image.setBackgroundResource(R.drawable.layout_outline);
             user_image.setHorizontalScrollBarEnabled(false); //가로 스크롤
             user_image.setVerticalScrollBarEnabled(false);   //세로 스크롤
             user_image.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
@@ -285,6 +300,7 @@ public class UserModifyActivity extends AppCompatActivity {
                     intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                     intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+
                     break;
 
 
@@ -332,18 +348,75 @@ public class UserModifyActivity extends AppCompatActivity {
 
 
     // 이메일 주소 찾기
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        switch (requestCode) {
-            case SEARCH_ADDRESS_ACTIVITY:
-                if (resultCode == RESULT_OK) {
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 10000:
+
                     String data = intent.getExtras().getString("data");
                     if (data != null) {
                         user_address.setText(data);
                     }
-                }
-                break;
+                    break;
+
+                case 100:
+
+                    try {
+
+                        // Initial webview
+                        user_image.setWebViewClient(new WebViewClient());
+
+                        // Enable JavaScript
+                        user_image.getSettings().setJavaScriptEnabled(true);
+                        user_image.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+                        // WebView 세팅
+                        WebSettings webSettings = user_image.getSettings();
+                        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+                        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+                        //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+                        user_image.setBackgroundColor(0); //배경색
+                        user_image.setHorizontalScrollBarEnabled(false); //가로 스크롤
+                        user_image.setVerticalScrollBarEnabled(false);   //세로 스크롤
+                        user_image.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+                        user_image.setScrollbarFadingEnabled(false);
+                        user_image.setInitialScale(25);
+
+                        // 웹뷰 멀티 터치 가능하게 (줌기능)
+                        webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+                        webSettings.setSupportZoom(false);
+
+                        user_image.loadUrl(urlImage);
+                        Log.v("here", "urlImage : " + urlImage);// 접속 URL
+//                    imageCheck=1;
+//                    img_path = getImagePathToUri(intent.getData()); //이미지의 URI를 얻어 경로값으로 반환.
+//                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();
+//                    Log.v("test", String.valueOf(intent.getData()));
+//                    //이미지를 비트맵형식으로 반환
+//                    image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), intent.getData());
+//
+//                    //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
+//                    image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
+                        //editImage.setImageBitmap(image_bitmap_copy);
+
+                        // 파일 이름 및 경로 바꾸기(임시 저장)
+                        String date = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
+                        imageName = date + "." + f_ext;
+                        tempSelectFile = new File("/data/data/com.example.makekit/", imageName);
+                        OutputStream out = new FileOutputStream(tempSelectFile);
+                        image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+
+                        // 임시 파일 경로로 위의 img_path 재정의
+                        img_path = "/data/data/com.example.makekit/" + imageName;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+            }
         }
+        super.onActivityResult(requestCode, resultCode, intent);
     }
 
     // 화면 touch 시 키보드 숨기기

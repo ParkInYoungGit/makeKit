@@ -96,11 +96,14 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
 
                 if (where.equals("select")) {
                     parserSelect(stringBuffer.toString());
-                } else if (where.equals("selectUser")) {
+                }
+                if (where.equals("selectUser")) {
                     peopleParser(stringBuffer.toString());
-                } else if (where.equals("loginCount")) {
+                }
+                if (where.equals("loginCount")) {
                     parserLoginCheck(stringBuffer.toString());
-                } else {
+                }
+                if (where.equals("insert")) {
                     result = parserAction(stringBuffer.toString());
                 }
 
@@ -123,17 +126,23 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
         if (where.equals("select")) {
             return user;
 
-        } else if (where.equals("loginCount")) {
+        }
+        if (where.equals("loginCount")) {
             return loginCheck;
 
-        } else if (where.equals("selectUser")) {
+        }
+        if (where.equals("selectUser")) {
             return user;
 
-        }else{
+        }
+        if (where.equals("insert")) {
             return result;
         }
+        return result;
+        }
 
-    }
+
+
 
     @Override
     protected void onProgressUpdate(String... values) {

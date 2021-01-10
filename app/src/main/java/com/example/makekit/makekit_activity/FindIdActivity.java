@@ -45,7 +45,7 @@ public class FindIdActivity extends AppCompatActivity {
     EditText phone, name, codeNum;
     TextView fieldCheck;
     String macIP, urlJsp, useremail;
-    ArrayList<User> user;
+    ArrayList<User> users;
     //String SMSContents = "1234";
     String smsCode = createSMSCode();
 
@@ -245,11 +245,11 @@ public class FindIdActivity extends AppCompatActivity {
             } else {
                 String urlAddr1 = "";
                 urlAddr1 = urlJsp + "userFind.jsp";
-                user = connectSelectData(urlAddr1);
+                users = connectSelectData(urlAddr1);
 
-                for (int i = 0; i < user.size(); i++) {
-                    if (userName.equals(user.get(i).getName()) && userTel.equals(user.get(i).getTel())) {
-                        useremail = user.get(i).getEmail();
+                for (int i = 0; i < users.size(); i++) {
+                    if (userName.equals(users.get(i).getName()) && userTel.equals(users.get(i).getTel())) {
+                        useremail = users.get(i).getEmail();
                         count++;
                     }
                 }
