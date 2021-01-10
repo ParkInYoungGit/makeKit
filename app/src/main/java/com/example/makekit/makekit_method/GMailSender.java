@@ -119,6 +119,7 @@ public class GMailSender extends javax.mail.Authenticator {
         try {
 
             Transport.send(message); //메시지 전달
+
         }catch (Exception e){
             Log.v("여기","try : " +e);
 

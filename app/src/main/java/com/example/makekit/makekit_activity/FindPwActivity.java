@@ -38,7 +38,7 @@ public class FindPwActivity extends AppCompatActivity {
 
     EditText name, email;
     TextView check;
-    String macIP, urlJsp, useremail, pw, usertel;
+    String macIP, urlJsp, useremail, pw, usertel, urlAddr;
     ArrayList<User> users;
 
 
@@ -203,8 +203,8 @@ public class FindPwActivity extends AppCompatActivity {
                 email.requestFocus();
 
             } else {
-                urlJsp = urlJsp + "user_query_all.jsp?name=" + userName + "&email=" + userEmail;
-                users = connectSelectData(urlJsp);
+                urlAddr = urlJsp + "user_query_all.jsp?name=" + userName + "&email=" + userEmail;
+                users = connectSelectData(urlAddr);
 
                 for (int i = 0; i < users.size(); i++) {
                     if (userName.equals(users.get(i).getName()) && userEmail.equals(users.get(i).getEmail())) {
@@ -230,7 +230,7 @@ public class FindPwActivity extends AppCompatActivity {
                     intent.putExtra("name", userName);
                     intent.putExtra("pw", pw);
                     intent.putExtra("usertel", usertel);
-                    finish();
+//                    finish();
                     startActivity(intent);
                 }
             }

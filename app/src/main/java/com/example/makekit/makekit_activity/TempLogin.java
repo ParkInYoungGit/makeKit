@@ -1,5 +1,6 @@
 package com.example.makekit.makekit_activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.makekit.R;
@@ -36,7 +38,7 @@ public class TempLogin extends AppCompatActivity {
     String urlJsp;
     EditText loginId;
     EditText loginPw;
-    String useremail, userpw, macIP;
+    String useremail, userpw, macIP, urlAddr;
     String urlJspLoginCheck = null;
     CheckBox savechb;
     int count = 0;
@@ -54,6 +56,18 @@ public class TempLogin extends AppCompatActivity {
 
         Intent intent = getIntent(); /*데이터 수신*/
         macIP = intent.getStringExtra("macIP");
+
+        appData = getSharedPreferences("appData", MODE_PRIVATE);
+        load();
+        ActivityCompat.requestPermissions(TempLogin.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
+
+
+        if (saveLoginData) {
+            loginId.setText(useremail);
+            loginPw.setText(userpw);
+            savechb.setChecked(saveLoginData);
+        }
+
 
         login = findViewById(R.id.templogin_btn);
         join = findViewById(R.id.tempjoin_btn);
@@ -119,7 +133,7 @@ public class TempLogin extends AppCompatActivity {
         useremail = loginId.getText().toString();
         userpw = loginPw.getText().toString();
 
-        urlJsp = urlJsp + "useremail=" + useremail + "&userpw=" + userpw;
+        urlAddr = urlJsp + "useremail=" + useremail + "&userpw=" + userpw;
 
         count = loginCount();
 
@@ -142,7 +156,7 @@ public class TempLogin extends AppCompatActivity {
 
     private int loginCount() {
         try {
-            UserNetworkTask networkTask = new UserNetworkTask(TempLogin.this, urlJsp, "loginCount");
+            UserNetworkTask networkTask = new UserNetworkTask(TempLogin.this, urlAddr, "loginCount");
             Object obj = networkTask.execute().get();
 
             count = (int) obj;

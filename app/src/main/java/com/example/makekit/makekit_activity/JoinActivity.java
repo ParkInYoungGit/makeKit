@@ -39,7 +39,8 @@ public class JoinActivity extends AppCompatActivity {
     String password = "93elsl211!"; // 보내는 계정의 pw
 
     String macIP, urlJsp, urlImage, urlAddr;
-    EditText email, name, pw, pwCheck, phone, address, addressDetail;
+    EditText email, name, pw, pwCheck, phone, address, addressDetail, birth;
+    String result;
     String emailInput = null;
     TextView pwCheckMsg;
     CheckBox checkAgree;
@@ -357,6 +358,7 @@ public class JoinActivity extends AppCompatActivity {
                 String userTel = phone.getText().toString().trim();
                 String Address = address.getText().toString().trim();
                 String AddressDetail = addressDetail.getText().toString().trim();
+                String userBirth = null;
 
 
                 if (!android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
@@ -381,7 +383,7 @@ public class JoinActivity extends AppCompatActivity {
                             } else {
 
                                 if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
-                                    insertUser(userEmail, userName, userPW, Address, AddressDetail, userTel);
+                                    insertUser(userEmail, userName, userPW, Address, AddressDetail, userTel, userBirth);
 
                                 } else {
                                     pwCheck.setText("");
@@ -410,11 +412,13 @@ public class JoinActivity extends AppCompatActivity {
         }
 
         // user 입력 data 송부
-        private void insertUser(String userEmail, String userName, String userPW, String Address, String AddressDetail, String userTel) {
-            String urlAddr1 = "";
-            urlAddr1 = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&address=" + Address + "&addressDetail=" + AddressDetail + "&phone=" + userTel;
+        private void insertUser(String userEmail, String userName, String userPW, String Address, String AddressDetail, String userTel, String userBirth) {
+//            String urlAddr1 = "";
+            urlJsp = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&address=" + Address + "&addressDetail=" + AddressDetail + "&phone=" + userTel+ "&birth=" + userBirth;
 
-            String result = connectInsertData(urlAddr1);
+//            String result = connectInsertData(urlAddr1);
+            connectInsertData();
+
 
             if (result.equals("1")) {
                 Toast.makeText(JoinActivity.this, userName + "님 회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
@@ -428,7 +432,7 @@ public class JoinActivity extends AppCompatActivity {
         }
 
         //connection Insert
-        private String connectInsertData(String urlJsp) {
+        private String connectInsertData() {
             String result = null;
 
             try {
