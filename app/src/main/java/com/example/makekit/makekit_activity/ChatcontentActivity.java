@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +47,7 @@ public class ChatcontentActivity extends AppCompatActivity {
         macIP = intent.getStringExtra("macIP");
         chattingNumber = intent.getStringExtra("chattingNumber");
         receiver = intent.getStringExtra("receiver");
-
+        Log.v(TAG, receiver);
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 
         handler = new Handler(){
@@ -73,7 +74,7 @@ public class ChatcontentActivity extends AppCompatActivity {
                 try{
                     while (isRun){
                         connectGetData();
-                        Thread.sleep(500);
+                        Thread.sleep(1000);
                         if(judgement()==chattingContents.size()){
                             Message msg = handler.obtainMessage();
                             msg.what = 1;
@@ -143,7 +144,7 @@ public class ChatcontentActivity extends AppCompatActivity {
 
     private void connectGetChattingNumber(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/getChattingNumber.jsp?userinfo_userEmail_sender="+email, "getChattingNumber");
+            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/getChattingNumber.jsp", "getChattingNumber");
             Object obj = networkTask.execute().get();
             chattingNumber = (String) obj;
             intChattingNumber = Integer.parseInt(chattingNumber)+1;
