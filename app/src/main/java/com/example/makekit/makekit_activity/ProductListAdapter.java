@@ -91,9 +91,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
 
 
-        holder.product_title.setText(arrayList.get(position).getProduct_title());
-        holder.product_subtitle.setText(arrayList.get(position).getSub_title());
-        holder.product_price.setText(arrayList.get(position).getProduct_price());
 
 
         holder.itemView.setTag(position);//클릭했을때
