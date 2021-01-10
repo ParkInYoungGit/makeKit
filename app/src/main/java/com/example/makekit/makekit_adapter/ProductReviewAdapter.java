@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,9 +55,18 @@ public class ProductReviewAdapter extends RecyclerView.Adapter<ProductReviewAdap
         Log.v(TAG, urlImage);
 
         if(data.get(position).getReviewImage().equals("null")){
-            holder.img_reviewImage.setVisibility(View.INVISIBLE);
-        }else {
+            holder.li_reviewImage.setVisibility(View.INVISIBLE);
+            holder.li_reviewNonImage.setVisibility(View.VISIBLE);
 
+            holder.tv_reviewContentNon.setText(data.get(position).getReviewContent());
+            holder.tv_reviewWriterNon.setText(data.get(position).getReviewWriterName());
+            holder.tv_reviewWriteDateNon.setText(data.get(position).getReviewDate());
+            holder.tv_reviewStarNon.setText(data.get(position).getReviewStar() + " 점");
+
+        }else {
+            holder.li_reviewImage.setVisibility(View.VISIBLE);
+            holder.li_reviewNonImage.setVisibility(View.INVISIBLE);
+//
             Log.v(TAG, urlImage + "image/" + data.get(position).getReviewImage());
             urlImageReal = urlImage+ "image/" + data.get(position).getReviewImage();
            // holder.img_reviewImage.loadUrl(urlImageReal);
@@ -77,6 +87,7 @@ public class ProductReviewAdapter extends RecyclerView.Adapter<ProductReviewAdap
 
 
             // Adjust web display
+            holder.img_reviewImage.setBackgroundColor(0);
             holder.img_reviewImage.getSettings().setLoadWithOverviewMode(true);
             holder.img_reviewImage.getSettings().setUseWideViewPort(true);
             holder.img_reviewImage.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
@@ -85,14 +96,13 @@ public class ProductReviewAdapter extends RecyclerView.Adapter<ProductReviewAdap
             // url은 알아서 설정 예) http://m.naver.com/
             holder.img_reviewImage.loadUrl(urlImageReal); // 접속 URL
 
+            holder.tv_reviewContent.setText(data.get(position).getReviewContent());
+            holder.tv_reviewWriter.setText(data.get(position).getReviewWriterName());
+            holder.tv_reviewWriteDate.setText(data.get(position).getReviewDate());
+            holder.tv_reviewStar.setText(data.get(position).getReviewStar() + " 점");
+
 
         }
-
-        holder.tv_reviewContent.setText(data.get(position).getReviewContent());
-        holder.tv_reviewWriter.setText(data.get(position).getReviewWriterName());
-        holder.tv_reviewWriteDate.setText(data.get(position).getReviewDate());
-        holder.tv_reviewStar.setText(data.get(position).getReviewStar() + " 점");
-
     }
 
     @Override
@@ -105,15 +115,23 @@ public class ProductReviewAdapter extends RecyclerView.Adapter<ProductReviewAdap
 
         WebView img_reviewImage;
         TextView tv_reviewWriter, tv_reviewStar, tv_reviewContent, tv_reviewWriteDate;
+        TextView tv_reviewWriterNon, tv_reviewStarNon, tv_reviewContentNon, tv_reviewWriteDateNon;
+        LinearLayout li_reviewImage, li_reviewNonImage;
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            li_reviewImage = itemView.findViewById(R.id.linearImage_productviewreview);
+            li_reviewNonImage = itemView.findViewById(R.id.linearNonImage_productviewreview);
 
             img_reviewImage =  itemView.findViewById(R.id.imgReview_productcview);
             tv_reviewWriter =  itemView.findViewById(R.id.writerReview_productview);
             tv_reviewStar =  itemView.findViewById(R.id.StarReview_productview);
             tv_reviewContent =  itemView.findViewById(R.id.contentReview_productview);
             tv_reviewWriteDate =  itemView.findViewById(R.id.writerDateReview_productview);
+            tv_reviewWriterNon =  itemView.findViewById(R.id.writerReviewNon_productview);
+            tv_reviewStarNon =  itemView.findViewById(R.id.StarReviewNon_productview);
+            tv_reviewContentNon =  itemView.findViewById(R.id.contentReviewNon_productview);
+            tv_reviewWriteDateNon =  itemView.findViewById(R.id.writerDateReviewNon_productview);
         }
     }
 

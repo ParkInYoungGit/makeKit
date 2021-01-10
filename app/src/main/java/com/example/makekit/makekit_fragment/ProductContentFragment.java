@@ -53,7 +53,7 @@ public class ProductContentFragment extends Fragment {
     int count = 1;
 
     View v;
-    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, price;
+    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, price, macIP, productNo;
     ArrayList<Product> products;
     final static String TAG = "ProductContentFragment";
 
@@ -66,8 +66,10 @@ public class ProductContentFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ProductContentFragment() {
+    public ProductContentFragment(String macIP, String productNo) {
         // Required empty public constructor
+        this.macIP = macIP;
+        this.productNo = productNo;
     }
 
     /**
@@ -80,7 +82,7 @@ public class ProductContentFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static ProductContentFragment newInstance(String param1, String param2) {
-        ProductContentFragment fragment = new ProductContentFragment();
+        ProductContentFragment fragment = new ProductContentFragment("macIP", "productNo");
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -108,11 +110,11 @@ public class ProductContentFragment extends Fragment {
             mParam1 = getArguments().getString("macIP");
             mParam2 = getArguments().getString("productNo");
         }
-        mParam1 = "192.168.219.164";
-        mParam2 = "44";
+//        mParam1 = "192.168.219.164";
+//        mParam2 = "44";
 
-        urlAddrBase = "http://" + mParam1 + ":8080/makekit/";
-        urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + mParam2;
+        urlAddrBase = "http://" + macIP + ":8080/makekit/";
+        urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
         Log.v(TAG, "주소" + urlAddr);
 
         productName = v.findViewById(R.id.productNmae_prodcutviewcontent);
@@ -141,7 +143,7 @@ public class ProductContentFragment extends Fragment {
             // Initial webview
             productFilename.setWebViewClient(new WebViewClient());
 
-            // Enable JavaScript
+        // Enable JavaScript
             productFilename.getSettings().setJavaScriptEnabled(true);
              productFilename.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
             // Enable Zoom
@@ -155,6 +157,7 @@ public class ProductContentFragment extends Fragment {
             productFilename.getSettings().setLoadWithOverviewMode(true);
             productFilename.getSettings().setUseWideViewPort(true);
             productFilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+            productFilename.setBackgroundColor(0);
             productFilename.setInitialScale(30);
 
             // url은 알아서 설정 예) http://m.naver.com/
@@ -163,7 +166,6 @@ public class ProductContentFragment extends Fragment {
 
             // Initial webview
             productDfilename.setWebViewClient(new WebViewClient());
-
             // Enable JavaScript
             productDfilename.getSettings().setJavaScriptEnabled(true);
             productDfilename.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
@@ -178,6 +180,7 @@ public class ProductContentFragment extends Fragment {
             productDfilename.getSettings().setLoadWithOverviewMode(true);
             productDfilename.getSettings().setUseWideViewPort(true);
             productDfilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+            productDfilename.setBackgroundColor(0);
             productDfilename.setInitialScale(30);
 //
 //            // url은 알아서 설정 예) http://m.naver.com/
@@ -230,7 +233,7 @@ public class ProductContentFragment extends Fragment {
         connectSelectData();
     }
 
-    // select review
+    // select content
     private void connectSelectData() {
         try {
             ProductNetworkTask productNetworkTask = new ProductNetworkTask(getActivity(), urlAddr, "select");

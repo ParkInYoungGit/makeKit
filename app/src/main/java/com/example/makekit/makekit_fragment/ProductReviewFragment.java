@@ -4,9 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,8 +52,11 @@ public class ProductReviewFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ProductReviewFragment() {
+    public ProductReviewFragment(String macIP, String productNo) {
         // Required empty public constructor
+        this.macIP = macIP;
+        this.productNo = productNo;
+
     }
 
     /**
@@ -68,7 +69,7 @@ public class ProductReviewFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static ProductReviewFragment newInstance(String param1, String param2) {
-        ProductReviewFragment fragment = new ProductReviewFragment();
+        ProductReviewFragment fragment = new ProductReviewFragment("macIP", "productNo");
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -81,8 +82,6 @@ public class ProductReviewFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.v(TAG, "onCreate REVIEW" + getArguments());
         if (getArguments() != null) {
-
-        } else {
             mParam1 = getArguments().getString("macIP");
             mParam2 = getArguments().getString("productNo");
         }
@@ -99,15 +98,15 @@ public class ProductReviewFragment extends Fragment {
 
         recyclerView = v.findViewById(R.id.reviewList_productview);
 
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString("macIP");
-            mParam2 = getArguments().getString("productNo");
-        }
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString("macIP");
+//            mParam2 = getArguments().getString("productNo");
+//        }
 //        mParam1 = "192.168.219.164";
 //        mParam2 = "44";
 
-        urlAddrBase = "http://" + mParam1 + ":8080/makekit/";
-        urlAddr = urlAddrBase + "jsp/review_productview_all.jsp?productno=" + mParam2;
+        urlAddrBase = "http://" + macIP + ":8080/makekit/";
+        urlAddr = urlAddrBase + "jsp/review_productview_all.jsp?productno=" + productNo;
         Log.v(TAG, "주소" + urlAddr);
         connectSelectData();
         return v;

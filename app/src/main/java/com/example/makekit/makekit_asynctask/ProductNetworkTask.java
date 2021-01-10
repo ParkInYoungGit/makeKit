@@ -126,6 +126,7 @@ public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
             for(int i = 0 ; i<jsonArray.length() ; i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
+                String sellerEmail = jsonObject1.getString("sellerEmail");
                 String productNo = jsonObject1.getString("productNo");
                 String productName = jsonObject1.getString("productName");
                 String productPrice = jsonObject1.getString("productPrice");
@@ -134,7 +135,7 @@ public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
                 String productDfilename = jsonObject1.getString("productDFilename");
                 String productAFilename = jsonObject1.getString("productAFilename");
 
-                Product product = new Product(productNo, productName, productPrice, productContent, productFilename, productDfilename, productAFilename);
+                Product product = new Product(sellerEmail, productNo, productName, productPrice, productContent, productFilename, productDfilename, productAFilename);
                 products.add(product);
             }
 
