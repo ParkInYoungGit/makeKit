@@ -26,29 +26,5 @@
             android:layout_height="wrap_content"
             />
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="250dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_margin="5dp"
-        >
-        <WebView
-            android:id="@+id/searchImageViewRight"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            />
-        <TextView
-            android:id="@+id/searchTextViewNameRight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:id="@+id/searchTextViewPriceRight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </LinearLayout>
 
 </LinearLayout>

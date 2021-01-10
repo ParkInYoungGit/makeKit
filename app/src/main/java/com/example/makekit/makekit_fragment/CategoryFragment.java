@@ -17,7 +17,7 @@ import com.example.makekit.makekit_activity.SaleListActivity;
 import com.example.makekit.makekit_bean.Product;
 
 public class CategoryFragment extends Fragment {
-
+    String pType;
 
     ListView listView;
     String macIP, email;
@@ -35,10 +35,11 @@ v.findViewById(R.id.korean).setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(getContext(), ProductList.class);
-        String korean = "korean";
-        intent.putExtra("korean",korean);
+
+        intent.putExtra(pType,"dd");
         intent.putExtra("macIP",macIP);
         intent.putExtra("useremail",email);
+
         startActivity(intent);
     }
 });

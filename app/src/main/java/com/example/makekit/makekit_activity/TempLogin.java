@@ -53,7 +53,7 @@ public class TempLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp_login);
-
+        ActivityCompat.requestPermissions(TempLogin.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
         Intent intent = getIntent(); /*데이터 수신*/
         macIP = intent.getStringExtra("macIP");
 

@@ -161,7 +161,7 @@ public class FindPwActivity extends AppCompatActivity {
                     check.setText("");
                     SendMail mailServer = new SendMail();
 
-                    String code = mailServer.sendSecurityCode2(getApplicationContext(), email.getText().toString(),user, password);
+                    String code = mailServer.sendSecurityCode2(getApplicationContext(), email.getText().toString(), user, password);
 
 
                     Intent intent = new Intent(FindPwActivity.this, EmailFindPwActivity.class);
@@ -170,7 +170,7 @@ public class FindPwActivity extends AppCompatActivity {
                     intent.putExtra("password", password);
                     intent.putExtra("pw", pw);
                     intent.putExtra("codeAuth", code);
-                    finish();
+//                    finish();
                     startActivity(intent);
                 }
             }
@@ -283,6 +283,6 @@ public class FindPwActivity extends AppCompatActivity {
             }
         }
         return super.dispatchTouchEvent(ev);
-        }
+    }
 
-} // End -------------------------------------------------------------------
+} // End —————————————————————————————————
