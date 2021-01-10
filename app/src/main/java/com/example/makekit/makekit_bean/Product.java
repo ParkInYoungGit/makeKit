@@ -1,6 +1,7 @@
 package com.example.makekit.makekit_bean;
 
 public class Product {
+    String sellerEmail;
     String productNo;
     String productName;
     String productType;
@@ -22,7 +23,8 @@ public class Product {
 
     ////////////////////////////////////////////
     // 01/09 kyeongmi 추가 product view
-    public Product(String productNo, String productName, String productPrice, String productContent, String productFilename, String productDfilename, String productAFilename) {
+    public Product(String sellerEmail, String productNo, String productName, String productPrice, String productContent, String productFilename, String productDfilename, String productAFilename) {
+        this.sellerEmail = sellerEmail;
         this.productNo = productNo;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -46,6 +48,14 @@ public class Product {
         this.productAFilename = productAFilename;
         this.productInsertDate = productInsertDate;
         this.productDeleteDate = productDeleteDate;
+    }
+
+    public String getSellerEmail() {
+        return sellerEmail;
+    }
+
+    public void setSellerEmail(String sellerEmail) {
+        this.sellerEmail = sellerEmail;
     }
 
     public String getProductNo() {

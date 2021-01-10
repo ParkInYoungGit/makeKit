@@ -320,128 +320,128 @@ public class JoinActivity extends AppCompatActivity {
 
 
 
-        // 입력란 field check
-        private void checkField() {
-            if (name.getText().toString().trim().length() == 0) {
-                alertCheck("이름을");
-                name.setFocusableInTouchMode(true);
-                name.requestFocus();
+    // 입력란 field check
+    private void checkField() {
+        if (name.getText().toString().trim().length() == 0) {
+            alertCheck("이름을");
+            name.setFocusableInTouchMode(true);
+            name.requestFocus();
 
-            } else if (email.getText().toString().trim().length() == 0) {
-                alertCheck("이메일을");
-                email.setFocusableInTouchMode(true);
-                email.requestFocus();
+        } else if (email.getText().toString().trim().length() == 0) {
+            alertCheck("이메일을");
+            email.setFocusableInTouchMode(true);
+            email.requestFocus();
 
-            } else if (pw.getText().toString().trim().length() == 0) {
-                alertCheck("비밀번호를");
-                pw.setFocusableInTouchMode(true);
-                pw.requestFocus();
+        } else if (pw.getText().toString().trim().length() == 0) {
+            alertCheck("비밀번호를");
+            pw.setFocusableInTouchMode(true);
+            pw.requestFocus();
 
-            } else if (pwCheck.getText().toString().trim().length() == 0) {
-                alertCheck("비밀번호 확인을");
-                pwCheck.setFocusableInTouchMode(true);
-                pwCheck.requestFocus();
+        } else if (pwCheck.getText().toString().trim().length() == 0) {
+            alertCheck("비밀번호 확인을");
+            pwCheck.setFocusableInTouchMode(true);
+            pwCheck.requestFocus();
 
-            } else if (phone.getText().toString().trim().length() == 0) {
-                alertCheck("전화번호를");
-                phone.setFocusableInTouchMode(true);
-                phone.requestFocus();
+        } else if (phone.getText().toString().trim().length() == 0) {
+            alertCheck("전화번호를");
+            phone.setFocusableInTouchMode(true);
+            phone.requestFocus();
 
-            } else if (checkAgree.isChecked() != true) {
-                Toast.makeText(JoinActivity.this, "약관 동의 체크해주세요.", Toast.LENGTH_SHORT).show();
+        } else if (checkAgree.isChecked() != true) {
+            Toast.makeText(JoinActivity.this, "약관 동의 체크해주세요.", Toast.LENGTH_SHORT).show();
+
+        } else {
+            String userName = name.getText().toString().trim();
+            String userEmail = email.getText().toString().trim();
+            String userPW = pw.getText().toString().trim();
+            String userTel = phone.getText().toString().trim();
+            String Address = address.getText().toString().trim();
+            String AddressDetail = addressDetail.getText().toString().trim();
+
+
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
+                Toast.makeText(JoinActivity.this, "이메일 형식으로 입력해주세요.", Toast.LENGTH_SHORT).show();
+                btnCheck = 0;
 
             } else {
-                String userName = name.getText().toString().trim();
-                String userEmail = email.getText().toString().trim();
-                String userPW = pw.getText().toString().trim();
-                String userTel = phone.getText().toString().trim();
-                String Address = address.getText().toString().trim();
-                String AddressDetail = addressDetail.getText().toString().trim();
 
+                if (btnCheck == 1) {
+                    Boolean check = pwdRegularExpressionChk(userPW);
 
-                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
-                    Toast.makeText(JoinActivity.this, "이메일 형식으로 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    btnCheck = 0;
+                    if (check == false) {
+                        alertCheck("비밀번호를 영문, 특수문자 포함하여 최소 8자 이상");
+                    } else {
 
-                } else {
+                        String phoneCheck = phone.getText().toString().trim();
+                        boolean flag = Pattern.matches(pattern2, phoneCheck);
 
-                    if (btnCheck == 1) {
-                        Boolean check = pwdRegularExpressionChk(userPW);
+                        if (flag == false) {
+                            alertCheck("휴대폰 번호 확인 후 다시");
 
-                        if (check == false) {
-                            alertCheck("비밀번호를 영문, 특수문자 포함하여 최소 8자 이상");
                         } else {
 
-                            String phoneCheck = phone.getText().toString().trim();
-                            boolean flag = Pattern.matches(pattern2, phoneCheck);
-
-                            if (flag == false) {
-                                alertCheck("휴대폰 번호 확인 후 다시");
+                            if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
+                                insertUser(userEmail, userName, userPW, Address, AddressDetail, userTel);
 
                             } else {
-
-                                if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
-                                    insertUser(userEmail, userName, userPW, Address, AddressDetail, userTel);
-
-                                } else {
-                                    pwCheck.setText("");
-                                    Toast.makeText(JoinActivity.this, "비밀번호가 일치하지 않습니다. \n다시 확인해주세요.", Toast.LENGTH_SHORT).show();
-
-                                }
+                                pwCheck.setText("");
+                                Toast.makeText(JoinActivity.this, "비밀번호가 일치하지 않습니다. \n다시 확인해주세요.", Toast.LENGTH_SHORT).show();
 
                             }
+
                         }
-
                     }
+
                 }
-
-            }
-        }
-
-        // 미입력 시 알람 발생
-        private void alertCheck(String field) {
-            new AlertDialog.Builder(JoinActivity.this)
-                    .setTitle("MakeKit 서비스 안내")
-                    .setMessage(field + " 입력해주세요.")
-                    .setIcon(R.drawable.alert)
-                    .setCancelable(false) // 버튼으로만 대화상자 닫기가 된다. (미작성 시 다른부분 눌러도 대화상자 닫힌다)
-                    .setPositiveButton("닫기", null)  // 페이지 이동이 없으므로 null
-                    .show();
-        }
-
-        // user 입력 data 송부
-        private void insertUser(String userEmail, String userName, String userPW, String Address, String AddressDetail, String userTel) {
-            String urlAddr1 = "";
-            urlAddr1 = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&address=" + Address + "&addressDetail=" + AddressDetail + "&phone=" + userTel;
-
-            String result = connectInsertData(urlAddr1);
-
-            if (result.equals("1")) {
-                Toast.makeText(JoinActivity.this, userName + "님 회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-
-            } else {
-                Toast.makeText(JoinActivity.this, userName + "님 회원가입 실패하였습니다.", Toast.LENGTH_SHORT).show();
             }
 
-            finish();
+        }
+    }
 
+    // 미입력 시 알람 발생
+    private void alertCheck(String field) {
+        new AlertDialog.Builder(JoinActivity.this)
+                .setTitle("MakeKit 서비스 안내")
+                .setMessage(field + " 입력해주세요.")
+                .setIcon(R.drawable.alert)
+                .setCancelable(false) // 버튼으로만 대화상자 닫기가 된다. (미작성 시 다른부분 눌러도 대화상자 닫힌다)
+                .setPositiveButton("닫기", null)  // 페이지 이동이 없으므로 null
+                .show();
+    }
+
+    // user 입력 data 송부
+    private void insertUser(String userEmail, String userName, String userPW, String Address, String AddressDetail, String userTel) {
+        String urlAddr1 = "";
+        urlAddr1 = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&address=" + Address + "&addressDetail=" + AddressDetail + "&phone=" + userTel;
+
+        String result = connectInsertData(urlAddr1);
+
+        if (result.equals("1")) {
+            Toast.makeText(JoinActivity.this, userName + "님 회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+
+        } else {
+            Toast.makeText(JoinActivity.this, userName + "님 회원가입 실패하였습니다.", Toast.LENGTH_SHORT).show();
         }
 
-        //connection Insert
-        private String connectInsertData(String urlJsp) {
-            String result = null;
+        finish();
 
-            try {
-                UserNetworkTask insertNetworkTask = new UserNetworkTask(JoinActivity.this, urlJsp, "insert");
-                Object obj = insertNetworkTask.execute().get();
-                result = (String) obj;
+    }
 
-            } catch (Exception e) {
-                e.printStackTrace();
+    //connection Insert
+    private String connectInsertData(String urlJsp) {
+        String result = null;
 
-            }
-            return result;
+        try {
+            UserNetworkTask insertNetworkTask = new UserNetworkTask(JoinActivity.this, urlJsp, "insert");
+            Object obj = insertNetworkTask.execute().get();
+            result = (String) obj;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
         }
+        return result;
+    }
 
 
     // email 중복 체크
@@ -482,22 +482,22 @@ public class JoinActivity extends AppCompatActivity {
 
     }
 
-        //connection Select
-        private ArrayList<User> connectSelectData(String urlAddr){
-            ArrayList<User> result1 = null;
+    //connection Select
+    private ArrayList<User> connectSelectData(String urlAddr){
+        ArrayList<User> result1 = null;
 
-            try {
-                UserNetworkTask selectNetworkTask = new UserNetworkTask(JoinActivity.this, urlAddr, "select");
-                Object obj = selectNetworkTask.execute().get();
-                result1 = (ArrayList<User>) obj;
+        try {
+            UserNetworkTask selectNetworkTask = new UserNetworkTask(JoinActivity.this, urlAddr, "select");
+            Object obj = selectNetworkTask.execute().get();
+            result1 = (ArrayList<User>) obj;
 
-            } catch (Exception e) {
-                e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
 
-            }
-            return result1;
         }
+        return result1;
+    }
 
 
 
-} // End  -----------------------------------------------------------------------------
+} // End  ——————————————————————————————————————

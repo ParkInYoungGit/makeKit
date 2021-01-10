@@ -57,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
         toolbar.getBackground().setAlpha(0);
 //        bottomNavigationView.setBackground(null);
 
-        macIP = "192.168.0.4";
+
+        macIP = "172.20.10.8";
+
         email = "son@naver.com";
 
         // 검색 페이지로 이동

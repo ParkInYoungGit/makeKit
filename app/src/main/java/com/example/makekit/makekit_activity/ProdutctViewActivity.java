@@ -5,18 +5,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.makekit.R;
@@ -25,12 +19,7 @@ import com.example.makekit.makekit_fragment.ProductContentFragment;
 import com.example.makekit.makekit_fragment.ProductDetailFragment;
 import com.example.makekit.makekit_fragment.ProductQuestionFragment;
 import com.example.makekit.makekit_fragment.ProductReviewFragment;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 
 /////////////////////////////////////////////////////
@@ -80,10 +69,10 @@ public class ProdutctViewActivity extends AppCompatActivity {
         viewPagerProductAdapter = new ViewPagerProductAdapter(getSupportFragmentManager());
 
         //     Add Fragment
-        viewPagerProductAdapter.AddFrmt(new ProductContentFragment(), "상품설명");
-        viewPagerProductAdapter.AddFrmt(new ProductDetailFragment(), "상세정보");
-        viewPagerProductAdapter.AddFrmt(new ProductReviewFragment(), "후기");
-        viewPagerProductAdapter.AddFrmt(new ProductQuestionFragment(), "문의");
+        viewPagerProductAdapter.AddFrmt(new ProductContentFragment(macIP, productNo), "상품설명");
+        viewPagerProductAdapter.AddFrmt(new ProductDetailFragment(macIP, productNo), "상세설명");
+        viewPagerProductAdapter.AddFrmt(new ProductReviewFragment(macIP, productNo), "후기");
+        viewPagerProductAdapter.AddFrmt(new ProductQuestionFragment(macIP, productNo), "문의");
 
         viewPager.setAdapter(viewPagerProductAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -91,71 +80,71 @@ public class ProdutctViewActivity extends AppCompatActivity {
         findViewById(R.id.btnCart_productview).setOnClickListener(mClickListener);
         findViewById(R.id.btnPurchase_productview).setOnClickListener(mClickListener);
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-           @Override
-           public void onTabSelected(TabLayout.Tab tab) {
-               int position = tab.getPosition(); //탭 버튼의 index 참조
-
-
-               FragmentManager fragmentManager = getSupportFragmentManager();
-               FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-               Fragment selected = fragmentManager.findFragmentByTag(String.valueOf(position));
-               Bundle bundle = new Bundle();
-
-               /* 선택된 탭에 따라 화면에 보이는 프래그먼트 변경 */
-               switch(position){
-                   case 0:
-                       selected = new ProductContentFragment();
-                       selected.setArguments(bundle);
-                       bundle.putString("macIP", macIP);
-                       bundle.putString("productNo", productNo);
-                       break;
-                   case 1:
-                       selected = new ProductDetailFragment();
-                       selected.setArguments(bundle);
-                       bundle.putString("macIP", macIP);
-                       bundle.putString("productNo", productNo);
-                       break;
-                   case 2:
-                       selected = new ProductReviewFragment();
-                       selected.setArguments(bundle);
-                       bundle.putString("macIP", macIP);
-                       bundle.putString("productNo", productNo);
-                       break;
-
-                   case 3:
-                       selected = new ProductQuestionFragment();
-                       selected.setArguments(bundle);
-                       bundle.putString("sellerEmail", sellerEmail);
-                       bundle.putString("productNo", productNo);
-                       Log.v(TAG, String.valueOf(bundle));
-
-                       break;
-
-                   default:
-                       fragmentTransaction.show(selected);
-
-                       break;
-               }
-
-               ProdutctViewActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.linearlayout_productview, selected).commit();
-           }
-
-           @Override
-           public void onTabUnselected(TabLayout.Tab tab) {
+//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//           @Override
+//           public void onTabSelected(TabLayout.Tab tab) {
 //               int position = tab.getPosition(); //탭 버튼의 index 참조
 //
-//               Fragment selected = null;
+//
+//               FragmentManager fragmentManager = getSupportFragmentManager();
+//               FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//               Fragment selected = fragmentManager.findFragmentByTag(String.valueOf(position));
 //               Bundle bundle = new Bundle();
-//               bundle.putString("macIP", "192.168.219.164");
-//               bundle.putString("productNo", "44");
-           }
-
-           @Override
-           public void onTabReselected(TabLayout.Tab tab) {
-
-           }
-       });
+//
+//               /* 선택된 탭에 따라 화면에 보이는 프래그먼트 변경 */
+//               switch(position){
+//                   case 0:
+//                       selected = new ProductContentFragment();
+//                       selected.setArguments(bundle);
+//                       bundle.putString("macIP", macIP);
+//                       bundle.putString("productNo", productNo);
+//                       break;
+//                   case 1:
+//                       selected = new ProductDetailFragment();
+//                       selected.setArguments(bundle);
+//                       bundle.putString("macIP", macIP);
+//                       bundle.putString("productNo", productNo);
+//                       break;
+//                   case 2:
+//                       selected = new ProductReviewFragment("macIP", "productNo");
+//                       selected.setArguments(bundle);
+//                       bundle.putString("macIP", macIP);
+//                       bundle.putString("productNo", productNo);
+//                       break;
+//
+//                   case 3:
+//                       selected = new ProductQuestionFragment();
+//                       selected.setArguments(bundle);
+//                       bundle.putString("sellerEmail", sellerEmail);
+//                       bundle.putString("productNo", productNo);
+//                       Log.v(TAG, String.valueOf(bundle));
+//
+//                       break;
+//
+//                   default:
+//                       fragmentTransaction.show(selected);
+//
+//                       break;
+//               }
+//
+//               ProdutctViewActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.linearlayout_productview, selected).commit();
+//           }
+//
+//           @Override
+//           public void onTabUnselected(TabLayout.Tab tab) {
+////               int position = tab.getPosition(); //탭 버튼의 index 참조
+////
+////               Fragment selected = null;
+////               Bundle bundle = new Bundle();
+////               bundle.putString("macIP", "192.168.219.164");
+////               bundle.putString("productNo", "44");
+//           }
+//
+//           @Override
+//           public void onTabReselected(TabLayout.Tab tab) {
+//
+//           }
+//       });
     }
 
     @Override

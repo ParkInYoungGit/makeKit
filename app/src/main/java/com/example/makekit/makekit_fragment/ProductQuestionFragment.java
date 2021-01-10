@@ -15,6 +15,10 @@ import android.widget.QuickContactBadge;
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.ChatcontentActivity;
 import com.example.makekit.makekit_activity.MapActivity;
+import com.example.makekit.makekit_asynctask.ProductNetworkTask;
+import com.example.makekit.makekit_bean.Product;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,7 +28,8 @@ import com.example.makekit.makekit_activity.MapActivity;
 public class ProductQuestionFragment extends Fragment {
 
     View v;
-    String sellerEmail;
+    String sellerEmail, macIP, productNo, urlAddr;
+    ArrayList<Product> products;
 
     final static String TAG = "ProductQuestionFragment";
 
@@ -37,8 +42,10 @@ public class ProductQuestionFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ProductQuestionFragment() {
+    public ProductQuestionFragment(String macIP, String productNo) {
         // Required empty public constructor
+        this.macIP = macIP;
+        this.productNo = productNo;
     }
 
     /**
@@ -51,7 +58,7 @@ public class ProductQuestionFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static ProductQuestionFragment newInstance(String param1, String param2) {
-        ProductQuestionFragment fragment = new ProductQuestionFragment();
+        ProductQuestionFragment fragment = new ProductQuestionFragment("macIP", "productNo");
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,6 +70,11 @@ public class ProductQuestionFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString("macIP");
+            mParam2 = getArguments().getString("productNo");
+        }
+
     }
 
     @Override
@@ -71,12 +83,12 @@ public class ProductQuestionFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_product_question,container,false);
         Log.v(TAG, "onCreate QUESTION" + getArguments());
 
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString("sellerEmail");
-            mParam2 = getArguments().getString("productNo");
-        }
+        urlAddr =  "http://" + macIP + ":8080/makekit/jsp/product_productview_content.jsp?productno=" + productNo;
+
         Button btnQuestion = v.findViewById(R.id.btnChattingQuestion_productview);
         Log.v(TAG, "ONCREATE QUESTION" + mParam1 + mParam2 );
+
+        connectSelectData();
 
         btnQuestion.setOnClickListener(mClickListener);
 
@@ -91,14 +103,26 @@ public class ProductQuestionFragment extends Fragment {
                 // 1:1 문의 클릭 시 판매자 대화창 이동
                 case R.id.btnChattingQuestion_productview:
                     Intent intent = new Intent(getActivity(), ChatcontentActivity.class );
-                    intent.putExtra("sellerEmail", mParam1);
-                    intent.putExtra("productNo", mParam2);
-                    Log.v(TAG, "email" + mParam1);
+                    intent.putExtra("sellerEmail", products.get(0).getSellerEmail());
+                    intent.putExtra("productNo", productNo);
                     startActivity(intent);
                     break;
 
             }
         }
     };
+
+    // select product
+    private void connectSelectData() {
+        try {
+            ProductNetworkTask productNetworkTask = new ProductNetworkTask(getActivity(), urlAddr, "select");
+
+            Object object = productNetworkTask.execute().get();
+            products = (ArrayList<Product>) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

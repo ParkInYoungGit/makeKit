@@ -53,7 +53,7 @@ public class ProductContentFragment extends Fragment {
     int count = 1;
 
     View v;
-    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, price;
+    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, urlImageReal3, price, macIP, productNo;
     ArrayList<Product> products;
     final static String TAG = "ProductContentFragment";
 
@@ -66,8 +66,10 @@ public class ProductContentFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ProductContentFragment() {
+    public ProductContentFragment(String macIP, String productNo) {
         // Required empty public constructor
+        this.macIP = macIP;
+        this.productNo = productNo;
     }
 
     /**
@@ -80,7 +82,7 @@ public class ProductContentFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static ProductContentFragment newInstance(String param1, String param2) {
-        ProductContentFragment fragment = new ProductContentFragment();
+        ProductContentFragment fragment = new ProductContentFragment("macIP", "productNo");
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -108,11 +110,11 @@ public class ProductContentFragment extends Fragment {
             mParam1 = getArguments().getString("macIP");
             mParam2 = getArguments().getString("productNo");
         }
-        mParam1 = "192.168.219.164";
-        mParam2 = "44";
+//        mParam1 = "192.168.219.164";
+//        mParam2 = "44";
 
-        urlAddrBase = "http://" + mParam1 + ":8080/makekit/";
-        urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + mParam2;
+        urlAddrBase = "http://" + macIP + ":8080/makekit/";
+        urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
         Log.v(TAG, "주소" + urlAddr);
 
         productName = v.findViewById(R.id.productNmae_prodcutviewcontent);
@@ -120,6 +122,7 @@ public class ProductContentFragment extends Fragment {
         productContent = v.findViewById(R.id.productContent_productviewcontent);
         productFilename  = v.findViewById(R.id.productImage_productviewcontent);
         productDfilename = v.findViewById(R.id.prdouctdetail_productviewcontent);
+        productAFilename = v.findViewById(R.id.prdouctdetailSecond_productviewcontent);
         btnMinus = v.findViewById(R.id.btnMinusProudct_productviewcontent);
         btnPlus = v.findViewById(R.id.btnPlusProudct_productviewcontent);
         productTotalPrice = v.findViewById(R.id.productTotalPrice_productviewcontent);
@@ -137,7 +140,9 @@ public class ProductContentFragment extends Fragment {
 
             urlImageReal1 = urlAddrBase+ "image/" + products.get(0).getProductFilename();
             urlImageReal2 = urlAddrBase+ "image/" + products.get(0).getProductDfilename();
+            urlImageReal3 = urlAddrBase+ "image/" + products.get(0).getProductAFilename();
 
+            // 썸네일 이미지
             // Initial webview
             productFilename.setWebViewClient(new WebViewClient());
 
@@ -155,15 +160,15 @@ public class ProductContentFragment extends Fragment {
             productFilename.getSettings().setLoadWithOverviewMode(true);
             productFilename.getSettings().setUseWideViewPort(true);
             productFilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+            productFilename.setBackgroundColor(0);
             productFilename.setInitialScale(30);
 
             // url은 알아서 설정 예) http://m.naver.com/
              productFilename.loadUrl(urlImageReal1); // 접속 URL
 
-
+            // 설명 이미지
             // Initial webview
             productDfilename.setWebViewClient(new WebViewClient());
-
             // Enable JavaScript
             productDfilename.getSettings().setJavaScriptEnabled(true);
             productDfilename.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
@@ -178,6 +183,7 @@ public class ProductContentFragment extends Fragment {
             productDfilename.getSettings().setLoadWithOverviewMode(true);
             productDfilename.getSettings().setUseWideViewPort(true);
             productDfilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+            productDfilename.setBackgroundColor(0);
             productDfilename.setInitialScale(30);
 //
 //            // url은 알아서 설정 예) http://m.naver.com/
@@ -186,6 +192,29 @@ public class ProductContentFragment extends Fragment {
             btnMinus.setOnClickListener(mClickListener);
             btnPlus.setOnClickListener(mClickListener);
 
+            // 원산지 이미지
+            // Initial webview
+            productAFilename.setWebViewClient(new WebViewClient());
+
+            // Enable JavaScript
+            productAFilename.getSettings().setJavaScriptEnabled(true);
+            productAFilename.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+            // Enable Zoom
+            productAFilename.getSettings().setBuiltInZoomControls(true);
+            productAFilename.getSettings().setSupportZoom(true);
+            productAFilename.getSettings().setSupportZoom(true); //zoom mode 사용.
+            productAFilename.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
+
+
+            // Adjust web display
+            productAFilename.getSettings().setLoadWithOverviewMode(true);
+            productAFilename.getSettings().setUseWideViewPort(true);
+            productAFilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+            productAFilename.setBackgroundColor(0);
+            productAFilename.setInitialScale(30);
+
+            // url은 알아서 설정 예) http://m.naver.com/
+            productAFilename.loadUrl(urlImageReal3); // 접속 URL
 
         return v;
     }
@@ -230,7 +259,7 @@ public class ProductContentFragment extends Fragment {
         connectSelectData();
     }
 
-    // select review
+    // select content
     private void connectSelectData() {
         try {
             ProductNetworkTask productNetworkTask = new ProductNetworkTask(getActivity(), urlAddr, "select");
