@@ -50,15 +50,25 @@ public class ChatcontentActivity extends AppCompatActivity {
         Log.v(TAG, receiver);
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 
+        chattingJudge = new ArrayList<ChattingBean>();
+        chattingContents = new ArrayList<ChattingBean>();
+
         handler = new Handler(){
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
+                Log.v(TAG, Integer.toString(msg.what));
                 switch (msg.what){
                     case 0:
+                        Log.v(TAG, "Thread 들어옴");
                         chattingContents.clear();
                         chattingJudge.clear();
                         connectGetData();
+                        chattingJudge.addAll(chattingContents);
+                        Log.v(TAG, chattingContents.get(0).getUserinfo_userEmail_sender());
+                        Log.v(TAG, chattingContents.get(0).getUserinfo_userEmail_receiver());
+                        Log.v(TAG, chattingContents.get(0).getChattingContents());
+                        Log.v(TAG, chattingContents.get(0).getChattingInsertDate());
                         adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
                         listView.setAdapter(adapter);
                         break;
@@ -75,13 +85,15 @@ public class ChatcontentActivity extends AppCompatActivity {
                     while (isRun){
                         connectGetData();
                         Thread.sleep(1000);
-                        if(judgement()==chattingContents.size()){
-                            Message msg = handler.obtainMessage();
-                            msg.what = 1;
-                            handler.sendMessage(msg);
-                        }else {
+                        if(judgement()!=chattingContents.size()){
+                            Log.v(TAG, "if judgement!");
                             Message msg = handler.obtainMessage();
                             msg.what = 0;
+                            handler.sendMessage(msg);
+                        }else {
+                            Log.v(TAG, "if judgement=");
+                            Message msg = handler.obtainMessage();
+                            msg.what = 1;
                             handler.sendMessage(msg);
                         }
                     }
@@ -106,17 +118,14 @@ public class ChatcontentActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        chattingJudge = new ArrayList<ChattingBean>();
-        chattingContents = new ArrayList<ChattingBean>();
         isRun = true;
         // 첫 대화이면 가장 큰 채팅 번호를 불러와서 1 증가 시켜 채팅 방을 만든다.
         if(chattingNumber.equals(null)){
             connectGetChattingNumber();
-        }else {
-            connectGetData();
         }
-        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
-        listView.setAdapter(adapter);
+        connectGetData();
+//        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
+//        listView.setAdapter(adapter);
         thread.start();
     }
 
@@ -136,7 +145,7 @@ public class ChatcontentActivity extends AppCompatActivity {
             NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/chatting.jsp?userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver, "chattingContents");
             Object obj = networkTask.execute().get();
             chattingContents = (ArrayList<ChattingBean>) obj;
-            chattingJudge.addAll(chattingContents);
+//            chattingJudge.addAll(chattingContents);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -156,14 +165,20 @@ public class ChatcontentActivity extends AppCompatActivity {
 
     private int judgement(){
         int j = 0;
+        int judge = 0;
         for(int i =0 ; i<chattingContents.size(); i++){
             int contents = Integer.parseInt(chattingContents.get(i).getChattingNumber());
-            int judge = Integer.parseInt(chattingJudge.get(i).getChattingNumber());
+            if(chattingJudge.get(i).getChattingNumber().equals(null)){
+            }else {
+                judge = Integer.parseInt(chattingJudge.get(i).getChattingNumber());
+            }
             if(contents == judge){
                 j++;
             }else {
             }
         }
+        Log.v(TAG, "j : "+j);
+        Log.v(TAG, "size : "+ chattingContents.size());
         return j;
     }
 
