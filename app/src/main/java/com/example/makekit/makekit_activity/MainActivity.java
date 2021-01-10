@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 //        bottomNavigationView.setBackground(null);
 
 
-        macIP = "192.168.0.4";
+        macIP = "192.168.200.193";
 
         email = "son@naver.com";
 
