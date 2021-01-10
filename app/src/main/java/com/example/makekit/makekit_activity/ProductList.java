@@ -37,8 +37,10 @@ public class ProductList extends AppCompatActivity {
 
 
     String title, subtitle, price, pType;
+
     String macIP, email, urlAddrBase, urlAddr1;
     private RecyclerView.LayoutManager layoutManager;
+
 
 
     ArrayList<ProductData> product;   // 빈, 어댑터

@@ -189,17 +189,17 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                    String productName = jsonObject1.getString("productName");
-                    String productPrice = jsonObject1.getString("productPrice");
-                    String productSubTitle = jsonObject1.getString("productSubTitle");
                     String productFilename = jsonObject1.getString("productFilename");
+                    String productName = jsonObject1.getString("productName");
+                    String productSubTitle = jsonObject1.getString("productSubTitle");
+                    String productPrice = jsonObject1.getString("productPrice");
 
-                    ProductData productData2 = new ProductData(productName, productPrice, productSubTitle, productFilename);
+                    ProductData productData2 = new ProductData(productFilename, productName, productSubTitle, productPrice);
                     productData.add(productData2);
-                    Log.v(TAG, productName);
-                    Log.v(TAG, productPrice);
-                    Log.v(TAG, productSubTitle);
                     Log.v(TAG, productFilename);
+                    Log.v(TAG, productName);
+                    Log.v(TAG, productSubTitle);
+                    Log.v(TAG, productPrice);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
