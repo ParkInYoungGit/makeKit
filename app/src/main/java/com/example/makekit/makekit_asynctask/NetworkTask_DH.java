@@ -79,11 +79,11 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 }
 
                 if(where.equals("search")){
-                    Log.v("NetworkTask", "if search");
                     parserSelect(stringBuffer.toString());
                 }else if(where.equals("productName")){
                     parserProductName(stringBuffer.toString());
                 }else if (where.equals("chattingContents")){
+                    Log.v("NetworkTask", "if chattingContents");
                     parserChattingContents(stringBuffer.toString());
                 }else if (where.equals("inputChatting")){
                     result = parserAction(stringBuffer.toString());
@@ -145,14 +145,11 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
 
 
     private void parserSelect(String s){
-        Log.v("NetworkTask", "parserselect");
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
-            Log.v("NetworkTask", "parserselect, try");
             products.clear();
             for(int i = 0; i < jsonArray.length(); i++){
-                Log.v("NetworkTask", "parserselect, for");
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
                 String productNo = jsonObject1.getString("productNo");
                 String productName = jsonObject1.getString("productName");
@@ -165,7 +162,6 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 String productAFilename = jsonObject1.getString("productAFilename");
                 String productInsertDate = jsonObject1.getString("productInsertDate");
                 String productDeleteDate = jsonObject1.getString("productDeleteDate");
-                Log.v("NetworkTask", productName);
                 Product product = new Product(productNo, productName, productType, productPrice, productStock, productContent, productFilename, productDFilename, productAFilename, productInsertDate, productDeleteDate);
                 products.add(product);
             }
@@ -192,18 +188,21 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     }
 
     private void parserChattingContents(String s){
+        Log.v("NetworkTask", "parserselect");
         try {
+            Log.v("NetworkTask", "parserselect, tryin");
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
             chattingContents.clear();
             for(int i = 0; i < jsonArray.length(); i++) {
+                Log.v("NetworkTask", "parserselect, for");
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
                 String userinfo_userEmail_sender = jsonObject1.getString("userinfo_userEmail_sender");
                 String userinfo_userEmail_receiver = jsonObject1.getString("userinfo_userEmail_receiver");
                 String chattingContent = jsonObject1.getString("chattingContents");
                 String chattingInsertDate = jsonObject1.getString("chattingInsertDate");
                 String chattingNumber = jsonObject1.getString("chattingNumber");
-
+                Log.v("NetworkTask", chattingContent);
                 ChattingBean chattingBean = new ChattingBean(userinfo_userEmail_sender, userinfo_userEmail_receiver, chattingContent, chattingInsertDate, chattingNumber);
 
                 chattingContents.add(chattingBean);
