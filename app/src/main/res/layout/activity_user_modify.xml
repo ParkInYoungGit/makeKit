@@ -7,17 +7,19 @@
     android:orientation="vertical"
     tools:context=".makekit_activity.UserModifyActivity">
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0px"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:layout_weight="1"
         android:gravity="center"
         android:text="회원정보수정"
         android:textSize="30dp"
         android:textStyle="bold" />
-
+</LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,24 +27,41 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            app:cardCornerRadius="30dp">
+            app:cardCornerRadius="50dp">
 
-            <ImageView
+            <WebView
+                android:id="@+id/user_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/user" />
+                android:src="@drawable/ic_user" />
         </androidx.cardview.widget.CardView>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="30dp"
+        >
+        <TextView
+            android:id="@+id/tv_editPeopleImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="사진 편집"
+            />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
         android:layout_weight="10"
         android:gravity="center">
 
@@ -90,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:hint="이름"
                     android:paddingLeft="10dp"
                     android:textSize="18dp"
@@ -116,7 +135,8 @@
                     android:hint="비밀번호 (8자 이상)"
                     android:inputType="textPassword"
                     android:paddingLeft="10dp"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:enabled="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,13 +196,13 @@
                 android:layout_height="0dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="0.7"
+                android:layout_weight="1"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_addressdetail"
                     android:layout_width="250dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:background="@drawable/button_background"
                     android:hint="상세주소입력"
                     android:paddingLeft="10dp"
@@ -227,7 +247,19 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/tv_fieldCheck_findId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
 
+                android:textColor="@color/red"
+                />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/InputLayoutUser_Birth"
@@ -271,27 +303,18 @@
 
 
 
-
+            <Button
+                android:id="@+id/user_update_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
+                android:layout_gravity="right"
+                android:text="수정완료"
+                android:layout_marginBottom="10dp"/>
 
 
 
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/user_update_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_background"
-            android:text="수정완료"
-            android:layout_marginBottom="10dp"/>
-
-
-    </LinearLayout>
 </LinearLayout>

@@ -1,14 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".makekit_fragment.ProductContentFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+<!--    <ViewFlipper-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="content" />
+        android:scrollbars="none"
+        >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+                <WebView
+                    android:id="@+id/productImage_productviewcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    />
+
+
+                <TextView
+                    android:id="@+id/productNmae_prodcutviewcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30dp"
+                    android:layout_margin="20dp"
+                    android:textStyle="bold"
+
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_centerInParent="true"
+                    android:background="#9E9D95"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="20dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="판매가"
+                        android:textSize="15dp"
+                        android:layout_marginRight="140dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/productPrice_productviewcontent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:textSize="18dp"
+                        />
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="20dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="배송방법"
+                    android:layout_marginRight="100dp"
+                    />
+
+                <TextView
+                    android:id="@+id/productDeliveryMethod_productviewcontent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="택배\n(직거래는 판매자 1:1문의 필요)"
+                    />
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="20dp"
+
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="배송비"
+                        android:layout_marginRight="100dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/productDeliveryPrice_productviewcontent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2,500 원"
+                        android:layout_marginLeft="80dp"
+                        android:textSize="18dp"
+
+                        />
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="20dp"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:text="선택 수량"
+                    android:layout_marginRight="130dp"
+                    />
+
+                <Button
+                    android:id="@+id/btnMinusProudct_productviewcontent"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:text="-"
+                    android:backgroundTint="#F4F2F2"
+                    android:textColor="@color/black"
+                    android:focusable="false" />
+
+                <TextView
+                    android:id="@+id/purchaseNum_productviewcontent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:text="1" />
+
+                <Button
+                    android:id="@+id/btnPlusProudct_productviewcontent"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:focusable="false"
+                    android:backgroundTint="#F4F2F2"
+                    android:textColor="@color/black"
+                    android:text="+" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="20dp"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="총 구매 금액"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_marginRight="40dp"
+                    />
+
+                <TextView
+                    android:id="@+id/productTotalPrice_productviewcontent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_marginBottom="20dp"
+                    />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_centerInParent="true"
+                android:background="#9E9D95"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:text="상품 설명"
+                android:gravity="center"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/productContent_productviewcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+
+                />
+
+                <WebView
+                    android:id="@+id/prdouctdetail_productviewcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="1000dp"
+                    />
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

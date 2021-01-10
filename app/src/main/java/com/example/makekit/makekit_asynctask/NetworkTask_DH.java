@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.makekit.makekit_bean.ChattingBean;
+import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_bean.User;
 
@@ -29,6 +30,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     ArrayList<ChattingBean> chattingContents;
     ArrayList<ChattingBean> chattingList;
     ArrayList<User> users;
+    ArrayList<Order> orders;
     String chattingNumber;
     String where = null;
 
@@ -54,6 +56,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
 
     @Override
     protected Object doInBackground(Integer... integers) {
+        Log.v("NetworkTask", "doInBackground");
         StringBuffer stringBuffer = new StringBuffer();
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
@@ -64,14 +67,15 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
 
         try {
             URL url = new URL(mAddr);
+            Log.v("NetworkTask", "doInBackground, try");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
-
+            Log.v("NetworkTask", "Accept : "+httpURLConnection.getResponseCode());
             if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
                 inputStream = httpURLConnection.getInputStream();
                 inputStreamReader = new InputStreamReader(inputStream);
                 bufferedReader = new BufferedReader(inputStreamReader);
-
+                Log.v("NetworkTask", "doInBackground, if");
                 while (true){
                     String strline = bufferedReader.readLine();
                     if(strline == null) break;
@@ -79,6 +83,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 }
 
                 if(where.equals("search")){
+                    Log.v("NetworkTask", "if search");
                     parserSelect(stringBuffer.toString());
                 }else if(where.equals("productName")){
                     parserProductName(stringBuffer.toString());
@@ -92,6 +97,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     parserChattingNumber(stringBuffer.toString());
                 }else if (where.equals("LikeSeller")){
                     parserLikeSeller(stringBuffer.toString());
+                }else if (where.equals("getSalesList")){
+                    parserSalesList(stringBuffer.toString());
                 }
 
 
@@ -121,6 +128,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return chattingNumber;
         }else if (where.equals("LikeSeller")){
             return users;
+        }else if (where.equals("getSalesList")){
+            return orders;
         }
         else {
             return result;
@@ -141,11 +150,14 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
 
 
     private void parserSelect(String s){
+        Log.v("NetworkTask", "parserselect");
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            Log.v("NetworkTask", "parserselect, try");
             products.clear();
             for(int i = 0; i < jsonArray.length(); i++){
+                Log.v("NetworkTask", "parserselect, for");
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
                 String productNo = jsonObject1.getString("productNo");
                 String productName = jsonObject1.getString("productName");
@@ -158,11 +170,12 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 String productAFilename = jsonObject1.getString("productAFilename");
                 String productInsertDate = jsonObject1.getString("productInsertDate");
                 String productDeleteDate = jsonObject1.getString("productDeleteDate");
-
+                Log.v("NetworkTask", productName);
                 Product product = new Product(productNo, productName, productType, productPrice, productStock, productContent, productFilename, productDFilename, productAFilename, productInsertDate, productDeleteDate);
                 products.add(product);
             }
         }catch (Exception e){
+            Log.v("NetworkTask", "parserselect, catch");
             e.printStackTrace();
         }
     }
@@ -263,6 +276,27 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 User user = new User(userinfo_like_userEmail);
 
                 users.add(user);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    private void parserSalesList(String s){
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            orders.clear();
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String productNo = jsonObject1.getString("productNo");
+                String productAFilename = jsonObject1.getString("productAFilename");
+                String productName = jsonObject1.getString("productName");
+                String productStock = jsonObject1.getString("productStock");
+                String productPrice = jsonObject1.getString("productPrice");
+
+                Order order = new Order(productNo, productName, productPrice, productStock, productAFilename);
+
+                orders.add(order);
             }
         }catch (Exception e){
             e.printStackTrace();

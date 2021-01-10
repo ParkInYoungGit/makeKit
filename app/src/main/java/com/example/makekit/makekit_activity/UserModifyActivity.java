@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.scroll.pickertest.DatePickerFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,7 +15,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -28,15 +32,41 @@ import com.example.makekit.makekit_asynctask.CUDNetworkTask;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class UserModifyActivity extends AppCompatActivity {
 
-    private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
-
-
     final static String TAG = "First";
+
+    private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
+    public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자
+    public static final String pattern2 = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
+
+    private int _beforeLenght = 0;
+    private int _afterLenght = 0;
+    int imageCheck = 0;
+
+    // 사진 올리고 내리기 위한 변수들
+    private final int REQ_CODE_SELECT_IMAGE = 100;
+    private String img_path = new String();
+    private Bitmap image_bitmap_copy = null;
+    private Bitmap image_bitmap = null;
+    String imageName = null;
+    private String f_ext = null;
+    File tempSelectFile;
+
+    String url;
 
     String urlAddrBase = null;
     String urlAddr1 = null;
@@ -49,11 +79,16 @@ public class UserModifyActivity extends AppCompatActivity {
 
     String macIP;
     String email;
+    String urlImage;
+    Matcher match;
 
-    TextView user_email, user_name, user_pw, user_address, user_addressdetail, user_tel, user_birth;
-    String useremail, username, userpw, useraddress, useraddressdetail, usertel, userbirth;
+    EditText user_pwcheck, user_tel, user_name;
+    TextView user_email, user_pw, user_address, user_addressdetail, user_birth, tv_pwCheckMsg_user, currentPW;
+    String useremail, username, userpw, useraddress, useraddressdetail, usertel, userbirth, userimage;
     Button update_btn;
-
+    TextView fieldCheck;
+    WebView user_image;
+    TextView tv_editPeopleImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,26 +96,25 @@ public class UserModifyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_modify);
 
         // 아이피와 이메일 받기
-//        Intent intent = getIntent();
-//        macIP = intent.getStringExtra("macIP");
-//        email = intent.getStringExtra("useremail");
+        Intent intent = getIntent();
+        macIP = intent.getStringExtra("macIP");
+        email = intent.getStringExtra("useremail");
 
 
-
-        macIP = "192.168.2.14";
-        email = "son@naver.com";
+//        macIP = "192.168.2.2";
+//        email = "son@naver.com";
 
         // jsp 사용할 폴더 지정
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp/";  // 폴더까지만 지정
-        urlAddr1 = urlAddrBase + "user_info_all.jsp?userEmail=" + email;
-
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/";  // 폴더까지만 지정
+        urlAddr1 = urlAddrBase + "jsp/user_info_all.jsp?email=" + email;
 
 
         // ========================================== 이메일 + 아이디값 셀렉트에 보내주기
         connectSelectGetData(urlAddr1);   // urlAddr1을  connectSelectGetData의 urlAddr2로 보내준다
-
+        urlImage = urlAddrBase + "image/" + members.get(0).getImage();
 
         // ========================================== 텍스트뷰 가져오기
+        user_image = findViewById(R.id.user_image);
         user_email = findViewById(R.id.user_email);
         user_name = findViewById(R.id.user_name);
         user_pw = findViewById(R.id.user_pw);
@@ -88,8 +122,49 @@ public class UserModifyActivity extends AppCompatActivity {
         user_addressdetail = findViewById(R.id.user_addressdetail);
         user_tel = findViewById(R.id.user_tel);
         user_birth = findViewById(R.id.user_birth);
+        tv_editPeopleImage = findViewById(R.id.tv_editPeopleImage);
+        fieldCheck = findViewById(R.id.tv_fieldCheck_findId);
+//
+
+        user_pwcheck = findViewById(R.id.user_pwcheck);
+        tv_pwCheckMsg_user = findViewById(R.id.tv_pwCheckMsg_user);
 
         //  --------------------------------------------- Select DB에서 받아오기
+
+//        String userimage = members.get(0).getImage();
+        if (members.get(0).getImage().equals("null")) {
+            urlImage = urlAddrBase + "image/ic_defaultpeople.jpg";
+            user_image.loadUrl(urlImage);
+        } else {
+
+            // Initial webview
+            user_image.setWebViewClient(new WebViewClient());
+
+            // Enable JavaScript
+            user_image.getSettings().setJavaScriptEnabled(true);
+            user_image.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+            // WebView 세팅
+            WebSettings webSettings = user_image.getSettings();
+            webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+            webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+            //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+            user_image.setBackgroundColor(0); //배경색
+            user_image.setHorizontalScrollBarEnabled(false); //가로 스크롤
+            user_image.setVerticalScrollBarEnabled(false);   //세로 스크롤
+            user_image.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+            user_image.setScrollbarFadingEnabled(false);
+            user_image.setInitialScale(25);
+
+            // 웹뷰 멀티 터치 가능하게 (줌기능)
+            webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+            webSettings.setSupportZoom(false);
+
+            user_image.loadUrl(urlImage); // 접속 URL
+
+
+        }
         String useremail = members.get(0).getEmail();
         user_email.setText(useremail);
 
@@ -110,13 +185,21 @@ public class UserModifyActivity extends AppCompatActivity {
 
         String userbirth = members.get(0).getBirth();
         user_birth.setText(userbirth);
+
+
         //  ---------------------------------------------
+        currentPW = user_pw;
+        user_pw.addTextChangedListener(changeListener_pw);
+        user_pwcheck.addTextChangedListener(changeListener_pwcheck);
+        user_tel.addTextChangedListener(changeListener_tel);
+        user_name.addTextChangedListener(changeListener_name);
 
         //  ---------------------------------------------  Update
 
 
         update_btn = findViewById(R.id.user_update_btn);
         update_btn.setOnClickListener(onClickListener);
+        tv_editPeopleImage.setOnClickListener(onClickListener);
 
         findViewById(R.id.user_birth_btn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +230,7 @@ public class UserModifyActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         // Select
-        urlAddr1 = urlAddrBase + "user_info_all.jsp?userEmail=" + email;
+        urlAddr1 = urlAddrBase + "jsp/user_info_all.jsp?email=" + email;
         connectSelectGetData(urlAddr1);
         Log.v(TAG, "onResume()");
     }
@@ -166,28 +249,53 @@ public class UserModifyActivity extends AppCompatActivity {
     }
 
 
-    // Update
+    // Update 수정버튼
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            useremail = user_email.getText().toString();
-            userpw = user_pw.getText().toString();
-            username = user_name.getText().toString();
-            useraddress = user_address.getText().toString();
-            useraddressdetail = user_addressdetail.getText().toString();
-            usertel = user_tel.getText().toString();
-            userbirth = user_birth.getText().toString();
+            Intent intent;
+            switch (v.getId()) {
+                case R.id.user_update_btn:
+                    if (imageCheck == 1) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                doMultiPartRequest();
+                            }
+                        }).start();
+                    }
+                    Log.v(TAG, "image Name : " + imageName);
+                    useremail = user_email.getText().toString();
+                    userpw = user_pw.getText().toString();
+                    username = user_name.getText().toString();
+                    useraddress = user_address.getText().toString();
+                    useraddressdetail = user_addressdetail.getText().toString();
+                    usertel = user_tel.getText().toString();
+                    userbirth = user_birth.getText().toString();
+                    if (imageCheck == 1) {
+                        userimage = imageName;
+                    }
+                    updatePeople();
+                    checkField();
+//                    userInfoCheck();
+                    break;
 
-            updatePeople();
+                case R.id.tv_editPeopleImage:
+                    intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                    intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+                    break;
 
 
+            }
         }
     };
 
     // people Update data 송부
     private void updatePeople() {
         String urlAddr3 = "";
-        urlAddr3 = urlAddrBase + "user_update.jsp?userEmail=" + useremail + "&userPw=" + userpw + "&userName=" + username + "&userAddress=" + useraddress + "&userAddressDetail=" + useraddressdetail + "&userTel=" + usertel + "&userBirth=" + userbirth;
+        urlAddr3 = urlAddrBase + "jsp/user_update.jsp?userEmail=" + useremail + "&userPw=" + userpw + "&userName=" + username + "&userAddress=" + useraddress + "&userAddressDetail=" + useraddressdetail + "&userTel=" + usertel + "&userBirth=" + userbirth;
         Log.v(TAG, urlAddr3);
 
         connectUpdateData(urlAddr3);
@@ -254,5 +362,244 @@ public class UserModifyActivity extends AppCompatActivity {
         }
         return super.dispatchTouchEvent(ev);
     }
+
+    // pw 입력란 text 변경 시 listener
+    TextWatcher changeListener_pw = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            // pw 입력 시
+            String pwCheck = user_pw.getText().toString().trim();
+            Boolean check = pwdRegularExpressionChk(pwCheck);
+
+            if (pwCheck.length() == 0) {
+                user_pw.setError(null);
+
+            } else {
+                if (check == false) {
+                    user_pw.setError("비밀번호는 영문, 특수문자 포함하여 최소 8자 이상 입력해주세요.");
+                }
+            }
+        }
+    };
+
+    // pw 입력란 text 변경 시 listener
+    TextWatcher changeListener_pwcheck = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            // pwcheck 입력 시 일치 여부 message
+            if (user_pwcheck.getText().toString().trim().length() != 0) {
+                if ((user_pwcheck.getText().toString().trim()).equals(user_pw.getText().toString().trim())) {
+                    tv_pwCheckMsg_user.setTextColor(getResources().getColor(R.color.black));
+                    tv_pwCheckMsg_user.setText("비밀번호 일치");
+
+                } else {
+                    tv_pwCheckMsg_user.setTextColor(getResources().getColor(R.color.red));
+                    tv_pwCheckMsg_user.setText("비밀번호 불일치");
+                }
+            }
+        }
+    };
+
+    // 비밀번호 영/숫/특 포함 설정
+    public boolean pwdRegularExpressionChk(String newPwd) {
+        boolean chk = false;  // 특수문자, 영문, 숫자 조합 (8~10 자리)
+        match = Pattern.compile(pattern1).matcher(newPwd);
+        if (match.find()) {
+            chk = true;
+        }
+        return chk;
+    }
+
+    // 입력란 field check
+    private void checkField() {
+        String userPW = user_pw.getText().toString().trim();
+        String userPWCheck = user_pwcheck.getText().toString().trim();
+        tv_pwCheckMsg_user.setText("");
+
+        if (userPW.length() == 0) {
+            tv_pwCheckMsg_user.setText("새로운 비밀번호를 입력해주세요.");
+
+        } else if (userPW.length() != 0) {
+            if (user_pwcheck.equals(userPW)) {
+                tv_pwCheckMsg_user.setText("기존 비밀번호와 동일합니다.");
+
+            } else {
+                Boolean check = pwdRegularExpressionChk(userPW);
+
+                if (check == false) {
+                    tv_pwCheckMsg_user.setText("비밀번호를 영문, 특수문자 포함하여 \n최소 8자 이상 입력해주세요.");
+
+                } else {
+                    if (userPWCheck.length() == 0) {
+                        tv_pwCheckMsg_user.setText("새로운 비밀번호 확인을 입력해주세요.");
+
+                    } else if ((user_pwcheck.getText().toString().trim()).equals(user_pw.getText().toString().trim())) {
+//                        updateUser(userPW);
+
+                    } else {
+                        tv_pwCheckMsg_user.setText("비밀번호가 일치하지 않습니다. \n다시 확인해주세요.");
+                        user_pwcheck.setText("");
+                        Toast.makeText(UserModifyActivity.this, "비밀번호가 일치하지 않습니다. \n다시 확인해주세요.", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            }
+
+        }
+
+
+    }
+
+    // name text
+    TextWatcher changeListener_name = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            fieldCheck.setText("");
+        }
+    };
+
+
+    // phone text
+    TextWatcher changeListener_tel = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            fieldCheck.setText("");
+            _beforeLenght = s.length();
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //fieldCheck.setText("");
+            _afterLenght = s.length();
+            // 삭제 중
+            if (_beforeLenght > _afterLenght) {
+                // 삭제 중에 마지막에 -는 자동으로 지우기
+                if (s.toString().endsWith("-")) {
+                    user_tel.setText(s.toString().substring(0, s.length() - 1));
+                }
+            }
+            // 입력 중
+            else if (_beforeLenght < _afterLenght) {
+                if (_afterLenght == 4 && s.toString().indexOf("-") < 0) {
+                    user_tel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
+                } else if (_afterLenght == 9) {
+                    user_tel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
+                } else if (_afterLenght == 14) {
+                    user_tel.setText(s.toString().subSequence(0, 13) + "-" + s.toString().substring(13, s.length()));
+                }
+            }
+            user_tel.setSelection(user_tel.length());
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String phoneCheck = user_tel.getText().toString().trim();
+            boolean flag = Pattern.matches(pattern2, phoneCheck);
+
+            if (phoneCheck.length() == 0) {
+                user_tel.setError(null);
+            } else {
+                if (flag == false) {
+                    user_tel.setError("휴대폰 번호를 다시 입력해주세요.");
+                }
+            }
+        }
+    };
+
+    // user 정보 확인
+//    private void userInfoCheck() {
+//
+//        String userName = user_name.getText().toString().trim();
+//        String userPhone = user_tel.getText().toString().trim();
+//
+//        if (userName.length() == 0) {
+//            fieldCheck.setText("이름을 입력해주세요");
+//            user_name.setFocusableInTouchMode(true);
+//            user_name.requestFocus();
+//
+//        } else if (userPhone.length() == 0) {
+//            fieldCheck.setText("휴대폰 번호을 입력해주세요");
+//            user_tel.setFocusableInTouchMode(true);
+//            user_tel.requestFocus();
+//
+//        }
+//
+//    }
+
+
+    private void doMultiPartRequest() {
+
+        File f = new File(img_path);
+
+        DoActualRequest(f);
+    }
+
+    //서버 보내기
+    private void DoActualRequest(File file) {
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody body = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", file.getName(),
+                        RequestBody.create(MediaType.parse("image/*"), file))
+                .build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+//    // user pw 수 data 송부
+//    private void updateUser(String userPW) {
+//        String urlAddr1 = "";
+//        urlAddr1 = urlAddr + "&pw=" + userPW;
+//
+//        Log.v(TAG, urlAddr1);
+//        String result = connectUpdateData(urlAddr1);
+//
+//        if (result.equals("1")) {
+//            Toast.makeText(MypagePWActivity02.this, "비밀번호 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+//            finish();
+//
+//        } else {
+//            Toast.makeText(MypagePWActivity02.this, "비밀번호 변경에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+//
+//        }
+//    }
 }
 

@@ -69,14 +69,14 @@ public class ProductQuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_product_question,container,false);
-        Log.v(TAG, "onCreate" + getArguments());
+        Log.v(TAG, "onCreate QUESTION" + getArguments());
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString("sellerEmail");
             mParam2 = getArguments().getString("productNo");
         }
         Button btnQuestion = v.findViewById(R.id.btnChattingQuestion_productview);
-        Log.v(TAG, "ONCREATEVIEW" + mParam1 + mParam2 );
+        Log.v(TAG, "ONCREATE QUESTION" + mParam1 + mParam2 );
 
         btnQuestion.setOnClickListener(mClickListener);
 

@@ -74,7 +74,6 @@
                     android:background="@drawable/button_background"
                     android:hint="이메일"
                     android:inputType="textEmailAddress"
-                    android:text="Single Line"
                     android:singleLine="true"
                     android:paddingLeft="10dp"
                     android:textSize="18dp" />
@@ -137,6 +136,13 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/tv_pwCheckMsg_join"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0.6" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/InputLayoutAddress"
@@ -152,7 +158,6 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/button_background"
                 android:hint="주소입력"
-                android:text="Single Line"
                 android:singleLine="true"
                 android:paddingLeft="10dp"
                 android:textSize="18dp" />
@@ -173,21 +178,12 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/button_background"
                 android:hint="상세주소입력"
-                android:text="Single Line"
                 android:singleLine="true"
                 android:paddingLeft="10dp"
                 android:textSize="18dp" />
 
         </LinearLayout>
 
-
-
-        <TextView
-            android:id="@+id/tv_pwCheckMsg_join"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="0.6" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/InputLayoutPhone_join"

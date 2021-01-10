@@ -20,20 +20,26 @@ public class CategoryFragment extends Fragment {
     String pType;
 
     ListView listView;
+    String macIP, email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Fragment는 Activity가 아니기때문에 리턴값과 레이아웃을 변수로 정해준다.
         View v = inflater.inflate(R.layout.fragment_category, container, false);
 
-
+        email = getArguments().getString("useremail");
+        macIP = getArguments().getString("macIP");
 //        listView = v.findViewById(R.id.lv_rec);
 
 v.findViewById(R.id.korean).setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(getContext(), ProductList.class);
+
         intent.putExtra(pType,"dd");
+        intent.putExtra("macIP",macIP);
+        intent.putExtra("useremail",email);
+
         startActivity(intent);
     }
 });

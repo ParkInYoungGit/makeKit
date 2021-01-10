@@ -1,7 +1,5 @@
 package com.example.makekit.makekit_bean;
 
-import java.util.ArrayList;
-
 public class User {
 
     String email;
@@ -11,6 +9,7 @@ public class User {
     String addressdetail;
     String tel;
     String birth;
+    String image;
 
     // 1/8 Daehwan 추가
     // email만 받아오는 constructor
@@ -32,7 +31,8 @@ public class User {
     }
     //////////////////////////////////////////////////////////////////////////////
 
-    public User(String email, String pw, String name, String address, String addressdetail, String tel, String birth) {
+
+    public User(String email, String name, String pw, String address, String addressdetail, String tel, String birth) {
         this.email = email;
         this.name = name;
         this.pw = pw;
@@ -40,6 +40,23 @@ public class User {
         this.addressdetail = addressdetail;
         this.tel = tel;
         this.birth = birth;
+    }
+
+    public User(String email, String pw, String name, String address, String addressdetail, String tel, String birth, String image) {
+        this.email = email;
+        this.name = name;
+        this.pw = pw;
+        this.address = address;
+        this.addressdetail = addressdetail;
+        this.tel = tel;
+        this.birth = birth;
+        this.image = image;
+    }
+
+    public String getImage() { return image; }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getEmail() { return email; }

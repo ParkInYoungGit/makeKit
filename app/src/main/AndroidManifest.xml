@@ -26,10 +26,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MakeKit"
+<<<<<<< HEAD
         android:usesCleartextTraffic="true">
         <activity android:name=".makekit_activity.PhoneFindPwActivity"></activity>
         <activity android:name=".makekit_activity.EmailFindPwActivity" /> <!-- 카카오 어플리케이션 등록 -->
         <activity android:name=".makekit_activity.TempLogin" />
+=======
+        android:usesCleartextTraffic="true"
+        android:name=".makekit_method.KakaoApplication"> <!-- 카카오 어플리케이션 등록 -->
+        <activity android:name=".makekit_activity.TempLogin"></activity>
+>>>>>>> b7ecad86f6263ddda7da4a274333a6f7bcc06476
         <activity android:name=".makekit_activity.EmailCheckActivity" />
         <activity android:name=".makekit_activity.NoticeActivity" />
         <activity android:name=".makekit_activity.ProductList" /> <!-- <activity android:name=".makekit_activity.NoticeActivity" /> -->
@@ -40,8 +46,15 @@
 
         <uses-library
             android:name="org.apache.http.legacy"
+<<<<<<< HEAD
             android:required="false" /> <!-- 끝 -->
         <activity android:name=".makekit_activity.MapChattingActivity" />
+=======
+            android:required="false" />
+        <!-- 끝 -->
+
+        <activity android:name=".makekit_activity.MapChattingActivity"></activity>
+>>>>>>> b7ecad86f6263ddda7da4a274333a6f7bcc06476
         <activity android:name=".makekit_activity.WebViewActivity" />
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
@@ -49,7 +62,11 @@
         <activity android:name=".makekit_activity.SplashActivity" />
         <activity android:name=".makekit_activity.OrderViewActivity" />
         <activity android:name=".makekit_activity.PaymentActivity" />
+<<<<<<< HEAD
         <activity android:name=".makekit_activity.ProdutctViewActivity">
+=======
+        <activity android:name=".makekit_activity.ProdutctViewActivity" >
+>>>>>>> b7ecad86f6263ddda7da4a274333a6f7bcc06476
 
         </activity>
         <activity android:name=".makekit_activity.ReviewListActivity" />
@@ -61,6 +78,7 @@
         <activity
             android:name=".makekit_activity.LoginActivity"
             android:icon="@drawable/img_logo"
+<<<<<<< HEAD
             android:theme="@style/Theme.MakeKit.NoActionBar">
             <meta-data
                 android:name="com.kakao.sdk.AppKey"
@@ -70,23 +88,53 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
+=======
+            android:theme="@style/Theme.MakeKit.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.kakao.sdk.AppKey"
+                android:value="@string/kakao_app_key" />
+        </activity>
+
+        <!-- Ria _ KAKAO ReDirect URI -->
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+>>>>>>> b7ecad86f6263ddda7da4a274333a6f7bcc06476
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
+<<<<<<< HEAD
                 <data
                     android:host="oauth"
                     android:scheme="kakaof2d8fb4aeb0237f82647add92f60e987" />
             </intent-filter>
+=======
+                <data android:host="oauth"
+                    android:scheme="kakaof2d8fb4aeb0237f82647add92f60e987" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".makekit_activity.UserModifyActivity">
+>>>>>>> b7ecad86f6263ddda7da4a274333a6f7bcc06476
         </activity>
         <activity android:name=".makekit_activity.UserModifyActivity" />
         <activity android:name=".makekit_activity.JoinActivity" />
+<<<<<<< HEAD
         <activity android:name=".makekit_activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+=======
+        <activity android:name=".makekit_activity.MainActivity">
+
+>>>>>>> b7ecad86f6263ddda7da4a274333a6f7bcc06476
         </activity>
         <activity android:name=".makekit_activity.OrderActivity" />
         <activity android:name=".makekit_activity.CartActivity" />

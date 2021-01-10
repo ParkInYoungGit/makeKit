@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
-    final static String TAG = "PeopleNetworkTask";
+    final static String TAG = "UserNetWorkTask";
     Context context = null;
     String mAddr = null;
     String where = null;
@@ -171,8 +171,10 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
                 String useraddressdetail = jsonObject1.getString("userAddressDetail");
                 String usertel = jsonObject1.getString("userTel");
                 String userbirth = jsonObject1.getString("userBirth");
+                String userimage = jsonObject1.getString("userImage");
 
-                User user2 = new User(useremail, userpw, username, useraddress, useraddressdetail, usertel, userbirth);
+
+                User user2 = new User(useremail, userpw, username, useraddress, useraddressdetail, usertel, userbirth, userimage);
                 user.add(user2);
             }
 
@@ -192,8 +194,8 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                String email = jsonObject1.getString("userName");
-                String name = jsonObject1.getString("userEmail");
+                String email = jsonObject1.getString("userEmail");
+                String name = jsonObject1.getString("userName");
                 String pw = jsonObject1.getString("userPw");
                 String address = jsonObject1.getString("userAddress");
                 String addressDetail = jsonObject1.getString("userAddressDetail");

@@ -1,6 +1,5 @@
 package com.example.makekit.makekit_fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_adapter.ProductAdapter;
+import com.example.makekit.makekit_adapter.ProductReviewAdapter;
 import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
 import com.example.makekit.makekit_bean.Review;
 
@@ -26,14 +25,20 @@ import java.util.ArrayList;
  * Use the {@link ProductReviewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+//////////////////////////////////////////
+// jsp makekit 부분 makeKit 으로 변경 필요!!!
+//////////////////////////////////////////
+
 public class ProductReviewFragment extends Fragment {
 
     View v;
     String urlAddr;
     String urlAddrBase = null;
+    String macIP, productNo;
 
     ArrayList<Review> reviews;
-    ProductAdapter productAdapter;
+    ProductReviewAdapter productReviewAdapter;
 
     private RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView;
@@ -74,10 +79,15 @@ public class ProductReviewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(TAG, "onCreate REVIEW" + getArguments());
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
+        } else {
+            mParam1 = getArguments().getString("macIP");
+            mParam2 = getArguments().getString("productNo");
         }
+
+
     }
 
     @Override
@@ -85,26 +95,28 @@ public class ProductReviewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_product_review, container, false);
-        Log.v(TAG, "onCreate" + getArguments());
+        Log.v(TAG, "onCreateView REVIEW" + getArguments());
+
+        recyclerView = v.findViewById(R.id.reviewList_productview);
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString("macIP");
             mParam2 = getArguments().getString("productNo");
         }
-
-        recyclerView = v.findViewById(R.id.reviewList_productview);
-
-        mParam1 = "192.168.219.164";
-        mParam2 = "44";
+//        mParam1 = "192.168.219.164";
+//        mParam2 = "44";
 
         urlAddrBase = "http://" + mParam1 + ":8080/makekit/";
         urlAddr = urlAddrBase + "jsp/review_productview_all.jsp?productno=" + mParam2;
+        Log.v(TAG, "주소" + urlAddr);
+        connectSelectData();
         return v;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Log.v(TAG, "onResume REVIEW");
         connectSelectData();
     }
 
@@ -116,13 +128,11 @@ public class ProductReviewFragment extends Fragment {
             Object object = reviewNetworkTask.execute().get();
             reviews = (ArrayList<Review>) object;
 
-            productAdapter = new ProductAdapter(getActivity(), R.layout.custom_productview_review, reviews, urlAddrBase);
-            recyclerView.setAdapter(productAdapter);
+            productReviewAdapter = new ProductReviewAdapter(getActivity(), R.layout.custom_productview_review, reviews, urlAddrBase);
+            recyclerView.setAdapter(productReviewAdapter);
             recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
             layoutManager = new LinearLayoutManager(getContext());
-            SnapHelper snapHelper = new PagerSnapHelper();
             recyclerView.setLayoutManager(layoutManager);
-            snapHelper.attachToRecyclerView(recyclerView);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -51,13 +51,15 @@ public class MypageFragment extends Fragment {
 
 
 
-//        setting_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), UserModifyActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        setting_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), UserModifyActivity.class);
+                intent.putExtra("macIP", macIP);
+                intent.putExtra("useremail", email);
+                startActivity(intent);
+            }
+        });
 
 
 

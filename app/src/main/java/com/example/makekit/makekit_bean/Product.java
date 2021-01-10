@@ -13,6 +13,21 @@ public class Product {
     String productInsertDate;
     String productDeleteDate;
 
+
+    ////////////////////////////////////////////
+    // 01/09 kyeongmi 추가 product view
+    public Product(String productNo, String productName, String productPrice, String productContent, String productFilename, String productDfilename, String productAFilename) {
+        this.productNo = productNo;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productContent = productContent;
+        this.productFilename = productFilename;
+        this.productDfilename = productDfilename;
+        this.productAFilename = productAFilename;
+    }
+
+    ////////////////////////////////////////////
+
     public Product(String productNo, String productName, String productType, String productPrice, String productStock, String productContent, String productFilename, String productDfilename, String productAFilename, String productInsertDate, String productDeleteDate) {
         this.productNo = productNo;
         this.productName = productName;
