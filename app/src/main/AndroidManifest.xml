@@ -27,7 +27,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MakeKit"
         android:usesCleartextTraffic="true">
-        <activity android:name=".makekit_activity.RegisterReviewActivity">
+        <activity android:name=".makekit_activity.RegisterReviewActivity"></activity>
         <activity android:name=".makekit_activity.MainActivity">
 
             <intent-filter>
@@ -37,10 +37,7 @@
             </intent-filter>
 
         </activity>
-
         <activity android:name=".makekit_activity.ProductSalesWriteActivity" /> <!-- 카카오 어플리케이션 등록 -->
-        </activity>
-        
         <!-- 카카오 어플리케이션 등록 -->
         <activity android:name=".makekit_activity.TempLogin" />
         <activity android:name=".makekit_activity.EmailCheckActivity" />
