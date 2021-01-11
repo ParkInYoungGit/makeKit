@@ -12,13 +12,18 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.LoginActivity;
+import com.example.makekit.makekit_activity.ProdutctViewActivity;
+import com.example.makekit.makekit_activity.SaleListActivity;
 import com.example.makekit.makekit_asynctask.ProductNetworkTask;
 import com.example.makekit.makekit_asynctask.WishlistNetworkTask;
+import com.example.makekit.makekit_bean.Favorite;
 import com.example.makekit.makekit_bean.Product;
 
 import java.util.ArrayList;
@@ -29,13 +34,16 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ProductDetailFragment extends Fragment {
+    final static String TAG = "ProductDetailFragment";
 
     View v;
-    String macIP, productNo, urlAddrBase, urlAddr, urlImageReal, result, userEmail, sellerFavoriteCheck, urlAddr2, urlAddr3, sellerEmail;
+    String macIP, productNo,favoriteCheck, urlAddrBase, urlAddr, urlImageReal, result, userEmail, sellerFavoriteCheck, urlAddr2, urlAddr3, urlAddr4, sellerEmail, sellerNameSt, urlImageReal1;
     WebView sellerImage;
     TextView sellerName;
     WebView productAFilename;
     ArrayList<Product> products;
+    ImageView sellerFavorite;
+    ArrayList<Favorite> sellerInfo;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,13 +94,92 @@ public class ProductDetailFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_product_detail, container, false);
         urlAddrBase = "http://" + macIP + ":8080/makekit/";
         urlAddr = urlAddrBase + "jsp/sellerfavorite_productview_check.jsp?useremail=" + userEmail + "&productno=" + productNo;
+        urlAddr4 = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
 
         sellerImage = v.findViewById(R.id.sellerImage_productviewdetail);
         sellerName = v.findViewById(R.id.sellerName_productdetail);
-        v.findViewById(R.id.btnSellerFavorite_productdetail).setOnClickListener(mClickListener);
+        sellerFavorite = v.findViewById(R.id.sellerFavorite_productdetail);
+        v.findViewById(R.id.sellerFavorite_productdetail).setOnClickListener(mClickListener);
         v.findViewById(R.id.btnSellerStory_productdetail).setOnClickListener(mClickListener);
 
+
+        connectSelectData(urlAddr4);
         connectSelectSellerFavoriteData(urlAddr);
+
+        if(favoriteCheck.equals("0")){
+            sellerFavorite.setImageResource(R.drawable.seller_nonfavorite);
+
+        } else {
+            sellerFavorite.setImageResource(R.drawable.seller_favorite);
+
+
+        }
+
+        sellerEmail = products.get(0).getSellerEmail();
+        sellerNameSt = products.get(0).getSellerEmail();
+        sellerName.setText(sellerNameSt);
+
+        urlImageReal = urlAddrBase+ "image/" +products.get(0).getSellerImage();
+        urlImageReal1 = urlAddrBase+ "image/ic_defaultpeople.jpg";
+
+        if(products.get(0).getSellerImage().equals("null")){
+            // Initial webview
+            sellerImage.setWebViewClient(new WebViewClient());
+
+            // Enable JavaScript
+            sellerImage.getSettings().setJavaScriptEnabled(true);
+            sellerImage.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+            // WebView 세팅
+            WebSettings webSettings = sellerImage.getSettings();
+            webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+            webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+            //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+            sellerImage.setBackgroundColor(0); //배경색
+            sellerImage.setHorizontalScrollBarEnabled(false); //가로 스크롤
+            sellerImage.setVerticalScrollBarEnabled(false);   //세로 스크롤
+            sellerImage.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+            sellerImage.setScrollbarFadingEnabled(false);
+            sellerImage.setInitialScale(15);
+
+            // 웹뷰 멀티 터치 가능하게 (줌기능)
+            webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+            webSettings.setSupportZoom(false);
+
+            // url은 알아서 설정 예) http://m.naver.com/
+            sellerImage.loadUrl(urlImageReal1); // 접속 URL
+
+        } else {
+
+            // Initial webview
+            sellerImage.setWebViewClient(new WebViewClient());
+
+            // Enable JavaScript
+            sellerImage.getSettings().setJavaScriptEnabled(true);
+            sellerImage.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+            // WebView 세팅
+            WebSettings webSettings = sellerImage.getSettings();
+            webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+            webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+            //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+            sellerImage.setBackgroundColor(0); //배경색
+            sellerImage.setHorizontalScrollBarEnabled(false); //가로 스크롤
+            sellerImage.setVerticalScrollBarEnabled(false);   //세로 스크롤
+            sellerImage.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+            sellerImage.setScrollbarFadingEnabled(false);
+            sellerImage.setInitialScale(15);
+
+            // 웹뷰 멀티 터치 가능하게 (줌기능)
+            webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+            webSettings.setSupportZoom(false);
+
+            // url은 알아서 설정 예) http://m.naver.com/
+            sellerImage.loadUrl(urlImageReal); // 접속 URL
+        }
+
 
 //        urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
 //
@@ -149,31 +236,41 @@ public class ProductDetailFragment extends Fragment {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.btnSellerFavorite_productdetail:
+                case R.id.sellerFavorite_productdetail:
                     if(loginCheck() == true) {
-                        if (sellerEmail == null) {
-                            urlAddr2 = urlAddrBase + "jsp/insert_wishlistproduct_productview.jsp?useremail=" + userEmail + "&sellereamil=" +sellerEmail;
+                        if (favoriteCheck.equals("0")) {
+                            urlAddr2 = urlAddrBase + "jsp/insert_sellerwishlistproduct_productview.jsp?useremail=" + userEmail + "&selleremail=" +sellerEmail;
                             insertSellerFavorite(urlAddr2);
+                            sellerFavorite.setImageResource(R.drawable.seller_favorite);
+
                             if (result.equals("1")) {
-                               // favoriteStatus.setImageResource(R.drawable.ic_favorite);
+                                Toast.makeText(getContext(), "입력에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                //sellerFavorite.setImageResource(R.drawable.seller_nonfavorite);
                             }
 
-                        } else {
-                            urlAddr3 = urlAddrBase + "jsp/delete_sellerwishlistproduct_productview.jsp?useremail=" + userEmail + "&sellereamil=" +sellerEmail;
+                        } else if(favoriteCheck.equals("1")){
+                            urlAddr3 = urlAddrBase + "jsp/delete_sellerwishlistproduct_productview.jsp?useremail=" + userEmail + "&selleremail=" +sellerEmail;
                             deleteSellerFavorite(urlAddr3);
+                            sellerFavorite.setImageResource(R.drawable.seller_nonfavorite);
                             if (result.equals("1")) {
-                               // favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
+                                //sellerFavorite.setImageResource(R.drawable.seller_nonfavorite);
+                                Toast.makeText(getContext(), "입력에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                sellerFavorite.setImageResource(R.drawable.seller_favorite);
                             }
                         }
                     }
                     break;
 
                 case R.id.btnSellerStory_productdetail:
-
+                    Intent intent = new Intent(getActivity(), SaleListActivity.class);
+                    intent.putExtra("sellerEmail", sellerEmail);
+                    intent.putExtra("macIP", macIP);
+                    intent.putExtra("userEmail", userEmail);
+                    startActivity(intent);
 
                     break;
             }
@@ -186,7 +283,8 @@ public class ProductDetailFragment extends Fragment {
             WishlistNetworkTask wishlistNetworkTask = new WishlistNetworkTask(getActivity(), urlAddr, "selectseller");
 
             Object object = wishlistNetworkTask.execute().get();
-            sellerEmail = (String) object;
+            favoriteCheck = (String) object;
+            Log.v(TAG, "favorite : "+favoriteCheck);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -228,6 +326,19 @@ public class ProductDetailFragment extends Fragment {
             return false;
         }
         return true;
+    }
+
+    // select content
+    private void connectSelectData(String urlAddr) {
+        try {
+            ProductNetworkTask productNetworkTask = new ProductNetworkTask(getActivity(), urlAddr, "select");
+
+            Object object = productNetworkTask.execute().get();
+            products = (ArrayList<Product>) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
