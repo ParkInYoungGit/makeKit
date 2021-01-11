@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".makekit_activity.RegisterReviewActivity">
+
+    <LinearLayout
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.8"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="구매 후기 작성"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
+        <Button
+            android:id="@+id/btn_registerReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="등록"
+
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:orientation="vertical"
+        android:layout_weight="1.2"
+        android:padding="15dp"
+        android:gravity="center|top"
+        >
+
+        <RatingBar
+            android:id="@+id/review_ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:progressTint="@color/purple_500"
+            android:progressBackgroundTint="#CFCECE"
+            android:secondaryProgressTint="#CFCECE"
+            android:numStars="5"
+            android:stepSize="0.5" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="별표를 탭하여 평가하세요."
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="4"
+        android:padding="15dp"
+        >
+
+        <EditText
+            android:id="@+id/input_WriteReview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Review를 10글자 이상 입력해주세요.\n포토 리뷰 작성시 추첨을 통해 할인 쿠폰을 지급합니다!"
+            android:textSize="16dp"
+            android:gravity="top"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.6"
+        >
+
+        <ImageView
+            android:id="@+id/review_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:src="@drawable/camera"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

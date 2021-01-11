@@ -89,6 +89,9 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.firebase:firebase-auth:19.0.0'
 
+    // 이미지 압축
+    implementation 'id.zelory:compressor:2.1.0'
+
     // 1.10 kyeongmi 추가
     // 옵셥 팝업 띄우기
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
