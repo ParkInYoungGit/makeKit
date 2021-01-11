@@ -5,14 +5,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_bean.Product;
+import com.example.makekit.makekit_adapter.ProductReviewAdapter;
+import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
+import com.example.makekit.makekit_bean.Review;
 
 import java.util.ArrayList;
 
@@ -23,14 +24,17 @@ import java.util.ArrayList;
  */
 public class ReviewListFragment extends Fragment {
 
-    TextView productName, productPrice, productContent, productTotalPrice, purchaseNumInput;
-    WebView productFilename, productDfilename, productAFilename;
-    Button btnPlus, btnMinus;
-    int count = 1;
-
     View v;
-    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, urlImageReal3, orderNo, macIP, productNo;
-    ArrayList<Product> products;
+    String urlAddr;
+    String urlAddrBase = null;
+    String macIP, productNo, orderNo;
+
+    ArrayList<Review> reviews;
+    ProductReviewAdapter productReviewAdapter;
+
+    private RecyclerView.LayoutManager layoutManager;
+    RecyclerView recyclerView;
+
     final static String TAG = "ReviewListFragment";
 
 
@@ -43,11 +47,11 @@ public class ReviewListFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ReviewListFragment(String macIP, String productNo, String orderNo) {
+    public ReviewListFragment(String macIP, String productNo) {
         // Required empty public constructor
         this.macIP = macIP;
         this.productNo = productNo;
-        this.orderNo = orderNo;
+//        this.orderNo = orderNo;
     }
 
     /**
@@ -60,7 +64,7 @@ public class ReviewListFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static ReviewListFragment newInstance(String param1, String param2) {
-        ReviewListFragment fragment = new ReviewListFragment("macIP", "productNo", "orderNo");
+        ReviewListFragment fragment = new ReviewListFragment("macIP", "productNo");
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -74,7 +78,7 @@ public class ReviewListFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString("macIP");
             mParam2 = getArguments().getString("productNo");
-            mParam2 = getArguments().getString("orderNo");
+//            mParam2 = getArguments().getString("orderNo");
         }
     }
 
@@ -82,13 +86,46 @@ public class ReviewListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        v = inflater.inflate(R.layout.fragment_product_content, container, false);
+        v = inflater.inflate(R.layout.fragment_review_list, container, false);
         Log.v(TAG, "onCreateView content" + getArguments());
 
+        recyclerView = v.findViewById(R.id.reviewList_productview);
 
-
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_review_list, container, false);
+        urlAddrBase = "http://" + macIP + ":8080/makekit/";
+//        urlAddr = urlJsp + "jsp/review_list_all.jsp?productno=" + productNo;
+        urlAddr = urlAddrBase + "jsp/review_list_all.jsp?productno=42";
+        Log.v(TAG, "주소" + urlAddr);
+        connectSelectData();
+        return v;
     }
-}
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v(TAG, "onResume REVIEW");
+        connectSelectData();
+    }
+
+
+
+    // select review
+    private void connectSelectData() {
+        try {
+            ReviewNetworkTask reviewNetworkTask = new ReviewNetworkTask(getActivity(), urlAddr);
+
+            Object object = reviewNetworkTask.execute().get();
+            reviews = (ArrayList<Review>) object;
+
+            productReviewAdapter = new ProductReviewAdapter(getActivity(), R.layout.custom_reviewlist, reviews, urlAddrBase);
+            recyclerView.setAdapter(productReviewAdapter);
+            recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
+            layoutManager = new LinearLayoutManager(getContext());
+            recyclerView.setLayoutManager(layoutManager);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+} // END ---------------------------------------------------------------------

@@ -423,6 +423,11 @@ public class JoinActivity extends AppCompatActivity {
             Toast.makeText(JoinActivity.this, userName + "님 회원가입 실패하였습니다.", Toast.LENGTH_SHORT).show();
         }
 
+        // cart에 고유번호 추가
+        urlAddstatus = urlAddstatus+"people_peopleno="+peopleNo+"&userinfo_useremail="+email+"&peopleemg="+emergencyStatus+"&peoplefavorite="+bookMark;
+        connectInsertStatus();
+
+
         finish();
 
     }
@@ -497,6 +502,17 @@ public class JoinActivity extends AppCompatActivity {
         }
         return result1;
     }
+
+    // Insert Cart
+    private String connectInsertStatus() {
+        try {
+            CUDNetworkTask insTelNonetworkTask = new CUDNetworkTask(RegisterPeopleActivity.this, urlAddstatus, "Register");
+            Object object = insTelNonetworkTask.execute().get();
+            statusInsert =(String) object;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return statusInsert;
 
 
 
