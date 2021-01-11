@@ -3,7 +3,9 @@ package com.example.makekit.makekit_adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,19 +14,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_activity.SaleListActivity;
+import com.example.makekit.makekit_activity.SaleProductListActivity;
 import com.example.makekit.makekit_bean.Order;
 
 import java.util.ArrayList;
 
-public class SaleListAdapter extends RecyclerView.Adapter<SaleListAdapter.MyViewHolder> {
+public class SaleProductListAdapter extends RecyclerView.Adapter<SaleProductListAdapter.MyViewHolder> {
 
     private ArrayList<Order> mDataset;
     private AdapterView.OnItemClickListener mListener = null;
     private String urlImage;
     private String urlImageReal;
 
-    public SaleListAdapter(SaleListActivity saleListActivity, int layout, ArrayList<Order> orders, String urlimage){
+    public SaleProductListAdapter(SaleProductListActivity saleListActivity, int layout, ArrayList<Order> orders, String urlimage){
         this.mDataset = orders;
         this.urlImage = urlimage;
     }
@@ -55,9 +57,9 @@ public class SaleListAdapter extends RecyclerView.Adapter<SaleListAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.sales_list_layout, parent, false);
+                .inflate(R.layout.sales_product_list_layout, parent, false);
         //     반복할 xml 파일
-        SaleListAdapter.MyViewHolder vh = new SaleListAdapter.MyViewHolder(v);
+        SaleProductListAdapter.MyViewHolder vh = new SaleProductListAdapter.MyViewHolder(v);
         return vh;
     }
 
@@ -71,8 +73,32 @@ public class SaleListAdapter extends RecyclerView.Adapter<SaleListAdapter.MyView
         holder.orderDate.setText("상품 번호 : " + mDataset.get(position).getProductNo());
         holder.webView.loadUrl(urlImageReal);
         holder.productName.setText(mDataset.get(position).getProductName());
-        holder.productQuantity.setText(mDataset.get(position).getProductStock());
+        holder.productQuantity.setText("재고 : "+mDataset.get(position).getProductStock());
         holder.productPrice.setText("가격(1개) : "+ mDataset.get(position).getProductPrice());
+
+        holder.webView.setWebViewClient(new WebViewClient());
+
+
+
+        // Enable JavaScript
+        holder.webView.getSettings().setJavaScriptEnabled(true);
+        holder.webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        // Enable Zoom
+        holder.webView.getSettings().setBuiltInZoomControls(true);
+        holder.webView.getSettings().setSupportZoom(true);
+        holder.webView.getSettings().setSupportZoom(true); //zoom mode 사용.
+        holder.webView.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
+
+
+        // Adjust web display
+        holder.webView.setBackgroundColor(0);
+        holder.webView.getSettings().setLoadWithOverviewMode(true);
+        holder.webView.getSettings().setUseWideViewPort(true);
+        holder.webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        holder.webView.setInitialScale(15);
+
+        // url은 알아서 설정 예) http://m.naver.com/
+        holder.webView.loadUrl(urlImageReal); // 접속 URL
     }
 
     @Override

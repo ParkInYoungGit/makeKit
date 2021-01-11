@@ -31,6 +31,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     ArrayList<ChattingBean> chattingList;
     ArrayList<User> users;
     ArrayList<Order> orders;
+    ArrayList<Order> salesList;
     String chattingNumber;
     String where = null;
 
@@ -42,16 +43,14 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
         this.chattingContents = new ArrayList<ChattingBean>();
         this.chattingList = new ArrayList<ChattingBean>();
         this.users = new ArrayList<User>();
+        this.orders = new ArrayList<Order>();
+        this.salesList = new ArrayList<Order>();
         this.where = where;
     }
 
     @Override
     protected void onPreExecute() {
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setTitle("Dialogue");
-        progressDialog.setMessage("Get ....");
-        progressDialog.show();
+
     }
 
     @Override
@@ -83,7 +82,6 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 }
 
                 if(where.equals("search")){
-                    Log.v("NetworkTask", "if search");
                     parserSelect(stringBuffer.toString());
                 }else if(where.equals("productName")){
                     parserProductName(stringBuffer.toString());
@@ -99,6 +97,9 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     parserLikeSeller(stringBuffer.toString());
                 }else if (where.equals("getSalesList")){
                     parserSalesList(stringBuffer.toString());
+                }else if (where.equals("getRealSalesList")){
+                    Log.v("NetworkTask", "if chattingContents");
+                    parserRealSalesList(stringBuffer.toString());
                 }
 
 
@@ -122,7 +123,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return productsName;
         }else if(where.equals("chattingContents")){
             return chattingContents;
-        }else if(where.equals("inputChatting")){
+        }else if(where.equals("getChattingList")){
             return chattingList;
         }else if (where.equals("getChattingNumber")){
             return chattingNumber;
@@ -130,6 +131,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return users;
         }else if (where.equals("getSalesList")){
             return orders;
+        }else if (where.equals("getRealSalesList")){
+            return salesList;
         }
         else {
             return result;
@@ -140,7 +143,6 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-        progressDialog.dismiss();
     }
 
     @Override
@@ -150,14 +152,11 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
 
 
     private void parserSelect(String s){
-        Log.v("NetworkTask", "parserselect");
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
-            Log.v("NetworkTask", "parserselect, try");
             products.clear();
             for(int i = 0; i < jsonArray.length(); i++){
-                Log.v("NetworkTask", "parserselect, for");
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
                 String productNo = jsonObject1.getString("productNo");
                 String productName = jsonObject1.getString("productName");
@@ -170,7 +169,6 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 String productAFilename = jsonObject1.getString("productAFilename");
                 String productInsertDate = jsonObject1.getString("productInsertDate");
                 String productDeleteDate = jsonObject1.getString("productDeleteDate");
-                Log.v("NetworkTask", productName);
                 Product product = new Product(productNo, productName, productType, productPrice, productStock, productContent, productFilename, productDFilename, productAFilename, productInsertDate, productDeleteDate);
                 products.add(product);
             }
@@ -198,6 +196,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
 
     private void parserChattingContents(String s){
         try {
+            Log.v("NetworkTask", "parserselect, tryin");
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
             chattingContents.clear();
@@ -281,6 +280,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             e.printStackTrace();
         }
     }
+
     private void parserSalesList(String s){
         try {
             JSONObject jsonObject = new JSONObject(s);
@@ -299,6 +299,52 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 orders.add(order);
             }
         }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void parserRealSalesList(String s){
+        Log.v("NetworkTask", "parserselect");
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            salesList.clear();
+            for(int i = 0; i < jsonArray.length(); i++){
+                Log.v("NetworkTask", "parserselect, for");
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String userName = jsonObject1.getString("userName");
+                String orderNo = jsonObject1.getString("orderNo");
+                String userinfo_userEmail = jsonObject1.getString("userinfo_userEmail");
+                String orderReceiver = jsonObject1.getString("orderReceiver");
+                String orderRcvAddress = jsonObject1.getString("orderRcvAddress");
+                String orderRcvAddressDetail = jsonObject1.getString("orderRcvAddressDetail");
+                String orderRcvPhone = jsonObject1.getString("orderRcvPhone");
+                String orderTotalPrice = jsonObject1.getString("orderTotalPrice");
+                String orderBank = jsonObject1.getString("orderBank");
+                String orderCardNo = jsonObject1.getString("orderCardNo");
+                String orderDate = jsonObject1.getString("orderDate");
+                String orderDelivery = jsonObject1.getString("orderDelivery");
+                String orderDeliveryDate = jsonObject1.getString("orderDeliveryDate");
+                String orderDetailNo = jsonObject1.getString("orderDetailNo");
+                String orderinfo_orderNo = jsonObject1.getString("orderinfo_orderNo");
+                String goods_productNo = jsonObject1.getString("goods_productNo");
+                String orderQuantity = jsonObject1.getString("orderQuantity");
+                String orderConfirm = jsonObject1.getString("orderConfirm");
+                String orderRefund = jsonObject1.getString("orderRefund");
+                String orderStar = jsonObject1.getString("orderStar");
+                String orderReview = jsonObject1.getString("orderReview");
+                String orderReviewImg = jsonObject1.getString("orderReviewImg");
+                String orderReviewInsertDate = jsonObject1.getString("orderReviewInsertDate");
+                String productName = jsonObject1.getString("productName");
+                String productPrice = jsonObject1.getString("productPrice");
+                String productAFilename = jsonObject1.getString("productAFilename");
+                Log.v("NetworkTask", productName);
+                Order order = new Order(orderNo, userinfo_userEmail, orderDate, orderReceiver, orderRcvAddress, orderRcvAddressDetail, orderRcvPhone, orderTotalPrice, orderBank, orderCardNo, userName, orderDelivery,orderDeliveryDate,orderDetailNo,goods_productNo,orderQuantity,orderConfirm,orderRefund,orderStar,orderReview,orderReviewImg,orderinfo_orderNo, productName, productPrice,orderReviewInsertDate,productAFilename);
+                salesList.add(order);
+                Log.v("NetworkTask", salesList.get(0).getOrderCardPw());
+            }
+        }catch (Exception e){
+            Log.v("NetworkTask", "parserselect, catch");
             e.printStackTrace();
         }
     }

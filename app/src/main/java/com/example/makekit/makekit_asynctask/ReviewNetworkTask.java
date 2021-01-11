@@ -23,12 +23,14 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
     final static String TAG = "ReviewNetworkTask";
     Context context = null;
     String mAddr = null;
+    String where = null;
     ProgressDialog progressDialog = null;
     ArrayList<Review> reviews;
 
-    public ReviewNetworkTask(Context context, String mAddr) {
+    public ReviewNetworkTask(Context context, String mAddr, String where) {
         this.context = context;
         this.mAddr = mAddr;
+        this.where = where;
         this.reviews = new ArrayList<Review>();
         Log.v(TAG, "Start : "+ mAddr);
     }
@@ -60,6 +62,8 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
     protected Object doInBackground(Integer... integers) {
         Log.v(TAG, "doInBackground()");
 
+        String result = null;
+
         StringBuffer stringBuffer = new StringBuffer();
 
         InputStream inputStream = null;
@@ -73,6 +77,7 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
             Log.v(TAG, "Accept : "+httpURLConnection.getResponseCode());
+
             if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
                 inputStream = httpURLConnection.getInputStream();
                 inputStreamReader = new InputStreamReader(inputStream);
@@ -86,7 +91,11 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
                 }
                 Log.v(TAG, "StringBuffer : "+stringBuffer.toString());
 
-                sellerParser(stringBuffer.toString());
+                if(where.equals("selectProduct")){
+                    sellerParser(stringBuffer.toString());
+                 } else {
+
+                }
 
             }
 
@@ -101,8 +110,11 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
                 e.printStackTrace();
             }
         }
-
-        return reviews;
+        if(where.equals("selectProduct")) {
+            return reviews;
+        } else {
+            return result;
+        }
 
     }
 

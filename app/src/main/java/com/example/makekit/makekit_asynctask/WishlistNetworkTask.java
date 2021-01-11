@@ -1,12 +1,12 @@
 package com.example.makekit.makekit_asynctask;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.makekit.makekit_activity.ProdutctViewActivity;
+import com.example.makekit.makekit_bean.Favorite;
 import com.example.makekit.makekit_bean.Product;
-import com.example.makekit.makekit_bean.Review;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,26 +18,24 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
+import okhttp3.logging.LoggingEventListener;
 
-    final static String TAG = "ProductNetworkTask";
-    Context context = null;
-    String mAddr = null;
-    ProgressDialog progressDialog = null;
-    ArrayList<Product> products;
-    String where = null;
+public class WishlistNetworkTask extends AsyncTask<Integer, String, Object> {
 
-    public ProductNetworkTask(Context context, String mAddr) {
-        this.context = context;
-        this.mAddr = mAddr;
-        this.products = new ArrayList<Product>();
-        Log.v(TAG, "Start : "+ mAddr);
-    }
-    public ProductNetworkTask(Context context, String mAddr, String where) {
+    final static String TAG = "WishlistNetworkTask";
+            Context context = null;
+            String mAddr = null;
+            String insertDate;
+            String where = null;
+            ArrayList<Favorite> sellerInfo = null;
+            int count = 0;
+
+    public WishlistNetworkTask(Context context, String mAddr, String where) {
         this.context = context;
         this.mAddr = mAddr;
         this.where = where;
-        this.products = new ArrayList<Product>();
+        this.insertDate = insertDate;
+        this.sellerInfo = new ArrayList<Favorite>();
         Log.v(TAG, "Start : "+ mAddr);
     }
 
@@ -95,9 +93,17 @@ public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
                 Log.v(TAG, "StringBuffer : "+stringBuffer.toString());
 
                 if(where.equals("select")) {
-                    productParser(stringBuffer.toString());
-                } else {
-                    result = parserInsert(stringBuffer.toString());  // 제품 등록
+                   // productParser(stringBuffer.toString());
+                } else if (where.equals("selectdate")){
+                    result = wishCheckParser(stringBuffer.toString());
+
+                } else if (where.equals("selectseller")){
+                    result = sellerFavoriteCheckParser(stringBuffer.toString());
+                    Log.v(TAG, "result : "+result);
+
+
+                } else{
+                    result = parserAction(stringBuffer.toString());
                 }
 
             }
@@ -115,52 +121,53 @@ public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
         }
 
         if (where.equals("select")) {
-            return products;
+            return insertDate;
+
+        }  else if (where.equals("selectdate")) {
+            return result;
+
+        } else if(where.equals("selectseller")) {
+          //return sellerInfo;
+            return result;
+
         } else {
-            return result;  // 제품 등록
+            return result;
         }
 
     }
 
-    private void productParser(String s){
+    private String wishCheckParser(String s){
+        int count = 0;
+        String wishlistInsertDate = null;
         Log.v(TAG, "parser()");
         try {
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("product_info"));
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("wishlist_info"));
             Log.v(TAG, "parser() in");
-            products.clear();
+            //insertDate.clear();
             for(int i = 0 ; i<jsonArray.length() ; i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
-                String sellerEmail = jsonObject1.getString("sellerEmail");
-                String productNo = jsonObject1.getString("productNo");
-                String productName = jsonObject1.getString("productName");
-                String productPrice = jsonObject1.getString("productPrice");
-                String productContent = jsonObject1.getString("productContent");
-                String productFilename = jsonObject1.getString("productFilename");
-                String productDfilename = jsonObject1.getString("productDFilename");
-                String productAFilename = jsonObject1.getString("productAFilename");
-                String sellerImage = jsonObject1.getString("sellerImage");
-
-                Product product = new Product(sellerEmail, productNo, productName, productPrice, productContent, productFilename, productDfilename, productAFilename, sellerImage);
-                products.add(product);
+                wishlistInsertDate = jsonObject1.getString("wishlistInsertDate");
+                count++;
+                //insertDate.add(wishlistInsertDate);
             }
 
         } catch (Exception e){
             e.printStackTrace();
         }
-
+        return Integer.toString(count);
     }
 
     // insert/update action
-    private String parserInsert(String s) {
-        Log.v(TAG, "parserInsert()");
+    private String parserAction(String s) {
+        Log.v(TAG, "parserAction()");
         String returnResult = null;
 
         try {
             JSONObject jsonObject = new JSONObject(s);
             returnResult = jsonObject.getString("result");
-            Log.v(TAG, returnResult);
+            Log.v(TAG, "insert" +  returnResult);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -168,4 +175,38 @@ public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
 
         return returnResult;
     }
+
+    // seller 찜 검색
+    private String sellerFavoriteCheckParser(String s){
+        int count = 0;
+        String sellerEmail = null;
+        Log.v(TAG, "parser()");
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("sellerFavorite_info"));
+            Log.v(TAG, "parser() in");
+            sellerInfo.clear();
+            for(int i = 0 ; i<jsonArray.length() ; i++){
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                String userEmail = jsonObject1.getString("userEmail");
+                sellerEmail = jsonObject1.getString("sellerEmail");
+                String productNo = jsonObject1.getString("productNo");
+                String sellerName = jsonObject1.getString("sellerName");
+                String sellerImage = jsonObject1.getString("sellerImage");
+                String favoriteSellerEmail = jsonObject1.getString("favoriteSellerEmail");
+                count++;
+                Log.v(TAG, String.valueOf(count));
+                Favorite favorite = new Favorite(userEmail, favoriteSellerEmail, sellerEmail, productNo, sellerName, sellerImage);
+                sellerInfo.add(favorite);
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        //return sellerInfo;
+        return Integer.toString(count);
+    }
+
+
 }

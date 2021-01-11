@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.LikeProductAdapter;
@@ -21,6 +23,7 @@ public class LikeProductActivity extends AppCompatActivity {
     RecyclerView.Adapter mAdapter = null;
     RecyclerView.LayoutManager layoutManager = null;
     String email, macIP, urlAddrBase;
+    Button likeSeller, likeProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +35,38 @@ public class LikeProductActivity extends AppCompatActivity {
         macIP = intent.getStringExtra("macIP");
 
         recyclerView = findViewById(R.id.recyclerViewLike);
+        likeSeller = findViewById(R.id.likeSeller_btn);
+        likeProduct = findViewById(R.id.likeProduct_btn);
+
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         products = new ArrayList<Product>();
-
+        likeProduct.setOnClickListener(mClickListener);
+        likeSeller.setOnClickListener(mClickListener);
     }
+
+    View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.likeSeller_btn:
+                    Intent intent = new Intent(LikeProductActivity.this, LikeSellerActivity.class);
+                    intent.putExtra("macIP", macIP);
+                    intent.putExtra("useremail", email);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case R.id.likeProduct_btn:
+                    Intent intent1 = new Intent(LikeProductActivity.this, LikeProductActivity.class);
+                    intent1.putExtra("macIP", macIP);
+                    intent1.putExtra("useremail", email);
+                    startActivity(intent1);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onResume() {
@@ -51,7 +79,7 @@ public class LikeProductActivity extends AppCompatActivity {
 
     private void connectGetData(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(LikeProductActivity.this, urlAddrBase+"/jsp/getLikeProductAll.jsp?userinfo_userEmail="+email, "search");        // 불러오는게 똑같아서
+            NetworkTask_DH networkTask = new NetworkTask_DH(LikeProductActivity.this, urlAddrBase+"jsp/getLikeProductAll.jsp?userinfo_userEmail="+email, "search");        // 불러오는게 똑같아서
             Object obj = networkTask.execute().get();
             products = (ArrayList<Product>) obj;
         }catch (Exception e){

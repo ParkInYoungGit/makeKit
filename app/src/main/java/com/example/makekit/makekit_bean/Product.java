@@ -13,6 +13,9 @@ public class Product {
     String productAFilename;
     String productInsertDate;
     String productDeleteDate;
+    String sellerImage;
+
+
 
     public Product(String productNo, String productName, String productPrice, String productAFilename) {
         this.productNo = productNo;
@@ -23,7 +26,7 @@ public class Product {
 
     ////////////////////////////////////////////
     // 01/09 kyeongmi 추가 product view
-    public Product(String sellerEmail, String productNo, String productName, String productPrice, String productContent, String productFilename, String productDfilename, String productAFilename) {
+    public Product(String sellerEmail, String productNo, String productName, String productPrice, String productContent, String productFilename, String productDfilename, String productAFilename, String sellerImage) {
         this.sellerEmail = sellerEmail;
         this.productNo = productNo;
         this.productName = productName;
@@ -32,6 +35,7 @@ public class Product {
         this.productFilename = productFilename;
         this.productDfilename = productDfilename;
         this.productAFilename = productAFilename;
+        this.sellerImage = sellerImage;
     }
 
     ////////////////////////////////////////////
@@ -144,6 +148,14 @@ public class Product {
 
     public void setProductDeleteDate(String productDeleteDate) {
         this.productDeleteDate = productDeleteDate;
+    }
+
+    public String getSellerImage() {
+        return sellerImage;
+    }
+
+    public void setSellerImage(String sellerImage) {
+        this.sellerImage = sellerImage;
     }
 }
 

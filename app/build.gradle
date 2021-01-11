@@ -48,6 +48,10 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+    implementation 'com.android.support:design:30.0.0'
+
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -60,6 +64,7 @@ dependencies {
     // 1.9 kyeongmi 추가
     //사진을 서버에 올리기 위한 라이브러리
     implementation 'com.squareup.okhttp3:okhttp:4.10.0-RC1'
+
 
     // 구글 API
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -84,7 +89,12 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.firebase:firebase-auth:19.0.0'
 
+    // 이미지 압축
+    implementation 'id.zelory:compressor:2.1.0'
 
+    // 1.10 kyeongmi 추가
+    // 옵셥 팝업 띄우기
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

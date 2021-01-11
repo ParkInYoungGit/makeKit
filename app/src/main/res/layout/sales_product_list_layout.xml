@@ -8,14 +8,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-
-        <TextView
-            android:id="@+id/Saleslist_orderDate_TV"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:layout_margin="5dp"
-            />
+    <TextView
+        android:id="@+id/salelist_orderDate_TV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:layout_margin="5dp"
+        />
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -30,7 +29,7 @@
         android:orientation="horizontal"
         >
         <WebView
-            android:id="@+id/Salelists_WebView"
+            android:id="@+id/salelist_WebView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
@@ -44,19 +43,19 @@
             android:orientation="vertical"
             >
             <TextView
-                android:id="@+id/Salelists_ProductName_TV"
+                android:id="@+id/salelist_ProductName_TV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="13dp"
                 />
             <TextView
-                android:id="@+id/Salelists_orderQuantity_TV"
+                android:id="@+id/salelist_orderQuantity_TV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="13dp"
                 />
             <TextView
-                android:id="@+id/Salelists_orderPrice_TV"
+                android:id="@+id/salelist_orderPrice_TV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />

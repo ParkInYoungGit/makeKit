@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 
 public class ChatcontentActivity extends AppCompatActivity {
 
+    String TAG = "ChatContents";
     String macIP, email, chattingNumber, receiver, urlAddrBase;
     int intChattingNumber = 0;
     ArrayList<ChattingBean> chattingContents;
@@ -45,18 +47,28 @@ public class ChatcontentActivity extends AppCompatActivity {
         macIP = intent.getStringExtra("macIP");
         chattingNumber = intent.getStringExtra("chattingNumber");
         receiver = intent.getStringExtra("receiver");
-
+        Log.v(TAG, receiver);
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+
+        chattingJudge = new ArrayList<ChattingBean>();
+        chattingContents = new ArrayList<ChattingBean>();
 
         handler = new Handler(){
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
+                Log.v(TAG, Integer.toString(msg.what));
                 switch (msg.what){
                     case 0:
+                        Log.v(TAG, "Thread 들어옴");
                         chattingContents.clear();
                         chattingJudge.clear();
                         connectGetData();
+                        chattingJudge.addAll(chattingContents);
+                        Log.v(TAG, chattingContents.get(0).getUserinfo_userEmail_sender());
+                        Log.v(TAG, chattingContents.get(0).getUserinfo_userEmail_receiver());
+                        Log.v(TAG, chattingContents.get(0).getChattingContents());
+                        Log.v(TAG, chattingContents.get(0).getChattingInsertDate());
                         adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
                         listView.setAdapter(adapter);
                         break;
@@ -66,33 +78,35 @@ public class ChatcontentActivity extends AppCompatActivity {
             }
         };
 
-//        thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try{
-//                    while (isRun){
-//                        connectGetData();
-//                        Thread.sleep(500);
-//                        if(judgement()==chattingContents.size()){
-//                            Message msg = handler.obtainMessage();
-//                            msg.what = 1;
-//                            handler.sendMessage(msg);
-//                        }else {
-//                            Message msg = handler.obtainMessage();
-//                            msg.what = 0;
-//                            handler.sendMessage(msg);
-//                        }
-//                    }
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    while (isRun){
+                        connectGetData();
+                        Thread.sleep(1000);
+                        if(judgement()==1){
+                            Log.v(TAG, "if judgement=");
+                            Message msg = handler.obtainMessage();
+                            msg.what = 1;
+                            handler.sendMessage(msg);
+                        }else {
+                            Log.v(TAG, "if judgement!");
+                            Message msg = handler.obtainMessage();
+                            msg.what = 0;
+                            handler.sendMessage(msg);
+                        }
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
 
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"/jsp/insertChatting.jsp?chattingNumber="+chattingNumber+"&userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver+"&chattingContents="+editText.getText().toString(), "inputChatting");
+                NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/insertChatting.jsp?chattingNumber="+chattingNumber+"&userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver+"&chattingContents="+editText.getText().toString(), "inputChatting");
                 networkTask.execute();
                 connectGetData();
                 editText.setText("");
@@ -104,17 +118,15 @@ public class ChatcontentActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        chattingJudge = new ArrayList<ChattingBean>();
-        chattingContents = new ArrayList<ChattingBean>();
         isRun = true;
         // 첫 대화이면 가장 큰 채팅 번호를 불러와서 1 증가 시켜 채팅 방을 만든다.
         if(chattingNumber.equals(null)){
             connectGetChattingNumber();
-        }else {
-            connectGetData();
         }
-        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
-        listView.setAdapter(adapter);
+        connectGetData();
+//        chattingJudge.addAll(chattingContents);
+//        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
+//        listView.setAdapter(adapter);
         thread.start();
     }
 
@@ -131,10 +143,10 @@ public class ChatcontentActivity extends AppCompatActivity {
 
     private void connectGetData(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"/jsp/chatting.jsp?userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver, "chattingContents");
+            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/chatting.jsp?userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver, "chattingContents");
             Object obj = networkTask.execute().get();
             chattingContents = (ArrayList<ChattingBean>) obj;
-            chattingJudge.addAll(chattingContents);
+//            chattingJudge.addAll(chattingContents);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -142,7 +154,7 @@ public class ChatcontentActivity extends AppCompatActivity {
 
     private void connectGetChattingNumber(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"/jsp/getChattingNumber.jsp?userinfo_userEmail_sender="+email, "getChattingNumber");
+            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/getChattingNumber.jsp", "getChattingNumber");
             Object obj = networkTask.execute().get();
             chattingNumber = (String) obj;
             intChattingNumber = Integer.parseInt(chattingNumber)+1;
@@ -151,19 +163,17 @@ public class ChatcontentActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-//
-//    private int judgement(){
-//        int j = 0;
-//        for(int i =0 ; i<chattingContents.size(); i++){
-//            int contents = chattingContents.get(i).getChattingNumber();
-//            int judge = chattingJudge.get(i).getChattingNumber();
-//            if(contents == judge){
-//                j++;
-//            }else {
-//            }
-//        }
-//        return j;
-//    }
+
+    private int judgement(){
+        int j = 0;
+        int contents = chattingContents.size();
+        int judge = chattingJudge.size();
+        if(contents == judge){
+            j++;
+        }
+        Log.v(TAG, "j : "+j);
+        return j;
+    }
 
 
 }
