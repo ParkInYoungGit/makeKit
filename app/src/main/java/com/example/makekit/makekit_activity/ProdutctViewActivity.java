@@ -220,6 +220,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
                        } else {
                                Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
                                intent.putExtra("productNo", productNo);
+                               intent.putExtra("macIP", macIP);
                                intent.putExtra("productQuantity", count);
                                intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
                                startActivity(intent);
@@ -239,6 +240,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
                         } else {
                             Intent intent = new Intent(ProdutctViewActivity.this, OrderActivity.class);
                             intent.putExtra("productNo", productNo);
+                            intent.putExtra("macIP", macIP);
                             intent.putExtra("productQuantity", count);
                             intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
                             startActivity(intent);
@@ -252,6 +254,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
                         intent.putExtra("productNo", productNo);
+                        intent.putExtra("macIP", macIP);
                         intent.putExtra("productQuantity", count);
                         intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
                         startActivity(intent);
@@ -263,6 +266,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
                     if(loginCheck() == true) {
                         Intent intent = new Intent(ProdutctViewActivity.this, OrderActivity.class);
                         intent.putExtra("productNo", productNo);
+                        intent.putExtra("macIP", macIP);
                         intent.putExtra("productQuantity", count);
                         intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
                         startActivity(intent);
@@ -311,6 +315,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
         if(userEmail == null || userEmail.equals("")){
             Toast.makeText(this, "로그인이 필요합니다. \n로그인 후 이용해주세요.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ProdutctViewActivity.this, LoginActivity.class);
+            intent.putExtra("macIP", macIP);
             startActivity(intent);
             finish();
             return false;
@@ -321,6 +326,21 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
     // select content
     private void connectSelectData() {
+        try {
+            ProductNetworkTask productNetworkTask = new ProductNetworkTask(ProdutctViewActivity.this, urlAddr, "select");
+
+            Object object = productNetworkTask.execute().get();
+            products = (ArrayList<Product>) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // 수정하기!!!!
+    // insert cartdetail
+    private void connectInsertData(String urlAddr) {
         try {
             ProductNetworkTask productNetworkTask = new ProductNetworkTask(ProdutctViewActivity.this, urlAddr, "select");
 

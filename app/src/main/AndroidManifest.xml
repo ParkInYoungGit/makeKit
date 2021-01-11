@@ -27,16 +27,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MakeKit"
         android:usesCleartextTraffic="true">
-
         <activity android:name=".makekit_activity.SalesListActivity"></activity>
+        <activity android:name=".makekit_activity.SaleProductListActivity"></activity>
         <activity android:name=".makekit_activity.ProductSalesWriteActivity"></activity>
 
         <activity android:name=".makekit_activity.RegisterReviewActivity"></activity>
         <activity android:name=".makekit_activity.MainActivity">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
@@ -62,10 +64,9 @@
         <activity android:name=".makekit_activity.PaymentActivity" />
         <activity android:name=".makekit_activity.ProdutctViewActivity" />
         <activity android:name=".makekit_activity.PhoneFindPwActivity" />
-        <activity android:name=".makekit_activity.EmailFindPwActivity" />
+        <activity android:name=".makekit_activity.EmailFindPwActivity"></activity>
         <activity android:name=".makekit_activity.ReviewListActivity" />
         <activity android:name=".makekit_activity.LikeSellerActivity" />
-        <activity android:name=".makekit_activity.SaleProductListActivity" />
         <activity android:name=".makekit_activity.BuyListActivity" />
         <activity android:name=".makekit_activity.ChatcontentActivity" />
         <activity android:name=".makekit_activity.MapActivity" />
@@ -90,17 +91,15 @@
                     android:scheme="kakaof2d8fb4aeb0237f82647add92f60e987" />
             </intent-filter>
         </activity>
-        <activity android:name=".makekit_activity.UserModifyActivity" />
+        <activity android:name=".makekit_activity.UserModifyActivity"></activity>
         <activity android:name=".makekit_activity.JoinActivity" />
 
 
-        <activity android:name=".makekit_activity.OrderActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".makekit_activity.OrderActivity" >
+            
         </activity>
+
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
         <activity android:name=".makekit_activity.SearchActivity" />
