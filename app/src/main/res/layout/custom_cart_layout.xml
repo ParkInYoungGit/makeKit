@@ -25,7 +25,8 @@
                     android:id="@+id/cb_productName_cart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="운동"
+                    android:text=""
+                    android:layout_marginBottom="10dp"
                     />
 
             </LinearLayout>
@@ -38,8 +39,8 @@
 
                 <WebView
                     android:id="@+id/productImage_cart"
-                    android:layout_width="180px"
-                    android:layout_height="180px"
+                    android:layout_width="200px"
+                    android:layout_height="200px"
                     android:layout_marginLeft="30dp"
                     />
 
@@ -48,8 +49,51 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/productPrice_cart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        android:text="금액"
+                        android:layout_gravity="center"
+                        />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp">
+                        <Button
+                            android:id="@+id/btnMinusProudct_cart"
+                            android:layout_width="40dip"
+                            android:layout_height="35dip"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:text="-"
+                            android:backgroundTint="#F4F2F2"
+                            android:textColor="@color/black"
+                            android:focusable="false" />
 
+                        <TextView
+                            android:id="@+id/purchaseNum_cart"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:gravity="center"
+                            android:text="1" />
 
+                        <Button
+                            android:id="@+id/btnPlusProudct_cart"
+                            android:layout_width="40dip"
+                            android:layout_height="35dip"
+                            android:focusable="false"
+                            android:backgroundTint="#F4F2F2"
+                            android:textColor="@color/black"
+                            android:text="+" />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
