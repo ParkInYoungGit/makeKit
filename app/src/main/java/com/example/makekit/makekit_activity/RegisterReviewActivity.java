@@ -135,7 +135,7 @@ public class RegisterReviewActivity extends AppCompatActivity {
 
                     // 순서 2. DB와 연결(NetworkTask)해서 정보 insert
                     urlRegister = urlJsp+"orderStar="+ strRating +"&orderReview="+ strReview+ "&reviewImg=" + imageName+ "&useremail="+ email;
-                    connectInsertData();
+                    //connectInsertData();
 
                     // 입력이 제대로 됐는지 확인
                     if(registerInsertResult.equals("1")){
@@ -233,17 +233,17 @@ public class RegisterReviewActivity extends AppCompatActivity {
     }
 
 
-    // DB와 연결하기 위한 method들
-    private String connectInsertData() {
-        try {
-            ReviewNetworkTask insnetworkTask = new ReviewNetworkTask(RegisterReviewActivity.this, urlRegister);
-            Object object = insnetworkTask.execute().get();
-            registerInsertResult = (String) object;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return registerInsertResult;
-    }
+//    // DB와 연결하기 위한 method들
+//    private String connectInsertData() {
+//        try {
+//            ReviewNetworkTask insnetworkTask = new ReviewNetworkTask(RegisterReviewActivity.this, urlRegister);
+//            Object object = insnetworkTask.execute().get();
+//            registerInsertResult = (String) object;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return registerInsertResult;
+//    }
 
 
 } // END =========================================================================

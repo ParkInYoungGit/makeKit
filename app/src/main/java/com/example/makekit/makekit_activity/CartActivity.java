@@ -27,8 +27,8 @@ public class CartActivity extends AppCompatActivity {
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
         productNo = intent.getStringExtra("productNo");
-        productQuantity = intent.getStringExtra("productQuantity");
-        totalPrice = intent.getStringExtra("totalPrice");
+        //productQuantity = intent.getStringExtra("productQuantity");
+        //totalPrice = intent.getStringExtra("totalPrice");
 
 
         // 구매 총 금액
