@@ -23,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.SectionPageAdapter;
 import com.example.makekit.makekit_fragment.CategoryFragment;
+import com.example.makekit.makekit_fragment.ChatListFragment;
 import com.example.makekit.makekit_fragment.HomeFragment;
 import com.example.makekit.makekit_fragment.MypageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("macIP", macIP);
                 fragment.setArguments(bundle);
             } else if (id == R.id.navigation_4) {
-                Log.v("email", "email:"+email);
+//                Log.v("email", "email:"+email);
                 if(email.equals(null)){
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(R.drawable.alert)

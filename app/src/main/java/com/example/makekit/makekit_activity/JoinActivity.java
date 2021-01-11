@@ -62,6 +62,8 @@ public class JoinActivity extends AppCompatActivity {
         Intent intent = getIntent(); /*데이터 수신*/
         macIP = intent.getStringExtra("macIP");
 
+        macIP = "192.168.35.133";
+
         urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
         urlImage = "http://" + macIP + ":8080/makeKit/image/";
         urlCart = urlJsp + "join_cartInsert.jsp?";
@@ -510,12 +512,12 @@ public class JoinActivity extends AppCompatActivity {
         try {
             UserNetworkTask insTelNonetworkTask = new UserNetworkTask(JoinActivity.this, urlCart, "insert");
             Object object = insTelNonetworkTask.execute().get();
-            cartInsert =(String) object;
+            cartInsert = (String) object;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return cartInsert;
-
+    }
 
 
 } // End  ——————————————————————————————————————

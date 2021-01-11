@@ -41,6 +41,9 @@ public class WebViewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
 
+        macIP = "192.168.35.133";
+
+
         // WebView 초기화
         init_webView();
 
