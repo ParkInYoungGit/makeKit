@@ -31,6 +31,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     ArrayList<ChattingBean> chattingList;
     ArrayList<User> users;
     ArrayList<Order> orders;
+    ArrayList<Order> salesList;
     String chattingNumber;
     String where = null;
 
@@ -43,6 +44,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
         this.chattingList = new ArrayList<ChattingBean>();
         this.users = new ArrayList<User>();
         this.orders = new ArrayList<Order>();
+        this.salesList = new ArrayList<Order>();
         this.where = where;
     }
 
@@ -96,6 +98,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     parserLikeSeller(stringBuffer.toString());
                 }else if (where.equals("getSalesList")){
                     parserSalesList(stringBuffer.toString());
+                }else if (where.equals("getRealSalesList")){
+                    parserRealSalesList(stringBuffer.toString());
                 }
 
 
@@ -127,6 +131,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return users;
         }else if (where.equals("getSalesList")){
             return orders;
+        }else if (where.equals("getRealSalesList")){
+            return salesList;
         }
         else {
             return result;
@@ -276,6 +282,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             e.printStackTrace();
         }
     }
+
     private void parserSalesList(String s){
         try {
             JSONObject jsonObject = new JSONObject(s);
@@ -294,6 +301,48 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 orders.add(order);
             }
         }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void parserRealSalesList(String s){
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            salesList.clear();
+            for(int i = 0; i < jsonArray.length(); i++){
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String userName = jsonObject1.getString("userName");
+                String orderNo = jsonObject1.getString("orderNo");
+                String userinfo_userEmail = jsonObject1.getString("userinfo_userEmail");
+                String orderReceiver = jsonObject1.getString("orderReceiver");
+                String orderRcvAddress = jsonObject1.getString("orderRcvAddress");
+                String orderRcvAddressDetail = jsonObject1.getString("orderRcvAddressDetail");
+                String orderRcvPhone = jsonObject1.getString("orderRcvPhone");
+                String orderTotalPrice = jsonObject1.getString("orderTotalPrice");
+                String orderBank = jsonObject1.getString("orderBank");
+                String orderCardNo = jsonObject1.getString("orderCardNo");
+                String orderDate = jsonObject1.getString("orderDate");
+                String orderDelivery = jsonObject1.getString("orderDelivery");
+                String orderDeliveryDate = jsonObject1.getString("orderDeliveryDate");
+                String orderDetailNo = jsonObject1.getString("orderDetailNo");
+                String orderinfo_orderNo = jsonObject1.getString("orderinfo_orderNo");
+                String goods_productNo = jsonObject1.getString("goods_productNo");
+                String orderQuantity = jsonObject1.getString("orderQuantity");
+                String orderConfirm = jsonObject1.getString("orderConfirm");
+                String orderRefund = jsonObject1.getString("orderRefund");
+                String orderStar = jsonObject1.getString("orderStar");
+                String orderReview = jsonObject1.getString("orderReview");
+                String orderReviewImg = jsonObject1.getString("orderReviewImg");
+                String orderReviewInsertDate = jsonObject1.getString("orderReviewInsertDate");
+                String productName = jsonObject1.getString("productName");
+                String productPrice = jsonObject1.getString("productPrice");
+                String productAFilename = jsonObject1.getString("productAFilename");
+                Order order = new Order(orderNo, userinfo_userEmail, orderDate, orderReceiver, orderRcvAddress, orderRcvAddressDetail, orderRcvPhone, orderTotalPrice, orderBank, orderCardNo, userName, orderDelivery,orderDeliveryDate,orderDetailNo,goods_productNo,orderQuantity,orderConfirm,orderRefund,orderStar,orderReview,orderReviewImg,orderinfo_orderNo,productName,productPrice,orderReviewInsertDate,productAFilename);
+                salesList.add(order);
+            }
+        }catch (Exception e){
+            Log.v("NetworkTask", "parserselect, catch");
             e.printStackTrace();
         }
     }
