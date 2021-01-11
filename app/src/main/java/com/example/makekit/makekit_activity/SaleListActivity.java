@@ -53,7 +53,7 @@ public class SaleListActivity extends AppCompatActivity {
 
     private void connectGetData(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(SaleListActivity.this, urlAddrBase+"/jsp/getSalesList.jsp?userinfo_userEmail="+email, "getSalesList");        // 불러오는게 똑같아서
+            NetworkTask_DH networkTask = new NetworkTask_DH(SaleListActivity.this, urlAddrBase+"jsp/getSalesList.jsp?userinfo_userEmail="+email, "getSalesList");        // 불러오는게 똑같아서
             Object obj = networkTask.execute().get();
             orders = (ArrayList<Order>) obj;
         }catch (Exception e){
