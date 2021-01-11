@@ -75,6 +75,8 @@ public class MypageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SaleListActivity.class);
+                intent.putExtra("macIP", macIP);
+                intent.putExtra("useremail", email);
                 startActivity(intent);
             }
         });
