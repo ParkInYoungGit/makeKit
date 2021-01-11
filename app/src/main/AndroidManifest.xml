@@ -27,27 +27,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MakeKit"
         android:usesCleartextTraffic="true">
-<<<<<<< HEAD
+
         <activity android:name=".makekit_activity.SalesListActivity"></activity>
-        <activity android:name=".makekit_activity.ProductSalesWriteActivity">
-=======
+        <activity android:name=".makekit_activity.ProductSalesWriteActivity"></activity>
+
         <activity android:name=".makekit_activity.RegisterReviewActivity"></activity>
         <activity android:name=".makekit_activity.MainActivity">
 
->>>>>>> 56b4b44eddf197d7937bf69c560daf4f20f1027c
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-<<<<<<< HEAD
-        </activity> <!-- 카카오 어플리케이션 등록 -->
-=======
+
 
         </activity>
-        <activity android:name=".makekit_activity.ProductSalesWriteActivity" /> <!-- 카카오 어플리케이션 등록 -->
-        <!-- 카카오 어플리케이션 등록 -->
->>>>>>> 56b4b44eddf197d7937bf69c560daf4f20f1027c
+
         <activity android:name=".makekit_activity.TempLogin" />
         <activity android:name=".makekit_activity.EmailCheckActivity" />
         <activity android:name=".makekit_activity.NoticeActivity" />
@@ -100,13 +96,8 @@
         </activity>
         <activity android:name=".makekit_activity.UserModifyActivity" />
         <activity android:name=".makekit_activity.JoinActivity" />
-<<<<<<< HEAD
-        <activity android:name=".makekit_activity.MainActivity"></activity>
-=======
-        <activity android:name=".makekit_activity.ProductSalesWriteActivity">
 
-        </activity>
->>>>>>> 56b4b44eddf197d7937bf69c560daf4f20f1027c
+
         <activity android:name=".makekit_activity.OrderActivity" />
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
