@@ -91,7 +91,7 @@ public class ProductReviewAdapter extends RecyclerView.Adapter<ProductReviewAdap
             holder.img_reviewImage.getSettings().setLoadWithOverviewMode(true);
             holder.img_reviewImage.getSettings().setUseWideViewPort(true);
             holder.img_reviewImage.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
-            holder.img_reviewImage.setInitialScale(30);
+            holder.img_reviewImage.setInitialScale(15);
 
             // url은 알아서 설정 예) http://m.naver.com/
             holder.img_reviewImage.loadUrl(urlImageReal); // 접속 URL

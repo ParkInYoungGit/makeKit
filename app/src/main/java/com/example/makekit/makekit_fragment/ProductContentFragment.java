@@ -1,5 +1,6 @@
 package com.example.makekit.makekit_fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,19 +17,24 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_activity.LoginActivity;
+import com.example.makekit.makekit_activity.ProdutctViewActivity;
 import com.example.makekit.makekit_adapter.ProductReviewAdapter;
 import com.example.makekit.makekit_asynctask.ProductNetworkTask;
 import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
+import com.example.makekit.makekit_asynctask.WishlistNetworkTask;
 import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_bean.Review;
 import com.sun.mail.imap.protocol.INTERNALDATE;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -48,13 +54,15 @@ public class ProductContentFragment extends Fragment {
 
     TextView productName, productPrice, productContent, productTotalPrice, purchaseNumInput;
     WebView productFilename, productDfilename, productAFilename;
-    Button btnPlus, btnMinus;
+    ImageView favoriteStatus;
     int purchaseNum;
     int count = 1;
 
     View v;
-    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, urlImageReal3, price, macIP, productNo;
+    String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, urlImageReal3, price, macIP, productNo, urlAddr1, userEmail, result, urlAddr2, urlAddr3;
     ArrayList<Product> products;
+    String favoriteCheck;
+
     final static String TAG = "ProductContentFragment";
 
     // TODO: Rename parameter arguments, choose names that match
@@ -66,10 +74,11 @@ public class ProductContentFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ProductContentFragment(String macIP, String productNo) {
+    public ProductContentFragment(String macIP, String productNo, String userEmail) {
         // Required empty public constructor
         this.macIP = macIP;
         this.productNo = productNo;
+        this.userEmail = userEmail;
     }
 
     /**
@@ -82,7 +91,7 @@ public class ProductContentFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static ProductContentFragment newInstance(String param1, String param2) {
-        ProductContentFragment fragment = new ProductContentFragment("macIP", "productNo");
+        ProductContentFragment fragment = new ProductContentFragment("macIP", "productNo", "userEmail");
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -113,30 +122,47 @@ public class ProductContentFragment extends Fragment {
 //        mParam1 = "192.168.219.164";
 //        mParam2 = "44";
 
+
         urlAddrBase = "http://" + macIP + ":8080/makekit/";
         urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
         Log.v(TAG, "주소" + urlAddr);
+        urlAddr1 = urlAddrBase + "jsp/wishlist_productview_check.jsp?productno=" + productNo + "&useremail=" + userEmail;
 
+        favoriteStatus = v.findViewById(R.id.favorite_productviewcontent);
         productName = v.findViewById(R.id.productNmae_prodcutviewcontent);
         productPrice  = v.findViewById(R.id.productPrice_productviewcontent);
         productContent = v.findViewById(R.id.productContent_productviewcontent);
         productFilename  = v.findViewById(R.id.productImage_productviewcontent);
         productDfilename = v.findViewById(R.id.prdouctdetail_productviewcontent);
         productAFilename = v.findViewById(R.id.prdouctdetailSecond_productviewcontent);
-        btnMinus = v.findViewById(R.id.btnMinusProudct_productviewcontent);
-        btnPlus = v.findViewById(R.id.btnPlusProudct_productviewcontent);
-        productTotalPrice = v.findViewById(R.id.productTotalPrice_productviewcontent);
-        purchaseNumInput = v.findViewById(R.id.purchaseNum_productviewcontent);
-        purchaseNumInput.setText("1");
+
+//        btnMinus = v.findViewById(R.id.btnMinusProudct_productview);
+//        btnPlus = v.findViewById(R.id.btnPlusProudct_productview);
+//        productTotalPrice = v.findViewById(R.id.productTotalPrice_productviewcontent);
+//        purchaseNumInput = v.findViewById(R.id.purchaseNum_productviewcontent);
+//        purchaseNumInput.setText("1");
 
         connectSelectData();
+        connectSelectFavoriteData();
+
+        if(favoriteCheck != null){
+            favoriteStatus.setImageResource(R.drawable.ic_favorite);
+        } else {
+            favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
+        }
+
+        // , 표시 하기
+        DecimalFormat myFormatter = new DecimalFormat("###,###");
+        String formattedStringPrice = myFormatter.format(Integer.parseInt(products.get(0).getProductPrice()));
 
         productName.setText(products.get(0).getProductName());
         productContent.setText(products.get(0).getProductContent());
-        productPrice.setText(products.get(0).getProductPrice() + "원");
-        int total = Integer.parseInt(products.get(0).getProductPrice()) + 2500;
-        Log.v(TAG, String.valueOf(total));
-        productTotalPrice.setText(Integer.toString(total) + "원");
+        productPrice.setText(formattedStringPrice + "원");
+
+
+//        int total = Integer.parseInt(products.get(0).getProductPrice()) + 2500;
+//        Log.v(TAG, String.valueOf(total));
+//        productTotalPrice.setText(Integer.toString(total) + "원");
 
             urlImageReal1 = urlAddrBase+ "image/" + products.get(0).getProductFilename();
             urlImageReal2 = urlAddrBase+ "image/" + products.get(0).getProductDfilename();
@@ -189,8 +215,8 @@ public class ProductContentFragment extends Fragment {
 //            // url은 알아서 설정 예) http://m.naver.com/
             productDfilename.loadUrl(urlImageReal2); // 접속 URL
 
-            btnMinus.setOnClickListener(mClickListener);
-            btnPlus.setOnClickListener(mClickListener);
+//            btnMinus.setOnClickListener(mClickListener);
+//            btnPlus.setOnClickListener(mClickListener);
 
             // 원산지 이미지
             // Initial webview
@@ -216,40 +242,42 @@ public class ProductContentFragment extends Fragment {
             // url은 알아서 설정 예) http://m.naver.com/
             productAFilename.loadUrl(urlImageReal3); // 접속 URL
 
+        favoriteStatus.setOnClickListener(mClickListener);
+
         return v;
     }
-
-    View.OnClickListener mClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.btnMinusProudct_productviewcontent:
-                    if(purchaseNumInput.getText().toString().equals("1")){
-                        count = 1;
-                        Toast.makeText(getContext(), "최수 수량은 1개입니다.", Toast.LENGTH_SHORT).show();
-                        purchaseNumInput.setText("1");
-
-                    } else {
-                        count--;
-                        purchaseNumInput.setText(""+count);
-
-                        int total = (Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500;
-                        productTotalPrice.setText(Integer.toString(total) + " 원");
-
-                    }
-                    break;
-
-                case R.id.btnPlusProudct_productviewcontent:
-
-                    count++;
-                    purchaseNumInput.setText(""+count);
-
-                    int total = (Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500;
-                    productTotalPrice.setText(Integer.toString(total) + " 원");
-                    break;
-            }
-        }
-    };
+//
+//    View.OnClickListener mClickListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            switch (v.getId()){
+//                case R.id.btnMinusProudct_productview:
+//                    if(purchaseNumInput.getText().toString().equals("1")){
+//                        count = 1;
+//                        Toast.makeText(getContext(), "최수 수량은 1개입니다.", Toast.LENGTH_SHORT).show();
+//                        purchaseNumInput.setText("1");
+//
+//                    } else {
+//                        count--;
+//                        purchaseNumInput.setText(""+count);
+//
+//                        int total = (Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500;
+//                        productTotalPrice.setText(Integer.toString(total) + " 원");
+//
+//                    }
+//                    break;
+//
+//                case R.id.btnPlusProudct_productview:
+//
+//                    count++;
+//                    purchaseNumInput.setText(""+count);
+//
+//                    int total = (Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500;
+//                    productTotalPrice.setText(Integer.toString(total) + " 원");
+//                    break;
+//            }
+//        }
+//    };
 
 
     @Override
@@ -270,6 +298,90 @@ public class ProductContentFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // select 상품 찜
+    private void connectSelectFavoriteData() {
+        try {
+            WishlistNetworkTask wishlistNetworkTask = new WishlistNetworkTask(getActivity(), urlAddr1, "selectdate");
+
+            Object object = wishlistNetworkTask.execute().get();
+            favoriteCheck = (String) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.favorite_productviewcontent:
+                    if(loginCheck() == true) {
+                        if (favoriteCheck == null) {
+                            urlAddr2 = urlAddrBase + "jsp/insert_wishlistproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
+                            insertFavorite(urlAddr2);
+                            if (result.equals("1")) {
+                                favoriteStatus.setImageResource(R.drawable.ic_favorite);
+                            } else {
+                                Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            urlAddr3 = urlAddrBase + "jsp/delete_wishlitproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
+                            deleteFavorite(urlAddr3);
+                            if (result.equals("1")) {
+                                favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
+                            } else {
+                                Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    break;
+            }
+        }
+    };
+
+    private String insertFavorite(String urlAddr){
+        try {
+            WishlistNetworkTask wishlistNetworkTask = new WishlistNetworkTask(getActivity(), urlAddr, "insert");
+
+            Object object = wishlistNetworkTask.execute().get();
+            result = (String) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private String deleteFavorite(String urlAddr){
+        try {
+            WishlistNetworkTask wishlistNetworkTask = new WishlistNetworkTask(getActivity(), urlAddr, "delete");
+
+            Object object = wishlistNetworkTask.execute().get();
+            result = (String) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private boolean loginCheck(){
+        ///////////////////////////////
+        // email 받아오는 값 확인해서 수정하기
+
+
+        if(userEmail == null || userEmail.equals("")){
+            Toast.makeText(getContext(), "로그인이 필요합니다. \n로그인 후 이용해주세요.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            return false;
+        }
+        return true;
     }
 
 }

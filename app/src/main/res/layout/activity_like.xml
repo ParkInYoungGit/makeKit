@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="리뷰"
+        android:text="찜 목록"
         android:gravity="center"
         android:textSize="25dp"
         android:textStyle="bold"
@@ -23,19 +23,19 @@
         android:orientation="horizontal"
         >
     <Button
-        android:id="@+id/write_review_btn"
+        android:id="@+id/likeProduct_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="구매후기 쓰기"
+        android:text="상품"
 
         />
         <Button
-            android:id="@+id/my_review_btn"
+            android:id="@+id/likeSeller_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="내가 쓴 구매후기"
+            android:text="판매자"
             />
     </LinearLayout>
     <LinearLayout
