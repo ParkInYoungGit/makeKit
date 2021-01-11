@@ -51,7 +51,7 @@ public class LikeProductActivity extends AppCompatActivity {
 
     private void connectGetData(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(LikeProductActivity.this, urlAddrBase+"/jsp/getLikeProductAll.jsp?userinfo_userEmail="+email, "search");        // 불러오는게 똑같아서
+            NetworkTask_DH networkTask = new NetworkTask_DH(LikeProductActivity.this, urlAddrBase+"jsp/getLikeProductAll.jsp?userinfo_userEmail="+email, "search");        // 불러오는게 똑같아서
             Object obj = networkTask.execute().get();
             products = (ArrayList<Product>) obj;
         }catch (Exception e){
