@@ -3,7 +3,9 @@ package com.example.makekit.makekit_adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,17 +29,14 @@ public class LikeProductAdapter extends RecyclerView.Adapter<LikeProductAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         WebView webViewLeft;
-        WebView webViewRight;
         TextView productNameLeft;
-        TextView productNameRight;
         TextView productPriceLeft;
-        TextView productPriceRight;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            webViewLeft = itemView.findViewById(R.id.searchImageView);
-            productNameLeft = itemView.findViewById(R.id.searchTextViewName);
-            productPriceLeft = itemView.findViewById(R.id.searchTextViewPrice);
+            webViewLeft = itemView.findViewById(R.id.likeProduct_WebView);
+            productNameLeft = itemView.findViewById(R.id.likeProduct_ProductName_TV);
+            productPriceLeft = itemView.findViewById(R.id.likeProduct_ProductPrice_TV);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,7 +62,7 @@ public class LikeProductAdapter extends RecyclerView.Adapter<LikeProductAdapter.
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // create a new view
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.search_layout, parent, false);
+                .inflate(R.layout.likeproduct_layout, parent, false);
         //     반복할 xml 파일
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
@@ -80,16 +79,31 @@ public class LikeProductAdapter extends RecyclerView.Adapter<LikeProductAdapter.
             urlImageReal = urlImage+mDataset.get(position).getProductAFilename();
         }
 
-        if((position % 2) == 1){
-            holder.webViewLeft.loadUrl(urlImageReal);
-            holder.productNameLeft.setText("["+mDataset.get(position).getProductType()+"]"+ mDataset.get(position).getProductName());
-            holder.productPriceLeft.setText(mDataset.get(position).getProductPrice()+" 원");
+        holder.webViewLeft.loadUrl(urlImageReal);
+        holder.productNameLeft.setText("["+mDataset.get(position).getProductType()+"]"+ mDataset.get(position).getProductName());
+        holder.productPriceLeft.setText(mDataset.get(position).getProductPrice()+" 원");
 
-        }else{
-            holder.webViewRight.loadUrl(urlImageReal);
-            holder.productNameRight.setText("["+mDataset.get(position).getProductType()+"]"+ mDataset.get(position).getProductName());
-            holder.productPriceRight.setText(mDataset.get(position).getProductPrice()+" 원");
-        }
+        // Initial webview
+        holder.webViewLeft.setWebViewClient(new WebViewClient());
+
+
+
+        // Enable JavaScript
+        holder.webViewLeft.getSettings().setJavaScriptEnabled(true);
+        holder.webViewLeft.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        // Enable Zoom
+        holder.webViewLeft.getSettings().setBuiltInZoomControls(true);
+        holder.webViewLeft.getSettings().setSupportZoom(true);
+        holder.webViewLeft.getSettings().setSupportZoom(true); //zoom mode 사용.
+        holder.webViewLeft.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
+
+
+        // Adjust web display
+        holder.webViewLeft.setBackgroundColor(0);
+        holder.webViewLeft.getSettings().setLoadWithOverviewMode(true);
+        holder.webViewLeft.getSettings().setUseWideViewPort(true);
+        holder.webViewLeft.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        holder.webViewLeft.setInitialScale(15);
 
     }
 

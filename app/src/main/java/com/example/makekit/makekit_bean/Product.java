@@ -15,6 +15,8 @@ public class Product {
     String productDeleteDate;
     String sellerImage;
 
+
+
     public Product(String productNo, String productName, String productPrice, String productAFilename) {
         this.productNo = productNo;
         this.productName = productName;

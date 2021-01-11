@@ -14,22 +14,46 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
+        android:scrollbars="vertical"
+        android:layout_weight="9"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
+
             >
-            <WebView
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="제품 썸네일 이미지"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                />
+
+            <ImageView
                 android:id="@+id/product_thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/product_thumbnail_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/layout_outline"
+                android:layout_gravity="right"
+                android:layout_margin="10dp"
+                android:text="이미지 등록"
                 />
 
 
@@ -63,12 +87,13 @@
 
                         />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/product_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
                         android:hint="제품명 입력"
+                        android:text="11"
                         android:textSize="18dp"
                         />
                 </LinearLayout>
@@ -89,7 +114,7 @@
                     android:layout_marginRight="100dp"
                     />
 
-                <TextView
+                <EditText
                     android:id="@+id/product_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,7 +133,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="제품 타입"
+                        android:text="카테고리"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="16dp"
@@ -141,7 +166,7 @@
                         android:layout_marginRight="100dp"
                         />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/product_stock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -184,8 +209,8 @@
                 android:textStyle="bold"
                 />
 
-            <TextView
-                android:id="@+id/productContent_productviewcontent"
+            <EditText
+                android:id="@+id/product_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
@@ -209,16 +234,28 @@
                 android:textSize="15dp"
                 />
 
-            <WebView
+            <ImageView
                 android:id="@+id/product_detail"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginBottom="40dp"
+
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 />
-
+            <TextView
+                android:id="@+id/product_detail_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/layout_outline"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="이미지 등록"
+                />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -229,14 +266,37 @@
                 android:textSize="15dp"
                 />
 
-            <WebView
+            <ImageView
                 android:id="@+id/product_detailsecond"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 />
+            <TextView
+                android:id="@+id/product_detailsecond_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/layout_outline"
+                android:layout_gravity="right"
+                android:layout_margin="10dp"
+                android:text="이미지 등록"
+                />
+
 
         </LinearLayout>
+
+
     </ScrollView>
+    <Button
+        android:id="@+id/product_insert_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="제품등록"
+        />
 </LinearLayout>
