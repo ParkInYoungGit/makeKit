@@ -136,11 +136,6 @@ public class ProductContentFragment extends Fragment {
         productDfilename = v.findViewById(R.id.prdouctdetail_productviewcontent);
         productAFilename = v.findViewById(R.id.prdouctdetailSecond_productviewcontent);
 
-//        btnMinus = v.findViewById(R.id.btnMinusProudct_productview);
-//        btnPlus = v.findViewById(R.id.btnPlusProudct_productview);
-//        productTotalPrice = v.findViewById(R.id.productTotalPrice_productviewcontent);
-//        purchaseNumInput = v.findViewById(R.id.purchaseNum_productviewcontent);
-//        purchaseNumInput.setText("1");
 
         connectSelectData();
         connectSelectFavoriteData();
@@ -158,6 +153,7 @@ public class ProductContentFragment extends Fragment {
         productName.setText(products.get(0).getProductName());
         productContent.setText(products.get(0).getProductContent());
         productPrice.setText(formattedStringPrice + "원");
+
 
 
 //        int total = Integer.parseInt(products.get(0).getProductPrice()) + 2500;
@@ -319,21 +315,23 @@ public class ProductContentFragment extends Fragment {
             switch (v.getId()){
                 case R.id.favorite_productviewcontent:
                     if(loginCheck() == true) {
-                        if (favoriteCheck == null) {
+                        if (favoriteCheck != null) {
+                            urlAddr3 = urlAddrBase + "jsp/delete_wishlistproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
+                            deleteFavorite(urlAddr3);
+                            if (result.equals("1")) {
+                                favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
+                            } else {
+                                favoriteStatus.setImageResource(R.drawable.ic_favorite);
+                            }
+
+                        } else{
+
                             urlAddr2 = urlAddrBase + "jsp/insert_wishlistproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
                             insertFavorite(urlAddr2);
                             if (result.equals("1")) {
                                 favoriteStatus.setImageResource(R.drawable.ic_favorite);
                             } else {
-                                Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } else {
-                            urlAddr3 = urlAddrBase + "jsp/delete_wishlitproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
-                            deleteFavorite(urlAddr3);
-                            if (result.equals("1")) {
                                 favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
-                            } else {
                                 Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                             }
                         }

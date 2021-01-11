@@ -27,6 +27,12 @@ public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
     ArrayList<Product> products;
     String where = null;
 
+    public ProductNetworkTask(Context context, String mAddr) {
+        this.context = context;
+        this.mAddr = mAddr;
+        this.products = new ArrayList<Product>();
+        Log.v(TAG, "Start : "+ mAddr);
+    }
     public ProductNetworkTask(Context context, String mAddr, String where) {
         this.context = context;
         this.mAddr = mAddr;
@@ -91,7 +97,7 @@ public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
                 if(where.equals("select")) {
                     productParser(stringBuffer.toString());
                 } else {
-                   // result = parserAction(stringBuffer.toString());
+                    result = parserInsert(stringBuffer.toString());  // 제품 등록
                 }
 
             }
@@ -111,7 +117,7 @@ public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
         if (where.equals("select")) {
             return products;
         } else {
-            return result;
+            return result;  // 제품 등록
         }
 
     }
@@ -134,8 +140,9 @@ public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
                 String productFilename = jsonObject1.getString("productFilename");
                 String productDfilename = jsonObject1.getString("productDFilename");
                 String productAFilename = jsonObject1.getString("productAFilename");
+                String sellerImage = jsonObject1.getString("sellerImage");
 
-                Product product = new Product(sellerEmail, productNo, productName, productPrice, productContent, productFilename, productDfilename, productAFilename);
+                Product product = new Product(sellerEmail, productNo, productName, productPrice, productContent, productFilename, productDfilename, productAFilename, sellerImage);
                 products.add(product);
             }
 
@@ -143,5 +150,22 @@ public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
             e.printStackTrace();
         }
 
+    }
+
+    // insert/update action
+    private String parserInsert(String s) {
+        Log.v(TAG, "parserInsert()");
+        String returnResult = null;
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            returnResult = jsonObject.getString("result");
+            Log.v(TAG, returnResult);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return returnResult;
     }
 }
