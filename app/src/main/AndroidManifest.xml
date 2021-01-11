@@ -60,7 +60,7 @@
         <activity android:name=".makekit_activity.EmailFindPwActivity"></activity>
         <activity android:name=".makekit_activity.ReviewListActivity" />
         <activity android:name=".makekit_activity.LikeSellerActivity" />
-        <activity android:name=".makekit_activity.SaleListActivity" />
+        <activity android:name=".makekit_activity.SaleProductListActivity" />
         <activity android:name=".makekit_activity.BuyListActivity" />
         <activity android:name=".makekit_activity.ChatcontentActivity" />
         <activity android:name=".makekit_activity.MapActivity" />
