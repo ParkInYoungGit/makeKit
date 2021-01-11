@@ -16,6 +16,7 @@ import com.example.makekit.makekit_activity.LikeProductActivity;
 import com.example.makekit.makekit_activity.NoticeActivity;
 import com.example.makekit.makekit_activity.ReviewListActivity;
 import com.example.makekit.makekit_activity.SaleProductListActivity;
+import com.example.makekit.makekit_activity.SalesListActivity;
 import com.example.makekit.makekit_activity.UserModifyActivity;
 
 
@@ -73,10 +74,10 @@ public class MypageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // 수정 필요
-//                Intent intent = new Intent(getContext(), SaleProductListActivity.class);
-//                intent.putExtra("macIP", macIP);
-//                intent.putExtra("useremail", email);
-//                startActivity(intent);
+                Intent intent = new Intent(getContext(), SalesListActivity.class);
+                intent.putExtra("macIP", macIP);
+                intent.putExtra("useremail", email);
+                startActivity(intent);
             }
         });
 

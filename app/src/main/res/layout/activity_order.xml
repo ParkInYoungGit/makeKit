@@ -34,6 +34,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="#EDE8E6E6"
+
             >
 
             <androidx.cardview.widget.CardView
@@ -48,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp"
+                android:padding="20dp"
                 >
 
                 <TextView
@@ -77,6 +78,7 @@
                         />
 
                     <EditText
+                        android:id="@+id/order_userName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="사용자 이름"
@@ -99,6 +101,7 @@
                         />
 
                     <EditText
+                        android:id="@+id/order_userTel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="전화번호"
@@ -121,6 +124,7 @@
                         />
 
                     <EditText
+                        android:id="@+id/order_userAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="주소"
@@ -143,6 +147,7 @@
                         />
 
                     <EditText
+                        android:id="@+id/order_userAddressDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="상세 주소"
@@ -164,7 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp"
+                android:padding="20dp"
                 >
 
                 <TextView
@@ -199,9 +204,10 @@
                         />
 
                     <EditText
+                        android:id="@+id/order_receiverName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="사용자 이름"
+                        android:hint="수령인"
                         android:layout_weight="1"
                         android:textSize="18dp"
                         />
@@ -221,6 +227,7 @@
                         />
 
                     <EditText
+                        android:id="@+id/order_receiverTel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="전화번호"
@@ -243,6 +250,7 @@
                         />
 
                     <EditText
+                        android:id="@+id/order_receiverAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="주소"
@@ -265,6 +273,7 @@
                         />
 
                     <EditText
+                        android:id="@+id/order_receiverAddressDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="상세 주소"
@@ -280,6 +289,7 @@
                     android:layout_marginTop="10dp"
                     >
                     <Spinner
+                        android:id="@+id/order_requestComent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="배송시 요청사항을 입력해주세요"
@@ -299,7 +309,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     >
                 <TextView
                     android:layout_width="match_parent"
@@ -317,6 +327,7 @@
                         android:orientation="horizontal"
                         >
                             <ImageView
+                                android:id="@+id/order_productImage"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:src="@drawable/ic_user"
@@ -329,15 +340,22 @@
                                 android:layout_weight="1"
                                 >
                                 <TextView
+                                    android:id="@+id/order_productName"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="상품명"
+                                    android:hint="상품명"
                                     android:textColor="@color/black"
                                     />
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="수량"
+                                    android:text="배송비"
+                                    />
+                                <TextView
+                                    android:id="@+id/order_productCount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="수량1개"
                                     />
                             </LinearLayout>
 
@@ -348,6 +366,7 @@
                                 android:layout_weight="1"
                                 >
                                 <TextView
+                                    android:id="@+id/order_productPrice"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="100,000원"
@@ -356,7 +375,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text=""
+                                    android:text="2,500원"
                                     android:gravity="right"
                                     />
 
@@ -368,9 +387,10 @@
                                     />
 
                                 <TextView
+                                    android:id="@+id/order_productTotalPrice"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="100,000원"
+                                    android:hint="102,500원"
                                     android:gravity="right"
                                     android:textColor="@color/black"
                                     android:textSize="20dp"
@@ -393,7 +413,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     >
 
                 <TextView
@@ -417,8 +437,8 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_weight="1"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp">
+
+                            android:paddingRight="5dp">
 
                             <Button
                                 android:layout_width="match_parent"
@@ -444,8 +464,8 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_weight="1"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
+                            android:paddingLeft="5dp"
+
                             >
 
                             <Button
@@ -495,6 +515,7 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/order_payment_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="결제하기"

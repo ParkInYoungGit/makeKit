@@ -5,8 +5,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.example.makekit.makekit_bean.Review;
-import com.example.makekit.makekit_bean.User;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,6 +34,9 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
         this.where = where;
         this.reviews = new ArrayList<Review>();
         Log.v(TAG, "Start : "+ mAddr);
+    }
+
+    public ReviewNetworkTask(FragmentActivity activity, String urlAddr) {
     }
 
     @Override
@@ -93,7 +97,10 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
 
                 if(where.equals("selectProduct")){
                     sellerParser(stringBuffer.toString());
-                 } else {
+                 }
+
+                if(where.equals("selectReview")){
+
 
                 }
 

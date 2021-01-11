@@ -3,7 +3,9 @@ package com.example.makekit.makekit_adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -71,8 +73,32 @@ public class SaleProductListAdapter extends RecyclerView.Adapter<SaleProductList
         holder.orderDate.setText("상품 번호 : " + mDataset.get(position).getProductNo());
         holder.webView.loadUrl(urlImageReal);
         holder.productName.setText(mDataset.get(position).getProductName());
-        holder.productQuantity.setText(mDataset.get(position).getProductStock());
+        holder.productQuantity.setText("재고 : "+mDataset.get(position).getProductStock());
         holder.productPrice.setText("가격(1개) : "+ mDataset.get(position).getProductPrice());
+
+        holder.webView.setWebViewClient(new WebViewClient());
+
+
+
+        // Enable JavaScript
+        holder.webView.getSettings().setJavaScriptEnabled(true);
+        holder.webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        // Enable Zoom
+        holder.webView.getSettings().setBuiltInZoomControls(true);
+        holder.webView.getSettings().setSupportZoom(true);
+        holder.webView.getSettings().setSupportZoom(true); //zoom mode 사용.
+        holder.webView.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
+
+
+        // Adjust web display
+        holder.webView.setBackgroundColor(0);
+        holder.webView.getSettings().setLoadWithOverviewMode(true);
+        holder.webView.getSettings().setUseWideViewPort(true);
+        holder.webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        holder.webView.setInitialScale(15);
+
+        // url은 알아서 설정 예) http://m.naver.com/
+        holder.webView.loadUrl(urlImageReal); // 접속 URL
     }
 
     @Override
