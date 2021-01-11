@@ -56,6 +56,7 @@ public class LikeProductActivity extends AppCompatActivity {
                     intent.putExtra("macIP", macIP);
                     intent.putExtra("useremail", email);
                     startActivity(intent);
+                    finish();
                     break;
                 case R.id.likeProduct_btn:
                     Intent intent1 = new Intent(LikeProductActivity.this, LikeProductActivity.class);
