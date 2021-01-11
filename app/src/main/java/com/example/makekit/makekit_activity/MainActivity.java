@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.v("email", "email:"+email);
                 if(email.equals(null)){
                     new AlertDialog.Builder(MainActivity.this)
-                            .setIcon(R.drawable.img_logo)
+                            .setIcon(R.drawable.alert)
                             .setTitle("MakeKit 서비스 안내")
                             .setMessage("채팅 목록입니다.\n채팅 목록은 로그인을 하셔야만 들어가실 수 있습니다.")
                             // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
