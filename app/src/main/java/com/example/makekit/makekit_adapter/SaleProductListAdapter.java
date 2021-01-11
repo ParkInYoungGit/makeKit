@@ -12,19 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_activity.SaleListActivity;
+import com.example.makekit.makekit_activity.SaleProductListActivity;
 import com.example.makekit.makekit_bean.Order;
 
 import java.util.ArrayList;
 
-public class SaleListAdapter extends RecyclerView.Adapter<SaleListAdapter.MyViewHolder> {
+public class SaleProductListAdapter extends RecyclerView.Adapter<SaleProductListAdapter.MyViewHolder> {
 
     private ArrayList<Order> mDataset;
     private AdapterView.OnItemClickListener mListener = null;
     private String urlImage;
     private String urlImageReal;
 
-    public SaleListAdapter(SaleListActivity saleListActivity, int layout, ArrayList<Order> orders, String urlimage){
+    public SaleProductListAdapter(SaleProductListActivity saleListActivity, int layout, ArrayList<Order> orders, String urlimage){
         this.mDataset = orders;
         this.urlImage = urlimage;
     }
@@ -57,7 +57,7 @@ public class SaleListAdapter extends RecyclerView.Adapter<SaleListAdapter.MyView
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.sales_list_layout, parent, false);
         //     반복할 xml 파일
-        SaleListAdapter.MyViewHolder vh = new SaleListAdapter.MyViewHolder(v);
+        SaleProductListAdapter.MyViewHolder vh = new SaleProductListAdapter.MyViewHolder(v);
         return vh;
     }
 

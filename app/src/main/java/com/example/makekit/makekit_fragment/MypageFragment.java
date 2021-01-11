@@ -3,10 +3,8 @@ package com.example.makekit.makekit_fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,7 @@ import com.example.makekit.makekit_activity.BuyListActivity;
 import com.example.makekit.makekit_activity.LikeProductActivity;
 import com.example.makekit.makekit_activity.NoticeActivity;
 import com.example.makekit.makekit_activity.ReviewListActivity;
-import com.example.makekit.makekit_activity.SaleListActivity;
+import com.example.makekit.makekit_activity.SaleProductListActivity;
 import com.example.makekit.makekit_activity.UserModifyActivity;
 
 
@@ -74,10 +72,11 @@ public class MypageFragment extends Fragment {
         v.findViewById(R.id.salelist_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SaleListActivity.class);
-                intent.putExtra("macIP", macIP);
-                intent.putExtra("useremail", email);
-                startActivity(intent);
+                // 수정 필요
+//                Intent intent = new Intent(getContext(), SaleProductListActivity.class);
+//                intent.putExtra("macIP", macIP);
+//                intent.putExtra("useremail", email);
+//                startActivity(intent);
             }
         });
 
@@ -126,7 +125,7 @@ public class MypageFragment extends Fragment {
                     startActivity(intent1);
                     break;
                 case R.id.salelist_btn: // 판매내역 버튼
-                    Intent intent2 = new Intent(getActivity(), SaleListActivity.class);
+                    Intent intent2 = new Intent(getActivity(), SaleProductListActivity.class);
                     startActivity(intent2);
                     break;
                 case R.id.likelist_btn: // 찜 목록 버튼

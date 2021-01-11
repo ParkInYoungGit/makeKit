@@ -13,15 +13,13 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.LoginActivity;
-import com.example.makekit.makekit_activity.ProdutctViewActivity;
-import com.example.makekit.makekit_activity.SaleListActivity;
+import com.example.makekit.makekit_activity.SaleProductListActivity;
 import com.example.makekit.makekit_asynctask.ProductNetworkTask;
 import com.example.makekit.makekit_asynctask.WishlistNetworkTask;
 import com.example.makekit.makekit_bean.Favorite;
@@ -291,7 +289,7 @@ public class ProductDetailFragment extends Fragment {
                     break;
 
                 case R.id.btnSellerStory_productdetail:
-                    Intent intent = new Intent(getActivity(), SaleListActivity.class);
+                    Intent intent = new Intent(getActivity(), SaleProductListActivity.class);
                     intent.putExtra("sellerEmail", sellerEmail);
                     intent.putExtra("macIP", macIP);
                     intent.putExtra("userEmail", userEmail);

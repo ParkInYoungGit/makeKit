@@ -42,6 +42,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
         this.chattingContents = new ArrayList<ChattingBean>();
         this.chattingList = new ArrayList<ChattingBean>();
         this.users = new ArrayList<User>();
+        this.orders = new ArrayList<Order>();
         this.where = where;
     }
 

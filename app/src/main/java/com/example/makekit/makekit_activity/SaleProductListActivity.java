@@ -8,15 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_adapter.LikeProductAdapter;
-import com.example.makekit.makekit_adapter.SaleListAdapter;
+import com.example.makekit.makekit_adapter.SaleProductListAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.Order;
-import com.example.makekit.makekit_bean.Product;
 
 import java.util.ArrayList;
 
-public class SaleListActivity extends AppCompatActivity {
+public class SaleProductListActivity extends AppCompatActivity {
 
     ArrayList<Order> orders = null;
     RecyclerView recyclerView = null;
@@ -47,13 +45,13 @@ public class SaleListActivity extends AppCompatActivity {
         super.onResume();
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         connectGetData();
-        mAdapter = new SaleListAdapter(SaleListActivity.this, R.layout.sales_list_layout, orders, urlAddrBase+"image/");
+        mAdapter = new SaleProductListAdapter(SaleProductListActivity.this, R.layout.sales_list_layout, orders, urlAddrBase+"image/");
         recyclerView.setAdapter(mAdapter);
     }
 
     private void connectGetData(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(SaleListActivity.this, urlAddrBase+"/jsp/getSalesList.jsp?userinfo_userEmail="+email, "getSalesList");        // 불러오는게 똑같아서
+            NetworkTask_DH networkTask = new NetworkTask_DH(SaleProductListActivity.this, urlAddrBase+"jsp/getSalesList.jsp?userinfo_userEmail="+email, "getSalesList");        // 불러오는게 똑같아서
             Object obj = networkTask.execute().get();
             orders = (ArrayList<Order>) obj;
         }catch (Exception e){

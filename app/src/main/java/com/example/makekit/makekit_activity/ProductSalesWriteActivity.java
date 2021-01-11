@@ -34,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import okhttp3.MediaType;
@@ -201,8 +202,9 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
                     urlAddr = urlAddr + "name=" + productname + "&price=" + productprice + "&type=" + producttype + "&stock=" + productstock + "&content=" + productcontent + "&thumnail=" + imageName + "&detail=" + imageName2 + "&detailsecond=" + imageName3;
                     connectInsertData();
 
-//                    Intent intent
-
+                    Intent intentMain = new Intent(ProductSalesWriteActivity.this, MainActivity.class);
+                    startActivity(intentMain);
+                    finish();
                     break;
 
                 default:
@@ -288,7 +290,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
                         imageName2 = date+"detail."+f_ext;
                         tempSelectFile = new File("/data/data/com.example.makekit/", imageName2);       // 경로는 자기가 원하는 곳으로 바꿀 수 있음
                         img_path2 = "/data/data/com.example.makekit/"+imageName2;
-                    } else {
+                    } else if (check_image == 3) {
                         product_detailsecond.setImageBitmap(image_bitmap_copy);
                         imageName3 = date+"detailsecond."+f_ext;
                         tempSelectFile = new File("/data/data/com.example.makekit/", imageName3);       // 경로는 자기가 원하는 곳으로 바꿀 수 있음
@@ -366,59 +368,47 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
     //파일 변환
     private void doMultiPartRequest() {
 
-        File f1 = new File(img_path1);
-        File f2 = new File(img_path2);
-        File f3 = new File(img_path3);
-
-        DoActualRequest(f1, f2, f3);
+        ArrayList<String> file = new ArrayList<String>();
+        file.add(img_path1);
+        file.add(img_path2);
+        file.add(img_path3);
+        for (int i =0; i<3; i++){
+            File f = new File(file.get(i).toString());
+            Log.v("doMultiPartRequest", "file "+f);
+            DoActualRequest(f);
+        }
     }
 
     //서버 보내기
-    private void DoActualRequest(File file1, File file2, File file3) {
+    private void DoActualRequest(File file) {
         Log.v("DoActualRequest", "DoActualRequest() in ");
-        Log.v("DoActualRequest", "file1()" + file1);
-        Log.v("DoActualRequest", "file2()" + file2);
-        Log.v("DoActualRequest", "file2()" + file3);
+        Log.v("DoActualRequest", "file1()" + file);
+
 
         OkHttpClient client = new OkHttpClient();
         Log.v("DoActualRequest", "client() in ");
-        // body 구성
-        RequestBody body1 = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("image", file1.getName(),
-                        RequestBody.create(MediaType.parse("image/*"), file1))
-                .build();
-        Log.v("DoActualRequest", "body1() in ");
-        RequestBody body2 = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("image", file2.getName(),
-                        RequestBody.create(MediaType.parse("image/*"), file2))
-                .build();
 
-        RequestBody body3 = new MultipartBody.Builder()
+
+        // body 구성
+        RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("image", file3.getName(),
-                        RequestBody.create(MediaType.parse("image/*"), file3))
+                .addFormDataPart("image", file.getName(),
+                        RequestBody.create(MediaType.parse("image/*"), file))
                 .build();
+                Log.v("DoActualRequest", "body1() in ");
+
 
         // 서버에 요청
-        Request request1 = new Request.Builder()
+        Request request = new Request.Builder()
                 .url(url)
-                .post(body1)
+                .post(body)
+
                 .build();
-Log.v("urlllll","urslllll" + url);
-        Request request2 = new Request.Builder()
-                .url(url)
-                .post(body2)
-                .build();
-        Request request3 = new Request.Builder()
-                .url(url)
-                .post(body3)
-                .build();
+                Log.v("urlllll","urslllll" + url);
+//
         try {
-            Response response1 = client.newCall(request1).execute();
-            Response response2 = client.newCall(request2).execute();
-            Response response3 = client.newCall(request3).execute();
+            Response response1 = client.newCall(request).execute();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
