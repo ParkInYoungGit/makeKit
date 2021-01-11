@@ -1,16 +1,14 @@
 package com.example.makekit.makekit_activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import com.example.makekit.R;
-import com.example.makekit.makekit_adapter.SectionPageAdapter;
-import com.example.makekit.makekit_fragment.CategoryFragment;
-import com.example.makekit.makekit_fragment.ChatListFragment;
-import com.example.makekit.makekit_fragment.HomeFragment;
-import com.example.makekit.makekit_fragment.MypageFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -21,13 +19,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import com.example.makekit.R;
+import com.example.makekit.makekit_adapter.SectionPageAdapter;
+import com.example.makekit.makekit_fragment.CategoryFragment;
+import com.example.makekit.makekit_fragment.HomeFragment;
+import com.example.makekit.makekit_fragment.MypageFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,9 +56,14 @@ public class MainActivity extends AppCompatActivity {
 //        bottomNavigationView.setBackground(null);
 
 
-        macIP = "172.20.10.8";
+        // 나중에는 밑에 지정해놓은 거 없애고 이 세줄 사용 ----------------------------------------------
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+        macIP = sf.getString("macIP","");
+        email = sf.getString("useremail","");
+        // -------------------------------------------------------------------------------------
 
-        email = "son@naver.com";
+        macIP = "192.168.35.133";
+        email = "jordy@naver.com";
 
         // 검색 페이지로 이동
         FloatingActionButton fab = findViewById(R.id.fab_search);
