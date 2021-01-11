@@ -40,16 +40,10 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewLike"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-    </LinearLayout>
 
 </LinearLayout>
