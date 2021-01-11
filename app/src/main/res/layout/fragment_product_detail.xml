@@ -55,8 +55,7 @@
             android:id="@+id/btnSellerStory_productdetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="상품 보기"
-            />
+            android:text="스토어 구경하기" />
 
     </LinearLayout>
 

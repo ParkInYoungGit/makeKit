@@ -1,6 +1,7 @@
 package com.example.makekit.makekit_fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -123,31 +124,52 @@ public class ProductDetailFragment extends Fragment {
         urlImageReal1 = urlAddrBase+ "image/ic_defaultpeople.jpg";
 
         if(products.get(0).getSellerImage().equals("null")){
-            // Initial webview
-            sellerImage.setWebViewClient(new WebViewClient());
-
-            // Enable JavaScript
-            sellerImage.getSettings().setJavaScriptEnabled(true);
-            sellerImage.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-
-            // WebView 세팅
+//            // Initial webview
+//            sellerImage.setWebViewClient(new WebViewClient());
+//
+//            // Enable JavaScript
+//            sellerImage.getSettings().setJavaScriptEnabled(true);
+//            sellerImage.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//
+//            // WebView 세팅
+//            WebSettings webSettings = sellerImage.getSettings();
+//            webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+//            webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+//            //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//
+//            sellerImage.setBackgroundColor(0); //배경색
+//            sellerImage.setHorizontalScrollBarEnabled(false); //가로 스크롤
+//            sellerImage.setVerticalScrollBarEnabled(false);   //세로 스크롤
+//            sellerImage.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+//            sellerImage.setScrollbarFadingEnabled(false);
+//            sellerImage.setInitialScale(15);
+//
+//            // 웹뷰 멀티 터치 가능하게 (줌기능)
+//            webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+//            webSettings.setSupportZoom(false);
+//
+            // Web Setting
             WebSettings webSettings = sellerImage.getSettings();
-            webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
-            webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
-            //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+            webSettings.setJavaScriptEnabled(true); // 자바 스크립트는 쓰겠다.
+            webSettings.setBuiltInZoomControls(true); // 확대 축소 기능
+            webSettings.setDisplayZoomControls(false); // 돋보기 없애기
+            sellerImage.setBackgroundColor(Color.TRANSPARENT);  // webview의 배경 투명으로 전환
 
-            sellerImage.setBackgroundColor(0); //배경색
-            sellerImage.setHorizontalScrollBarEnabled(false); //가로 스크롤
-            sellerImage.setVerticalScrollBarEnabled(false);   //세로 스크롤
-            sellerImage.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
-            sellerImage.setScrollbarFadingEnabled(false);
-            sellerImage.setInitialScale(15);
+            String URL = urlImageReal1;
 
-            // 웹뷰 멀티 터치 가능하게 (줌기능)
-            webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
-            webSettings.setSupportZoom(false);
 
-            // url은 알아서 설정 예) http://m.naver.com/
+            String htmlData = "<html>" +
+                    "<head>" +
+                    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
+                    "</head>" +
+                    "<body><center>" +
+                    "<img src = \"" + URL + "\"style=\"width: auto; height: 70%;\">" +
+                    "</center></body>" +
+                    "</html>";
+            sellerImage.loadData(htmlData,"text/html", "UTF-8");
+
+            Log.v(TAG, htmlData);
+
             sellerImage.loadUrl(urlImageReal1); // 접속 URL
 
         } else {
@@ -240,10 +262,11 @@ public class ProductDetailFragment extends Fragment {
                     if(loginCheck() == true) {
                         if (favoriteCheck.equals("0")) {
                             urlAddr2 = urlAddrBase + "jsp/insert_sellerwishlistproduct_productview.jsp?useremail=" + userEmail + "&selleremail=" +sellerEmail;
+                            favoriteCheck = "1";
                             insertSellerFavorite(urlAddr2);
-                            sellerFavorite.setImageResource(R.drawable.seller_favorite);
 
                             if (result.equals("1")) {
+                                sellerFavorite.setImageResource(R.drawable.seller_favorite);
                                 Toast.makeText(getContext(), "입력에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
@@ -253,12 +276,14 @@ public class ProductDetailFragment extends Fragment {
                         } else if(favoriteCheck.equals("1")){
                             urlAddr3 = urlAddrBase + "jsp/delete_sellerwishlistproduct_productview.jsp?useremail=" + userEmail + "&selleremail=" +sellerEmail;
                             deleteSellerFavorite(urlAddr3);
-                            sellerFavorite.setImageResource(R.drawable.seller_nonfavorite);
+                            favoriteCheck = "0";
                             if (result.equals("1")) {
                                 //sellerFavorite.setImageResource(R.drawable.seller_nonfavorite);
-                                Toast.makeText(getContext(), "입력에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                sellerFavorite.setImageResource(R.drawable.seller_nonfavorite);
+
+                                Toast.makeText(getContext(), "삭제에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                                 sellerFavorite.setImageResource(R.drawable.seller_favorite);
                             }
                         }
@@ -341,4 +366,10 @@ public class ProductDetailFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        connectSelectData(urlAddr4);
+        connectSelectSellerFavoriteData(urlAddr);
+    }
 }

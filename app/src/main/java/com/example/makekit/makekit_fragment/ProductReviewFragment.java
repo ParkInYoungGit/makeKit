@@ -34,6 +34,7 @@ public class ProductReviewFragment extends Fragment {
     String urlAddr;
     String urlAddrBase = null;
     String macIP, productNo;
+    String where;
 
     ArrayList<Review> reviews;
     ProductReviewAdapter productReviewAdapter;
@@ -122,7 +123,7 @@ public class ProductReviewFragment extends Fragment {
     // select review
     private void connectSelectData() {
         try {
-            ReviewNetworkTask reviewNetworkTask = new ReviewNetworkTask(getActivity(), urlAddr);
+            ReviewNetworkTask reviewNetworkTask = new ReviewNetworkTask(getActivity(), urlAddr, "selectProduct");
 
             Object object = reviewNetworkTask.execute().get();
             reviews = (ArrayList<Review>) object;

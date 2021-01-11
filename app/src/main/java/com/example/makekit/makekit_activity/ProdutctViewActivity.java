@@ -308,8 +308,6 @@ public class ProdutctViewActivity extends AppCompatActivity {
         ///////////////////////////////
         // email 받아오는 값 확인해서 수정하기
 
-        String userEmail = "qkr@naver.com";
-
         if(userEmail == null || userEmail.equals("")){
             Toast.makeText(this, "로그인이 필요합니다. \n로그인 후 이용해주세요.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ProdutctViewActivity.this, LoginActivity.class);
