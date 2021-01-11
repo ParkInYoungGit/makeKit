@@ -85,15 +85,15 @@ public class ChatcontentActivity extends AppCompatActivity {
                     while (isRun){
                         connectGetData();
                         Thread.sleep(1000);
-                        if(judgement()!=chattingContents.size()){
-                            Log.v(TAG, "if judgement!");
-                            Message msg = handler.obtainMessage();
-                            msg.what = 0;
-                            handler.sendMessage(msg);
-                        }else {
+                        if(judgement()==1){
                             Log.v(TAG, "if judgement=");
                             Message msg = handler.obtainMessage();
                             msg.what = 1;
+                            handler.sendMessage(msg);
+                        }else {
+                            Log.v(TAG, "if judgement!");
+                            Message msg = handler.obtainMessage();
+                            msg.what = 0;
                             handler.sendMessage(msg);
                         }
                     }
@@ -124,6 +124,7 @@ public class ChatcontentActivity extends AppCompatActivity {
             connectGetChattingNumber();
         }
         connectGetData();
+//        chattingJudge.addAll(chattingContents);
 //        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
 //        listView.setAdapter(adapter);
         thread.start();
@@ -165,20 +166,12 @@ public class ChatcontentActivity extends AppCompatActivity {
 
     private int judgement(){
         int j = 0;
-        int judge = 0;
-        for(int i =0 ; i<chattingContents.size(); i++){
-            int contents = Integer.parseInt(chattingContents.get(i).getChattingNumber());
-            if(chattingJudge.get(i).getChattingNumber().equals(null)){
-            }else {
-                judge = Integer.parseInt(chattingJudge.get(i).getChattingNumber());
-            }
-            if(contents == judge){
-                j++;
-            }else {
-            }
+        int contents = chattingContents.size();
+        int judge = chattingJudge.size();
+        if(contents == judge){
+            j++;
         }
         Log.v(TAG, "j : "+j);
-        Log.v(TAG, "size : "+ chattingContents.size());
         return j;
     }
 
