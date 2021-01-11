@@ -52,7 +52,7 @@ public class SearchActivity extends AppCompatActivity {
         email = intent.getStringExtra("useremail");
         macIP = intent.getStringExtra("macIP");
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
-        Log.v(TAG, "urlAddrBase : "+urlAddrBase);
+
         products = new ArrayList<Product>();
         layoutManager = new GridLayoutManager(this,2);
         searchAdapter = new SearchAdapter(urlAddrBase);

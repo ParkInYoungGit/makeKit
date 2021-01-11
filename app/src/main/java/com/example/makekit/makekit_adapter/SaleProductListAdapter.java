@@ -55,7 +55,7 @@ public class SaleProductListAdapter extends RecyclerView.Adapter<SaleProductList
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.sales_list_layout, parent, false);
+                .inflate(R.layout.sales_product_list_layout, parent, false);
         //     반복할 xml 파일
         SaleProductListAdapter.MyViewHolder vh = new SaleProductListAdapter.MyViewHolder(v);
         return vh;
