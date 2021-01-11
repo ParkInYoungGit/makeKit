@@ -106,9 +106,9 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {//클릭했을 경우 발생할 이벤트 작성
-                    Intent i = new Intent(JoinActivity.this, WebViewActivity.class);
-                    i.putExtra("macIP", macIP);
-                    startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
+                    Intent intent = new Intent(JoinActivity.this, WebViewActivity.class);
+                    intent.putExtra("macIP", macIP);
+                    startActivityForResult(intent, SEARCH_ADDRESS_ACTIVITY);
                 }
                 return false;
             }
