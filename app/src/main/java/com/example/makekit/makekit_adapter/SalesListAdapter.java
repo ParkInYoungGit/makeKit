@@ -68,7 +68,7 @@ public class SalesListAdapter extends RecyclerView.Adapter<SalesListAdapter.MyVi
         }else {
             urlImageReal = urlImage+mDataset.get(position).getProductAFilename();
         }
-        holder.orderDate.setText("상품 번호 : " + mDataset.get(position).getOrderNo());
+        holder.orderDate.setText("주문 번호 : " + mDataset.get(position).getOrderNo());
         holder.webView.loadUrl(urlImageReal);
         holder.productName.setText(mDataset.get(position).getProductName());
         holder.productQuantity.setText("수량 : "+ mDataset.get(position).getOrderQuantity());

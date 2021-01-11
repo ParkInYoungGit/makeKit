@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.SalesListAdapter;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 public class SalesListActivity extends AppCompatActivity {
 
+    String TAG = "SalesReal";
     ArrayList<Order> orders;
     RecyclerView recyclerView = null;
     RecyclerView.Adapter mAdapter = null;
@@ -26,7 +28,7 @@ public class SalesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sales_list);
-
+        Log.v(TAG, "onCreat");
         orders = new ArrayList<Order>();
 
         Intent intent = getIntent();
@@ -46,6 +48,7 @@ public class SalesListActivity extends AppCompatActivity {
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         connectGetData();
         mAdapter = new SalesListAdapter(SalesListActivity.this, R.layout.sales_list_layout, orders, urlAddrBase+"image/");
+        recyclerView.setAdapter(mAdapter);
     }
 
     private void connectGetData() {
@@ -53,6 +56,7 @@ public class SalesListActivity extends AppCompatActivity {
             NetworkTask_DH networkTask = new NetworkTask_DH(SalesListActivity.this, urlAddrBase + "jsp/getSalesRealList.jsp?userEmail="+email, "getRealSalesList");
             Object obj = networkTask.execute().get();
             orders = (ArrayList<Order>) obj;
+            Log.v(TAG, orders.get(0).getOrderCardPw());
         } catch (Exception e) {
             e.printStackTrace();
         }
