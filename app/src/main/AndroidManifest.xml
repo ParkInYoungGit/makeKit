@@ -68,13 +68,7 @@
 
         </activity>
         <activity android:name=".makekit_activity.ReviewListActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".makekit_activity.EmailFindPwActivity"></activity>
-        <activity android:name=".makekit_activity.ReviewListActivity" />
         <activity android:name=".makekit_activity.LikeSellerActivity" />
         <activity android:name=".makekit_activity.BuyListActivity" />
         <activity android:name=".makekit_activity.ChatcontentActivity" />
@@ -101,15 +95,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".makekit_activity.UserModifyActivity"></activity>
-        <activity android:name=".makekit_activity.JoinActivity" />
-        <activity android:name=".makekit_activity.MainActivity">
-
-
-
-        <activity android:name=".makekit_activity.OrderActivity" >
-
+        <activity android:name=".makekit_activity.JoinActivity" >
         </activity>
-
+        <activity android:name=".makekit_activity.OrderActivity" >
+        </activity>
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
         <activity android:name=".makekit_activity.SearchActivity" />

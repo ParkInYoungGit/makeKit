@@ -111,7 +111,7 @@ public class ReviewListFragment extends Fragment {
     // select review
     private void connectSelectData() {
         try {
-            ReviewNetworkTask reviewNetworkTask = new ReviewNetworkTask(getActivity(), urlAddr);
+            ReviewNetworkTask reviewNetworkTask = new ReviewNetworkTask(getActivity(), urlAddr,"selectReview");
 
             Object object = reviewNetworkTask.execute().get();
             reviews = (ArrayList<Review>) object;

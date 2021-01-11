@@ -38,7 +38,7 @@ public class JoinActivity extends AppCompatActivity {
     String user = "2bbeen@gmail.com"; // 보내는 계정의 id
     String password = "93elsl211!"; // 보내는 계정의 pw
 
-    String macIP, urlJsp, urlImage, urlAddr;
+    String macIP, urlJsp, urlImage, urlAddr, urlCart, cartInsert;
     EditText email, name, pw, pwCheck, phone, address, addressDetail;
     String emailInput = null;
     TextView pwCheckMsg;
@@ -64,6 +64,8 @@ public class JoinActivity extends AppCompatActivity {
 
         urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
         urlImage = "http://" + macIP + ":8080/makeKit/image/";
+        urlCart = urlJsp + "join_cartInsert.jsp?";
+
 
         // 권한
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -424,7 +426,7 @@ public class JoinActivity extends AppCompatActivity {
         }
 
         // cart에 고유번호 추가
-        urlAddstatus = urlAddstatus+"people_peopleno="+peopleNo+"&userinfo_useremail="+email+"&peopleemg="+emergencyStatus+"&peoplefavorite="+bookMark;
+        urlCart = "userinfo_useremail=" + userEmail;
         connectInsertStatus();
 
 
@@ -506,13 +508,13 @@ public class JoinActivity extends AppCompatActivity {
     // Insert Cart
     private String connectInsertStatus() {
         try {
-            CUDNetworkTask insTelNonetworkTask = new CUDNetworkTask(RegisterPeopleActivity.this, urlAddstatus, "Register");
+            UserNetworkTask insTelNonetworkTask = new UserNetworkTask(JoinActivity.this, urlCart, "insert");
             Object object = insTelNonetworkTask.execute().get();
-            statusInsert =(String) object;
+            cartInsert =(String) object;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return statusInsert;
+        return cartInsert;
 
 
 
