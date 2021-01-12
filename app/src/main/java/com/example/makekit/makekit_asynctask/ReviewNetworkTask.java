@@ -74,10 +74,12 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
         InputStreamReader inputStreamReader = null;
 
         BufferedReader bufferedReader = null;
-        Log.v(TAG, "before try");
+        Log.v(TAG, "before try !!!!!!!!!!!!!!! ");
         try{
-            Log.v(TAG, "after try");
+            Log.v(TAG, "after try !!!!!!!!!!!!!!! ");
             URL url = new URL(mAddr);
+            Log.v(TAG, "mAddr >>>>>>>>>>>>>>>" + mAddr);
+
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
             Log.v(TAG, "Accept : "+httpURLConnection.getResponseCode());
@@ -99,10 +101,13 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
                     sellerParser(stringBuffer.toString());
                  }
 
-//                if(where.equals("selectReview")){
-//
-//
-//                }
+                if(where.equals("selectReview")){
+                    sellerParser(stringBuffer.toString());
+                }
+
+                if(where.equals("registerReview")){
+                    result = registerReviewParser(stringBuffer.toString());
+                }
 
             }
 
@@ -116,6 +121,17 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
             }catch (Exception e){
                 e.printStackTrace();
             }
+        }
+
+
+        if (where.equals("selectProduct")) {
+            return reviews;
+        }
+        if (where.equals("selectReview")) {
+            return reviews;
+        }
+        if (where.equals("registerReview")) {
+            return result;
         }
 
         return reviews;
@@ -148,4 +164,27 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
         }
     }
 
-}
+
+
+    private String registerReviewParser(String s){
+        Log.v(TAG,"parserRegisterReview()");
+        String returnResult = null;
+
+        try{
+            JSONObject jsonObject = new JSONObject(s);
+            returnResult = jsonObject.getString("result");
+            Log.v(TAG, returnResult);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return returnResult;
+    }
+
+
+
+
+
+
+} // END

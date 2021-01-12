@@ -44,6 +44,7 @@ public class RegisterReviewActivity extends AppCompatActivity {
     RatingBar ratingBar_star;
     EditText input_review;
     String macIP, email, urlJsp, url, urlRegister;
+    String orderDetailNo, productNo;
     String strRating = null;
     ImageView camera;
     Button btn_register_review;
@@ -78,6 +79,13 @@ public class RegisterReviewActivity extends AppCompatActivity {
         SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         macIP = sf.getString("macIP","");
         email = sf.getString("useremail","");
+
+
+
+        macIP = "192.168.0.81";
+        email = "jordy@naver.com";
+        orderDetailNo = "2";
+        productNo = "43";
 
         // url
         urlJsp = "http://"+macIP+":8080/makeKit/jsp/";
@@ -134,14 +142,14 @@ public class RegisterReviewActivity extends AppCompatActivity {
                     Log.v(TAG, "image Name : "+ imageName);
 
                     // 순서 2. DB와 연결(NetworkTask)해서 정보 insert
-                    urlRegister = urlJsp+"orderStar="+ strRating +"&orderReview="+ strReview+ "&reviewImg=" + imageName+ "&useremail="+ email;
-//                    connectInsertData();
+                    urlRegister = "orderStar="+ strRating +"&orderReview="+ strReview+ "&reviewImg=" + imageName+ "&useremail="+ email + "&orderDetailNo=" + orderDetailNo + "&productNo=" + productNo;
+                    connectInsertData(urlRegister);
 
                     // 입력이 제대로 됐는지 확인
                     if(registerInsertResult.equals("1")){
-                        Toast.makeText(RegisterReviewActivity.this, "입력이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterReviewActivity.this, "리뷰 등록이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
                     }else{
-                        Toast.makeText(RegisterReviewActivity.this, "입력에 실패하였습니다. 관리자에게 문의하세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterReviewActivity.this, "리뷰 등록이 실패하였습니다. \n관리자에게 문의하세요.", Toast.LENGTH_SHORT).show();
                     }
                     // 리스트로 돌아가기
                     intent = new Intent(RegisterReviewActivity.this, ReviewListActivity.class);
@@ -173,12 +181,12 @@ public class RegisterReviewActivity extends AppCompatActivity {
                     // 파일 이름 및 경로 바꾸기(임시 저장)
                     String date = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
                     imageName = date+"."+f_ext;
-                    tempSelectFile = new File("/data/data/com.android.address_book/", imageName);       // 경로는 자기가 원하는 곳으로 바꿀 수 있음
+                    tempSelectFile = new File("/data/data/com.example.makekit/", imageName);       // 경로는 자기가 원하는 곳으로 바꿀 수 있음
                     OutputStream out = new FileOutputStream(tempSelectFile);
                     image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);                        // 지정 경로로 임시 파일 보내기
 
                     // 임시 파일 경로로 위의 img_path 재정의
-                    img_path = "/data/data/com.android.address_book/"+imageName;
+                    img_path = "/data/data/com.example.makekit/"+imageName;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -236,14 +244,23 @@ public class RegisterReviewActivity extends AppCompatActivity {
     // DB와 연결하기 위한 method들
 //    private String connectInsertData() {
 //        try {
-//            ReviewNetworkTask insnetworkTask = new ReviewNetworkTask(RegisterReviewActivity.this, urlRegister);
+//            ReviewNetworkTask insnetworkTask = new ReviewNetworkTask(RegisterReviewActivity.this, urlRegister, "registerReview");
 //            Object object = insnetworkTask.execute().get();
 //            registerInsertResult = (String) object;
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 //        return registerInsertResult;
-//    }
+
+    private void connectInsertData(String urlAddr) {
+        try {
+            ReviewNetworkTask insnetworkTask = new ReviewNetworkTask(RegisterReviewActivity.this, urlAddr, "registerReview");
+            Object object = insnetworkTask.execute().get();
+            // registerInsertResult = (String) object;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
-} // END =========================================================================
+    } // END =========================================================================

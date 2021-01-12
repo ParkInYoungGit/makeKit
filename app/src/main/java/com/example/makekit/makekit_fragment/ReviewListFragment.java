@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ProductReviewAdapter;
+import com.example.makekit.makekit_adapter.ReviewAdapter;
 import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
 import com.example.makekit.makekit_bean.Review;
 
@@ -30,7 +31,7 @@ public class ReviewListFragment extends Fragment {
     String macIP, productNo, orderNo;
 
     ArrayList<Review> reviews;
-    ProductReviewAdapter productReviewAdapter;
+    ReviewAdapter reviewAdapter;
 
     private RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView;
@@ -75,6 +76,7 @@ public class ReviewListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(TAG, "onCreate REVIEW" + getArguments());
         if (getArguments() != null) {
             mParam1 = getArguments().getString("macIP");
             mParam2 = getArguments().getString("productNo");
@@ -89,11 +91,11 @@ public class ReviewListFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_review_list, container, false);
         Log.v(TAG, "onCreateView content" + getArguments());
 
-        recyclerView = v.findViewById(R.id.reviewList_productview);
+        recyclerView = v.findViewById(R.id.recyclerView_Reviewlist);
 
-        urlAddrBase = "http://" + macIP + ":8080/makekit/";
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 //        urlAddr = urlJsp + "jsp/review_list_all.jsp?productno=" + productNo;
-        urlAddr = urlAddrBase + "jsp/review_list_all.jsp?productno=42";
+        urlAddr = urlAddrBase + "jsp/review_list_all.jsp?productno=41";
         Log.v(TAG, "주소" + urlAddr);
         connectSelectData();
         return v;
@@ -116,8 +118,8 @@ public class ReviewListFragment extends Fragment {
             Object object = reviewNetworkTask.execute().get();
             reviews = (ArrayList<Review>) object;
 
-            productReviewAdapter = new ProductReviewAdapter(getActivity(), R.layout.custom_reviewlist, reviews, urlAddrBase);
-            recyclerView.setAdapter(productReviewAdapter);
+            reviewAdapter = new ReviewAdapter(getActivity(), R.layout.custom_reviewlist, reviews, urlAddrBase);
+            recyclerView.setAdapter(reviewAdapter);
             recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
             layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);

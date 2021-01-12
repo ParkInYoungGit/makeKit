@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ViewPagerProductAdapter;
+import com.example.makekit.makekit_adapter.ViewPagerReviewAdapter;
 import com.example.makekit.makekit_fragment.ReviewListFragment;
 import com.example.makekit.makekit_fragment.WriteReviewFragment;
 import com.google.android.material.tabs.TabLayout;
@@ -17,7 +18,7 @@ public class ReviewListActivity extends AppCompatActivity {
     final static String TAG = "ReviewListActivity";
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private ViewPagerProductAdapter viewPagerProductAdapter;
+    private ViewPagerReviewAdapter viewPagerReviewAdapter;
 
     String email, macIP, productNo, orderNo;
     LinearLayout linearLayout;
@@ -32,7 +33,7 @@ public class ReviewListActivity extends AppCompatActivity {
 //        macIP = sf.getString("macIP","");
 //        email = sf.getString("useremail","");
 
-        macIP = "192.168.43.244";
+        macIP = "192.168.0.81";
         email = "jordy@naver.com";
 
         // 화면 구성
@@ -40,13 +41,13 @@ public class ReviewListActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_reviewList);
         viewPager = (ViewPager) findViewById(R.id.viewpager_reviewList);
 
-        viewPagerProductAdapter = new ViewPagerProductAdapter(getSupportFragmentManager());
+        viewPagerReviewAdapter = new ViewPagerReviewAdapter(getSupportFragmentManager());
 
         // Add Fragment
-        viewPagerProductAdapter.AddFrmt(new WriteReviewFragment(macIP, productNo), "구매후기 쓰기");
-        viewPagerProductAdapter.AddFrmt(new ReviewListFragment(macIP, productNo), "내가 쓴 구매후기");
+        viewPagerReviewAdapter.AddFrmt(new WriteReviewFragment(macIP, productNo), "구매후기 쓰기");
+        viewPagerReviewAdapter.AddFrmt(new ReviewListFragment(macIP, productNo), "내가 쓴 구매후기");
 
-        viewPager.setAdapter(viewPagerProductAdapter);
+        viewPager.setAdapter(viewPagerReviewAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
     } // onCreate End -----------------------------------------------------------------
