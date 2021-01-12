@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.makekit.R;
@@ -23,6 +27,7 @@ import java.util.ArrayList;
 public class CartActivity extends AppCompatActivity {
 
     TextView orderTotalNext, productTotalPrice, productDeliveryTotalPrice, allProductTotalPrice;
+    CheckBox selectAll, itemSelect;
     String macIP, productNo, productQuantity, totalPrice, cartNo, urlAddrBase, urlAddr;
     DecimalFormat myFormatter;
     ArrayList<Cart> carts;
@@ -44,6 +49,7 @@ public class CartActivity extends AppCompatActivity {
         productDeliveryTotalPrice = findViewById(R.id.productDeliveryTotalPrice_cart);
         allProductTotalPrice = findViewById(R.id.allProductTotalPrice_cart);
         recyclerView = findViewById(R.id.recyclerViewCartList);
+        selectAll = findViewById(R.id.cb_cart_selectall);
 
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
@@ -74,6 +80,23 @@ public class CartActivity extends AppCompatActivity {
             recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
             layoutManager = new LinearLayoutManager(CartActivity.this);
             recyclerView.setLayoutManager(layoutManager);
+
+
+            //////////////////////////////
+            // 수정하기
+            /////////////////////////////
+            itemSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    int count = 0 ;
+                    count = cartAdapter.getItemCount() ;
+
+                    for (int i=0; i<count; i++) {
+//                        recyclerView.onCheckIsTextEditor(i, true) ;
+                    }
+
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();

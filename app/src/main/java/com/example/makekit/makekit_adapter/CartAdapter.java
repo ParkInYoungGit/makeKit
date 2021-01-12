@@ -14,6 +14,7 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -119,20 +120,25 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     Toast.makeText(v.getContext(),"최수 수량은 1개입니다.", Toast.LENGTH_SHORT).show();
                     String urlAddr = urlImage + "jsp/update_cart_change.jsp?cartno=" + data.get(position).getCartNo() + "&productno=" + data.get(position).getProductNo() + "&cartquantity=" +count;
                     connectUpdateData(urlAddr);
-                    holder.tv_productPrice.setText(data.get(position).getTotalPrice() + "원");
+                    myFormatter = new DecimalFormat("###,###");
+                    String formattedStringPrice = myFormatter.format(Integer.parseInt(data.get(position).getProductPrice()));
+                    holder.tv_productPrice.setText(formattedStringPrice + "원");
 
                 } else {
 
                     count = Integer.parseInt(holder.tv_purchaseNum.getText().toString());
                     count--;
-                    holder.tv_purchaseNum.setText("" + count);
                     String urlAddr = urlImage + "jsp/update_cart_change.jsp?cartno=" + data.get(position).getCartNo() + "&productno=" + data.get(position).getProductNo() + "&cartquantity=" +count;
                     connectUpdateData(urlAddr);
-                    int totalPrice = count * Integer.parseInt(data.get(position).getTotalPrice());
-                    holder.tv_productPrice.setText( ""+ totalPrice + "원");
+                    holder.tv_purchaseNum.setText("" + count);
+                    int totalPrice = count * Integer.parseInt(data.get(position).getProductPrice());
+                    myFormatter = new DecimalFormat("###,###");
+                    String formattedStringPrice = myFormatter.format(totalPrice);
+                    holder.tv_productPrice.setText(formattedStringPrice + "원");
+//                    notifyItemChanged(position);
 
                 }
-                notifyItemChanged(position);
+
             }
         });
 
@@ -146,10 +152,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     String urlAddr = urlImage + "jsp/update_cart_change.jsp?cartno=" + data.get(position).getCartNo() + "&productno=" + data.get(position).getProductNo() + "&cartquantity=" +count;
                     connectUpdateData(urlAddr);
 
-                    int totalPrice = count * Integer.parseInt(data.get(position).getTotalPrice());
-                    holder.tv_productPrice.setText( ""+ totalPrice + "원");
+                    int totalPrice = count * Integer.parseInt(data.get(position).getProductPrice());
+                    myFormatter = new DecimalFormat("###,###");
+                    String formattedStringPrice = myFormatter.format(totalPrice);
+                    holder.tv_productPrice.setText(formattedStringPrice + "원");
 
-                    notifyItemChanged(position);
+                   // notifyItemChanged(position);
 
                     Toast.makeText(v.getContext(), "추가", Toast.LENGTH_SHORT).show();
 
@@ -169,7 +177,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         WebView img_productImage;
         TextView tv_productPrice, tv_purchaseNum, tv_productDeliveryPrice;
         Button btn_MinusProudct, btn_PlusProudct;
-        CheckBox cb_productName;
+        CheckBox cb_productName, cb_allSelect;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -183,6 +191,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             tv_productDeliveryPrice = itemView.findViewById(R.id.productDeliveryPrice_cart);
             btn_MinusProudct = itemView.findViewById(R.id.btnMinusProudct_cart);
             btn_PlusProudct = itemView.findViewById(R.id.btnPlusProudct_cart);
+            //cb_allSelect = itemView.findViewById(R.id.cb_cart_selectall);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -217,4 +226,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             e.printStackTrace();
         }
     }
+
+
 }

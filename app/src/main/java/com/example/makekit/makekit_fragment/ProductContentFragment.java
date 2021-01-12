@@ -123,7 +123,7 @@ public class ProductContentFragment extends Fragment {
 //        mParam2 = "44";
 
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = "http://" + macIP + ":8080/makekit/";
         urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
         Log.v(TAG, "주소" + urlAddr);
         urlAddr1 = urlAddrBase + "jsp/wishlist_productview_check.jsp?productno=" + productNo + "&useremail=" + userEmail;
@@ -160,83 +160,83 @@ public class ProductContentFragment extends Fragment {
 //        Log.v(TAG, String.valueOf(total));
 //        productTotalPrice.setText(Integer.toString(total) + "원");
 
-            urlImageReal1 = urlAddrBase+ "image/" + products.get(0).getProductFilename();
-            urlImageReal2 = urlAddrBase+ "image/" + products.get(0).getProductDfilename();
-            urlImageReal3 = urlAddrBase+ "image/" + products.get(0).getProductAFilename();
+        urlImageReal1 = urlAddrBase+ "image/" + products.get(0).getProductFilename();
+        urlImageReal2 = urlAddrBase+ "image/" + products.get(0).getProductDfilename();
+        urlImageReal3 = urlAddrBase+ "image/" + products.get(0).getProductAFilename();
 
-            // 썸네일 이미지
-            // Initial webview
-            productFilename.setWebViewClient(new WebViewClient());
+        // 썸네일 이미지
+        // Initial webview
+        productFilename.setWebViewClient(new WebViewClient());
 
-            // Enable JavaScript
-            productFilename.getSettings().setJavaScriptEnabled(true);
-             productFilename.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-            // Enable Zoom
-            productFilename.getSettings().setBuiltInZoomControls(true);
-            productFilename.getSettings().setSupportZoom(true);
-            productFilename.getSettings().setSupportZoom(true); //zoom mode 사용.
-            productFilename.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
-
-
-            // Adjust web display
-            productFilename.getSettings().setLoadWithOverviewMode(true);
-            productFilename.getSettings().setUseWideViewPort(true);
-            productFilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
-            productFilename.setBackgroundColor(0);
-            productFilename.setInitialScale(30);
-
-            // url은 알아서 설정 예) http://m.naver.com/
-             productFilename.loadUrl(urlImageReal1); // 접속 URL
-
-            // 설명 이미지
-            // Initial webview
-            productDfilename.setWebViewClient(new WebViewClient());
-            // Enable JavaScript
-            productDfilename.getSettings().setJavaScriptEnabled(true);
-            productDfilename.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-            // Enable Zoom
-            productDfilename.getSettings().setBuiltInZoomControls(true);
-            productDfilename.getSettings().setSupportZoom(true);
-            productDfilename.getSettings().setSupportZoom(true); //zoom mode 사용.
-            productDfilename.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
+        // Enable JavaScript
+        productFilename.getSettings().setJavaScriptEnabled(true);
+        productFilename.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        // Enable Zoom
+        productFilename.getSettings().setBuiltInZoomControls(true);
+        productFilename.getSettings().setSupportZoom(true);
+        productFilename.getSettings().setSupportZoom(true); //zoom mode 사용.
+        productFilename.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
 
 
-            // Adjust web display
-            productDfilename.getSettings().setLoadWithOverviewMode(true);
-            productDfilename.getSettings().setUseWideViewPort(true);
-            productDfilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
-            productDfilename.setBackgroundColor(0);
-            productDfilename.setInitialScale(30);
+        // Adjust web display
+        productFilename.getSettings().setLoadWithOverviewMode(true);
+        productFilename.getSettings().setUseWideViewPort(true);
+        productFilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        productFilename.setBackgroundColor(0);
+        productFilename.setInitialScale(30);
+
+        // url은 알아서 설정 예) http://m.naver.com/
+        productFilename.loadUrl(urlImageReal1); // 접속 URL
+
+        // 설명 이미지
+        // Initial webview
+        productDfilename.setWebViewClient(new WebViewClient());
+        // Enable JavaScript
+        productDfilename.getSettings().setJavaScriptEnabled(true);
+        productDfilename.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        // Enable Zoom
+        productDfilename.getSettings().setBuiltInZoomControls(true);
+        productDfilename.getSettings().setSupportZoom(true);
+        productDfilename.getSettings().setSupportZoom(true); //zoom mode 사용.
+        productDfilename.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
+
+
+        // Adjust web display
+        productDfilename.getSettings().setLoadWithOverviewMode(true);
+        productDfilename.getSettings().setUseWideViewPort(true);
+        productDfilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        productDfilename.setBackgroundColor(0);
+        productDfilename.setInitialScale(30);
 //
 //            // url은 알아서 설정 예) http://m.naver.com/
-            productDfilename.loadUrl(urlImageReal2); // 접속 URL
+        productDfilename.loadUrl(urlImageReal2); // 접속 URL
 
 //            btnMinus.setOnClickListener(mClickListener);
 //            btnPlus.setOnClickListener(mClickListener);
 
-            // 원산지 이미지
-            // Initial webview
-            productAFilename.setWebViewClient(new WebViewClient());
+        // 원산지 이미지
+        // Initial webview
+        productAFilename.setWebViewClient(new WebViewClient());
 
-            // Enable JavaScript
-            productAFilename.getSettings().setJavaScriptEnabled(true);
-            productAFilename.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-            // Enable Zoom
-            productAFilename.getSettings().setBuiltInZoomControls(true);
-            productAFilename.getSettings().setSupportZoom(true);
-            productAFilename.getSettings().setSupportZoom(true); //zoom mode 사용.
-            productAFilename.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
+        // Enable JavaScript
+        productAFilename.getSettings().setJavaScriptEnabled(true);
+        productAFilename.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        // Enable Zoom
+        productAFilename.getSettings().setBuiltInZoomControls(true);
+        productAFilename.getSettings().setSupportZoom(true);
+        productAFilename.getSettings().setSupportZoom(true); //zoom mode 사용.
+        productAFilename.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
 
 
-            // Adjust web display
-            productAFilename.getSettings().setLoadWithOverviewMode(true);
-            productAFilename.getSettings().setUseWideViewPort(true);
-            productAFilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
-            productAFilename.setBackgroundColor(0);
-            productAFilename.setInitialScale(30);
+        // Adjust web display
+        productAFilename.getSettings().setLoadWithOverviewMode(true);
+        productAFilename.getSettings().setUseWideViewPort(true);
+        productAFilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        productAFilename.setBackgroundColor(0);
+        productAFilename.setInitialScale(30);
 
-            // url은 알아서 설정 예) http://m.naver.com/
-            productAFilename.loadUrl(urlImageReal3); // 접속 URL
+        // url은 알아서 설정 예) http://m.naver.com/
+        productAFilename.loadUrl(urlImageReal3); // 접속 URL
 
         favoriteStatus.setOnClickListener(mClickListener);
 

@@ -22,6 +22,7 @@ import com.example.makekit.makekit_adapter.ViewPagerProductAdapter;
 import com.example.makekit.makekit_asynctask.CartNetworkTask;
 import com.example.makekit.makekit_asynctask.ProductNetworkTask;
 import com.example.makekit.makekit_asynctask.WishlistNetworkTask;
+import com.example.makekit.makekit_bean.Cart;
 import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_fragment.ProductContentFragment;
 import com.example.makekit.makekit_fragment.ProductDetailFragment;
@@ -49,10 +50,10 @@ public class ProdutctViewActivity extends AppCompatActivity {
     ImageView imgOption;
     TextView productTotalPrice, purchaseNumInput;
     Button btnPlus, btnMinus;
+    ArrayList<String> cartNumber;
     int count = 1;
 
     String sellerEmail ,productNo, macIP, urlAddr, urlAddrBase, userEmail, urlAddr1, cartNo, result, urlAddr2,urlAddr3, urlAddr4, urlAddr5;
-
     //FrameLayout framelayout;
     LinearLayout ll_close, ll_open, openContent, openTotalPrice, openDeliveryMethod;
     ArrayList<Product> products;
@@ -75,12 +76,13 @@ public class ProdutctViewActivity extends AppCompatActivity {
 //        productNo = intent.getStringExtra("productNo");
 
 
-        macIP = "192.168.200.193";
+        macIP = "192.168.219.164";
         productNo = "44";
         userEmail = "qkr@naver.com";
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = "http://" + macIP + ":8080/makekit/";
         urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
+        urlAddr1 = urlAddrBase + "jsp/cartno_productview_check.jsp?useremail=" + userEmail;
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_productview);
         viewPager = (ViewPager) findViewById(R.id.viewpager_productview);
@@ -91,7 +93,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
         viewPagerProductAdapter.AddFrmt(new ProductContentFragment(macIP, productNo, userEmail), "상품설명");
         viewPagerProductAdapter.AddFrmt(new ProductReviewFragment(macIP, productNo), "후기");
         viewPagerProductAdapter.AddFrmt(new ProductQuestionFragment(macIP, productNo), "문의");
-        viewPagerProductAdapter.AddFrmt(new ProductDetailFragment(macIP, productNo, userEmail), "팜매자정보");
+        viewPagerProductAdapter.AddFrmt(new ProductDetailFragment(macIP, productNo, userEmail), "판매자정보");
 
         viewPager.setAdapter(viewPagerProductAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -122,7 +124,9 @@ public class ProdutctViewActivity extends AppCompatActivity {
         openDeliveryMethod.setVisibility(View.INVISIBLE);
 
         connectSelectData();
-
+        connectSelectCartData(urlAddr1);
+        // user cart 번호
+        cartNo = cartNumber.get(0);
 
         int total = Integer.parseInt(products.get(0).getProductPrice()) + 2500;
         Log.v(TAG, String.valueOf(total));
@@ -139,40 +143,40 @@ public class ProdutctViewActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(mClickListener);
 
         slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
-               @Override
-               public void onPanelSlide(View panel, float slideOffset) {
-                   imgOption.setImageResource(R.drawable.optionup);
-                   ll_close.setVisibility(View.VISIBLE);
-                   ll_open.setVisibility(View.INVISIBLE);
-                   openContent.setVisibility(View.INVISIBLE);
-                   openTotalPrice.setVisibility(View.INVISIBLE);
-                   openDeliveryMethod.setVisibility(View.INVISIBLE);
-               }
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+                imgOption.setImageResource(R.drawable.optionup);
+                ll_close.setVisibility(View.VISIBLE);
+                ll_open.setVisibility(View.INVISIBLE);
+                openContent.setVisibility(View.INVISIBLE);
+                openTotalPrice.setVisibility(View.INVISIBLE);
+                openDeliveryMethod.setVisibility(View.INVISIBLE);
+            }
 
-               @Override
-               public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-                   if(newState.name().toString().equalsIgnoreCase("Collapsed")){
-                       // 닫혔을때 처리하는 부분
-                       imgOption.setImageResource(R.drawable.optionup);
-                       ll_close.setVisibility(View.VISIBLE);
-                       ll_open.setVisibility(View.INVISIBLE);
-                       openContent.setVisibility(View.INVISIBLE);
-                       openTotalPrice.setVisibility(View.INVISIBLE);
-                       openDeliveryMethod.setVisibility(View.INVISIBLE);
+            @Override
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+                if(newState.name().toString().equalsIgnoreCase("Collapsed")){
+                    // 닫혔을때 처리하는 부분
+                    imgOption.setImageResource(R.drawable.optionup);
+                    ll_close.setVisibility(View.VISIBLE);
+                    ll_open.setVisibility(View.INVISIBLE);
+                    openContent.setVisibility(View.INVISIBLE);
+                    openTotalPrice.setVisibility(View.INVISIBLE);
+                    openDeliveryMethod.setVisibility(View.INVISIBLE);
 
-                   }else if(newState.name().equalsIgnoreCase("Expanded")){
+                }else if(newState.name().equalsIgnoreCase("Expanded")){
 
-                       // 열렸을때 처리하는 부분
-                       imgOption.setImageResource(R.drawable.downoption);
-                       ll_open.setVisibility(View.VISIBLE);
-                       ll_close.setVisibility(View.INVISIBLE);
-                       openContent.setVisibility(View.VISIBLE);
-                       openTotalPrice.setVisibility(View.VISIBLE);
-                       openDeliveryMethod.setVisibility(View.VISIBLE);
+                    // 열렸을때 처리하는 부분
+                    imgOption.setImageResource(R.drawable.downoption);
+                    ll_open.setVisibility(View.VISIBLE);
+                    ll_close.setVisibility(View.INVISIBLE);
+                    openContent.setVisibility(View.VISIBLE);
+                    openTotalPrice.setVisibility(View.VISIBLE);
+                    openDeliveryMethod.setVisibility(View.VISIBLE);
 
-                   }
-               }
-         });
+                }
+            }
+        });
     }
 
     View.OnClickListener mClickListener = new View.OnClickListener() {
@@ -216,18 +220,20 @@ public class ProdutctViewActivity extends AppCompatActivity {
                 case R.id.btnCart_productview:
 
                     if(loginCheck() == true){
-                       if(slidingUpPanelLayout.getPanelState().toString().equalsIgnoreCase("COLLAPSED")) {
-                           slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                        if(slidingUpPanelLayout.getPanelState().toString().equalsIgnoreCase("COLLAPSED")) {
+                            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
 
-                       } else {
-                               Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
-                               intent.putExtra("productNo", productNo);
-                               intent.putExtra("macIP", macIP);
-                               intent.putExtra("productQuantity", count);
-                               intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
-                               startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
+                            intent.putExtra("productNo", productNo);
+                            intent.putExtra("macIP", macIP);
+                            intent.putExtra("productQuantity", purchaseNumInput.getText().toString());
+                            Log.v(TAG, purchaseNumInput.getText().toString());
+                            Log.v(TAG, String.valueOf(count));
+                            //intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
+                            startActivity(intent);
 
-                       }
+                        }
                     }
 
                     break;
@@ -253,7 +259,6 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
                 case R.id.btnCartOpen_productview:
                     if(loginCheck() == true) {
-
                         ////////////////////////////////
                         // 1.13 추가 kyeongmi
                         ////////////////////////////////
@@ -262,7 +267,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
                         if(connectSelectCartCheckData(urlAddr3).equals("0")){
                             urlAddr2 = urlAddrBase + "jsp/insert_cart_all.jsp?useremail=" + userEmail + "&productno=" + productNo + "&cartquantity=" + count + "&cartno=" + cartNo;
                             connectInsertCartData(urlAddr2);
-                        ////////////////////////////////
+                            ////////////////////////////////
 
                             if (result.equals("1")) {
                                 Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
@@ -276,14 +281,14 @@ public class ProdutctViewActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(ProdutctViewActivity.this, "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                             }
-                        ////////////////////////////////
+                            ////////////////////////////////
                         } else {
                             urlAddr5 = urlAddrBase + "jsp/selectqnt_productview_cart.jsp?productno=" + productNo + "&cartno=" + cartNo;
                             int cartQnt = Integer.parseInt(connectSelectCartQntData(urlAddr5));
                             int setQnt = Integer.parseInt(purchaseNumInput.getText().toString());
 
                             // update 추가
-                            urlAddr4 = urlAddrBase + "jsp/update_cart_change.jsp?productno=" + productNo + "&cartno=" + cartNo + "&cartquantity=" + Integer.toString(cartQnt+setQnt);
+                            urlAddr4 = urlAddrBase + "jsp/update_cart_change.jsp?productno=" + productNo + "&cartno=" + cartNo + "&cartquantity=" + Integer.toString((cartQnt+setQnt));
                             if(connectUpdateCartData(urlAddr4).equals("1")){
                                 Toast.makeText(ProdutctViewActivity.this, "장바구니 수량 변경되었습니다.", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
@@ -300,7 +305,6 @@ public class ProdutctViewActivity extends AppCompatActivity {
                             }
                         }
                         ////////////////////////////////
-
                     }
                     break;
 
@@ -353,16 +357,27 @@ public class ProdutctViewActivity extends AppCompatActivity {
     }
 
 
-    // 수정하기!!!!
-    // insert cartdetail
+    // select cartNo
+    private void connectSelectCartData(String urlAddr) {
+        try {
+            CartNetworkTask cartNetworkTask = new CartNetworkTask(ProdutctViewActivity.this, urlAddr, "selectCartNo");
 
+            Object object = cartNetworkTask.execute().get();
+            cartNumber = (ArrayList<String>) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // insert cartdetail
     private void connectInsertCartData(String urlAddr) {
         result = "";
         try {
-            ProductNetworkTask productNetworkTask = new ProductNetworkTask(ProdutctViewActivity.this, urlAddr, "select");
+            CartNetworkTask cartNetworkTask = new CartNetworkTask(ProdutctViewActivity.this, urlAddr, "insert");
 
-            Object object = productNetworkTask.execute().get();
-            products = (ArrayList<Product>) object;
+            Object object = cartNetworkTask.execute().get();
+            result = (String) object;
 
         } catch (Exception e) {
             e.printStackTrace();
