@@ -53,7 +53,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
     ArrayList<String> cartNumber;
     int count = 1;
 
-    String sellerEmail ,productNo, macIP, urlAddr, urlAddrBase, userEmail, urlAddr1, cartNo, result, urlAddr2;
+    String sellerEmail ,productNo, macIP, urlAddr, urlAddrBase, userEmail, urlAddr1, cartNo, result, urlAddr2,urlAddr3, urlAddr4, urlAddr5;
     //FrameLayout framelayout;
     LinearLayout ll_close, ll_open, openContent, openTotalPrice, openDeliveryMethod;
     ArrayList<Product> products;
@@ -259,21 +259,52 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
                 case R.id.btnCartOpen_productview:
                     if(loginCheck() == true) {
+                        ////////////////////////////////
+                        // 1.13 추가 kyeongmi
+                        ////////////////////////////////
                         result = null;
-                        urlAddr2 = urlAddrBase + "jsp/insert_cart_all.jsp?useremail=" + userEmail + "&productno=" + productNo + "&cartquantity=" + count + "&cartno=" + cartNo;
-                        connectInsertCartData(urlAddr2);
-                        if(result.equals("1")) {
-                            Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
-                            intent.putExtra("cartNo", cartNo);
-                            intent.putExtra("productNo", productNo);
-                            intent.putExtra("macIP", macIP);
-                            intent.putExtra("productQuantity", count);
-                            intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
-                            startActivity(intent);
+                        urlAddr3 = urlAddrBase + "jsp/cartdetail_productview_check.jsp?productno=" + productNo + "&cartno=" + cartNo;
+                        if(connectSelectCartCheckData(urlAddr3).equals("0")){
+                            urlAddr2 = urlAddrBase + "jsp/insert_cart_all.jsp?useremail=" + userEmail + "&productno=" + productNo + "&cartquantity=" + count + "&cartno=" + cartNo;
+                            connectInsertCartData(urlAddr2);
+                        ////////////////////////////////
 
+                            if (result.equals("1")) {
+                                Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
+                                intent.putExtra("cartNo", cartNo);
+                                intent.putExtra("productNo", productNo);
+                                intent.putExtra("macIP", macIP);
+                                intent.putExtra("userEmail", userEmail);
+                                //intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
+                                startActivity(intent);
+
+                            } else {
+                                Toast.makeText(ProdutctViewActivity.this, "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        ////////////////////////////////
                         } else {
-                            Toast.makeText(ProdutctViewActivity.this, "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            urlAddr5 = urlAddrBase + "jsp/selectqnt_productview_cart.jsp?productno=" + productNo + "&cartno=" + cartNo;
+                            int cartQnt = Integer.parseInt(connectSelectCartQntData(urlAddr5));
+                            int setQnt = Integer.parseInt(purchaseNumInput.getText().toString());
+
+                            // update 추가
+                            urlAddr4 = urlAddrBase + "jsp/update_cart_change.jsp?productno=" + productNo + "&cartno=" + cartNo + "&cartquantity=" + Integer.toString(cartQnt+setQnt);
+                            if(connectUpdateCartData(urlAddr4).equals("1")){
+                                Toast.makeText(ProdutctViewActivity.this, "장바구니 수량 변경되었습니다.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
+                                intent.putExtra("cartNo", cartNo);
+                                intent.putExtra("productNo", productNo);
+                                intent.putExtra("macIP", macIP);
+                                intent.putExtra("userEmail", userEmail);
+                                //intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
+                                startActivity(intent);
+
+                            } else {
+                                Toast.makeText(ProdutctViewActivity.this, "장바구니 수량 변경 실패하였습니다.", Toast.LENGTH_SHORT).show();
+
+                            }
                         }
+                        ////////////////////////////////
                     }
                     break;
 
@@ -283,6 +314,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
                         Intent intent = new Intent(ProdutctViewActivity.this, OrderActivity.class);
                         intent.putExtra("productNo", productNo);
                         intent.putExtra("macIP", macIP);
+                        intent.putExtra("userEmail", userEmail);
                         intent.putExtra("productQuantity", purchaseNumInput.getText().toString());
                         Log.v(TAG, purchaseNumInput.getText().toString());
                         Log.v(TAG, String.valueOf(count));
@@ -294,38 +326,6 @@ public class ProdutctViewActivity extends AppCompatActivity {
         }
     };
 
-
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//    }
-//
-//    View.OnClickListener mClickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            switch (v.getId()){
-//                case R.id.btnCart_productview:
-//                    if(loginCheck() == true){
-//                        Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
-//                        startActivity(intent);
-//                    }
-//
-//                    break;
-//
-//                /////////////////////////////////////////////
-//                // 구매하기 페이지 다시 확인하기!
-//                /////////////////////////////////////////////
-//                case R.id.btnPurchase_productview:
-//                    if(loginCheck() == true){
-//                        Intent intent = new Intent(ProdutctViewActivity.this, OrderActivity.class);
-//                        startActivity(intent);
-//                    }
-//
-//                    break;
-//            }
-//        }
-//    };
 
     private boolean loginCheck(){
         ///////////////////////////////
@@ -372,6 +372,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
     // insert cartdetail
     private void connectInsertCartData(String urlAddr) {
+        result = "";
         try {
             CartNetworkTask cartNetworkTask = new CartNetworkTask(ProdutctViewActivity.this, urlAddr, "insert");
 
@@ -383,5 +384,49 @@ public class ProdutctViewActivity extends AppCompatActivity {
         }
     }
 
+    // select cartCheck (동일상품 있는지 체크)
+    private String connectSelectCartCheckData(String urlAddr) {
+        result = "";
+        try {
+            CartNetworkTask cartNetworkTask = new CartNetworkTask(ProdutctViewActivity.this, urlAddr, "selectCartCheck");
+
+            Object object = cartNetworkTask.execute().get();
+            result = (String) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    // select cart 수량
+    private String connectSelectCartQntData(String urlAddr) {
+        result = "";
+        try {
+            CartNetworkTask cartNetworkTask = new CartNetworkTask(ProdutctViewActivity.this, urlAddr, "selectCartQnt");
+
+            Object object = cartNetworkTask.execute().get();
+            result = (String) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    // update cartdetail
+    private String connectUpdateCartData(String urlAddr) {
+        result = "";
+        try {
+            CartNetworkTask cartNetworkTask = new CartNetworkTask(ProdutctViewActivity.this, urlAddr, "update");
+
+            Object object = cartNetworkTask.execute().get();
+            result = (String) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 }

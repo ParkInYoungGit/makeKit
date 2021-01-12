@@ -58,11 +58,6 @@ public class CartActivity extends AppCompatActivity {
         connectSelectData(urlAddr);
         Log.v(TAG, "총금액" + carts.get(0).getTotalPrice());
 
-        // 구매 총 금액
-//        int total = Integer.parseInt(products.get(0).getProductPrice()) + 2500;
-//        myFormatter = new DecimalFormat("###,###");
-//        String formattedStringPrice = myFormatter.format(total);
-//        productTotalPrice.setText(formattedStringPrice + "원");
 
     }
 
@@ -87,9 +82,33 @@ public class CartActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
+        String productprice ="";
+        String productcount ="";
+        String deliveryprice ="";
+        int price = 0;
         super.onResume();
         Log.v(TAG, "onResume cart");
         connectSelectData(urlAddr);
+
+        for (int i=0; i<carts.size(); i++){
+            productprice = carts.get(i).getProductPrice();
+            productcount = carts.get(i).getCartQuantity();
+            price += Integer.parseInt(productprice) * Integer.parseInt(productcount);
+            Log.v(TAG, "price : " + String.valueOf(price));
+
+        }
+        myFormatter = new DecimalFormat("###,###");
+        String formattedStringPrice = myFormatter.format(price);
+        String formattedStringPrice1 = myFormatter.format(carts.size() * 2500);
+        String formattedStringPrice2 = myFormatter.format(carts.size() * 2500 + price);
+
+        productTotalPrice.setText(formattedStringPrice + "원");
+        productDeliveryTotalPrice.setText(formattedStringPrice1 + "원");
+        allProductTotalPrice.setText(formattedStringPrice2 + "원");
+
+        orderTotalNext.setText(formattedStringPrice2 + "원 구매하기");
+
+
     }
 
 }
