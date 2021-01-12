@@ -154,7 +154,7 @@ public class RegisterReviewActivity extends AppCompatActivity {
                     // 리스트로 돌아가기
                     intent = new Intent(RegisterReviewActivity.this, ReviewListActivity.class);
                     startActivity(intent);
-                    finish();
+//                    finish();
                     break;
             }
         }

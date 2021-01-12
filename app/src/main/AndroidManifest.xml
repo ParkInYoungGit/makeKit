@@ -32,20 +32,16 @@
         <activity android:name=".makekit_activity.SaleProductListActivity"></activity>
         <activity android:name=".makekit_activity.ProductSalesWriteActivity"></activity>
 
-        <activity android:name=".makekit_activity.RegisterReviewActivity">
-        </activity>
 
         <activity android:name=".PurchaseListActivity"></activity>
-        <activity android:name=".makekit_activity.SalesListActivity" />
-        <activity android:name=".makekit_activity.SaleProductListActivity" />
-        <activity android:name=".makekit_activity.ProductSalesWriteActivity" />
-        <activity android:name=".makekit_activity.RegisterReviewActivity" />
-        <activity android:name=".makekit_activity.MainActivity">
+        <activity android:name=".makekit_activity.RegisterReviewActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".makekit_activity.MainActivity">
         </activity>
         <activity android:name=".makekit_activity.TempLogin" />
         <activity android:name=".makekit_activity.EmailCheckActivity" />
@@ -101,12 +97,8 @@
         <activity android:name=".makekit_activity.JoinActivity" >
 
         </activity>
-        <activity android:name=".makekit_activity.OrderActivity" >
+        <activity android:name=".makekit_activity.OrderActivity" />
 
-        <activity android:name=".makekit_activity.UserModifyActivity" />
-
-        </activity>
-        <activity android:name=".makekit_activity.OrderActivity"></activity>
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />
         <activity android:name=".makekit_activity.SearchActivity" />
