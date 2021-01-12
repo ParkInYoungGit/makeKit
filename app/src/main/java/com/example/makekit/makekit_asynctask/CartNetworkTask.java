@@ -95,6 +95,8 @@ public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
 
                 if(where.equals("selectCartNo")){
                     cartNoParser(stringBuffer.toString());
+                } else if(where.equals("select")){
+                    cartParser(stringBuffer.toString());
                 } else {
                     result = parserInsert(stringBuffer.toString());
                 }
@@ -114,6 +116,8 @@ public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
         }
         if(where.equals("selectCartNo")) {
             return cartNumber;
+        } else if(where.equals("select")){
+            return carts;
         } else {
             return result;
         }
@@ -133,6 +137,35 @@ public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
                 String cartNo = jsonObject1.getString("cartNo");
 
                 cartNumber.add(cartNo);
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void cartParser(String s){
+        Log.v(TAG, "parser()");
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("cart_info"));
+            Log.v(TAG, "parser() in");
+            carts.clear();
+            for(int i = 0 ; i<jsonArray.length() ; i++){
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                String productNo = jsonObject1.getString("productNo");
+                String productName = jsonObject1.getString("productName");
+                String prouductImage = jsonObject1.getString("prouductImage");
+                String productPrice = jsonObject1.getString("productPrice");
+                String productQuantity = jsonObject1.getString("productQuantity");
+                String cartNo = jsonObject1.getString("cartNo");
+                String totalPrice = jsonObject1.getString("totalPrice");
+
+
+                Cart cart = new Cart(cartNo, productNo, productQuantity, productName, prouductImage, productPrice, totalPrice);
+                Log.v(TAG, String.valueOf(cart));
+                carts.add(cart);
             }
 
         } catch (Exception e){
