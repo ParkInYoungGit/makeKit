@@ -93,10 +93,11 @@ public class OrderActivity extends AppCompatActivity {
         // 앞에서 넘겨준 값 받기
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
+        productNo = intent.getStringExtra("productNo");
 //        email = intent.getStringExtra("userEmail");
         email = "qkr@naver.com";
-        product1 = intent.getStringArrayListExtra("productNo");
-        cartNo = intent.getStringExtra("cartNo");
+//        product1 = intent.getStringArrayListExtra("productNo");
+//        cartNo = intent.getStringExtra("cartNo");
         count = intent.getStringExtra("productQuantity");
         totalPrice = intent.getStringExtra("totalPrice");
         Log.v(TAG, macIP);
@@ -105,10 +106,10 @@ public class OrderActivity extends AppCompatActivity {
         Log.v(TAG, totalPrice);
 
         //  사용할 값 인트 변환
-        orderCount = Integer.parseInt(count);
-        orderTotalPrice = Integer.parseInt(totalPrice);
-        Log.v(TAG, "orderCount : " + orderCount);
-        Log.v(TAG, "orderTotalPrice : " + orderTotalPrice);
+//        orderCount = Integer.parseInt(count);
+//        orderTotalPrice = Integer.parseInt(totalPrice);
+//        Log.v(TAG, "orderCount : " + orderCount);
+//        Log.v(TAG, "orderTotalPrice : " + orderTotalPrice);
 
 
         // 사용할 폴더 지정
@@ -162,7 +163,7 @@ public class OrderActivity extends AppCompatActivity {
 
         // 실행시 셀렉트 실행
         connectSelectGetData(urlAddrSelect_Resume);   // urlAddr1을  connectSelectGetData의 urlAddr2로 보내준다
-
+        connectProductSelectGetData();
         //  기본 정보 가져오기
         orderUserName = Order.get(0).getUserName();
         orderUserTel = Order.get(0).getUserTel();
@@ -225,24 +226,40 @@ public class OrderActivity extends AppCompatActivity {
 
     // ============================================================================================ 선택 제품 기본정보 가져오는 Select
     protected void order() {
+        Log.v(TAG, "order in");
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
-        connectGetData();
+        connectProductSelectGetData();
         mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, Payment, urlAddrBase+"image/");
+        Log.v(TAG, "order : " + Payment);
         rv_product_order.setAdapter(mAdapter);
+
     }
 
-    private void connectGetData(){
+    private void connectProductSelectGetData(){
 
-        for (int i = 0; i < product1.size(); i++) {
+//        for (int i = 0; i < product1.size(); i++) {
+//            try {
+//                Log.v(TAG, product1.get(i));
+////                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +cartNo+ "&productNo=" +product1.get(i));        // 불러오는게 똑같아서
+//                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44");        // 불러오는게 똑같아서
+//                Object obj = orderNetworkTask.execute().get();
+//                Payment = (ArrayList<Payment>) obj;
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
             try {
-
-                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +cartNo+ "&productNo=" +product1.get(i));        // 불러오는게 똑같아서
+                Log.v(TAG, "connectProductSelectGetData in");
+//                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +cartNo+ "&productNo=" +product1.get(i));        // 불러오는게 똑같아서
+                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44");        // 불러오는게 똑같아서
                 Object obj = orderNetworkTask.execute().get();
                 Payment = (ArrayList<Payment>) obj;
+                Log.v(TAG, "connectProductSelectGetData urlAddrBase" + urlAddrBase);
 
             } catch (Exception e) {
                 e.printStackTrace();
-            }
+//
 
         }
     }

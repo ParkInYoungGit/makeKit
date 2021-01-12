@@ -160,7 +160,7 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("product_info"));
-//            payment.clear();
+            payment.clear();
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);

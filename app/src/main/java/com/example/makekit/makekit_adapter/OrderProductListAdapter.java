@@ -66,18 +66,19 @@ public class OrderProductListAdapter extends RecyclerView.Adapter<OrderProductLi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        if(mDataset.get(position).getImage().equals("null")){
+        // 빈에서 이미지를 가져옴 getImage
+        if(mDataset.get(position).getImage().equals("null")){           // getImage가 Null 일 경우 ic_default.jpg 넣어줌
             urlImageReal = urlImage+"ic_default.jpg";
         }else {
-            urlImageReal = urlImage+mDataset.get(position).getImage();
+            urlImageReal = urlImage+mDataset.get(position).getImage();  // getImage가 Null 아닐 경우 가져온 이미지 이름 넣어줌
         }
-        holder.order_productImage.loadUrl(urlImageReal);
-        holder.order_productName.setText(mDataset.get(position).getProductName());
-        holder.order_productPrice.setText(mDataset.get(position).getProductPrice());
-        holder.order_productCount.setText(mDataset.get(position).getCartQuantity());
+        holder.order_productImage.loadUrl(urlImageReal);                // 이미지 주소를 업로드해줌 urlImageReal(http://192.168.200.193:8080/makeKit/image/)+getImage(ic_default or 이미지명)
+        holder.order_productName.setText(mDataset.get(position).getProductName());      // 빈에 담긴 정보를 넣어줌
+        holder.order_productPrice.setText(mDataset.get(position).getProductPrice());    // 빈에 담긴 정보를 넣어줌
+        holder.order_productCount.setText(mDataset.get(position).getCartQuantity());    // 빈에 담긴 정보를 넣어줌
 
 
-        holder.order_productImage.setWebViewClient(new WebViewClient());
+        holder.order_productImage.setWebViewClient(new WebViewClient());        // 이미지 세팅을 위해 클라이언트 사용
 
 
 
@@ -99,7 +100,7 @@ public class OrderProductListAdapter extends RecyclerView.Adapter<OrderProductLi
         holder.order_productImage.setInitialScale(15);
 
         // url은 알아서 설정 예) http://m.naver.com/
-        holder.order_productImage.loadUrl(urlImageReal); // 접속 URL
+        holder.order_productImage.loadUrl(urlImageReal); // 접속 URL      // 마지막으로 세팅까지 끝낸 이미지 재로딩
     }
 
     @Override
