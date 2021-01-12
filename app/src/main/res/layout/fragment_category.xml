@@ -9,20 +9,21 @@
     >
 
     <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/korean"
+
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
         card_view:cardCornerRadius="30dp">
 
         <ImageView
+            android:id="@+id/korean"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/category5" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/american"
+
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
@@ -30,6 +31,7 @@
         card_view:cardCornerRadius="30dp">
 
         <ImageView
+            android:id="@+id/american"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/category1" />
@@ -37,39 +39,42 @@
 
 
     <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/chinese"
+
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
         card_view:cardCornerRadius="30dp">
 
         <ImageView
+            android:id="@+id/chinese"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/category2" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/etc"
+
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
         card_view:cardCornerRadius="30dp">
 
         <ImageView
+            android:id="@+id/etc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/category3" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/set"
+
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
         card_view:cardCornerRadius="30dp">
 
         <ImageView
+            android:id="@+id/set"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/category4" />
