@@ -57,11 +57,11 @@ public class ChattingContentsAdapter extends RecyclerView.Adapter<RecyclerView.V
             holder1.tv_sendid_right.setText("나");
             holder1.tv_sendid_right.setPaintFlags(holder1.tv_sendid_right.getPaintFlags()| Paint.FAKE_BOLD_TEXT_FLAG);
             holder1.tv_sendContent_right.setText(data.get(position).getChattingContents());
-            holder1.tv_sendContent_right.setBackground(chatcontentActivity.getResources().getDrawable(R.drawable.chat_sender));
+            holder1.tv_sendContent_right.setBackground(chatcontentActivity.getResources().getDrawable(R.drawable.chat_sender_));
         }else {
             MyViewHolder2 holder2 = (MyViewHolder2) holder;
             holder2.tv_sendid.setText(data.get(position).getUserinfo_userEmail_sender());
-            holder2.tv_sendContent.setBackground(chatcontentActivity.getResources().getDrawable(R.drawable.chat_receiver));
+            holder2.tv_sendContent.setBackground(chatcontentActivity.getResources().getDrawable(R.drawable.chat_receiver_));
             holder2.tv_sendContent.setText(data.get(position).getChattingContents());
         }
     }
