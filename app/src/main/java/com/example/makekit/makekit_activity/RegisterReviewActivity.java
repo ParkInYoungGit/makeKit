@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
+import com.example.makekit.makekit_fragment.ReviewListFragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -142,7 +143,7 @@ public class RegisterReviewActivity extends AppCompatActivity {
                     Log.v(TAG, "image Name : "+ imageName);
 
                     // 순서 2. DB와 연결(NetworkTask)해서 정보 insert
-                    urlRegister = "orderStar="+ strRating +"&orderReview="+ strReview+ "&reviewImg=" + imageName+ "&useremail="+ email + "&orderDetailNo=" + orderDetailNo + "&productNo=" + productNo;
+                    urlRegister = urlRegister + "orderStar="+ strRating +"&orderReview="+ strReview+ "&reviewImg=" + imageName+ "&useremail="+ email + "&orderDetailNo=" + orderDetailNo + "&productNo=" + productNo;
                     connectInsertData(urlRegister);
 
                     // 입력이 제대로 됐는지 확인
@@ -151,8 +152,9 @@ public class RegisterReviewActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(RegisterReviewActivity.this, "리뷰 등록이 실패하였습니다. \n관리자에게 문의하세요.", Toast.LENGTH_SHORT).show();
                     }
+
                     // 리스트로 돌아가기
-                    intent = new Intent(RegisterReviewActivity.this, ReviewListActivity.class);
+                    intent = new Intent(RegisterReviewActivity.this, ReviewListFragment.class);
                     startActivity(intent);
 //                    finish();
                     break;
@@ -242,25 +244,26 @@ public class RegisterReviewActivity extends AppCompatActivity {
 
 
     // DB와 연결하기 위한 method들
-//    private String connectInsertData() {
-//        try {
-//            ReviewNetworkTask insnetworkTask = new ReviewNetworkTask(RegisterReviewActivity.this, urlRegister, "registerReview");
-//            Object object = insnetworkTask.execute().get();
-//            registerInsertResult = (String) object;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return registerInsertResult;
-
-    private void connectInsertData(String urlAddr) {
+    private String connectInsertData(String urlAddr) {
         try {
             ReviewNetworkTask insnetworkTask = new ReviewNetworkTask(RegisterReviewActivity.this, urlAddr, "registerReview");
             Object object = insnetworkTask.execute().get();
-            // registerInsertResult = (String) object;
+            registerInsertResult = (String) object;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return registerInsertResult;
     }
+
+//    private void connectInsertData(String urlAddr) {
+//        try {
+//            ReviewNetworkTask insnetworkTask = new ReviewNetworkTask(RegisterReviewActivity.this, urlAddr, "registerReview");
+//            Object object = insnetworkTask.execute().get();
+//            // registerInsertResult = (String) object;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     } // END =========================================================================

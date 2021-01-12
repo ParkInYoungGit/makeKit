@@ -44,8 +44,8 @@ public class ReviewListActivity extends AppCompatActivity {
         viewPagerReviewAdapter = new ViewPagerReviewAdapter(getSupportFragmentManager());
 
         // Add Fragment
-        viewPagerReviewAdapter.AddFrmt(new WriteReviewFragment(macIP, productNo), "구매후기 쓰기");
-        viewPagerReviewAdapter.AddFrmt(new ReviewListFragment(macIP, productNo), "내가 쓴 구매후기");
+        viewPagerReviewAdapter.AddFrmt(new WriteReviewFragment(macIP, email), "구매후기 쓰기");
+        viewPagerReviewAdapter.AddFrmt(new ReviewListFragment(macIP, email), "내가 쓴 구매후기");
 
         viewPager.setAdapter(viewPagerReviewAdapter);
         tabLayout.setupWithViewPager(viewPager);
