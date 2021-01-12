@@ -1,7 +1,10 @@
 package com.example.makekit.makekit_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Intent;
 import android.nfc.Tag;
@@ -163,7 +166,6 @@ public class OrderActivity extends AppCompatActivity {
 
         // 실행시 셀렉트 실행
         connectSelectGetData(urlAddrSelect_Resume);   // urlAddr1을  connectSelectGetData의 urlAddr2로 보내준다
-        connectProductSelectGetData();
         //  기본 정보 가져오기
         orderUserName = Order.get(0).getUserName();
         orderUserTel = Order.get(0).getUserTel();
@@ -225,15 +227,15 @@ public class OrderActivity extends AppCompatActivity {
 
 
     // ============================================================================================ 선택 제품 기본정보 가져오는 Select
-    protected void order() {
-        Log.v(TAG, "order in");
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
-        connectProductSelectGetData();
-        mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, Payment, urlAddrBase+"image/");
-        Log.v(TAG, "order : " + Payment);
-        rv_product_order.setAdapter(mAdapter);
-
-    }
+//    protected void order() {
+//        Log.v(TAG, "order in");
+//        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+//        connectProductSelectGetData();
+//        mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, Payment, urlAddrBase+"image/");
+//        Log.v(TAG, "order : " + Payment);
+//        rv_product_order.setAdapter(mAdapter);
+//
+//    }
 
     private void connectProductSelectGetData(){
 
@@ -256,6 +258,14 @@ public class OrderActivity extends AppCompatActivity {
                 Object obj = orderNetworkTask.execute().get();
                 Payment = (ArrayList<Payment>) obj;
                 Log.v(TAG, "connectProductSelectGetData urlAddrBase" + urlAddrBase);
+                mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, Payment, urlAddrBase+"image/");
+                rv_product_order.setAdapter(mAdapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
+//                rv_product_order.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
+//                layoutManager = new GridLayoutManager(ProductList.this,2);
+//                SnapHelper snapHelper = new PagerSnapHelper();
+//                rv_product_order.setLayoutManager(layoutManager);
+//                Log.v(TAG, "order : " + Payment);
+//                rv_product_order.setAdapter(mAdapter);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -272,6 +282,7 @@ public class OrderActivity extends AppCompatActivity {
         // Select
         urlAddrSelect_Resume = urlJsp + "order_user_info.jsp?email=" + email;
         connectSelectGetData(urlAddrSelect_Resume);
+        connectProductSelectGetData();
         Log.v(TAG, "onResume()");
     }
 
