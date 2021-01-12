@@ -32,6 +32,9 @@ public class User {
     //////////////////////////////////////////////////////////////////////////////
 
 
+
+
+
     public User(String email, String name, String pw, String address, String addressdetail, String tel, String birth) {
         this.email = email;
         this.name = name;
