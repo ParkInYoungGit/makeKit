@@ -227,8 +227,10 @@ public class ProdutctViewActivity extends AppCompatActivity {
                                Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
                                intent.putExtra("productNo", productNo);
                                intent.putExtra("macIP", macIP);
-                               intent.putExtra("productQuantity", count);
-                               intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
+                               intent.putExtra("productQuantity", purchaseNumInput.getText().toString());
+                               Log.v(TAG, purchaseNumInput.getText().toString());
+                               Log.v(TAG, String.valueOf(count));
+                               //intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
                                startActivity(intent);
 
                        }
@@ -262,6 +264,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
                         connectInsertCartData(urlAddr2);
                         if(result.equals("1")) {
                             Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
+                            intent.putExtra("cartNo", cartNo);
                             intent.putExtra("productNo", productNo);
                             intent.putExtra("macIP", macIP);
                             intent.putExtra("productQuantity", count);
@@ -280,7 +283,10 @@ public class ProdutctViewActivity extends AppCompatActivity {
                         Intent intent = new Intent(ProdutctViewActivity.this, OrderActivity.class);
                         intent.putExtra("productNo", productNo);
                         intent.putExtra("macIP", macIP);
-                        intent.putExtra("productQuantity", count);
+                        intent.putExtra("productQuantity", purchaseNumInput.getText().toString());
+                        Log.v(TAG, purchaseNumInput.getText().toString());
+                        Log.v(TAG, String.valueOf(count));
+//                        intent.putExtra("productQuantity", count);
                         intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
                         startActivity(intent);
                     }

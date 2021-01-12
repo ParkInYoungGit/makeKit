@@ -204,15 +204,15 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="120dp"
                         android:orientation="horizontal">
 
-                        <ImageView
+                        <WebView
                             android:id="@+id/order_productImage"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:layout_marginRight="10dp"
-                            android:src="@drawable/ic_user" />
+                            android:layout_margin="10dp"
+                            />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -221,7 +221,6 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/order_productName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="상품명"
@@ -233,7 +232,6 @@
                                 android:text="배송비" />
 
                             <TextView
-                                android:id="@+id/order_productCount"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="수량" />
@@ -246,7 +244,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/order_productPrice"
+                                android:id="@+id/order_productName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
@@ -259,6 +257,7 @@
                                 android:text="2,500원" />
 
                             <TextView
+                                android:id="@+id/order_productQuantity"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"

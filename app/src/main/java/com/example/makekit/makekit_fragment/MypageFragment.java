@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.makekit.PurchaseListActivity;
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.BuyListActivity;
 import com.example.makekit.makekit_activity.LikeProductActivity;
@@ -122,7 +123,9 @@ public class MypageFragment extends Fragment {
                     startActivity(intent);
                     break;
                 case R.id.buylist_btn:  // 구매내역 버튼
-                    Intent intent1 = new Intent(getActivity(), BuyListActivity.class);
+                    Intent intent1 = new Intent(getActivity(), PurchaseListActivity.class);
+                    intent1.putExtra("useremail", email);
+                    intent1.putExtra("macIP", macIP);
                     startActivity(intent1);
                     break;
                 case R.id.salelist_btn: // 판매내역 버튼

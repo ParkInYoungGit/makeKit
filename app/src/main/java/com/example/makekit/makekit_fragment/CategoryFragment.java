@@ -31,8 +31,8 @@ v.findViewById(R.id.korean).setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(getContext(), ProductList.class);
-
-        intent.putExtra(pType,"dd");
+        pType = "korea";
+        intent.putExtra("pType",pType);
         intent.putExtra("macIP",macIP);
         intent.putExtra("useremail",email);
 

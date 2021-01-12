@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         // -------------------------------------------------------------------------------------
 
 
-        macIP = "192.168.35.133";
+        macIP = "172.20.10.5";
         email = "jordy@naver.com";
 
         // 검색 페이지로 이동
