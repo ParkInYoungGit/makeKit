@@ -12,6 +12,8 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ChattingContentsAdapter;
@@ -26,8 +28,9 @@ public class ChatcontentActivity extends AppCompatActivity {
     String macIP, email, chattingNumber, receiver, urlAddrBase;
     int intChattingNumber = 0;
     ArrayList<ChattingBean> chattingContents;
-    ChattingContentsAdapter adapter;
-    ListView listView;
+    RecyclerView recyclerView = null;
+    RecyclerView.Adapter mAdapter = null;
+    RecyclerView.LayoutManager layoutManager = null;
     EditText editText;
     Button insertButton;
     Handler handler;
@@ -41,14 +44,18 @@ public class ChatcontentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_content);
         editText = findViewById(R.id.chattingContents_ET);
         insertButton = findViewById(R.id.chattingContents_Btn);
-        listView = findViewById(R.id.chattingContents_LV);
+        recyclerView = findViewById(R.id.chattingContents_LV);
         Intent intent = getIntent();
         email = intent.getStringExtra("useremail");
         macIP = intent.getStringExtra("macIP");
         chattingNumber = intent.getStringExtra("chattingNumber");
         receiver = intent.getStringExtra("receiver");
-        Log.v(TAG, receiver);
+
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
         chattingJudge = new ArrayList<ChattingBean>();
         chattingContents = new ArrayList<ChattingBean>();
@@ -65,12 +72,8 @@ public class ChatcontentActivity extends AppCompatActivity {
                         chattingJudge.clear();
                         connectGetData();
                         chattingJudge.addAll(chattingContents);
-                        Log.v(TAG, chattingContents.get(0).getUserinfo_userEmail_sender());
-                        Log.v(TAG, chattingContents.get(0).getUserinfo_userEmail_receiver());
-                        Log.v(TAG, chattingContents.get(0).getChattingContents());
-                        Log.v(TAG, chattingContents.get(0).getChattingInsertDate());
-                        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
-                        listView.setAdapter(adapter);
+                        mAdapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
+                        recyclerView.setAdapter(mAdapter);
                         break;
                     case 1:
                         break;
