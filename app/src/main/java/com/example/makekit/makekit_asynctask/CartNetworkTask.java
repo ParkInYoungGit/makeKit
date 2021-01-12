@@ -5,8 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import androidx.fragment.app.FragmentActivity;
-
+import com.example.makekit.makekit_bean.Cart;
 import com.example.makekit.makekit_bean.Review;
 
 import org.json.JSONArray;
@@ -19,24 +18,23 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
+public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
 
-    final static String TAG = "ReviewNetworkTask";
+    final static String TAG = "CartNetworkTask";
     Context context = null;
     String mAddr = null;
     String where = null;
     ProgressDialog progressDialog = null;
-    ArrayList<Review> reviews;
+    ArrayList<Cart> carts;
+    ArrayList<String> cartNumber;
 
-    public ReviewNetworkTask(Context context, String mAddr, String where) {
+    public CartNetworkTask(Context context, String mAddr, String where) {
         this.context = context;
         this.mAddr = mAddr;
         this.where = where;
-        this.reviews = new ArrayList<Review>();
+        this.carts = new ArrayList<Cart>();
+        this.cartNumber = new ArrayList<String>();
         Log.v(TAG, "Start : "+ mAddr);
-    }
-
-    public ReviewNetworkTask(FragmentActivity activity, String urlAddr) {
     }
 
     @Override
@@ -95,13 +93,10 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
                 }
                 Log.v(TAG, "StringBuffer : "+stringBuffer.toString());
 
-                if(where.equals("selectProduct")){
-                    sellerParser(stringBuffer.toString());
-                 }
-
-                if(where.equals("selectReview")){
-
-
+                if(where.equals("selectCartNo")){
+                    cartNoParser(stringBuffer.toString());
+                } else {
+                    result = parserInsert(stringBuffer.toString());
                 }
 
             }
@@ -117,41 +112,50 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
                 e.printStackTrace();
             }
         }
-
-        return reviews;
-
-        if(where.equals("selectProduct")) {
-            return reviews;
+        if(where.equals("selectCartNo")) {
+            return cartNumber;
         } else {
             return result;
         }
 
     }
 
-    private void sellerParser(String s){
+    private void cartNoParser(String s){
         Log.v(TAG, "parser()");
         try {
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("review_info"));
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("cart_info"));
             Log.v(TAG, "parser() in");
-            reviews.clear();
+            cartNumber.clear();
             for(int i = 0 ; i<jsonArray.length() ; i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
-                String orderDetailNo = jsonObject1.getString("orderDetailNo");
-                String reviewWriterName = jsonObject1.getString("reviewWriterName");
-                String reviewContent = jsonObject1.getString("reviewContent");
-                String reviewImage = jsonObject1.getString("reviewImage");
-                String reviewDate = jsonObject1.getString("reviewDate");
-                String reviewStar = jsonObject1.getString("reviewStar");
+                String cartNo = jsonObject1.getString("cartNo");
 
-                Review review = new Review(orderDetailNo, reviewWriterName, reviewContent, reviewImage, reviewDate, reviewStar);
-                reviews.add(review);
+                cartNumber.add(cartNo);
             }
 
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+
+    // insert/update action
+    private String parserInsert(String s) {
+        Log.v(TAG, "parserInsert()");
+        String returnResult = null;
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            returnResult = jsonObject.getString("result");
+            Log.v(TAG, returnResult);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return returnResult;
     }
 
 }

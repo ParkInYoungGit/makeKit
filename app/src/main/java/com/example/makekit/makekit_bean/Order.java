@@ -37,6 +37,35 @@ public class Order {
     // constructor는 원하는 만큼 생성
     //
 
+    // CardPw로 주문자 이름으로 받음 ,productNo로 orderinfo_orderNo 받음, productStock로 orderReviewInsertDate를 받음
+    public Order(String orderNo, String userinfo_userEmail, String orderDate, String orderReceiver, String orderRcvAddress, String orderRcvAddressDetail, String orderRcvPhone, String orderTotalPrice, String orderBank, String orderCardNo, String orderCardPw, String orderDelivery, String orderDeliveryDate, String orderDetailNo, String goods_productNo, String orderQuantity, String orderConfirm, String orderRefund, String orderStar, String orderReview, String orderReviewImg, String productNo, String productName, String productPrice, String productStock, String productAFilename) {
+        this.orderNo = orderNo;
+        this.userinfo_userEmail = userinfo_userEmail;
+        this.orderDate = orderDate;
+        this.orderReceiver = orderReceiver;
+        this.orderRcvAddress = orderRcvAddress;
+        this.orderRcvAddressDetail = orderRcvAddressDetail;
+        this.orderRcvPhone = orderRcvPhone;
+        this.orderTotalPrice = orderTotalPrice;
+        this.orderBank = orderBank;
+        this.orderCardNo = orderCardNo;
+        this.orderCardPw = orderCardPw;
+        this.orderDelivery = orderDelivery;
+        this.orderDeliveryDate = orderDeliveryDate;
+        this.orderDetailNo = orderDetailNo;
+        this.goods_productNo = goods_productNo;
+        this.orderQuantity = orderQuantity;
+        this.orderConfirm = orderConfirm;
+        this.orderRefund = orderRefund;
+        this.orderStar = orderStar;
+        this.orderReview = orderReview;
+        this.orderReviewImg = orderReviewImg;
+        this.productNo = productNo;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productStock = productStock;
+        this.productAFilename = productAFilename;
+    }
 
     public Order(String productNo, String productName, String productPrice, String productStock, String productAFilename) {
         this.productNo = productNo;

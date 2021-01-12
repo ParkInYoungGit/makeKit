@@ -14,19 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_activity.SaleProductListActivity;
+import com.example.makekit.makekit_activity.SalesListActivity;
 import com.example.makekit.makekit_bean.Order;
 
 import java.util.ArrayList;
 
-public class SaleProductListAdapter extends RecyclerView.Adapter<SaleProductListAdapter.MyViewHolder> {
-
+public class SalesListAdapter extends RecyclerView.Adapter<SalesListAdapter.MyViewHolder> {
     private ArrayList<Order> mDataset;
     private AdapterView.OnItemClickListener mListener = null;
     private String urlImage;
     private String urlImageReal;
 
-    public SaleProductListAdapter(SaleProductListActivity saleListActivity, int layout, ArrayList<Order> orders, String urlimage){
+    public SalesListAdapter(SalesListActivity salesListActivity, int layout, ArrayList<Order> orders, String urlimage){
         this.mDataset = orders;
         this.urlImage = urlimage;
     }
@@ -37,11 +36,11 @@ public class SaleProductListAdapter extends RecyclerView.Adapter<SaleProductList
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            orderDate = itemView.findViewById(R.id.salelist_orderDate_TV);
-            webView = itemView.findViewById(R.id.salelist_WebView);
-            productName = itemView.findViewById(R.id.salelist_ProductName_TV);
-            productQuantity = itemView.findViewById(R.id.salelist_orderQuantity_TV);
-            productPrice = itemView.findViewById(R.id.salelist_orderPrice_TV);
+            orderDate = itemView.findViewById(R.id.Saleslist_orderDate_TV);
+            productName = itemView.findViewById(R.id.Salelists_ProductName_TV);
+            productQuantity = itemView.findViewById(R.id.Salelists_orderQuantity_TV);
+            productPrice = itemView.findViewById(R.id.Salelists_orderPrice_TV);
+            webView = itemView.findViewById(R.id.Salelists_WebView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -52,14 +51,13 @@ public class SaleProductListAdapter extends RecyclerView.Adapter<SaleProductList
         }
     }
 
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.sales_product_list_layout, parent, false);
+                .inflate(R.layout.sales_list_layout, parent, false);
         //     반복할 xml 파일
-        SaleProductListAdapter.MyViewHolder vh = new SaleProductListAdapter.MyViewHolder(v);
+        SalesListAdapter.MyViewHolder vh = new SalesListAdapter.MyViewHolder(v);
         return vh;
     }
 
@@ -70,11 +68,11 @@ public class SaleProductListAdapter extends RecyclerView.Adapter<SaleProductList
         }else {
             urlImageReal = urlImage+mDataset.get(position).getProductAFilename();
         }
-        holder.orderDate.setText("상품 번호 : " + mDataset.get(position).getProductNo());
+        holder.orderDate.setText("주문 번호 : " + mDataset.get(position).getOrderNo());
         holder.webView.loadUrl(urlImageReal);
         holder.productName.setText(mDataset.get(position).getProductName());
-        holder.productQuantity.setText("재고 : "+mDataset.get(position).getProductStock());
-        holder.productPrice.setText("가격(1개) : "+ mDataset.get(position).getProductPrice());
+        holder.productQuantity.setText("수량 : "+ mDataset.get(position).getOrderQuantity());
+        holder.productPrice.setText("총 가격 : "+mDataset.get(position).getOrderTotalPrice());
 
         holder.webView.setWebViewClient(new WebViewClient());
 
@@ -106,7 +104,9 @@ public class SaleProductListAdapter extends RecyclerView.Adapter<SaleProductList
         return mDataset.size();
     }
 
+
     public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
         this.mListener = listener ;
     }
+
 }

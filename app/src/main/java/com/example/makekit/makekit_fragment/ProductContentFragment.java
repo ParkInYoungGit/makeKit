@@ -315,24 +315,25 @@ public class ProductContentFragment extends Fragment {
             switch (v.getId()){
                 case R.id.favorite_productviewcontent:
                     if(loginCheck() == true) {
-                        if (favoriteCheck != null) {
-                            urlAddr3 = urlAddrBase + "jsp/delete_wishlistproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
-                            deleteFavorite(urlAddr3);
-                            if (result.equals("1")) {
-                                favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
-                            } else {
-                                favoriteStatus.setImageResource(R.drawable.ic_favorite);
-                            }
-
-                        } else{
-
+                        if (favoriteCheck.equals("0")) {
                             urlAddr2 = urlAddrBase + "jsp/insert_wishlistproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
                             insertFavorite(urlAddr2);
+                            favoriteCheck = "1";;
                             if (result.equals("1")) {
                                 favoriteStatus.setImageResource(R.drawable.ic_favorite);
                             } else {
                                 favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
                                 Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else if(favoriteCheck.equals("1")){
+                            urlAddr3 = urlAddrBase + "jsp/delete_wishlistproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
+                            deleteFavorite(urlAddr3);
+                            favoriteCheck = "0";;
+                            if (result.equals("1")) {
+                                favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
+                            } else {
+                                favoriteStatus.setImageResource(R.drawable.ic_favorite);
                             }
                         }
                     }

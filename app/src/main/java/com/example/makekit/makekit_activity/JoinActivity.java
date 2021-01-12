@@ -38,7 +38,7 @@ public class JoinActivity extends AppCompatActivity {
     String user = "2bbeen@gmail.com"; // 보내는 계정의 id
     String password = "93elsl211!"; // 보내는 계정의 pw
 
-    String macIP, urlJsp, urlImage, urlAddr;
+    String macIP, urlJsp, urlImage, urlAddr, urlCart, cartInsert;
     EditText email, name, pw, pwCheck, phone, address, addressDetail;
     String emailInput = null;
     TextView pwCheckMsg;
@@ -62,8 +62,12 @@ public class JoinActivity extends AppCompatActivity {
         Intent intent = getIntent(); /*데이터 수신*/
         macIP = intent.getStringExtra("macIP");
 
+        macIP = "192.168.35.133";
+
         urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
         urlImage = "http://" + macIP + ":8080/makeKit/image/";
+        urlCart = urlJsp + "join_cartInsert.jsp?";
+
 
         // 권한
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -102,9 +106,9 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {//클릭했을 경우 발생할 이벤트 작성
-                    Intent i = new Intent(JoinActivity.this, WebViewActivity.class);
-                    i.putExtra("macIP", macIP);
-                    startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
+                    Intent intent = new Intent(JoinActivity.this, WebViewActivity.class);
+                    intent.putExtra("macIP", macIP);
+                    startActivityForResult(intent, SEARCH_ADDRESS_ACTIVITY);
                 }
                 return false;
             }
@@ -423,6 +427,11 @@ public class JoinActivity extends AppCompatActivity {
             Toast.makeText(JoinActivity.this, userName + "님 회원가입 실패하였습니다.", Toast.LENGTH_SHORT).show();
         }
 
+        // cart에 고유번호 추가
+        urlCart = "userinfo_useremail=" + userEmail;
+        connectInsertStatus();
+
+
         finish();
 
     }
@@ -498,6 +507,17 @@ public class JoinActivity extends AppCompatActivity {
         return result1;
     }
 
+    // Insert Cart
+    private String connectInsertStatus() {
+        try {
+            UserNetworkTask insTelNonetworkTask = new UserNetworkTask(JoinActivity.this, urlCart, "insert");
+            Object object = insTelNonetworkTask.execute().get();
+            cartInsert = (String) object;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cartInsert;
+    }
 
 
 } // End  ——————————————————————————————————————
