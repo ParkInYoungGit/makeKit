@@ -103,7 +103,7 @@ public class ProductReviewFragment extends Fragment {
 //        mParam1 = "192.168.219.164";
 //        mParam2 = "44";
 
-        urlAddrBase = "http://" + macIP + ":8080/makekit/";
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddr = urlAddrBase + "jsp/review_productview_all.jsp?productno=" + productNo;
         Log.v(TAG, "주소" + urlAddr);
         connectSelectData();

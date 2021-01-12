@@ -38,7 +38,7 @@ public class JoinActivity extends AppCompatActivity {
     String user = "2bbeen@gmail.com"; // 보내는 계정의 id
     String password = "93elsl211!"; // 보내는 계정의 pw
 
-    String macIP, urlJsp, urlImage, urlAddr, urlCart, cartInsert;
+    String macIP, urlJsp, urlImage, urlAddr, cartInsert;
     EditText email, name, pw, pwCheck, phone, address, addressDetail;
     String emailInput = null;
     TextView pwCheckMsg;
@@ -62,11 +62,9 @@ public class JoinActivity extends AppCompatActivity {
         Intent intent = getIntent(); /*데이터 수신*/
         macIP = intent.getStringExtra("macIP");
 
-        macIP = "192.168.35.133";
-
         urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
         urlImage = "http://" + macIP + ":8080/makeKit/image/";
-        urlCart = urlJsp + "join_cartInsert.jsp?";
+
 
 
         // 권한
@@ -385,7 +383,8 @@ public class JoinActivity extends AppCompatActivity {
                         } else {
 
                             if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
-                                insertUser(userEmail, userName, userPW, Address, AddressDetail, userTel);
+                                String userBirth = "1995-05-03";
+                                insertUser(userEmail, userName, userPW, Address, AddressDetail, userTel, userBirth);
 
                             } else {
                                 pwCheck.setText("");
@@ -414,26 +413,28 @@ public class JoinActivity extends AppCompatActivity {
     }
 
     // user 입력 data 송부
-    private void insertUser(String userEmail, String userName, String userPW, String Address, String AddressDetail, String userTel) {
+    private void insertUser(String userEmail, String userName, String userPW, String Address, String AddressDetail, String userTel, String userBirth) {
         String urlAddr1 = "";
-        urlAddr1 = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&address=" + Address + "&addressDetail=" + AddressDetail + "&phone=" + userTel;
+        urlAddr1 = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&address=" + Address + "&addressDetail=" + AddressDetail + "&phone=" + userTel + "&birth=" + userBirth;
 
         String result = connectInsertData(urlAddr1);
 
         if (result.equals("1")) {
             Toast.makeText(JoinActivity.this, userName + "님 회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-
+            insertCart(userEmail);
         } else {
             Toast.makeText(JoinActivity.this, userName + "님 회원가입 실패하였습니다.", Toast.LENGTH_SHORT).show();
         }
-
-        // cart에 고유번호 추가
-        urlCart = "userinfo_useremail=" + userEmail;
-        connectInsertStatus();
-
-
         finish();
 
+    }
+
+
+    // cart에 고유번호 추가
+    private void insertCart(String userEmail){
+        String urlCart;
+        urlCart = urlJsp + "join_cartInsert.jsp?email=" + userEmail;
+        connectInsertCart(urlCart);
     }
 
     //connection Insert
@@ -508,7 +509,7 @@ public class JoinActivity extends AppCompatActivity {
     }
 
     // Insert Cart
-    private String connectInsertStatus() {
+    private String connectInsertCart(String urlCart) {
         try {
             UserNetworkTask insTelNonetworkTask = new UserNetworkTask(JoinActivity.this, urlCart, "insert");
             Object object = insTelNonetworkTask.execute().get();

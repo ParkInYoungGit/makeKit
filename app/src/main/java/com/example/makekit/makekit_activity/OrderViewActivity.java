@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.example.makekit.R;
@@ -82,6 +84,25 @@ public class OrderViewActivity extends AppCompatActivity {
         orderView_orderCardNo.setText(str_orderView_orderCardNo);
         orderView_orderDate.setText(str_orderView_orderDate);
         orderView_orderTotalPrice.setText(str_orderView_orderTotalPrice);
+
+        order_productImage.setWebViewClient(new WebViewClient());
+        // Enable JavaScript
+        order_productImage.getSettings().setJavaScriptEnabled(true);
+        order_productImage.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        // Enable Zoom
+        order_productImage.getSettings().setBuiltInZoomControls(true);
+        order_productImage.getSettings().setSupportZoom(true);
+        order_productImage.getSettings().setSupportZoom(true); //zoom mode 사용.
+        order_productImage.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
+
+
+        // Adjust web display
+        order_productImage.setBackgroundColor(0);
+        order_productImage.getSettings().setLoadWithOverviewMode(true);
+        order_productImage.getSettings().setUseWideViewPort(true);
+        order_productImage.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        order_productImage.setInitialScale(15);
+
 
     }
 }

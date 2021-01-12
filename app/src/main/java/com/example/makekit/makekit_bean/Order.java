@@ -2,6 +2,13 @@ package com.example.makekit.makekit_bean;
 
 public class Order {
 
+    //  order에 들어가는 userinfo
+    String userName;
+    String userTel;
+    String userAddress;
+    String userAddressDetail;
+
+
     // orderinfo
     String orderNo;
     String userinfo_userEmail;
@@ -35,7 +42,20 @@ public class Order {
     String productAFilename;
 
     // constructor는 원하는 만큼 생성
-    //
+
+    //  order에 들어가는 productInfo
+
+
+
+
+    //  order에 들어가는 userinfo
+    public Order(String userName, String userTel, String userAddress, String userAddressDetail) {
+        this.userName = userName;
+        this.userTel = userTel;
+        this.userAddress = userAddress;
+        this.userAddressDetail = userAddressDetail;
+    }
+
 
     // CardPw로 주문자 이름으로 받음 ,productNo로 orderinfo_orderNo 받음, productStock로 orderReviewInsertDate를 받음
     public Order(String orderNo, String userinfo_userEmail, String orderDate, String orderReceiver, String orderRcvAddress, String orderRcvAddressDetail, String orderRcvPhone, String orderTotalPrice, String orderBank, String orderCardNo, String orderCardPw, String orderDelivery, String orderDeliveryDate, String orderDetailNo, String goods_productNo, String orderQuantity, String orderConfirm, String orderRefund, String orderStar, String orderReview, String orderReviewImg, String productNo, String productName, String productPrice, String productStock, String productAFilename) {
@@ -73,6 +93,39 @@ public class Order {
         this.productPrice = productPrice;
         this.productStock = productStock;
         this.productAFilename = productAFilename;
+    }
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserTel() {
+        return userTel;
+    }
+
+    public void setUserTel(String userTel) {
+        this.userTel = userTel;
+    }
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
+
+    public String getUserAddressDetail() {
+        return userAddressDetail;
+    }
+
+    public void setUserAddressDetail(String userAddressDetail) {
+        this.userAddressDetail = userAddressDetail;
     }
 
     public String getOrderNo() {

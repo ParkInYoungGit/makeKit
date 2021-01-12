@@ -22,7 +22,6 @@ import com.example.makekit.makekit_adapter.ViewPagerProductAdapter;
 import com.example.makekit.makekit_asynctask.CartNetworkTask;
 import com.example.makekit.makekit_asynctask.ProductNetworkTask;
 import com.example.makekit.makekit_asynctask.WishlistNetworkTask;
-import com.example.makekit.makekit_bean.Cart;
 import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_fragment.ProductContentFragment;
 import com.example.makekit.makekit_fragment.ProductDetailFragment;
@@ -50,10 +49,10 @@ public class ProdutctViewActivity extends AppCompatActivity {
     ImageView imgOption;
     TextView productTotalPrice, purchaseNumInput;
     Button btnPlus, btnMinus;
-    ArrayList<String> cartNumber;
     int count = 1;
 
     String sellerEmail ,productNo, macIP, urlAddr, urlAddrBase, userEmail, urlAddr1, cartNo, result, urlAddr2,urlAddr3, urlAddr4, urlAddr5;
+
     //FrameLayout framelayout;
     LinearLayout ll_close, ll_open, openContent, openTotalPrice, openDeliveryMethod;
     ArrayList<Product> products;
@@ -76,13 +75,12 @@ public class ProdutctViewActivity extends AppCompatActivity {
 //        productNo = intent.getStringExtra("productNo");
 
 
-        macIP = "192.168.219.164";
+        macIP = "192.168.200.193";
         productNo = "44";
         userEmail = "qkr@naver.com";
 
-        urlAddrBase = "http://" + macIP + ":8080/makekit/";
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
-        urlAddr1 = urlAddrBase + "jsp/cartno_productview_check.jsp?useremail=" + userEmail;
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_productview);
         viewPager = (ViewPager) findViewById(R.id.viewpager_productview);
@@ -93,7 +91,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
         viewPagerProductAdapter.AddFrmt(new ProductContentFragment(macIP, productNo, userEmail), "상품설명");
         viewPagerProductAdapter.AddFrmt(new ProductReviewFragment(macIP, productNo), "후기");
         viewPagerProductAdapter.AddFrmt(new ProductQuestionFragment(macIP, productNo), "문의");
-        viewPagerProductAdapter.AddFrmt(new ProductDetailFragment(macIP, productNo, userEmail), "판매자정보");
+        viewPagerProductAdapter.AddFrmt(new ProductDetailFragment(macIP, productNo, userEmail), "팜매자정보");
 
         viewPager.setAdapter(viewPagerProductAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -124,9 +122,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
         openDeliveryMethod.setVisibility(View.INVISIBLE);
 
         connectSelectData();
-        connectSelectCartData(urlAddr1);
-        // user cart 번호
-        cartNo = cartNumber.get(0);
+
 
         int total = Integer.parseInt(products.get(0).getProductPrice()) + 2500;
         Log.v(TAG, String.valueOf(total));
@@ -227,10 +223,8 @@ public class ProdutctViewActivity extends AppCompatActivity {
                                Intent intent = new Intent(ProdutctViewActivity.this, CartActivity.class);
                                intent.putExtra("productNo", productNo);
                                intent.putExtra("macIP", macIP);
-                               intent.putExtra("productQuantity", purchaseNumInput.getText().toString());
-                               Log.v(TAG, purchaseNumInput.getText().toString());
-                               Log.v(TAG, String.valueOf(count));
-                               //intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
+                               intent.putExtra("productQuantity", count);
+                               intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
                                startActivity(intent);
 
                        }
@@ -259,6 +253,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
                 case R.id.btnCartOpen_productview:
                     if(loginCheck() == true) {
+
                         ////////////////////////////////
                         // 1.13 추가 kyeongmi
                         ////////////////////////////////
@@ -305,6 +300,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
                             }
                         }
                         ////////////////////////////////
+
                     }
                     break;
 
@@ -357,27 +353,16 @@ public class ProdutctViewActivity extends AppCompatActivity {
     }
 
 
-    // select cartNo
-    private void connectSelectCartData(String urlAddr) {
-        try {
-            CartNetworkTask cartNetworkTask = new CartNetworkTask(ProdutctViewActivity.this, urlAddr, "selectCartNo");
-
-            Object object = cartNetworkTask.execute().get();
-            cartNumber = (ArrayList<String>) object;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
+    // 수정하기!!!!
     // insert cartdetail
+
     private void connectInsertCartData(String urlAddr) {
         result = "";
         try {
-            CartNetworkTask cartNetworkTask = new CartNetworkTask(ProdutctViewActivity.this, urlAddr, "insert");
+            ProductNetworkTask productNetworkTask = new ProductNetworkTask(ProdutctViewActivity.this, urlAddr, "select");
 
-            Object object = cartNetworkTask.execute().get();
-            result = (String) object;
+            Object object = productNetworkTask.execute().get();
+            products = (ArrayList<Product>) object;
 
         } catch (Exception e) {
             e.printStackTrace();

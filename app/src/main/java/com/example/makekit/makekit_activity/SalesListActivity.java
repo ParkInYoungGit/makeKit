@@ -56,7 +56,6 @@ public class SalesListActivity extends AppCompatActivity {
             NetworkTask_DH networkTask = new NetworkTask_DH(SalesListActivity.this, urlAddrBase + "jsp/getSalesRealList.jsp?userEmail="+email, "getRealSalesList");
             Object obj = networkTask.execute().get();
             orders = (ArrayList<Order>) obj;
-            Log.v(TAG, orders.get(0).getOrderCardPw());
         } catch (Exception e) {
             e.printStackTrace();
         }

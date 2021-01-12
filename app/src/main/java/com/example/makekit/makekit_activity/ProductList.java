@@ -55,7 +55,7 @@ public class ProductList extends AppCompatActivity {
 
 
 
-        macIP = "172.20.10.5";
+//        macIP = "172.20.10.5";
 
         // 아이피와 이메일 받기
         Intent intent = getIntent();

@@ -182,6 +182,7 @@
                     />
 
                 <CheckBox
+                    android:id="@+id/order_info_checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:text="주문자 정보와 동일"
@@ -321,84 +322,15 @@
                     android:layout_marginBottom="20dp"
                     />
 
-                    <LinearLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_product_order"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
-                            <ImageView
-                                android:id="@+id/order_productImage"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:src="@drawable/ic_user"
-                                android:layout_marginRight="10dp"
-                                />
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                >
-                                <TextView
-                                    android:id="@+id/order_productName"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="상품명"
-                                    android:textColor="@color/black"
-                                    />
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="배송비"
-                                    />
-                                <TextView
-                                    android:id="@+id/order_productCount"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="수량1개"
-                                    />
-                            </LinearLayout>
+                        android:scrollbarFadeDuration="0"
+                        android:scrollbarSize="5dp"
+                        android:scrollbars="vertical"
+                        android:scrollbarThumbVertical="@android:color/darker_gray"/>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                >
-                                <TextView
-                                    android:id="@+id/order_productPrice"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="100,000원"
-                                    android:gravity="right"
-                                    />
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="2,500원"
-                                    android:gravity="right"
-                                    />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text=""
-                                    android:gravity="right"
-                                    />
-
-                                <TextView
-                                    android:id="@+id/order_productTotalPrice"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="102,500원"
-                                    android:gravity="right"
-                                    android:textColor="@color/black"
-                                    android:textSize="20dp"
-                                    android:layout_gravity="bottom"
-                                    />
-
-                            </LinearLayout>
-                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -502,10 +434,9 @@
                         >
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="200dp"
+                            android:layout_height="150dp"
                             android:text="결제 수단 설명"
                             />
-
 
                     </LinearLayout>
                 </LinearLayout>
