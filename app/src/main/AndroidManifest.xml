@@ -68,7 +68,8 @@
         <activity android:name=".makekit_activity.ReviewListActivity" />
         <activity android:name=".makekit_activity.LikeSellerActivity" />
         <activity android:name=".makekit_activity.BuyListActivity" />
-        <activity android:name=".makekit_activity.ChatcontentActivity" />
+        <activity android:name=".makekit_activity.ChatcontentActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".makekit_activity.MapActivity" />
         <activity
             android:name=".makekit_activity.LoginActivity"
