@@ -17,12 +17,6 @@ public class Product {
 
 
 
-    public Product(String productNo, String productName, String productPrice, String productAFilename) {
-        this.productNo = productNo;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.productAFilename = productAFilename;
-    }
 
     ////////////////////////////////////////////
     // 01/09 kyeongmi 추가 product view

@@ -73,11 +73,11 @@ public class ProdutctViewActivity extends AppCompatActivity {
 //        productNo = intent.getStringExtra("productNo");
 
 
-        macIP = "192.168.219.164";
+        macIP = "192.168.200.193";
         productNo = "44";
         userEmail = "qkr@naver.com";
 
-        urlAddrBase = "http://" + macIP + ":8080/makekit/";
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_productview);
@@ -267,8 +267,9 @@ public class ProdutctViewActivity extends AppCompatActivity {
                         Intent intent = new Intent(ProdutctViewActivity.this, OrderActivity.class);
                         intent.putExtra("productNo", productNo);
                         intent.putExtra("macIP", macIP);
-                        intent.putExtra("productQuantity", count);
-                        intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
+                        intent.putExtra("productQuantity", ""+count);
+                        intent.putExtra("totalPrice", ""+Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
+//                        intent.putExtra("totalPrice", "Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500)");
                         startActivity(intent);
                     }
             }
