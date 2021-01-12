@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.makekit.PurchaseListActivity;
+import com.example.makekit.makekit_activity.PurchaseListActivity;
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.BuyListActivity;
 import com.example.makekit.makekit_activity.LikeProductActivity;
