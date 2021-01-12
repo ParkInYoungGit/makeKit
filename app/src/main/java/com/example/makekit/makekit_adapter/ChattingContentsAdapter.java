@@ -1,6 +1,7 @@
 package com.example.makekit.makekit_adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,10 +61,14 @@ public class ChattingContentsAdapter extends BaseAdapter {
 
 
         if (data.get(position).getUserinfo_userEmail_sender().equals(email)){
+            tv_sendid.setText("나");
+            tv_sendid.setPaintFlags(tv_sendid.getPaintFlags()| Paint.FAKE_BOLD_TEXT_FLAG);
             tv_sendContent.setText(data.get(position).getChattingContents());
+            tv_sendContent.setBackground(mContext.getResources().getDrawable(R.drawable.chat_sender));
             tv_sendContent.setGravity(Gravity.RIGHT);
         }else {
             tv_sendid.setText(data.get(position).getUserinfo_userEmail_sender());
+            tv_sendContent.setBackground(mContext.getResources().getDrawable(R.drawable.chat_receiver));
             tv_sendContent.setText(data.get(position).getChattingContents());
         }
 
