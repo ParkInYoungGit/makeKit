@@ -99,10 +99,10 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
                     sellerParser(stringBuffer.toString());
                  }
 
-                if(where.equals("selectReview")){
-
-
-                }
+//                if(where.equals("selectReview")){
+//
+//
+//                }
 
             }
 
@@ -119,12 +119,6 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
         }
 
         return reviews;
-
-        if(where.equals("selectProduct")) {
-            return reviews;
-        } else {
-            return result;
-        }
 
     }
 
