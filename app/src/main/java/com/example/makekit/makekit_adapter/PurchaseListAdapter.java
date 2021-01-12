@@ -13,9 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.makekit.PurchaseListActivity;
+import com.example.makekit.makekit_activity.PurchaseListActivity;
 import com.example.makekit.R;
-import com.example.makekit.makekit_activity.SalesListActivity;
 import com.example.makekit.makekit_bean.Order;
 
 import java.util.ArrayList;
