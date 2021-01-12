@@ -1,6 +1,7 @@
 package com.example.makekit.makekit_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +29,7 @@ public class ProductList extends AppCompatActivity {
     private ArrayList<ProductData> arrayList;
     private ProductListAdapter productListAdapter;
     private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
+    private GridLayoutManager linearLayoutManager;
 
     TextView product_title;
     TextView product_subtitle;
@@ -54,10 +55,11 @@ public class ProductList extends AppCompatActivity {
 
 
 
-        macIP = "172.20.10.8";
+//        macIP = "172.20.10.5";
 
         // 아이피와 이메일 받기
         Intent intent = getIntent();
+        pType = intent.getStringExtra("pType");
         macIP = intent.getStringExtra("macIP");
         email = intent.getStringExtra("useremail");
 //        macIP = "192.168.2.14";
@@ -65,8 +67,8 @@ public class ProductList extends AppCompatActivity {
 
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_product);
-        linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+//        linearLayoutManager = new GridLayoutManager(ProductList.this,2);
+//        recyclerView.setLayoutManager(linearLayoutManager);
 
         arrayList = new ArrayList<>();
 
@@ -78,10 +80,8 @@ public class ProductList extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Intent intent = new Intent();
-        pType =  getIntent().getStringExtra("pType");
         urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp/";
-        urlAddr1 = urlAddrBase + "product_category.jsp?pType="+"dd";
+        urlAddr1 = urlAddrBase + "product_category.jsp?pType="+pType;
         connectGetData(urlAddr1);
 
 //        searchArr.addAll(product);
@@ -92,7 +92,7 @@ public class ProductList extends AppCompatActivity {
     private void connectGetData(String urlAddr) {
         try {
             urlAddrBase = "http://" + macIP + ":8080/makeKit/";
-            urlAddr1 = urlAddrBase + "jsp/product_category.jsp?pType="+"dd";
+            urlAddr1 = urlAddrBase + "jsp/product_category.jsp?pType="+pType;
 
             NetworkTask NetworkTask = new NetworkTask(ProductList.this, urlAddr1, "productSelect");
             Object obj = NetworkTask.execute().get();
@@ -100,7 +100,7 @@ public class ProductList extends AppCompatActivity {
             adapter = new ProductListAdapter(ProductList.this, R.layout.productitem_layout, product, urlAddrBase); // 아댑터에 값을 넣어준다.
             recyclerView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
             recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
-            layoutManager = new LinearLayoutManager(ProductList.this);
+            layoutManager = new GridLayoutManager(ProductList.this,2);
             SnapHelper snapHelper = new PagerSnapHelper();
             recyclerView.setLayoutManager(layoutManager);
             snapHelper.attachToRecyclerView(recyclerView);

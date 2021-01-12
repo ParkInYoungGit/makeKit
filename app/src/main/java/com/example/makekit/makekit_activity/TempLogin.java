@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -53,6 +52,7 @@ public class TempLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp_login);
+
         ActivityCompat.requestPermissions(TempLogin.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
         Intent intent = getIntent(); /*데이터 수신*/
         macIP = intent.getStringExtra("macIP");
@@ -137,19 +137,17 @@ public class TempLogin extends AppCompatActivity {
 
         count = loginCount();
 
-        Log.v("여기", "" + loginCount());
-        Log.v("아이디", "login : " + useremail + userpw);
+        Log.v("여기 >>>>>>>>>>", "" + loginCount());
+        Log.v("아이디 >>>>>>>>>", "login : " + useremail + userpw);
 
         if (count == 1) {
             save();
-            //connectUpdateData();
             Toast.makeText(TempLogin.this, "로그인 완료!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(TempLogin.this, MainActivity.class);
             startActivity(intent);
             finish();
         } else {
             Toast.makeText(TempLogin.this, "아이디와 비밀번호를 확인하세요!", Toast.LENGTH_SHORT).show();
-
         }
     }
 

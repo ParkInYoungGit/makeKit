@@ -5,8 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import androidx.fragment.app.FragmentActivity;
-
+import com.example.makekit.makekit_bean.Cart;
 import com.example.makekit.makekit_bean.Review;
 
 import org.json.JSONArray;
@@ -19,24 +18,23 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
+public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
 
-    final static String TAG = "ReviewNetworkTask";
+    final static String TAG = "CartNetworkTask";
     Context context = null;
     String mAddr = null;
     String where = null;
     ProgressDialog progressDialog = null;
-    ArrayList<Review> reviews;
+    ArrayList<Cart> carts;
+    ArrayList<String> cartNumber;
 
-    public ReviewNetworkTask(Context context, String mAddr, String where) {
+    public CartNetworkTask(Context context, String mAddr, String where) {
         this.context = context;
         this.mAddr = mAddr;
         this.where = where;
-        this.reviews = new ArrayList<Review>();
+        this.carts = new ArrayList<Cart>();
+        this.cartNumber = new ArrayList<String>();
         Log.v(TAG, "Start : "+ mAddr);
-    }
-
-    public ReviewNetworkTask(FragmentActivity activity, String urlAddr) {
     }
 
     @Override
@@ -74,12 +72,10 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
         InputStreamReader inputStreamReader = null;
 
         BufferedReader bufferedReader = null;
-        Log.v(TAG, "before try !!!!!!!!!!!!!!! ");
+        Log.v(TAG, "before try");
         try{
-            Log.v(TAG, "after try !!!!!!!!!!!!!!! ");
+            Log.v(TAG, "after try");
             URL url = new URL(mAddr);
-            Log.v(TAG, "mAddr >>>>>>>>>>>>>>>" + mAddr);
-
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
             Log.v(TAG, "Accept : "+httpURLConnection.getResponseCode());
@@ -97,16 +93,12 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
                 }
                 Log.v(TAG, "StringBuffer : "+stringBuffer.toString());
 
-                if(where.equals("selectProduct")){
-                    sellerParser(stringBuffer.toString());
-                 }
-
-                if(where.equals("selectReview")){
-                    sellerParser(stringBuffer.toString());
-                }
-
-                if(where.equals("registerReview")){
-                    result = registerReviewParser(stringBuffer.toString());
+                if(where.equals("selectCartNo")){
+                    cartNoParser(stringBuffer.toString());
+                } else if(where.equals("select")){
+                    cartParser(stringBuffer.toString());
+                } else {
+                    result = parserInsert(stringBuffer.toString());
                 }
 
             }
@@ -122,41 +114,58 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
                 e.printStackTrace();
             }
         }
-
-
-        if (where.equals("selectProduct")) {
-            return reviews;
-        }
-        if (where.equals("selectReview")) {
-            return reviews;
-        }
-        if (where.equals("registerReview")) {
+        if(where.equals("selectCartNo")) {
+            return cartNumber;
+        } else if(where.equals("select")){
+            return carts;
+        } else {
             return result;
         }
 
-        return reviews;
-
     }
 
-    private void sellerParser(String s){
+    private void cartNoParser(String s){
         Log.v(TAG, "parser()");
         try {
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("review_info"));
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("cart_info"));
             Log.v(TAG, "parser() in");
-            reviews.clear();
+            cartNumber.clear();
             for(int i = 0 ; i<jsonArray.length() ; i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
-                String orderDetailNo = jsonObject1.getString("orderDetailNo");
-                String reviewWriterName = jsonObject1.getString("reviewWriterName");
-                String reviewContent = jsonObject1.getString("reviewContent");
-                String reviewImage = jsonObject1.getString("reviewImage");
-                String reviewDate = jsonObject1.getString("reviewDate");
-                String reviewStar = jsonObject1.getString("reviewStar");
+                String cartNo = jsonObject1.getString("cartNo");
 
-                Review review = new Review(orderDetailNo, reviewWriterName, reviewContent, reviewImage, reviewDate, reviewStar);
-                reviews.add(review);
+                cartNumber.add(cartNo);
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void cartParser(String s){
+        Log.v(TAG, "parser()");
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("cart_info"));
+            Log.v(TAG, "parser() in");
+            carts.clear();
+            for(int i = 0 ; i<jsonArray.length() ; i++){
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                String productNo = jsonObject1.getString("productNo");
+                String productName = jsonObject1.getString("productName");
+                String prouductImage = jsonObject1.getString("prouductImage");
+                String productPrice = jsonObject1.getString("productPrice");
+                String productQuantity = jsonObject1.getString("productQuantity");
+                String cartNo = jsonObject1.getString("cartNo");
+                String totalPrice = jsonObject1.getString("totalPrice");
+
+
+                Cart cart = new Cart(cartNo, productNo, productQuantity, productName, prouductImage, productPrice, totalPrice);
+                Log.v(TAG, String.valueOf(cart));
+                carts.add(cart);
             }
 
         } catch (Exception e){
@@ -165,26 +174,21 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
     }
 
 
-
-    private String registerReviewParser(String s){
-        Log.v(TAG,"parserRegisterReview()");
+    // insert/update action
+    private String parserInsert(String s) {
+        Log.v(TAG, "parserInsert()");
         String returnResult = null;
 
-        try{
+        try {
             JSONObject jsonObject = new JSONObject(s);
             returnResult = jsonObject.getString("result");
             Log.v(TAG, returnResult);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return returnResult;
     }
 
-
-
-
-
-
-} // END
+}

@@ -38,11 +38,13 @@ public class WebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
 
+        // WebView 초기화
+        init_webView();
+
+
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
 
-        // WebView 초기화
-        init_webView();
 
         browser = (WebView) findViewById(R.id.webView);
         browser.getSettings().setJavaScriptEnabled(true);

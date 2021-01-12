@@ -11,10 +11,10 @@ public class Review {
 
     public Review(String orderDetailNo, String reviewWriterName, String reviewContent, String reviewImage, String reviewDate, String reviewStar) {
         this.orderDetailNo = orderDetailNo;
+        this.reviewWriterName = reviewWriterName;
         this.reviewContent = reviewContent;
         this.reviewImage = reviewImage;
         this.reviewDate = reviewDate;
-        this.reviewWriterName = reviewWriterName;
         this.reviewStar = reviewStar;
     }
 

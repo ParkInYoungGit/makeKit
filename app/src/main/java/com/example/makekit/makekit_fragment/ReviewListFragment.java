@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ProductReviewAdapter;
+import com.example.makekit.makekit_adapter.ReviewAdapter;
 import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
 import com.example.makekit.makekit_bean.Review;
 
@@ -19,29 +20,24 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProductReviewFragment#newInstance} factory method to
+ * Use the {@link ReviewListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-
-//////////////////////////////////////////
-// jsp makekit 부분 makeKit 으로 변경 필요!!!
-//////////////////////////////////////////
-
-public class ProductReviewFragment extends Fragment {
+public class ReviewListFragment extends Fragment {
 
     View v;
     String urlAddr;
     String urlAddrBase = null;
-    String macIP, productNo;
-    String where;
+    String macIP, email, orderNo;
 
     ArrayList<Review> reviews;
-    ProductReviewAdapter productReviewAdapter;
+    ReviewAdapter reviewAdapter;
 
     private RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView;
 
-    final static String TAG = "ProductReviewFragment";
+    final static String TAG = "ReviewListFragment";
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,11 +48,11 @@ public class ProductReviewFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ProductReviewFragment(String macIP, String productNo) {
+    public ReviewListFragment(String macIP, String email) {
         // Required empty public constructor
         this.macIP = macIP;
-        this.productNo = productNo;
-
+        this.email = email;
+//        this.orderNo = orderNo;
     }
 
     /**
@@ -65,11 +61,11 @@ public class ProductReviewFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ProductReviewFragment.
+     * @return A new instance of fragment ReviewListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProductReviewFragment newInstance(String param1, String param2) {
-        ProductReviewFragment fragment = new ProductReviewFragment("macIP", "productNo");
+    public static ReviewListFragment newInstance(String param1, String param2) {
+        ReviewListFragment fragment = new ReviewListFragment("macIP", "email");
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -83,7 +79,8 @@ public class ProductReviewFragment extends Fragment {
         Log.v(TAG, "onCreate REVIEW" + getArguments());
         if (getArguments() != null) {
             mParam1 = getArguments().getString("macIP");
-            mParam2 = getArguments().getString("productNo");
+            mParam2 = getArguments().getString("email");
+//            mParam2 = getArguments().getString("orderNo");
         }
     }
 
@@ -91,20 +88,13 @@ public class ProductReviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        v = inflater.inflate(R.layout.fragment_product_review, container, false);
-        Log.v(TAG, "onCreateView REVIEW" + getArguments());
+        v = inflater.inflate(R.layout.fragment_review_list, container, false);
+        Log.v(TAG, "onCreateView content" + getArguments());
 
-        recyclerView = v.findViewById(R.id.reviewList_productview);
-
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString("macIP");
-//            mParam2 = getArguments().getString("productNo");
-//        }
-//        mParam1 = "192.168.219.164";
-//        mParam2 = "44";
+        recyclerView = v.findViewById(R.id.recyclerView_Reviewlist);
 
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
-        urlAddr = urlAddrBase + "jsp/review_productview_all.jsp?productno=" + productNo;
+        urlAddr = urlAddrBase + "jsp/review_list_all.jsp?email=" + email;
         Log.v(TAG, "주소" + urlAddr);
         connectSelectData();
         return v;
@@ -117,16 +107,18 @@ public class ProductReviewFragment extends Fragment {
         connectSelectData();
     }
 
+
+
     // select review
     private void connectSelectData() {
         try {
-            ReviewNetworkTask reviewNetworkTask = new ReviewNetworkTask(getActivity(), urlAddr, "selectProduct");
+            ReviewNetworkTask reviewNetworkTask = new ReviewNetworkTask(getActivity(), urlAddr,"selectReview");
 
             Object object = reviewNetworkTask.execute().get();
             reviews = (ArrayList<Review>) object;
 
-            productReviewAdapter = new ProductReviewAdapter(getActivity(), R.layout.custom_productview_review, reviews, urlAddrBase);
-            recyclerView.setAdapter(productReviewAdapter);
+            reviewAdapter = new ReviewAdapter(getActivity(), R.layout.custom_reviewlist, reviews, urlAddrBase);
+            recyclerView.setAdapter(reviewAdapter);
             recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
             layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);
@@ -136,4 +128,5 @@ public class ProductReviewFragment extends Fragment {
         }
     }
 
-}
+
+} // END ---------------------------------------------------------------------

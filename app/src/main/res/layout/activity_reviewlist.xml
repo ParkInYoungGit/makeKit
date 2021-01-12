@@ -10,45 +10,41 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="찜 목록"
+        android:text="나의 구매 후기"
         android:gravity="center"
         android:textSize="25dp"
         android:textStyle="bold"
-        android:background="#2F000000"
         />
 
-    <LinearLayout
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout_reviewList"
+        android:layout_alignParentBottom="true"
+        app:tabTextColor="@color/black"
+        app:tabSelectedTextColor="#F8DA19"
+        app:tabGravity="fill"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorGravity="bottom"
+        app:tabIndicatorHeight="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:id="@+id/write_review_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="찜한 상품"
+        android:layout_height="wrap_content">
 
-            />
-        <Button
-            android:id="@+id/my_review_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="찜한 구매자"
-            />
-    </LinearLayout>
+    </com.google.android.material.tabs.TabLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:id="@+id/linearlayout_reviewList"
+        >
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewReviewList"
+        <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:id="@+id/viewpager_reviewList">
+        </androidx.viewpager.widget.ViewPager>
 
     </LinearLayout>
+
 
 </LinearLayout>

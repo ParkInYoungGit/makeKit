@@ -38,7 +38,7 @@ public class JoinActivity extends AppCompatActivity {
     String user = "2bbeen@gmail.com"; // 보내는 계정의 id
     String password = "93elsl211!"; // 보내는 계정의 pw
 
-    String macIP, urlJsp, urlImage, urlAddr;
+    String macIP, urlJsp, urlImage, urlAddr, cartInsert;
     EditText email, name, pw, pwCheck, phone, address, addressDetail;
     String emailInput = null;
     TextView pwCheckMsg;
@@ -64,6 +64,8 @@ public class JoinActivity extends AppCompatActivity {
 
         urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
         urlImage = "http://" + macIP + ":8080/makeKit/image/";
+
+
 
         // 권한
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -102,9 +104,9 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {//클릭했을 경우 발생할 이벤트 작성
-                    Intent i = new Intent(JoinActivity.this, WebViewActivity.class);
-                    i.putExtra("macIP", macIP);
-                    startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
+                    Intent intent = new Intent(JoinActivity.this, WebViewActivity.class);
+                    intent.putExtra("macIP", macIP);
+                    startActivityForResult(intent, SEARCH_ADDRESS_ACTIVITY);
                 }
                 return false;
             }
@@ -381,7 +383,8 @@ public class JoinActivity extends AppCompatActivity {
                         } else {
 
                             if ((pwCheck.getText().toString().trim()).equals(pw.getText().toString().trim())) {
-                                insertUser(userEmail, userName, userPW, Address, AddressDetail, userTel);
+                                String userBirth = "1995-05-03";
+                                insertUser(userEmail, userName, userPW, Address, AddressDetail, userTel, userBirth);
 
                             } else {
                                 pwCheck.setText("");
@@ -410,21 +413,28 @@ public class JoinActivity extends AppCompatActivity {
     }
 
     // user 입력 data 송부
-    private void insertUser(String userEmail, String userName, String userPW, String Address, String AddressDetail, String userTel) {
+    private void insertUser(String userEmail, String userName, String userPW, String Address, String AddressDetail, String userTel, String userBirth) {
         String urlAddr1 = "";
-        urlAddr1 = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&address=" + Address + "&addressDetail=" + AddressDetail + "&phone=" + userTel;
+        urlAddr1 = urlJsp + "userInfoInsert.jsp?email=" + userEmail + "&name=" + userName + "&pw=" + userPW + "&address=" + Address + "&addressDetail=" + AddressDetail + "&phone=" + userTel + "&birth=" + userBirth;
 
         String result = connectInsertData(urlAddr1);
 
         if (result.equals("1")) {
             Toast.makeText(JoinActivity.this, userName + "님 회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-
+            insertCart(userEmail);
         } else {
             Toast.makeText(JoinActivity.this, userName + "님 회원가입 실패하였습니다.", Toast.LENGTH_SHORT).show();
         }
-
         finish();
 
+    }
+
+
+    // cart에 고유번호 추가
+    private void insertCart(String userEmail){
+        String urlCart;
+        urlCart = urlJsp + "join_cartInsert.jsp?email=" + userEmail;
+        connectInsertCart(urlCart);
     }
 
     //connection Insert
@@ -498,6 +508,17 @@ public class JoinActivity extends AppCompatActivity {
         return result1;
     }
 
+    // Insert Cart
+    private String connectInsertCart(String urlCart) {
+        try {
+            UserNetworkTask insTelNonetworkTask = new UserNetworkTask(JoinActivity.this, urlCart, "insert");
+            Object object = insTelNonetworkTask.execute().get();
+            cartInsert = (String) object;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cartInsert;
+    }
 
 
 } // End  ——————————————————————————————————————
