@@ -102,9 +102,7 @@ public class ReviewNetworkTask extends AsyncTask<Integer, String, Object> {
                 e.printStackTrace();
             }
         }
-
         return reviews;
-
     }
 
     private void sellerParser(String s){
