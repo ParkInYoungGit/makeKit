@@ -68,6 +68,20 @@ public class OrderViewActivity extends AppCompatActivity {
         orderView_orderDate= findViewById(R.id.orderView_orderDate);
         orderView_orderTotalPrice= findViewById(R.id.orderView_orderTotalPrice);
 
+        orderView_Date_TV.setText(srt_orderView_Date_TV);
+        orderView_Number_TV.setText(str_orderView_Number_TV);
+        order_userName.setText(str_order_userName);
+        order_userTel.setText(str_order_userTel);
+        order_userAddress.setText(str_order_userAddress);
+        order_userAddressDetail.setText(str_order_userAddressDetail);
+        order_productImage.loadUrl(str_order_productImage);
+        order_productName.setText(str_order_productName);
+        order_productQuantity.setText(str_order_productQuantity);
+        order_productTotalPrice.setText(str_order_productTotalPrice);
+        orderView_orderBank.setText(str_orderView_orderBank);
+        orderView_orderCardNo.setText(str_orderView_orderCardNo);
+        orderView_orderDate.setText(str_orderView_orderDate);
+        orderView_orderTotalPrice.setText(str_orderView_orderTotalPrice);
 
     }
 }
