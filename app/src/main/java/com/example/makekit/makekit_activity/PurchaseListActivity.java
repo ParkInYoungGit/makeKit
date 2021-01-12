@@ -1,4 +1,4 @@
-package com.example.makekit;
+package com.example.makekit.makekit_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,9 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.makekit.makekit_activity.SalesListActivity;
+import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.PurchaseListAdapter;
-import com.example.makekit.makekit_adapter.SalesListAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.Order;
 
@@ -53,7 +52,7 @@ public class PurchaseListActivity extends AppCompatActivity {
 
     private void connectGetData() {
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(PurchaseListActivity.this, urlAddrBase + "jsp/getSalesRealList.jsp?userEmail="+email, "getRealSalesList");
+            NetworkTask_DH networkTask = new NetworkTask_DH(PurchaseListActivity.this, urlAddrBase + "jsp/purchase_list.jsp?userEmail="+email, "purchaseList");
             Object obj = networkTask.execute().get();
             orders = (ArrayList<Order>) obj;
             Log.v(TAG, orders.get(0).getOrderCardPw());

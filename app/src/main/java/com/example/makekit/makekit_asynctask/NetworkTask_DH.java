@@ -32,6 +32,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     ArrayList<User> users;
     ArrayList<Order> orders;
     ArrayList<Order> salesList;
+    ArrayList<Order> purchaseList;
     String chattingNumber;
     String where = null;
 
@@ -45,6 +46,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
         this.users = new ArrayList<User>();
         this.orders = new ArrayList<Order>();
         this.salesList = new ArrayList<Order>();
+        this.purchaseList = new ArrayList<Order>();
         this.where = where;
     }
 
@@ -100,6 +102,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 }else if (where.equals("getRealSalesList")){
                     Log.v("NetworkTask", "if chattingContents");
                     parserRealSalesList(stringBuffer.toString());
+                }else if (where.equals("purchaseList")){
+                    parserRealSalesList(stringBuffer.toString());
                 }
 
 
@@ -133,6 +137,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return orders;
         }else if (where.equals("getRealSalesList")){
             return salesList;
+        }else if (where.equals("purchaseList")){
+            return purchaseList;
         }
         else {
             return result;
