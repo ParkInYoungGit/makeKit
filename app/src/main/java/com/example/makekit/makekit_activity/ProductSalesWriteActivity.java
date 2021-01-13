@@ -94,7 +94,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_sales_write);
         ActivityCompat.requestPermissions(ProductSalesWriteActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
-        macIP = "192.168.2.2";
+        macIP = "192.168.200.193";
         urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
         urlImage = "http://" + macIP + ":8080/makeKit/image/";
         urlAddr = "http://"+macIP+":8080/makeKit/jsp/ProductInsert.jsp?";

@@ -10,13 +10,14 @@
     card_view:cardCornerRadius="10dp">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="180dp"
-        android:layout_height="220dp">
+        android:layout_height="190dp"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/img_1"
-            android:layout_width="181dp"
+        <WebView
+            android:id="@+id/home_Product_WebView"
+            android:layout_width="180dp"
             android:layout_height="125dp"
             card_view:srcCompat="@drawable/abc_vector_test"
             tools:ignore="MissingConstraints"
@@ -24,14 +25,13 @@
             tools:layout_editor_absoluteY="4dp" />
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/home_ProductName_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="제목"
+            android:text="상품 명"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/img_1"
             android:layout_marginTop="10dp"/>
 
         <TextView
@@ -40,15 +40,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="내용"
+            android:text="가격"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="0.473"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_title"
             card_view:layout_constraintVertical_bias="0.0"
             android:layout_marginLeft="8dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
 </com.google.android.material.card.MaterialCardView>

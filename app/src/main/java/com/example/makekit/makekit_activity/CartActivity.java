@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.makekit.R;
@@ -23,6 +27,7 @@ import java.util.ArrayList;
 public class CartActivity extends AppCompatActivity {
 
     TextView orderTotalNext, productTotalPrice, productDeliveryTotalPrice, allProductTotalPrice;
+    CheckBox selectAll, itemSelect;
     String macIP, productNo, productQuantity, totalPrice, cartNo, urlAddrBase, urlAddr;
     DecimalFormat myFormatter;
     ArrayList<Cart> carts;
@@ -44,6 +49,7 @@ public class CartActivity extends AppCompatActivity {
         productDeliveryTotalPrice = findViewById(R.id.productDeliveryTotalPrice_cart);
         allProductTotalPrice = findViewById(R.id.allProductTotalPrice_cart);
         recyclerView = findViewById(R.id.recyclerViewCartList);
+        selectAll = findViewById(R.id.cb_cart_selectall);
 
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
@@ -58,11 +64,6 @@ public class CartActivity extends AppCompatActivity {
         connectSelectData(urlAddr);
         Log.v(TAG, "총금액" + carts.get(0).getTotalPrice());
 
-        // 구매 총 금액
-//        int total = Integer.parseInt(products.get(0).getProductPrice()) + 2500;
-//        myFormatter = new DecimalFormat("###,###");
-//        String formattedStringPrice = myFormatter.format(total);
-//        productTotalPrice.setText(formattedStringPrice + "원");
 
     }
 
@@ -80,6 +81,23 @@ public class CartActivity extends AppCompatActivity {
             layoutManager = new LinearLayoutManager(CartActivity.this);
             recyclerView.setLayoutManager(layoutManager);
 
+
+            //////////////////////////////
+            // 수정하기
+            /////////////////////////////
+            itemSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    int count = 0 ;
+                    count = cartAdapter.getItemCount() ;
+
+                    for (int i=0; i<count; i++) {
+//                        recyclerView.onCheckIsTextEditor(i, true) ;
+                    }
+
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -87,9 +105,33 @@ public class CartActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
+        String productprice ="";
+        String productcount ="";
+        String deliveryprice ="";
+        int price = 0;
         super.onResume();
         Log.v(TAG, "onResume cart");
         connectSelectData(urlAddr);
+
+        for (int i=0; i<carts.size(); i++){
+            productprice = carts.get(i).getProductPrice();
+            productcount = carts.get(i).getCartQuantity();
+            price += Integer.parseInt(productprice) * Integer.parseInt(productcount);
+            Log.v(TAG, "price : " + String.valueOf(price));
+
+        }
+        myFormatter = new DecimalFormat("###,###");
+        String formattedStringPrice = myFormatter.format(price);
+        String formattedStringPrice1 = myFormatter.format(carts.size() * 2500);
+        String formattedStringPrice2 = myFormatter.format(carts.size() * 2500 + price);
+
+        productTotalPrice.setText(formattedStringPrice + "원");
+        productDeliveryTotalPrice.setText(formattedStringPrice1 + "원");
+        allProductTotalPrice.setText(formattedStringPrice2 + "원");
+
+        orderTotalNext.setText(formattedStringPrice2 + "원 구매하기");
+
+
     }
 
 }
