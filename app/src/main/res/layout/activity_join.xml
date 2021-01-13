@@ -217,7 +217,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:orientation="horizontal">
-
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
@@ -245,7 +247,7 @@
 10.전자서명생성정보 : 전자서명을 생성하기 위하여 이용하는 전자적 정보를 말합니다.
 11.인증회원 : 회사로부터 전자서명생성정보를 인증 받은 회원을 말합니다.
 12.이용기관 : 인증회원의 전자서명 및 인증서를 바탕으로 한 거래 등을 위하여 인증서비스를 이용하려는 제3자를 말합니다."/>
-
+        </ScrollView>
 
 
     </LinearLayout>

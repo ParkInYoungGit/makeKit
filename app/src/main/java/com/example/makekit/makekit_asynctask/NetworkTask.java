@@ -193,8 +193,10 @@ public class NetworkTask extends AsyncTask<Integer, String, Object> {
                     String productName = jsonObject1.getString("productName");
                     String productSubTitle = jsonObject1.getString("productSubTitle");
                     String productPrice = jsonObject1.getString("productPrice");
+                    String productNo = jsonObject1.getString("productNo");
 
-                    ProductData productData2 = new ProductData(productFilename, productName, productSubTitle, productPrice);
+                    ProductData productData2 = new ProductData(productFilename, productName, productSubTitle, productPrice, productNo);
+
                     productData.add(productData2);
                     Log.v(TAG, productFilename);
                     Log.v(TAG, productName);

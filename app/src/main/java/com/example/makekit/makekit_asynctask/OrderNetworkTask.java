@@ -41,6 +41,8 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
         this.mAddr = mAddr;
         this.where = where;
         this.order = new ArrayList<Order>();
+        this.payment = new ArrayList<Payment>();
+
         Log.v(TAG, "Start : " + mAddr);
     }
 
@@ -81,7 +83,7 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
                 if (where.equals("selectOrder")) {
                     parserOrderSelect(stringBuffer.toString());
                 }
-                else {
+                if (where.equals("selectProductOrder")){
                     parserOrderProductSelect(stringBuffer.toString());
                 }
 
@@ -103,7 +105,9 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
         if (where.equals("selectOrder")) {
             return order;
         }
-
+        if (where.equals("selectProductOrder")){
+            return payment;
+        }
         return payment;
     }
 
@@ -155,11 +159,12 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
 
     // OrderActivity 제품 정보
     private void parserOrderProductSelect(String s) {
-        Log.v(TAG, "Parser()");
+        Log.v(TAG, "Parser in()");
 
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("product_info"));
+            Log.v(TAG, "Parser : ");
             payment.clear();
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -168,9 +173,15 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
                 String productName = jsonObject1.getString("productName");
                 String productPrice = jsonObject1.getString("productPrice");
                 String cartQuantity = jsonObject1.getString("cartQuantity");
+                Log.v(TAG, "productImage : " + productImage);
+                Log.v(TAG, "productName : " + productName);
+                Log.v(TAG, "productPrice : " + productPrice);
+                Log.v(TAG, "cartQuantity : " + cartQuantity);
 
                 Payment payments = new Payment(productImage, productName, productPrice, cartQuantity);
+
                 payment.add(payments);
+                Log.v(TAG, "payment : " + payments);
             }
         } catch (Exception e) {
             e.printStackTrace();

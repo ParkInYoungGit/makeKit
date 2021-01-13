@@ -2,38 +2,42 @@ package com.example.makekit.makekit_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
+
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Intent;
+
+import android.graphics.Rect;
 import android.nfc.Tag;
+
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.OrderProductListAdapter;
-import com.example.makekit.makekit_adapter.SaleProductListAdapter;
-import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_asynctask.OrderNetworkTask;
+
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.Cart;
+
 import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Payment;
-import com.example.makekit.makekit_bean.Product;
-import com.example.makekit.makekit_bean.User;
-import com.example.makekit.makekit_fragment.ProductAdapter;
 
 import java.util.ArrayList;
 
@@ -42,7 +46,7 @@ public class OrderActivity extends AppCompatActivity {
     final static String TAG = "OderActivity";
 
     //  아이피, url, 기본 세팅 설정
-    String macIP, email, productNo, count, totalPrice, urlAddrBase, urlJsp, urlImage, url, urlAddrSelect_Resume, cartNo;
+    String macIP, email, productNo, count, totalPrice, urlAddrBase, urlJsp, urlImage, url, urlAddrSelect_Resume, cartNo, urlAddrSelect_Resume1, urlAddrBase11;
     int orderCount, orderTotalPrice;
 
     //  주문자 기본 정보
@@ -77,12 +81,22 @@ public class OrderActivity extends AppCompatActivity {
     ArrayList<Payment> Payment;   // 빈, 어댑터
 //    ArrayList<Product> product;
 
+    RecyclerView recyclerView = null;
+    RecyclerView.Adapter rAdapter = null;
+    RecyclerView.LayoutManager layoutManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_order);
+
+        recyclerView = findViewById(R.id.rv_product_order);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+
 
         // Thread 사용
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -131,6 +145,7 @@ public class OrderActivity extends AppCompatActivity {
         urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";  // jsp 폴더
         urlImage = "http://" + macIP + ":8080/makeKit/image/";  // image 폴더
         urlAddrSelect_Resume = urlJsp + "order_user_info.jsp?email=" + email;
+        urlAddrBase11 =urlAddrBase+ "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44";
 
         // ==================================================   findIdView
 
@@ -177,6 +192,7 @@ public class OrderActivity extends AppCompatActivity {
 
         // 실행시 셀렉트 실행
         connectSelectGetData(urlAddrSelect_Resume);   // urlAddr1을  connectSelectGetData의 urlAddr2로 보내준다
+        connectProductSelectGetData();
         //  기본 정보 가져오기
         orderUserName = Order.get(0).getUserName();
         orderUserTel = Order.get(0).getUserTel();
@@ -242,7 +258,7 @@ public class OrderActivity extends AppCompatActivity {
 //        Log.v(TAG, "order in");
 //        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 //        connectProductSelectGetData();
-//        mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, Payment, urlAddrBase+"image/");
+//
 //        Log.v(TAG, "order : " + Payment);
 //        rv_product_order.setAdapter(mAdapter);
 //
@@ -253,7 +269,7 @@ public class OrderActivity extends AppCompatActivity {
 //        for (int i = 0; i < product1.size(); i++) {
 //            try {
 //                Log.v(TAG, product1.get(i));
-////                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +cartNo+ "&productNo=" +product1.get(i));        // 불러오는게 똑같아서
+////                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +cartNo+ "&productNo=" +product1.get(i), "selectProductOrder");        // 불러오는게 똑같아서
 //                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44");        // 불러오는게 똑같아서
 //                Object obj = orderNetworkTask.execute().get();
 //                Payment = (ArrayList<Payment>) obj;
@@ -265,18 +281,16 @@ public class OrderActivity extends AppCompatActivity {
             try {
                 Log.v(TAG, "connectProductSelectGetData in");
 //                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +cartNo+ "&productNo=" +product1.get(i));        // 불러오는게 똑같아서
-                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44");        // 불러오는게 똑같아서
+                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44", "selectProductOrder");        // 불러오는게 똑같아서
                 Object obj = orderNetworkTask.execute().get();
                 Payment = (ArrayList<Payment>) obj;
                 Log.v(TAG, "connectProductSelectGetData urlAddrBase" + urlAddrBase);
                 mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, Payment, urlAddrBase+"image/");
-                rv_product_order.setAdapter(mAdapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
-//                rv_product_order.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
-//                layoutManager = new GridLayoutManager(ProductList.this,2);
-//                SnapHelper snapHelper = new PagerSnapHelper();
-//                rv_product_order.setLayoutManager(layoutManager);
+                Log.v(TAG, "mAdapter mAdapter : " + mAdapter);
+//
 //                Log.v(TAG, "order : " + Payment);
-//                rv_product_order.setAdapter(mAdapter);
+                rv_product_order.setAdapter(mAdapter);
+                Log.v(TAG, "mAdapter rv_product_order : " + mAdapter);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -292,6 +306,7 @@ public class OrderActivity extends AppCompatActivity {
         super.onResume();
         // Select
         urlAddrSelect_Resume = urlJsp + "order_user_info.jsp?email=" + email;
+        urlAddrSelect_Resume1 = urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44";
         connectSelectGetData(urlAddrSelect_Resume);
         connectProductSelectGetData();
         Log.v(TAG, "onResume()");
@@ -309,5 +324,19 @@ public class OrderActivity extends AppCompatActivity {
         }
         return Order;
     }
-
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View focusView = getCurrentFocus();
+        if (focusView != null) {
+            Rect rect = new Rect();
+            focusView.getGlobalVisibleRect(rect);
+            int x = (int) ev.getX(), y = (int) ev.getY();
+            if (!rect.contains(x, y)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if (imm != null)
+                    imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
+                focusView.clearFocus();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 }

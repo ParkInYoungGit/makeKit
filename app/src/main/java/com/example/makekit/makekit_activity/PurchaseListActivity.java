@@ -22,7 +22,7 @@ public class PurchaseListActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
     RecyclerView.Adapter mAdapter = null;
     RecyclerView.LayoutManager layoutManager = null;
-    String email, macIP, urlAddrBase;
+    String email, macIP, urlAddrBase, url2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +30,13 @@ public class PurchaseListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_purchase_list);
         Log.v(TAG, "onCreat");
         orders = new ArrayList<Order>();
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 
         Intent intent = getIntent();
         email = intent.getStringExtra("useremail");
         macIP = intent.getStringExtra("macIP");
 
-        recyclerView = findViewById(R.id.SaleList_RecyclerView);
+        recyclerView = findViewById(R.id.PurchaseList_RecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -45,8 +46,9 @@ public class PurchaseListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        url2 = urlAddrBase + "jsp/purchase_list.jsp?userEmail="+email;
         connectGetData();
-        mAdapter = new PurchaseListAdapter(PurchaseListActivity.this, R.layout.sales_list_layout, orders, urlAddrBase+"image/");
+        mAdapter = new PurchaseListAdapter(PurchaseListActivity.this, R.layout.purchase_list_layout, orders, urlAddrBase+"image/", email, macIP);
         recyclerView.setAdapter(mAdapter);
     }
 
