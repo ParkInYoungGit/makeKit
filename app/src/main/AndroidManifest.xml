@@ -33,7 +33,6 @@
 
         <activity android:name=".makekit_activity.RegisterReviewActivity"></activity>
         <activity android:name=".makekit_activity.MainActivity">
-
         </activity>
 
         <activity android:name=".makekit_activity.TempLogin" />
@@ -66,6 +65,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".makekit_activity.LikeSellerActivity" />
         <activity android:name=".makekit_activity.BuyListActivity" />

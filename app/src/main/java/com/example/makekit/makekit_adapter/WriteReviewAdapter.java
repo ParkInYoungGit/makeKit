@@ -2,6 +2,7 @@ package com.example.makekit.makekit_adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +10,16 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_activity.OrderViewActivity;
+import com.example.makekit.makekit_activity.RegisterReviewActivity;
 import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Review;
 
@@ -23,7 +28,7 @@ import java.util.ArrayList;
 // review 리스트
 public class WriteReviewAdapter extends RecyclerView.Adapter<WriteReviewAdapter.MyViewHolder> {
 
-    final static String TAG = "ReviewAdapter";
+    final static String TAG = "WriteReviewAdapter";
 
     private Context mContext = null;
     private int layout = 0;
@@ -31,13 +36,46 @@ public class WriteReviewAdapter extends RecyclerView.Adapter<WriteReviewAdapter.
     private LayoutInflater inflater = null;
     private String urlImage;
     private String urlImageReal;
+    String email, macIP;
 
-    public WriteReviewAdapter(Context mContext, int layout, ArrayList<Order> data, String urlImage) {
+    public WriteReviewAdapter(Context mContext, int layout, ArrayList<Order> data, String urlImage, String email, String macIP) {
         this.mContext = mContext;
         this.layout = layout;
         this.data = data;
         this.urlImage = urlImage;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.email = email;
+        this.macIP = macIP;
+    }
+
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+
+        WebView img_ProductImage;
+        TextView reviewlist_productName, tv_productQuantity, reviewlist_productQuantity;
+        TextView Textview_RegisterReview, btn_registerReview;
+//        LinearLayout li_reviewImage, li_reviewNonImage;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+//            li_reviewImage = itemView.findViewById(R.id.linearImage_reviewlist);
+//            li_reviewNonImage = itemView.findViewById(R.id.linearNonImage_reviewlist);
+
+            img_ProductImage = itemView.findViewById(R.id.reviewlist_sales_productImage);
+            reviewlist_productName = itemView.findViewById(R.id.reviewlist_productName);
+            tv_productQuantity = itemView.findViewById(R.id.tv_productQuantity);
+            reviewlist_productQuantity = itemView.findViewById(R.id.reviewlist_productQuantity);
+            Textview_RegisterReview = itemView.findViewById(R.id.Textview_RegisterReview);
+
+            btn_registerReview = itemView.findViewById(R.id.Textview_RegisterReview);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
     }
 
     @Override
@@ -62,6 +100,7 @@ public class WriteReviewAdapter extends RecyclerView.Adapter<WriteReviewAdapter.
 
         holder.reviewlist_productName.setText(data.get(position).getProductName());
         holder.reviewlist_productQuantity.setText(data.get(position).getOrderQuantity());
+
 
         Log.v(TAG, urlImage + "image/" + data.get(position).getProductFilename());
         urlImageReal = urlImage + "image/" + data.get(position).getProductFilename();
@@ -91,7 +130,18 @@ public class WriteReviewAdapter extends RecyclerView.Adapter<WriteReviewAdapter.
         // url은 알아서 설정 예) http://m.naver.com/
         holder.img_ProductImage.loadUrl(urlImageReal); // 접속 URL
 
-
+        holder.btn_registerReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, RegisterReviewActivity.class);
+                intent.putExtra("macIP", macIP);
+                intent.putExtra("useremail", email);
+                intent.putExtra("orderDetailNo", data.get(position).getOrderDetailNo());
+                intent.putExtra("productNo", data.get(position).getGoods_productNo());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -100,30 +150,12 @@ public class WriteReviewAdapter extends RecyclerView.Adapter<WriteReviewAdapter.
         return data.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        WebView img_ProductImage;
-        TextView reviewlist_productName, tv_productQuantity, reviewlist_productQuantity;
-        TextView Textview_RegisterReview;
-//        LinearLayout li_reviewImage, li_reviewNonImage;
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-//            li_reviewImage = itemView.findViewById(R.id.linearImage_reviewlist);
-//            li_reviewNonImage = itemView.findViewById(R.id.linearNonImage_reviewlist);
-
-            img_ProductImage = itemView.findViewById(R.id.reviewlist_sales_productImage);
-            reviewlist_productName = itemView.findViewById(R.id.reviewlist_productName);
-            tv_productQuantity = itemView.findViewById(R.id.tv_productQuantity);
-            reviewlist_productQuantity = itemView.findViewById(R.id.reviewlist_productQuantity);
-            Textview_RegisterReview = itemView.findViewById(R.id.Textview_RegisterReview);
-
-        }
 
 //    @Override
 //    public long getItemId(int position) {
 //        return Integer.parseInt(data.get(position).getOrderDetailNo());
 //    }
 
-    }
+
 }

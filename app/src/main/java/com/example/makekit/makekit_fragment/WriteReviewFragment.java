@@ -110,32 +110,10 @@ public class WriteReviewFragment extends Fragment {
         // 초기 init
         connectSelectData();
 
-        // 넘겨줄 값 지정
-        productNo = reviewList.get(0).getGoods_productNo();
-        orderDetailNo = reviewList.get(0).getOrderDetailNo();
-        orderConfirm = reviewList.get(0).getOrderConfirm();
-
-
-        // btn 클릭 이벤트
-//        btn_Register_Review =(TextView)v.findViewById(R.id.Textview_RegisterReview);
-//        btn_Register_Review.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                switch (v.getId()){
-//                    case R.id.btn_registerReview:
-//                        Intent intent = new Intent(getActivity(), RegisterReviewActivity.class);
-//                        intent.putExtra("macIP", macIP);
-//                        intent.putExtra("email", email);
-//                        intent.putExtra("productNo", productNo);
-//                        intent.putExtra("orderDetailNo", orderDetailNo);
-//
-//                        startActivity(intent);
-//                        break;
-//                }
-//            }
-//        });
-
-
+//        // 넘겨줄 값 지정
+//        productNo = reviewList.get(0).getGoods_productNo();
+//        orderDetailNo = reviewList.get(0).getOrderDetailNo();
+//        orderConfirm = reviewList.get(0).getOrderConfirm();
 
 
         return v;
@@ -156,7 +134,7 @@ public class WriteReviewFragment extends Fragment {
             Object object = networkTaskDh.execute().get();
             reviewList = (ArrayList<Order>) object;
 
-            writeReviewAdapter = new WriteReviewAdapter(getActivity(), R.layout.custom_write_review, reviewList, urlAddrBase);
+            writeReviewAdapter = new WriteReviewAdapter(getActivity(), R.layout.custom_write_review, reviewList, urlAddrBase, email, macIP);
             recyclerView.setAdapter(writeReviewAdapter);
             recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
             layoutManager = new LinearLayoutManager(getContext());
