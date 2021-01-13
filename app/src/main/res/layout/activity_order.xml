@@ -325,7 +325,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_product_order"
                         android:layout_width="match_parent"
-                        android:layout_height="500dp"
+                        android:layout_height="wrap_content"
                         android:scrollbarFadeDuration="0"
                         android:scrollbarSize="5dp"
                         android:scrollbars="vertical"

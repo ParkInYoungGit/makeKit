@@ -178,7 +178,9 @@ public class OrderActivity extends AppCompatActivity {
 
         // 실행시 셀렉트 실행
         connectSelectGetData(urlAddrSelect_Resume);   // urlAddr1을  connectSelectGetData의 urlAddr2로 보내준다
-        connectProductSelectGetData();
+          connectProductSelectGetData();
+
+
         //  기본 정보 가져오기
         orderUserName = Order.get(0).getUserName();
         orderUserTel = Order.get(0).getUserTel();
@@ -244,7 +246,7 @@ public class OrderActivity extends AppCompatActivity {
 //        Log.v(TAG, "order in");
 //        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 //        connectProductSelectGetData();
-//
+//        mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, Payment, urlAddrBase+"image/");
 //        Log.v(TAG, "order : " + Payment);
 //        rv_product_order.setAdapter(mAdapter);
 //
@@ -252,11 +254,13 @@ public class OrderActivity extends AppCompatActivity {
 
     private void connectProductSelectGetData(){
 
-//        for (int i = 0; i < product1.size(); i++) {
+
 //            try {
+//
+//                Log.v(TAG, "connectProductSelectGetData in");
 //                Log.v(TAG, product1.get(i));
-////                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +cartNo+ "&productNo=" +product1.get(i), "selectProductOrder");        // 불러오는게 똑같아서
-//                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44");        // 불러오는게 똑같아서
+//                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +product1.get(i), "selectProductOrder");        // 불러오는게 똑같아서
+////                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44");        // 불러오는게 똑같아서
 //                Object obj = orderNetworkTask.execute().get();
 //                Payment = (ArrayList<Payment>) obj;
 //
@@ -264,25 +268,28 @@ public class OrderActivity extends AppCompatActivity {
 //                e.printStackTrace();
 //            }
 //
+//            mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, Payment, urlAddrBase+"image/");
+//            rv_product_order.setAdapter(mAdapter);
+//
             try {
                 Log.v(TAG, "connectProductSelectGetData in");
-//                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +cartNo+ "&productNo=" +product1.get(i));        // 불러오는게 똑같아서
+
+//               OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +cartNo+ "&productNo=" +product1.get(i));        // 불러오는게 똑같아서
                 OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44", "selectProductOrder");        // 불러오는게 똑같아서
                 Object obj = orderNetworkTask.execute().get();
                 Payment = (ArrayList<Payment>) obj;
-                Log.v(TAG, "connectProductSelectGetData urlAddrBase" + urlAddrBase);
                 mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, Payment, urlAddrBase+"image/");
-                Log.v(TAG, "mAdapter mAdapter : " + mAdapter);
-//
-//                Log.v(TAG, "order : " + Payment);
                 rv_product_order.setAdapter(mAdapter);
+//
+                Log.v(TAG, "connectProductSelectGetData urlAddrBase" + urlAddrBase);
+                Log.v(TAG, "order : " + Payment);
+                Log.v(TAG, "mAdapter mAdapter : " + mAdapter);
                 Log.v(TAG, "mAdapter rv_product_order : " + mAdapter);
 
             } catch (Exception e) {
                 e.printStackTrace();
-//
+            }
 
-        }
     }
 
 
@@ -294,7 +301,8 @@ public class OrderActivity extends AppCompatActivity {
         urlAddrSelect_Resume = urlJsp + "order_user_info.jsp?email=" + email;
         urlAddrSelect_Resume1 = urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44";
         connectSelectGetData(urlAddrSelect_Resume);
-        connectProductSelectGetData();
+                  connectProductSelectGetData();
+
         Log.v(TAG, "onResume()");
     }
 
