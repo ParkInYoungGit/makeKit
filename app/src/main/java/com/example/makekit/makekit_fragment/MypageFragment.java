@@ -66,8 +66,10 @@ public class MypageFragment extends Fragment {
         v.findViewById(R.id.buylist_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), BuyListActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(getContext(), PurchaseListActivity.class);
+                intent1.putExtra("useremail", email);
+                intent1.putExtra("macIP", macIP);
+                startActivity(intent1);
             }
         });
 
@@ -123,13 +125,15 @@ public class MypageFragment extends Fragment {
                     startActivity(intent);
                     break;
                 case R.id.buylist_btn:  // 구매내역 버튼
-                    Intent intent1 = new Intent(getActivity(), PurchaseListActivity.class);
+                    Intent intent1 = new Intent(getContext(), PurchaseListActivity.class);
                     intent1.putExtra("useremail", email);
                     intent1.putExtra("macIP", macIP);
                     startActivity(intent1);
                     break;
                 case R.id.salelist_btn: // 판매내역 버튼
-                    Intent intent2 = new Intent(getActivity(), SaleProductListActivity.class);
+                    Intent intent2 = new Intent(getContext(), SalesListActivity.class);
+                    intent2.putExtra("useremail", email);
+                    intent2.putExtra("macIP", macIP);
                     startActivity(intent2);
                     break;
                 case R.id.likelist_btn: // 찜 목록 버튼
