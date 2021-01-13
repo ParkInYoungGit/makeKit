@@ -1,5 +1,6 @@
 package com.example.makekit.makekit_adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,30 +28,17 @@ public class OrderProductListAdapter extends RecyclerView.Adapter<OrderProductLi
     private AdapterView.OnItemClickListener mListener = null;
     private String urlImage;
     private String urlImageReal;
+    private int layout = 0;
+    private Context orderActivity;
+    private Context mContext = null;
+    private LayoutInflater inflater = null;
 
     public OrderProductListAdapter(OrderActivity orderActivity, int layout, ArrayList<Payment> payments, String urlimage){
+        this.orderActivity = orderActivity;
+        this.layout = layout;
         this.mDataset = payments;
         this.urlImage = urlimage;
-    }
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-
-        TextView order_productName, order_productPrice, order_productCount;
-        WebView order_productImage;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            order_productImage = itemView.findViewById(R.id.order_productImage);
-            order_productName = itemView.findViewById(R.id.order_productName);
-            order_productPrice = itemView.findViewById(R.id.order_productPrice);
-            order_productCount = itemView.findViewById(R.id.order_productCount);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-        }
+        this.inflater = (LayoutInflater) orderActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
@@ -111,4 +99,26 @@ public class OrderProductListAdapter extends RecyclerView.Adapter<OrderProductLi
     public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
         this.mListener = listener ;
     }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        TextView order_productName, order_productPrice, order_productCount;
+        WebView order_productImage;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            order_productImage = itemView.findViewById(R.id.order_productImage);
+            order_productName = itemView.findViewById(R.id.order_productName);
+            order_productPrice = itemView.findViewById(R.id.order_productPrice);
+            order_productCount = itemView.findViewById(R.id.order_productCount);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
+    }
+
 }

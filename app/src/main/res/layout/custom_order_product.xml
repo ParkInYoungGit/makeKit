@@ -13,7 +13,7 @@
         <WebView
             android:id="@+id/order_productImage"
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_user"
             android:layout_marginRight="10dp"
             />
