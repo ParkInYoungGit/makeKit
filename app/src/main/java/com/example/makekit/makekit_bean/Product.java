@@ -48,6 +48,16 @@ public class Product {
         this.productDeleteDate = productDeleteDate;
     }
 
+    ///////// Ria 추가 /////////////////////////////////
+
+
+    public Product(String productNo, String productFilename, String productName, String productStock) {
+        this.productNo = productNo;
+        this.productFilename = productFilename;
+        this.productName = productName;
+        this.productStock = productStock;
+    }
+
     public String getSellerEmail() {
         return sellerEmail;
     }
