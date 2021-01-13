@@ -74,6 +74,12 @@ public class ChatcontentActivity extends AppCompatActivity {
                         chattingJudge.addAll(chattingContents);
                         mAdapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
                         recyclerView.setAdapter(mAdapter);
+                        recyclerView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
+                            }
+                        });
                         break;
                     case 1:
                         break;
@@ -89,12 +95,10 @@ public class ChatcontentActivity extends AppCompatActivity {
                         connectGetData();
                         Thread.sleep(1000);
                         if(judgement()==1){
-                            Log.v(TAG, "if judgement=");
                             Message msg = handler.obtainMessage();
                             msg.what = 1;
                             handler.sendMessage(msg);
                         }else {
-                            Log.v(TAG, "if judgement!");
                             Message msg = handler.obtainMessage();
                             msg.what = 0;
                             handler.sendMessage(msg);
@@ -105,6 +109,8 @@ public class ChatcontentActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,9 +133,6 @@ public class ChatcontentActivity extends AppCompatActivity {
             connectGetChattingNumber();
         }
         connectGetData();
-//        chattingJudge.addAll(chattingContents);
-//        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
-//        listView.setAdapter(adapter);
         thread.start();
     }
 

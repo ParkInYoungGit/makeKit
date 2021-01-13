@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".makekit_activity.ChatcontentActivity"
     android:orientation="vertical"
-    android:background="#A1EBF4"
+    android:background="#B2C7DA"
     >
 
     <androidx.recyclerview.widget.RecyclerView
