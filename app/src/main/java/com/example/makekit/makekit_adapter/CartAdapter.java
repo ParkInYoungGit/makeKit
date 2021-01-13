@@ -31,6 +31,7 @@ import com.example.makekit.makekit_bean.Review;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
 
@@ -41,6 +42,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     private Context mContext = null;
     private int layout = 0;
     private ArrayList<Cart> data = null;
+    private ArrayList<Cart> checkBoxChecked;
     private LayoutInflater inflater = null;
     private String urlImage;
     private String urlImageReal;
@@ -48,6 +50,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     private int price = 0;
     private int count = 1;
     private AdapterView.OnItemClickListener mListener = null;
+    List<CheckBox> checkboxsList = new ArrayList<>();
 
     public CartAdapter(Context mContext, int layout, ArrayList<Cart> data, String urlImage) {
         this.mContext = mContext;
@@ -102,13 +105,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
         // url은 알아서 설정 예) http://m.naver.com/
         holder.img_productImage.loadUrl(urlImageReal); // 접속 URL
-       // int total = Integer.parseInt(data.get(position).getProductPrice()) * Integer.parseInt(data.get(position).getCartQuantity());
-
-        holder.tv_productPrice.setText(data.get(position).getTotalPrice() + "원");
+        int total = Integer.parseInt(data.get(position).getProductPrice()) * Integer.parseInt(data.get(position).getCartQuantity());
+        myFormatter = new DecimalFormat("###,###");
+        String formattedStringPrice = myFormatter.format(total);
+        holder.tv_productPrice.setText(formattedStringPrice + "원");
         //holder.tv_productPrice.setText(Integer.toString(total));
         holder.tv_purchaseNum.setText(data.get(position).getCartQuantity());
         holder.cb_productName.setText(data.get(position).getProductName());
         holder.tv_productDeliveryPrice.setText("2,500원");
+
+
+        // 체크박스 리스트에 전부 추가하기
+        checkboxsList.add(holder.cb_productName);
+
 
         holder.btn_MinusProudct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,13 +165,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     myFormatter = new DecimalFormat("###,###");
                     String formattedStringPrice = myFormatter.format(totalPrice);
                     holder.tv_productPrice.setText(formattedStringPrice + "원");
+//                    holder.tv_price.setText("값 변화");
 
                    // notifyItemChanged(position);
 
                     Toast.makeText(v.getContext(), "추가", Toast.LENGTH_SHORT).show();
-
             }
         });
+
 
     }
 
@@ -172,12 +182,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         return data.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         WebView img_productImage;
-        TextView tv_productPrice, tv_purchaseNum, tv_productDeliveryPrice;
+        TextView tv_productPrice, tv_purchaseNum, tv_productDeliveryPrice, tv_price;
         Button btn_MinusProudct, btn_PlusProudct;
-        CheckBox cb_productName, cb_allSelect;
+        CheckBox cb_productName;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -191,14 +201,51 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             tv_productDeliveryPrice = itemView.findViewById(R.id.productDeliveryPrice_cart);
             btn_MinusProudct = itemView.findViewById(R.id.btnMinusProudct_cart);
             btn_PlusProudct = itemView.findViewById(R.id.btnPlusProudct_cart);
-            //cb_allSelect = itemView.findViewById(R.id.cb_cart_selectall);
+            /////////////////////
+            tv_price = itemView.findViewById(R.id.tv_total_payment_cart);
+
+            checkBoxChecked = new ArrayList<Cart>();
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    //cb_productName.isChecked();
                 }
             });
+
+            cb_productName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    checkBoxChecked.clear();
+
+                        for (int i = 0; i < checkboxsList.size(); i ++){
+                            if (checkboxsList.get(i).isChecked() == true){
+                                checkBoxChecked.add(data.get(i));
+                            }
+                        }
+                    for (int i = 0; i < checkBoxChecked.size(); i ++) {
+                        Log.v(TAG, i + "번째 : " + checkBoxChecked.get(i).getProductNo());
+                    }
+                }
+            });
+
+//            cb_productName.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    checkBoxChecked.clear();
+//
+//                        for (int i = 0; i < checkboxsList.size(); i ++){
+//                            if (checkboxsList.get(i).isChecked() == true){
+//                                checkBoxChecked.add(data.get(i));
+//                            }
+//                        }
+//                    for (int i = 0; i < checkBoxChecked.size(); i ++) {
+//                        Log.v(TAG, i + "번째 : " + checkBoxChecked.get(i).getProductNo());
+//                    }
+//
+//                }
+//            });
 
         }
 
@@ -227,5 +274,43 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         }
     }
 
+    public void checkBoxOperation(boolean what){
+        for (CheckBox checkBox : checkboxsList ){
+            checkBox.setChecked(what);
+        }
+    }
+
+
+    public ArrayList<Cart> checkBoxCheckedReturn(){
+
+        return checkBoxChecked;
+
+    }
+
+
+    // 장바구니 선택 제품 삭제
+    public void connectDeleteData() {
+
+        if (checkBoxChecked.size() == 0) {
+            Toast.makeText(mContext, "삭제할 제품을 선택해주세요", Toast.LENGTH_SHORT).show();
+        } else {
+            String urlAddrDelete;
+
+            for (int i = 0; i < checkBoxChecked.size(); i++) {
+                String urlAddr = urlImage + "jsp/delete_cart_product.jsp?cartno=" + checkBoxChecked.get(i).getCartNo() + "&productno=" + checkBoxChecked.get(i).getProductNo();
+
+                try {
+                    CartNetworkTask networkTask = new CartNetworkTask(mContext, urlAddr, "delete");
+                    networkTask.execute().get();
+                    //Log.v(TAG, "체크된 제품의 위치 INDEX == " + selectedPosition.get(i));
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
 
 }

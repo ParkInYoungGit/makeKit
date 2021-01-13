@@ -33,6 +33,7 @@
 
         <activity android:name=".makekit_activity.RegisterReviewActivity"></activity>
         <activity android:name=".makekit_activity.MainActivity">
+
         </activity>
 
         <activity android:name=".makekit_activity.TempLogin" />
@@ -55,6 +56,7 @@
         <activity android:name=".makekit_activity.SplashActivity" />
         <activity android:name=".makekit_activity.OrderViewActivity" />
         <activity android:name=".makekit_activity.PaymentActivity" />
+        <activity android:name=".makekit_activity.PurchaseListActivity" />
         <activity android:name=".makekit_activity.ProdutctViewActivity" >
         </activity>
         <activity android:name=".makekit_activity.PhoneFindPwActivity" />
@@ -65,6 +67,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
 
         </activity>
         <activity android:name=".makekit_activity.LikeSellerActivity" />

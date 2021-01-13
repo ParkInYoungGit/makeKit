@@ -8,6 +8,24 @@ public class ProductData {
     private  String product_title;
     private  String sub_title;
     private  String product_price;
+    private String productNo;
+
+
+    public ProductData(String product_image, String product_title, String sub_title, String product_price, String productNo) {
+        this.product_image = product_image;
+        this.product_title = product_title;
+        this.sub_title = sub_title;
+        this.product_price = product_price;
+        this.productNo = productNo;
+    }
+
+    public String getProductNo() {
+        return productNo;
+    }
+
+    public void setProductNo(String productNo) {
+        this.productNo = productNo;
+    }
 
     public ProductData(String product_image, String product_title, String sub_title, String product_price) {
         this.product_image = product_image;

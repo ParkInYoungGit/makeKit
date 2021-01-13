@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class ChatcontentActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
     RecyclerView.Adapter mAdapter = null;
     RecyclerView.LayoutManager layoutManager = null;
+    TextView IDTextView;
     EditText editText;
     Button insertButton;
     Handler handler;
@@ -42,6 +44,8 @@ public class ChatcontentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_content);
+
+        IDTextView = findViewById(R.id.receiverID);
         editText = findViewById(R.id.chattingContents_ET);
         insertButton = findViewById(R.id.chattingContents_Btn);
         recyclerView = findViewById(R.id.chattingContents_LV);
@@ -50,6 +54,8 @@ public class ChatcontentActivity extends AppCompatActivity {
         macIP = intent.getStringExtra("macIP");
         chattingNumber = intent.getStringExtra("chattingNumber");
         receiver = intent.getStringExtra("receiver");
+
+        IDTextView.setText(receiver);
 
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 

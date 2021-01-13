@@ -107,9 +107,17 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     Log.v("NetworkTask", "if chattingContents");
                     parserRealSalesList(stringBuffer.toString());
                 }else if (where.equals("purchaseList")){
+                    parserRealSalesList2(stringBuffer.toString());
+
                     parserRealSalesList(stringBuffer.toString());
+<<<<<<< HEAD
                 }else if (where.equals("writeReviewList")){
                     parserWriteReviewList(stringBuffer.toString());
+=======
+                }else if (where.equals("getProductHome")){
+                    parserProductHome(stringBuffer.toString());
+
+>>>>>>> 60869292bd21e73a9bbf53b13a61d2d5473a02f0
                 }
             }
         }catch (Exception e){
@@ -143,11 +151,18 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return salesList;
         }else if (where.equals("purchaseList")){
             return purchaseList;
+<<<<<<< HEAD
         }else if (where.equals("writeReviewList")){
             return reviewList;
 
 
         }else {
+=======
+        }else if (where.equals("getProductHome")){
+            return products;
+        }
+        else {
+>>>>>>> 60869292bd21e73a9bbf53b13a61d2d5473a02f0
             return result;
         }
 
@@ -355,6 +370,79 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 Order order = new Order(orderNo, userinfo_userEmail, orderDate, orderReceiver, orderRcvAddress, orderRcvAddressDetail, orderRcvPhone, orderTotalPrice, orderBank, orderCardNo, userName, orderDelivery,orderDeliveryDate,orderDetailNo,goods_productNo,orderQuantity,orderConfirm,orderRefund,orderStar,orderReview,orderReviewImg,orderinfo_orderNo, productName, productPrice,orderReviewInsertDate,productAFilename);
                 salesList.add(order);
                 Log.v("NetworkTask", salesList.get(0).getOrderCardPw());
+            }
+        }catch (Exception e){
+            Log.v("NetworkTask", "parserselect, catch");
+            e.printStackTrace();
+        }
+    }
+    private void parserRealSalesList2(String s){
+        Log.v("NetworkTask", "parserselect");
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            purchaseList.clear();
+            for(int i = 0; i < jsonArray.length(); i++){
+                Log.v("NetworkTask", "parserselect, for");
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String userName = jsonObject1.getString("userName");
+                String orderNo = jsonObject1.getString("orderNo");
+                String userinfo_userEmail = jsonObject1.getString("userinfo_userEmail");
+                String orderDate = jsonObject1.getString("orderDate");
+                String orderReceiver = jsonObject1.getString("orderReceiver");
+                String orderRcvAddress = jsonObject1.getString("orderRcvAddress");
+                String orderRcvAddressDetail = jsonObject1.getString("orderRcvAddressDetail");
+                String orderRcvPhone = jsonObject1.getString("orderRcvPhone");
+                String orderTotalPrice = jsonObject1.getString("orderTotalPrice");
+                String orderBank = jsonObject1.getString("orderBank");
+                String orderCardNo = jsonObject1.getString("orderCardNo");
+                String orderCardPw = jsonObject1.getString("orderCardPw");
+                String orderDelivery = jsonObject1.getString("orderDelivery");
+                String orderDeliveryDate = jsonObject1.getString("orderDeliveryDate");
+                String orderDetailNo = jsonObject1.getString("orderDetailNo");
+                String orderinfo_orderNo = jsonObject1.getString("orderinfo_orderNo");
+                String goods_productNo = jsonObject1.getString("goods_productNo");
+                String orderQuantity = jsonObject1.getString("orderQuantity");
+                String orderConfirm = jsonObject1.getString("orderConfirm");
+                String orderRefund = jsonObject1.getString("orderRefund");
+                String orderStar = jsonObject1.getString("orderStar");
+                String orderReview = jsonObject1.getString("orderReview");
+                String orderReviewImg = jsonObject1.getString("orderReviewImg");
+                String orderReviewInsertDate = jsonObject1.getString("orderReviewInsertDate");
+                String productName = jsonObject1.getString("productName");
+                String productPrice = jsonObject1.getString("productPrice");
+                String productAFilename = jsonObject1.getString("productAFilename");
+                Log.v("NetworkTask", productName);
+                Order order = new Order(orderNo, userinfo_userEmail, orderDate, orderReceiver, orderRcvAddress, orderRcvAddressDetail, orderRcvPhone, orderTotalPrice, orderBank, orderCardNo, orderCardPw, userName, orderDelivery,orderDeliveryDate,orderDetailNo,goods_productNo,orderQuantity,orderConfirm,orderRefund,orderStar,orderReview,orderReviewImg,orderinfo_orderNo, productName, productPrice,orderReviewInsertDate,productAFilename);
+                purchaseList.add(order);
+                Log.v("NetworkTask", purchaseList.get(0).getOrderCardPw());
+            }
+        }catch (Exception e){
+            Log.v("NetworkTask", "parserselect, catch");
+            e.printStackTrace();
+        }
+    }
+
+    private void parserProductHome(String s){
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            products.clear();
+            for(int i = 0; i < jsonArray.length(); i++){
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String productNo = jsonObject1.getString("productNo");
+                String productName = jsonObject1.getString("productName");
+                String productType = jsonObject1.getString("productType");
+                String productPrice = jsonObject1.getString("productPrice");
+                String productStock = jsonObject1.getString("productStock");
+                String productContent = jsonObject1.getString("productContent");
+                String productFilename = jsonObject1.getString("productFilename");
+                String productDFilename = jsonObject1.getString("productDFilename");
+                String productAFilename = jsonObject1.getString("productAFilename");
+                String productInsertDate = jsonObject1.getString("productInsertDate");
+                String productDeleteDate = jsonObject1.getString("productDeleteDate");
+                Product product = new Product(productNo, productName, productType, productPrice, productStock, productContent, productFilename, productDFilename, productAFilename, productInsertDate, productDeleteDate);
+                products.add(product);
             }
         }catch (Exception e){
             Log.v("NetworkTask", "parserselect, catch");

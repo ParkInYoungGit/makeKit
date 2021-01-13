@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,7 +38,7 @@ public class ProductList extends AppCompatActivity {
     WebView product_image;
 
 
-    String title, subtitle, price, pType;
+    String title, subtitle, price, pType, pNo;
 
     String macIP, email, urlAddrBase, urlAddr1;
     private RecyclerView.LayoutManager layoutManager;
@@ -97,6 +98,9 @@ public class ProductList extends AppCompatActivity {
             NetworkTask NetworkTask = new NetworkTask(ProductList.this, urlAddr1, "productSelect");
             Object obj = NetworkTask.execute().get();
             product = (ArrayList<ProductData>) obj;
+            Log.v("no", product.get(0).getProductNo());
+            pNo = product.get(0).getProductNo();
+            Log.v("pno",pNo);
             adapter = new ProductListAdapter(ProductList.this, R.layout.productitem_layout, product, urlAddrBase); // 아댑터에 값을 넣어준다.
             recyclerView.setAdapter(adapter);  // 리스트뷰에 어탭터에 있는 값을 넣어준다.
             recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
