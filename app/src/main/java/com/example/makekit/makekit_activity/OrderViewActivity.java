@@ -11,10 +11,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_adapter.OrderViewAdapter;
+import com.example.makekit.makekit_bean.Order;
+
+import java.util.ArrayList;
 
 public class OrderViewActivity extends AppCompatActivity {
 
-    String email, macIP;
+    String email, macIP, urlAddrBase;
 
     //  주문 정보
     TextView orderView_Date_TV, orderView_Number_TV;
@@ -34,10 +38,17 @@ public class OrderViewActivity extends AppCompatActivity {
     String srt_orderView_Date_TV, str_orderView_Number_TV, str_order_userName, str_order_userTel, str_order_userAddress, str_order_userAddressDetail, str_order_productImage;
     String str_order_productName, str_order_productQuantity, str_order_productTotalPrice, str_orderView_orderBank, str_orderView_orderCardNo, str_orderView_orderDate, str_orderView_orderTotalPrice;
 
+    OrderViewAdapter adapter;
+    ArrayList<Order> orders;
+    Order order;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_view);
+
+
+        orders = new ArrayList<Order>();
 
         Intent intent = getIntent();
         email = intent.getStringExtra("useremail");
@@ -72,7 +83,8 @@ public class OrderViewActivity extends AppCompatActivity {
         orderView_orderDate= findViewById(R.id.orderView_orderDate);
         orderView_orderTotalPrice= findViewById(R.id.orderView_orderTotalPrice);
         listView = findViewById(R.id.orderView_ListView);
-
+        order = new Order(str_order_productName, str_order_productQuantity, str_order_productTotalPrice);
+        orders.add(order);
         orderView_Date_TV.setText(srt_orderView_Date_TV);
         orderView_Number_TV.setText(str_orderView_Number_TV);
         order_userName.setText(str_order_userName);
@@ -106,6 +118,12 @@ public class OrderViewActivity extends AppCompatActivity {
         order_productImage.setInitialScale(15);
         order_productImage.loadUrl(str_order_productImage);
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp";
+        adapter = new OrderViewAdapter(OrderViewActivity.this, R.layout.custom_order_view, orders, urlAddrBase);
     }
 }

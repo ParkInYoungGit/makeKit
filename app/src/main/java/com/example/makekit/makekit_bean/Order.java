@@ -122,6 +122,11 @@ public class Order {
         this.userAddressDetail = userAddressDetail;
     }
 
+    public Order(String orderTotalPrice, String orderQuantity, String productName) {
+        this.orderTotalPrice = orderTotalPrice;
+        this.orderQuantity = orderQuantity;
+        this.productName = productName;
+    }
 
     // CardPw로 주문자 이름으로 받음 ,productNo로 orderinfo_orderNo 받음, productStock로 orderReviewInsertDate를 받음
     public Order(String orderNo, String userinfo_userEmail, String orderDate, String orderReceiver, String orderRcvAddress, String orderRcvAddressDetail, String orderRcvPhone, String orderTotalPrice, String orderBank, String orderCardNo, String orderCardPw, String orderDelivery, String orderDeliveryDate, String orderDetailNo, String goods_productNo, String orderQuantity, String orderConfirm, String orderRefund, String orderStar, String orderReview, String orderReviewImg, String productNo, String productName, String productPrice, String productStock, String productAFilename) {
