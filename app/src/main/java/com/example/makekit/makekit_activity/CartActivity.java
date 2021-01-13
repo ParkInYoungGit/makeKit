@@ -62,7 +62,7 @@ public class CartActivity extends AppCompatActivity {
         //productQuantity = intent.getStringExtra("productQuantity");
         //totalPrice = intent.getStringExtra("totalPrice");
 
-        urlAddrBase = "http://" + macIP + ":8080/makekit/";
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddr = urlAddrBase + "jsp/select_usercart_all.jsp?cartno=" + cartNo;
         Log.v(TAG, "주소" + urlAddr);
         connectSelectData(urlAddr);
