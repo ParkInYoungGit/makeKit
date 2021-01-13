@@ -177,10 +177,10 @@ public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
                 String productPrice = jsonObject1.getString("productPrice");
                 String productQuantity = jsonObject1.getString("productQuantity");
                 String cartNo = jsonObject1.getString("cartNo");
-                String totalPrice = jsonObject1.getString("totalPrice");
+                //String totalPrice = jsonObject1.getString("totalPrice");
 
 
-                Cart cart = new Cart(cartNo, productNo, productQuantity, productName, prouductImage, productPrice, totalPrice);
+                Cart cart = new Cart(cartNo, productNo, productQuantity, productName, prouductImage, productPrice);
                 Log.v(TAG, String.valueOf(cart));
                 carts.add(cart);
             }

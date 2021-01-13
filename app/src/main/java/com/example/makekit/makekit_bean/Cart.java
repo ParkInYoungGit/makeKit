@@ -1,6 +1,8 @@
 package com.example.makekit.makekit_bean;
 
-public class Cart {
+import java.io.Serializable;
+
+public class Cart implements Serializable {
     String cartNo;
     String cartDetailNo;
     String productNo;
@@ -16,14 +18,14 @@ public class Cart {
         this.cartNo = cartNo;
     }
 
-    public Cart(String cartNo, String productNo, String cartQuantity, String productName, String productImage, String productPrice, String totalPrice) {
+    public Cart(String cartNo, String productNo, String cartQuantity, String productName, String productImage, String productPrice) {
         this.cartNo = cartNo;
         this.productNo = productNo;
         this.cartQuantity = cartQuantity;
         this.productName = productName;
         this.productImage = productImage;
         this.productPrice = productPrice;
-        this.totalPrice = totalPrice;
+
     }
 
     public String getCartNo() {

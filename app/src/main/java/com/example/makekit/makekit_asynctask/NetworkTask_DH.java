@@ -103,9 +103,12 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     Log.v("NetworkTask", "if chattingContents");
                     parserRealSalesList(stringBuffer.toString());
                 }else if (where.equals("purchaseList")){
+                    parserRealSalesList2(stringBuffer.toString());
+
                     parserRealSalesList(stringBuffer.toString());
                 }else if (where.equals("getProductHome")){
                     parserProductHome(stringBuffer.toString());
+
                 }
 
 
@@ -352,6 +355,52 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                 Order order = new Order(orderNo, userinfo_userEmail, orderDate, orderReceiver, orderRcvAddress, orderRcvAddressDetail, orderRcvPhone, orderTotalPrice, orderBank, orderCardNo, userName, orderDelivery,orderDeliveryDate,orderDetailNo,goods_productNo,orderQuantity,orderConfirm,orderRefund,orderStar,orderReview,orderReviewImg,orderinfo_orderNo, productName, productPrice,orderReviewInsertDate,productAFilename);
                 salesList.add(order);
                 Log.v("NetworkTask", salesList.get(0).getOrderCardPw());
+            }
+        }catch (Exception e){
+            Log.v("NetworkTask", "parserselect, catch");
+            e.printStackTrace();
+        }
+    }
+    private void parserRealSalesList2(String s){
+        Log.v("NetworkTask", "parserselect");
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            purchaseList.clear();
+            for(int i = 0; i < jsonArray.length(); i++){
+                Log.v("NetworkTask", "parserselect, for");
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String userName = jsonObject1.getString("userName");
+                String orderNo = jsonObject1.getString("orderNo");
+                String userinfo_userEmail = jsonObject1.getString("userinfo_userEmail");
+                String orderDate = jsonObject1.getString("orderDate");
+                String orderReceiver = jsonObject1.getString("orderReceiver");
+                String orderRcvAddress = jsonObject1.getString("orderRcvAddress");
+                String orderRcvAddressDetail = jsonObject1.getString("orderRcvAddressDetail");
+                String orderRcvPhone = jsonObject1.getString("orderRcvPhone");
+                String orderTotalPrice = jsonObject1.getString("orderTotalPrice");
+                String orderBank = jsonObject1.getString("orderBank");
+                String orderCardNo = jsonObject1.getString("orderCardNo");
+                String orderCardPw = jsonObject1.getString("orderCardPw");
+                String orderDelivery = jsonObject1.getString("orderDelivery");
+                String orderDeliveryDate = jsonObject1.getString("orderDeliveryDate");
+                String orderDetailNo = jsonObject1.getString("orderDetailNo");
+                String orderinfo_orderNo = jsonObject1.getString("orderinfo_orderNo");
+                String goods_productNo = jsonObject1.getString("goods_productNo");
+                String orderQuantity = jsonObject1.getString("orderQuantity");
+                String orderConfirm = jsonObject1.getString("orderConfirm");
+                String orderRefund = jsonObject1.getString("orderRefund");
+                String orderStar = jsonObject1.getString("orderStar");
+                String orderReview = jsonObject1.getString("orderReview");
+                String orderReviewImg = jsonObject1.getString("orderReviewImg");
+                String orderReviewInsertDate = jsonObject1.getString("orderReviewInsertDate");
+                String productName = jsonObject1.getString("productName");
+                String productPrice = jsonObject1.getString("productPrice");
+                String productAFilename = jsonObject1.getString("productAFilename");
+                Log.v("NetworkTask", productName);
+                Order order = new Order(orderNo, userinfo_userEmail, orderDate, orderReceiver, orderRcvAddress, orderRcvAddressDetail, orderRcvPhone, orderTotalPrice, orderBank, orderCardNo, orderCardPw, userName, orderDelivery,orderDeliveryDate,orderDetailNo,goods_productNo,orderQuantity,orderConfirm,orderRefund,orderStar,orderReview,orderReviewImg,orderinfo_orderNo, productName, productPrice,orderReviewInsertDate,productAFilename);
+                purchaseList.add(order);
+                Log.v("NetworkTask", purchaseList.get(0).getOrderCardPw());
             }
         }catch (Exception e){
             Log.v("NetworkTask", "parserselect, catch");

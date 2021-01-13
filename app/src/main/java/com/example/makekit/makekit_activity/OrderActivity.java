@@ -32,6 +32,10 @@ import android.widget.TextView;
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.OrderProductListAdapter;
 import com.example.makekit.makekit_asynctask.OrderNetworkTask;
+
+import com.example.makekit.makekit_asynctask.UserNetworkTask;
+import com.example.makekit.makekit_bean.Cart;
+
 import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Payment;
 
@@ -71,6 +75,7 @@ public class OrderActivity extends AppCompatActivity {
     // 유저 기본 정보
     ArrayList<Order> Order;   // 빈, 어댑터
     ArrayList<String> product1;   // 빈, 어댑터
+    ArrayList<Cart> carts;   // 빈, 어댑터
 
     // 구패 제품 정보
     ArrayList<Payment> Payment;   // 빈, 어댑터
@@ -114,10 +119,19 @@ public class OrderActivity extends AppCompatActivity {
 //        cartNo = intent.getStringExtra("cartNo");
         count = intent.getStringExtra("productQuantity");
         totalPrice = intent.getStringExtra("totalPrice");
-        Log.v(TAG, macIP);
-        Log.v(TAG, productNo);
-        Log.v(TAG, count);
-        Log.v(TAG, totalPrice);
+        carts = (ArrayList<Cart>) intent.getSerializableExtra("productno");
+
+        for(int i=0; i<carts.size(); i++) {
+            String no = carts.get(i).getProductNo();
+            Log.v(TAG, "번호 : " + no);
+            Log.v(TAG, "상품명 : " + no);
+        }
+
+//        Log.v(TAG, macIP);
+////        Log.v(TAG, productNo);
+//        Log.v(TAG, count);
+//        Log.v(TAG, totalPrice);
+//        Log.v(TAG, (String) carts.get(0));
 
         //  사용할 값 인트 변환
 //        orderCount = Integer.parseInt(count);
