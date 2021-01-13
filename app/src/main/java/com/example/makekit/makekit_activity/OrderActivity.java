@@ -1,38 +1,26 @@
 package com.example.makekit.makekit_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.OrderProductListAdapter;
-import com.example.makekit.makekit_adapter.SaleProductListAdapter;
-import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_asynctask.OrderNetworkTask;
-import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Payment;
-import com.example.makekit.makekit_bean.Product;
-import com.example.makekit.makekit_bean.User;
-import com.example.makekit.makekit_fragment.ProductAdapter;
 
 import java.util.ArrayList;
 

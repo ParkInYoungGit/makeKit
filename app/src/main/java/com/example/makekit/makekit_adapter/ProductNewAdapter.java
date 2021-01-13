@@ -1,4 +1,4 @@
-package com.example.makekit.makekit_fragment;
+package com.example.makekit.makekit_adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,12 +15,13 @@ import com.example.makekit.makekit_bean.Product;
 
 import java.util.ArrayList;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
+public class ProductNewAdapter extends RecyclerView.Adapter<ProductNewAdapter.ViewHolder> {
     Context context;
 
     //리스트뷰에서는 아이템을 위한 뷰를 보관하는데 이거는 데이터만 보관한다.
     ArrayList<Product> items = new ArrayList<Product>();
 
+    String urlAddrBase;
 
     //클릭이벤트처리 관련 사용자 정의(이 코드없으면 그냥 리사이클러뷰 구조)//////////////////////////////////////////////////////////////////////////
     OnItemClickListener listener; //참고로 OnItemClickListener는 기존에 있는것과 동일한 이름인데 그냥 같은 이름으로 내가 정의를 했다. (리스트뷰에서는 이게 자동구현되있어서 OnItemClickListener를 구현안하고 호출해서 클릭시 이벤트를 처리할 수 있음)
@@ -30,8 +31,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-    public ProductAdapter(Context context) {
+    public ProductNewAdapter(Context context, ArrayList<Product> items, String urlAddrBase) {
         this.context = context;
+        this.items = items;
+        this.urlAddrBase=urlAddrBase;
     }
 
     @Override //어댑터에서 관리하는 아이템의 개수를 반환
