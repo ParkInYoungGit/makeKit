@@ -1,10 +1,8 @@
 package com.example.makekit.makekit_fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,17 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_activity.RegisterReviewActivity;
-import com.example.makekit.makekit_adapter.ProductReviewAdapter;
-import com.example.makekit.makekit_adapter.ReviewAdapter;
 import com.example.makekit.makekit_adapter.WriteReviewAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
-import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
 import com.example.makekit.makekit_bean.Order;
-import com.example.makekit.makekit_bean.Product;
-import com.example.makekit.makekit_bean.Review;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -106,7 +96,7 @@ public class WriteReviewFragment extends Fragment {
 
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddr = urlAddrBase + "jsp/write_reviewlist_all.jsp?email=" + email;
-        Log.v(TAG, "주소" + urlAddr);
+        Log.v(TAG, "주소 >>>>>>>>>> " + urlAddr);
         // 초기 init
         connectSelectData();
 
@@ -128,17 +118,23 @@ public class WriteReviewFragment extends Fragment {
 
     // select review
     private void connectSelectData() {
+        Log.v(TAG, "Before Try --------------------------! ");
         try {
+            Log.v(TAG, "After Try --------------------------! ");
             NetworkTask_DH networkTaskDh = new NetworkTask_DH(getActivity(), urlAddr,"writeReviewList");
 
             Object object = networkTaskDh.execute().get();
             reviewList = (ArrayList<Order>) object;
+
+            Log.v(TAG, "reviewList ----------- " + reviewList);
 
             writeReviewAdapter = new WriteReviewAdapter(getActivity(), R.layout.custom_write_review, reviewList, urlAddrBase, email, macIP);
             recyclerView.setAdapter(writeReviewAdapter);
             recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
             layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);
+
+            Log.v(TAG, "reviewList ----------- " + reviewList);
 
         } catch (Exception e) {
             e.printStackTrace();
