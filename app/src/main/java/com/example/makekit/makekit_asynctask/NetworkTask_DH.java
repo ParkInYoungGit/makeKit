@@ -34,7 +34,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     ArrayList<Order> orders;
     ArrayList<Order> salesList;
     ArrayList<Order> purchaseList;
-    ArrayList<Product> reviewList;
+    ArrayList<Order> reviewList;
 
     String chattingNumber;
     String where = null;
@@ -50,7 +50,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
         this.orders = new ArrayList<Order>();
         this.salesList = new ArrayList<Order>();
         this.purchaseList = new ArrayList<Order>();
-        this.reviewList = new ArrayList<Product>();
+        this.reviewList = new ArrayList<Order>();
         this.where = where;
     }
 
@@ -369,13 +369,15 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             reviewList.clear();
             for(int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                String productNo = jsonObject1.getString("productNo");
+                String orderDetailNo = jsonObject1.getString("orderDetailNo");
+                String goods_productNo = jsonObject1.getString("goods_productNo");
                 String productFilename = jsonObject1.getString("productFilename");
                 String productName = jsonObject1.getString("productName");
-                String productStock = jsonObject1.getString("productStock");
+                String orderQuantity = jsonObject1.getString("orderQuantity");
+                String orderConfirm = jsonObject1.getString("orderConfirm");
 
-                 Product product = new Product(productNo, productFilename, productName, productStock);
-                 reviewList.add(product);
+                Order order = new Order(orderDetailNo, goods_productNo , productFilename, productName, orderQuantity, orderConfirm);
+                reviewList.add(order);
             }
         }catch (Exception e){
             e.printStackTrace();

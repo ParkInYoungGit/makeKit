@@ -39,8 +39,9 @@
                 <WebView
                     android:id="@+id/reviewlist_sales_productImage"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ic_user"
+                    android:layout_gravity="center"
                     android:layout_marginRight="10dp"
                     />
             </androidx.cardview.widget.CardView>
@@ -75,6 +76,7 @@
                 android:orientation="horizontal"
                 >
                 <TextView
+                    android:id="@+id/tv_productQuantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="수량 : "
@@ -92,6 +94,7 @@
 
 
                 <TextView
+                    android:id="@+id/Textview_RegisterReview"
                     android:layout_width="280dp"
                     android:layout_height="40dp"
                     android:background="@drawable/layout_outline"
