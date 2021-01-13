@@ -70,16 +70,6 @@
                 android:gravity="right"
                 />
 
-            <TextView
-                android:id="@+id/order_productTotalPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="102,500원"
-                android:gravity="right"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:layout_gravity="bottom"
-                />
 
         </LinearLayout>
     </LinearLayout>

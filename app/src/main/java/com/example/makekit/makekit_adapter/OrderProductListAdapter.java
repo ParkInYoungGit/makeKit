@@ -62,8 +62,8 @@ public class OrderProductListAdapter extends RecyclerView.Adapter<OrderProductLi
         }
         holder.order_productImage.loadUrl(urlImageReal);                // 이미지 주소를 업로드해줌 urlImageReal(http://192.168.200.193:8080/makeKit/image/)+getImage(ic_default or 이미지명)
         holder.order_productName.setText(mDataset.get(position).getProductName());      // 빈에 담긴 정보를 넣어줌
-        holder.order_productPrice.setText(mDataset.get(position).getProductPrice());    // 빈에 담긴 정보를 넣어줌
-        holder.order_productCount.setText(mDataset.get(position).getCartQuantity());    // 빈에 담긴 정보를 넣어줌
+        holder.order_productPrice.setText(mDataset.get(position).getProductPrice()+"원");    // 빈에 담긴 정보를 넣어줌
+        holder.order_productCount.setText("수량 "+mDataset.get(position).getCartQuantity()+"개");    // 빈에 담긴 정보를 넣어줌
 
 
         holder.order_productImage.setWebViewClient(new WebViewClient());        // 이미지 세팅을 위해 클라이언트 사용

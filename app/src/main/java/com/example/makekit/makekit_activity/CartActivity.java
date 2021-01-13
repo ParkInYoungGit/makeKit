@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class CartActivity extends AppCompatActivity {
     String macIP, productNo, productQuantity, totalPrice, cartNo, urlAddrBase, urlAddr;
     DecimalFormat myFormatter;
     ArrayList<Cart> carts;
+    ArrayList<String> productNums;
+    Button btnDelete;
 
     CartAdapter cartAdapter;
 
@@ -45,6 +48,7 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
         orderTotalNext = findViewById(R.id.tv_total_payment_cart);
+        btnDelete = findViewById(R.id.btn_cart_delete);
         productTotalPrice = findViewById(R.id.productTotalPrice_cart);
         productDeliveryTotalPrice = findViewById(R.id.productDeliveryTotalPrice_cart);
         allProductTotalPrice = findViewById(R.id.allProductTotalPrice_cart);
@@ -62,8 +66,51 @@ public class CartActivity extends AppCompatActivity {
         urlAddr = urlAddrBase + "jsp/select_usercart_all.jsp?cartno=" + cartNo;
         Log.v(TAG, "주소" + urlAddr);
         connectSelectData(urlAddr);
-        Log.v(TAG, "총금액" + carts.get(0).getTotalPrice());
+//        Log.v(TAG, "총금액" + carts.get(0).getTotalPrice());
 
+        Log.v(TAG, "선택값 : " + cartAdapter.checkBoxCheckedReturn());
+
+        orderTotalNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                for(int i=0; i<cartAdapter.checkBoxCheckedReturn().size(); i++){
+//                    String no = cartAdapter.checkBoxCheckedReturn().get(i).getProductNo();
+//                    Log.v(TAG, "번호 : " + no);
+////                    productNums.add(no);
+//                }
+                Intent intent1 = new Intent(CartActivity.this, OrderActivity.class);
+                intent1.putExtra("macIP", macIP);
+                intent1.putExtra("cartNo", cartNo);
+                intent1.putExtra("productno", cartAdapter.checkBoxCheckedReturn());
+                startActivity(intent1);
+            }
+        });
+
+        selectAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (selectAll.isChecked()){
+                    cartAdapter.checkBoxOperation(true);
+
+                }else {
+                    cartAdapter.checkBoxOperation(false);
+                }
+
+            }
+        });
+
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartAdapter.connectDeleteData();
+                connectSelectData(urlAddr);
+
+
+//                cartAdapter.checkBoxCheckedReturn();
+//                Log.v(TAG, "번호 : " + cartAdapter.checkBoxCheckedReturn().get(0).getProductNo());
+            }
+        });
 
     }
 
@@ -80,23 +127,6 @@ public class CartActivity extends AppCompatActivity {
             recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
             layoutManager = new LinearLayoutManager(CartActivity.this);
             recyclerView.setLayoutManager(layoutManager);
-
-
-            //////////////////////////////
-            // 수정하기
-            /////////////////////////////
-            itemSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    int count = 0 ;
-                    count = cartAdapter.getItemCount() ;
-
-                    for (int i=0; i<count; i++) {
-//                        recyclerView.onCheckIsTextEditor(i, true) ;
-                    }
-
-                }
-            });
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,6 +161,10 @@ public class CartActivity extends AppCompatActivity {
 
         orderTotalNext.setText(formattedStringPrice2 + "원 구매하기");
 
+//        Intent intent = getIntent();
+//
+//        String pricecheck = intent.getStringExtra("price");
+//        Log.v(TAG, "price2 : " + pricecheck);
 
     }
 
