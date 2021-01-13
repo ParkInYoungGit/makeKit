@@ -8,19 +8,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.CartAdapter;
-import com.example.makekit.makekit_adapter.ProductReviewAdapter;
 import com.example.makekit.makekit_asynctask.CartNetworkTask;
-import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
 import com.example.makekit.makekit_bean.Cart;
-import com.example.makekit.makekit_bean.Review;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -54,6 +51,7 @@ public class CartActivity extends AppCompatActivity {
         allProductTotalPrice = findViewById(R.id.allProductTotalPrice_cart);
         recyclerView = findViewById(R.id.recyclerViewCartList);
         selectAll = findViewById(R.id.cb_cart_selectall);
+        selectAll.setChecked(true);
 
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
@@ -78,11 +76,16 @@ public class CartActivity extends AppCompatActivity {
 //                    Log.v(TAG, "번호 : " + no);
 ////                    productNums.add(no);
 //                }
-                Intent intent1 = new Intent(CartActivity.this, OrderActivity.class);
-                intent1.putExtra("macIP", macIP);
-                intent1.putExtra("cartNo", cartNo);
-                intent1.putExtra("productno", cartAdapter.checkBoxCheckedReturn());
-                startActivity(intent1);
+                if(cartAdapter.checkBoxCheckedReturn().size() == 0){
+                    Toast.makeText(CartActivity.this, "구매하실 상품을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    Intent intent1 = new Intent(CartActivity.this, OrderActivity.class);
+                    intent1.putExtra("macIP", macIP);
+                    intent1.putExtra("cartNo", cartNo);
+                    intent1.putExtra("productno", cartAdapter.checkBoxCheckedReturn());
+                    startActivity(intent1);
+                }
             }
         });
 
@@ -122,11 +125,12 @@ public class CartActivity extends AppCompatActivity {
             Object object = cartNetworkTask.execute().get();
             carts = (ArrayList<Cart>) object;
 
-            cartAdapter = new CartAdapter(CartActivity.this, R.layout.custom_cart_layout, carts, urlAddrBase);
+            cartAdapter = new CartAdapter(CartActivity.this, R.layout.custom_cart_layout, carts, urlAddrBase, macIP);
             recyclerView.setAdapter(cartAdapter);
             recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
             layoutManager = new LinearLayoutManager(CartActivity.this);
             recyclerView.setLayoutManager(layoutManager);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,6 +164,12 @@ public class CartActivity extends AppCompatActivity {
         allProductTotalPrice.setText(formattedStringPrice2 + "원");
 
         orderTotalNext.setText(formattedStringPrice2 + "원 구매하기");
+
+
+
+//        if(carts.size() > cartAdapter.checkBoxCheckedReturn().size()){
+//            selectAll.setChecked(false);
+//        }
 
 //        Intent intent = getIntent();
 //
