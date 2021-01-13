@@ -76,7 +76,7 @@ public class LikeProductAdapter extends RecyclerView.Adapter<LikeProductAdapter.
         if(mDataset.get(position).getProductAFilename().equals("null")){
             urlImageReal = urlImage+"ic_default.jpg";
         }else {
-            urlImageReal = urlImage+mDataset.get(position).getProductAFilename();
+            urlImageReal = urlImage+mDataset.get(position).getProductFilename();
         }
 
         holder.webViewLeft.loadUrl(urlImageReal);

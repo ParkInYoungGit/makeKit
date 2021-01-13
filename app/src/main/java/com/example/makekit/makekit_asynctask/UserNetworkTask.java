@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.User;
 
 import org.json.JSONArray;
@@ -25,6 +26,7 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
     ProgressDialog progressDialog = null;
     ArrayList<User> members;
     ArrayList<User> user = null;
+    ArrayList<Order> order = null;
     int loginCheck = 0;
 
 
@@ -106,6 +108,9 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
                 if (where.equals("insert")) {
                     result = parserAction(stringBuffer.toString());
                 }
+                if (where.equals("selectOrder")) {
+                    parserOrderSelect(stringBuffer.toString());
+                }
 
 
 
@@ -133,6 +138,10 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
         }
         if (where.equals("selectUser")) {
             return user;
+
+        }
+        if (where.equals("selectOrder")) {
+            return order;
 
         }
         if (where.equals("insert")) {
@@ -257,6 +266,30 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
         }
 
 
+    }
+
+    // OrderActivity 주문자 기본 정보
+    private void parserOrderSelect(String s) {
+        Log.v(TAG, "Parser()");
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
+            order.clear();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String name = jsonObject1.getString("userName");
+                String tel = jsonObject1.getString("userTel");
+                String address = jsonObject1.getString("userAddress");
+                String addressdetail = jsonObject1.getString("userAddressDetail");
+
+                Order orders = new Order(name, tel, address, addressdetail);
+                order.add(orders);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

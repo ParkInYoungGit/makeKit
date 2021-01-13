@@ -17,12 +17,6 @@ public class Product {
 
 
 
-    public Product(String productNo, String productName, String productPrice, String productAFilename) {
-        this.productNo = productNo;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.productAFilename = productAFilename;
-    }
 
     ////////////////////////////////////////////
     // 01/09 kyeongmi 추가 product view
@@ -53,6 +47,18 @@ public class Product {
         this.productInsertDate = productInsertDate;
         this.productDeleteDate = productDeleteDate;
     }
+
+    ///////// Ria 추가 //////////////////////////////////
+
+
+
+
+
+
+
+
+    //getter setter /////////////////////////////////
+
 
     public String getSellerEmail() {
         return sellerEmail;

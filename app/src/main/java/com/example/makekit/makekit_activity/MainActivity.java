@@ -65,8 +65,12 @@ public class MainActivity extends AppCompatActivity {
         // -------------------------------------------------------------------------------------
 
 
+
+        macIP = "192.168.2.2";
+        email = "son@naver.com";
         macIP = "192.168.2.23";
-        email = "jordy@naver.com";
+        email = "con@naver.com";
+
 
         // 검색 페이지로 이동
         FloatingActionButton fab = findViewById(R.id.fab_search);
@@ -134,10 +138,10 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.navigation_1) {  // 메뉴 아이템 1번 선택
 
                 fragment = new HomeFragment();  // 프래그먼트 1번으로 이동
-//                Bundle bundle = new Bundle(1);
-//                bundle.putString("useremail", email);
-//                bundle.putString("macIP", macIP);
-//                fragment.setArguments(bundle);
+                Bundle bundle = new Bundle(1);
+                bundle.putString("useremail", email);
+                bundle.putString("macIP", macIP);
+                fragment.setArguments(bundle);
 
             } else if (id == R.id.navigation_2) {
 

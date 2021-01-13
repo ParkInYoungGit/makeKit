@@ -17,22 +17,18 @@
 
         <CheckBox
             android:id="@+id/cb_cart_selectall"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="4"
             android:text="전체선택"
             />
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
 
-            />
         <Button
             android:id="@+id/btn_cart_delete"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="삭제"
-            android:layout_weight="2"
+            android:layout_weight="1"
             />
     </LinearLayout>
     <LinearLayout
@@ -50,43 +46,48 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewCartList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                />
 
 <!--        </LinearLayout>-->
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
         android:layout_gravity="center"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="15dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:gravity="center">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="5"
                     android:text="상품 금액"
-                    android:textSize="18dp"
-                    android:layout_marginRight="140dp"
-                    android:layout_marginLeft="20dp"
+                    android:textSize="15dp"
+                    android:gravity="center"
                     />
 
                 <TextView
                     android:id="@+id/productTotalPrice_cart"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
-                    android:textSize="18dp"
+                    android:layout_weight="8"
+                    android:textSize="15dp"
+                    android:gravity="center"
                     />
 
             </LinearLayout>
@@ -98,27 +99,28 @@
                 android:layout_marginBottom="15dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="5"
                     android:text="배송비"
-                    android:textSize="18dp"
-                    android:layout_marginRight="140dp"
-                    android:layout_marginLeft="20dp"
+                    android:textSize="15dp"
+                    android:gravity="center"
                     />
 
                 <TextView
                     android:id="@+id/productDeliveryTotalPrice_cart"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
-                    android:textSize="18dp"
+                    android:layout_weight="8"
+                    android:textSize="15dp"
+                    android:gravity="center"
                     />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:layout_centerInParent="true"
                 android:background="#9E9D95"/>
 
@@ -126,25 +128,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="15dp">
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="5"
                     android:text="결제예정금액"
-                    android:textSize="18dp"
-                    android:layout_marginRight="140dp"
-                    android:layout_marginLeft="20dp"
+                    android:textSize="15dp"
+                    android:gravity="center"
                     />
 
                 <TextView
                     android:id="@+id/allProductTotalPrice_cart"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
-                    android:textSize="18dp"
+                    android:layout_weight="8"
+                    android:textSize="15dp"
                     android:textStyle="bold"
+                    android:gravity="center"
                     />
 
             </LinearLayout>

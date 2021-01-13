@@ -95,8 +95,16 @@ public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
 
                 if(where.equals("selectCartNo")){
                     cartNoParser(stringBuffer.toString());
+
                 } else if(where.equals("select")){
                     cartParser(stringBuffer.toString());
+
+                } else if (where.equals("selectCartCheck")) {
+                    result = cartCheckParser(stringBuffer.toString());
+
+                } else if(where.equals("selectCartQnt")) {
+                    result = cartQntParser(stringBuffer.toString());
+
                 } else {
                     result = parserInsert(stringBuffer.toString());
                 }
@@ -114,10 +122,19 @@ public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
                 e.printStackTrace();
             }
         }
+
         if(where.equals("selectCartNo")) {
             return cartNumber;
+
         } else if(where.equals("select")){
             return carts;
+
+        } else if (where.equals("selectCartCheck")) {
+            return result;
+
+        } else if(where.equals("selectCartQnt")) {
+            return result;
+
         } else {
             return result;
         }
@@ -160,10 +177,10 @@ public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
                 String productPrice = jsonObject1.getString("productPrice");
                 String productQuantity = jsonObject1.getString("productQuantity");
                 String cartNo = jsonObject1.getString("cartNo");
-                String totalPrice = jsonObject1.getString("totalPrice");
+                //String totalPrice = jsonObject1.getString("totalPrice");
 
 
-                Cart cart = new Cart(cartNo, productNo, productQuantity, productName, prouductImage, productPrice, totalPrice);
+                Cart cart = new Cart(cartNo, productNo, productQuantity, productName, prouductImage, productPrice);
                 Log.v(TAG, String.valueOf(cart));
                 carts.add(cart);
             }
@@ -189,6 +206,50 @@ public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
         }
 
         return returnResult;
+    }
+
+    // cart 존재 체크
+    private String cartCheckParser(String s){
+        String result="";
+        Log.v(TAG, "parser()");
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("cart_info"));
+            Log.v(TAG, "parser() in");
+            for(int i = 0 ; i<jsonArray.length() ; i++){
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+               result = jsonObject1.getString("result");
+
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    // cart 수량
+    private String cartQntParser(String s){
+        String result="";
+        Log.v(TAG, "parser()");
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("cartqnt_info"));
+            Log.v(TAG, "parser() in");
+            for(int i = 0 ; i<jsonArray.length() ; i++){
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                String productNo = jsonObject1.getString("productNo");
+                result = jsonObject1.getString("cartQuantity");
+
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

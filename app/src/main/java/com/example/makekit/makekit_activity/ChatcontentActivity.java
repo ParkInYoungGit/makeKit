@@ -9,9 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ChattingContentsAdapter;
@@ -26,8 +29,10 @@ public class ChatcontentActivity extends AppCompatActivity {
     String macIP, email, chattingNumber, receiver, urlAddrBase;
     int intChattingNumber = 0;
     ArrayList<ChattingBean> chattingContents;
-    ChattingContentsAdapter adapter;
-    ListView listView;
+    RecyclerView recyclerView = null;
+    RecyclerView.Adapter mAdapter = null;
+    RecyclerView.LayoutManager layoutManager = null;
+    TextView IDTextView;
     EditText editText;
     Button insertButton;
     Handler handler;
@@ -39,16 +44,24 @@ public class ChatcontentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_content);
+
+        IDTextView = findViewById(R.id.receiverID);
         editText = findViewById(R.id.chattingContents_ET);
         insertButton = findViewById(R.id.chattingContents_Btn);
-        listView = findViewById(R.id.chattingContents_LV);
+        recyclerView = findViewById(R.id.chattingContents_LV);
         Intent intent = getIntent();
         email = intent.getStringExtra("useremail");
         macIP = intent.getStringExtra("macIP");
         chattingNumber = intent.getStringExtra("chattingNumber");
         receiver = intent.getStringExtra("receiver");
-        Log.v(TAG, receiver);
+
+        IDTextView.setText(receiver);
+
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
         chattingJudge = new ArrayList<ChattingBean>();
         chattingContents = new ArrayList<ChattingBean>();
@@ -65,12 +78,14 @@ public class ChatcontentActivity extends AppCompatActivity {
                         chattingJudge.clear();
                         connectGetData();
                         chattingJudge.addAll(chattingContents);
-                        Log.v(TAG, chattingContents.get(0).getUserinfo_userEmail_sender());
-                        Log.v(TAG, chattingContents.get(0).getUserinfo_userEmail_receiver());
-                        Log.v(TAG, chattingContents.get(0).getChattingContents());
-                        Log.v(TAG, chattingContents.get(0).getChattingInsertDate());
-                        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
-                        listView.setAdapter(adapter);
+                        mAdapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
+                        recyclerView.setAdapter(mAdapter);
+                        recyclerView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
+                            }
+                        });
                         break;
                     case 1:
                         break;
@@ -86,12 +101,10 @@ public class ChatcontentActivity extends AppCompatActivity {
                         connectGetData();
                         Thread.sleep(1000);
                         if(judgement()==1){
-                            Log.v(TAG, "if judgement=");
                             Message msg = handler.obtainMessage();
                             msg.what = 1;
                             handler.sendMessage(msg);
                         }else {
-                            Log.v(TAG, "if judgement!");
                             Message msg = handler.obtainMessage();
                             msg.what = 0;
                             handler.sendMessage(msg);
@@ -102,6 +115,8 @@ public class ChatcontentActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,9 +139,6 @@ public class ChatcontentActivity extends AppCompatActivity {
             connectGetChattingNumber();
         }
         connectGetData();
-//        chattingJudge.addAll(chattingContents);
-//        adapter = new ChattingContentsAdapter(ChatcontentActivity.this, R.layout.chatting_layout, chattingContents, email, receiver);
-//        listView.setAdapter(adapter);
         thread.start();
     }
 

@@ -2,6 +2,13 @@ package com.example.makekit.makekit_bean;
 
 public class Order {
 
+    //  order에 들어가는 userinfo
+    String userName;
+    String userTel;
+    String userAddress;
+    String userAddressDetail;
+
+
     // orderinfo
     String orderNo;
     String userinfo_userEmail;
@@ -16,6 +23,59 @@ public class Order {
     String orderCardPw;
     String orderDelivery;
     String orderDeliveryDate;
+    String orderinfo_orderNo;
+    String orderReviewInsertDate;
+
+    public Order(String userName, String orderNo, String userinfo_userEmail, String orderDate, String orderReceiver, String orderRcvAddress,
+                 String orderRcvAddressDetail, String orderRcvPhone, String orderTotalPrice, String orderBank, String orderCardNo, String orderCardPw,
+                 String orderDelivery, String orderDeliveryDate, String orderDetailNo, String orderinfo_orderNo,String goods_productNo,
+                 String orderQuantity, String orderConfirm, String orderReviewInsertDate,
+                   String orderRefund, String orderStar, String orderReview,
+                 String orderReviewImg, String productName, String productPrice, String productAFilename) {
+        this.userName = userName;
+        this.orderNo = orderNo;
+        this.userinfo_userEmail = userinfo_userEmail;
+        this.orderDate = orderDate;
+        this.orderReceiver = orderReceiver;
+        this.orderRcvAddress = orderRcvAddress;
+        this.orderRcvAddressDetail = orderRcvAddressDetail;
+        this.orderRcvPhone = orderRcvPhone;
+        this.orderTotalPrice = orderTotalPrice;
+        this.orderBank = orderBank;
+        this.orderCardNo = orderCardNo;
+        this.orderCardPw = orderCardPw;
+        this.orderDelivery = orderDelivery;
+        this.orderDeliveryDate = orderDeliveryDate;
+        this.orderDetailNo = orderDetailNo;
+        this.orderinfo_orderNo = orderinfo_orderNo;
+        this.goods_productNo = goods_productNo;
+        this.orderQuantity = orderQuantity;
+        this.orderConfirm = orderConfirm;
+        this.orderReviewInsertDate = orderReviewInsertDate;
+        this.orderRefund = orderRefund;
+        this.orderStar = orderStar;
+        this.orderReview = orderReview;
+        this.orderReviewImg = orderReviewImg;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productAFilename = productAFilename;
+    }
+
+    public String getOrderinfo_orderNo() {
+        return orderinfo_orderNo;
+    }
+
+    public void setOrderinfo_orderNo(String orderinfo_orderNo) {
+        this.orderinfo_orderNo = orderinfo_orderNo;
+    }
+
+    public String getOrderReviewInsertDate() {
+        return orderReviewInsertDate;
+    }
+
+    public void setOrderReviewInsertDate(String orderReviewInsertDate) {
+        this.orderReviewInsertDate = orderReviewInsertDate;
+    }
 
     // orderdetail(위와 중복되는 orderinfo_orderNo, userinfo_userEmail은 뺌)
     String orderDetailNo;
@@ -33,9 +93,35 @@ public class Order {
     String productPrice;
     String productStock;
     String productAFilename;
+    String productFilename;
 
     // constructor는 원하는 만큼 생성
-    //
+
+
+    // Ria 추가 // Write review List에 들어가는 product관련 변수
+    public Order(String orderDetailNo, String goods_productNo , String productFilename, String productName, String orderQuantity, String orderConfirm) {
+        this.orderDetailNo = orderDetailNo;
+        this.goods_productNo = goods_productNo;
+        this.productFilename = productFilename;
+        this.productName = productName;
+        this.orderQuantity = orderQuantity;
+        this.orderConfirm = orderConfirm;
+    }
+
+
+    //  order에 들어가는 productInfo
+
+
+
+
+    //  order에 들어가는 userinfo
+    public Order(String userName, String userTel, String userAddress, String userAddressDetail) {
+        this.userName = userName;
+        this.userTel = userTel;
+        this.userAddress = userAddress;
+        this.userAddressDetail = userAddressDetail;
+    }
+
 
     // CardPw로 주문자 이름으로 받음 ,productNo로 orderinfo_orderNo 받음, productStock로 orderReviewInsertDate를 받음
     public Order(String orderNo, String userinfo_userEmail, String orderDate, String orderReceiver, String orderRcvAddress, String orderRcvAddressDetail, String orderRcvPhone, String orderTotalPrice, String orderBank, String orderCardNo, String orderCardPw, String orderDelivery, String orderDeliveryDate, String orderDetailNo, String goods_productNo, String orderQuantity, String orderConfirm, String orderRefund, String orderStar, String orderReview, String orderReviewImg, String productNo, String productName, String productPrice, String productStock, String productAFilename) {
@@ -73,6 +159,51 @@ public class Order {
         this.productPrice = productPrice;
         this.productStock = productStock;
         this.productAFilename = productAFilename;
+    }
+
+
+
+    // getter setter
+
+
+    public String getProductFilename() {
+        return productFilename;
+    }
+
+    public void setProductFilename(String productFilename) {
+        this.productFilename = productFilename;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserTel() {
+        return userTel;
+    }
+
+    public void setUserTel(String userTel) {
+        this.userTel = userTel;
+    }
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
+
+    public String getUserAddressDetail() {
+        return userAddressDetail;
+    }
+
+    public void setUserAddressDetail(String userAddressDetail) {
+        this.userAddressDetail = userAddressDetail;
     }
 
     public String getOrderNo() {

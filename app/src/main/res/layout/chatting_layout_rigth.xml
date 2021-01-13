@@ -5,24 +5,28 @@
     android:background="#B2C7DA"
     android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/sendId"
+            android:id="@+id/sendId_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
+            android:layout_gravity="right"
             android:background="#B2C7DA"
             />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="right"
             android:background="#B2C7DA"
             >
-                <TextView
-                    android:id="@+id/sendContent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#B2C7DA"
-                    android:layout_margin="3dp"
-                    />
+        <TextView
+            android:id="@+id/sendContent_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="right"
+            android:background="#B2C7DA"
+            />
         </LinearLayout>
 </LinearLayout>

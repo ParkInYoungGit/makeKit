@@ -27,10 +27,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MakeKit"
         android:usesCleartextTraffic="true">
-
         <activity android:name=".makekit_activity.SalesListActivity"></activity>
         <activity android:name=".makekit_activity.SaleProductListActivity"></activity>
         <activity android:name=".makekit_activity.ProductSalesWriteActivity"></activity>
+
 
 
         <activity android:name=".makekit_activity.PurchaseListActivity"></activity>
@@ -41,7 +41,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".makekit_activity.MainActivity">
+
+        <activity android:name=".makekit_activity.RegisterReviewActivity"></activity>
+        <activity android:name=".makekit_activity.MainActivity">
         </activity>
+
         <activity android:name=".makekit_activity.TempLogin" />
         <activity android:name=".makekit_activity.EmailCheckActivity" />
         <activity android:name=".makekit_activity.NoticeActivity" />
@@ -62,16 +66,23 @@
         <activity android:name=".makekit_activity.SplashActivity" />
         <activity android:name=".makekit_activity.OrderViewActivity" />
         <activity android:name=".makekit_activity.PaymentActivity" />
-        <activity android:name=".makekit_activity.ProdutctViewActivity" />
+        <activity android:name=".makekit_activity.PurchaseListActivity" />
+        <activity android:name=".makekit_activity.ProdutctViewActivity" >
+        </activity>
         <activity android:name=".makekit_activity.PhoneFindPwActivity" />
         <activity android:name=".makekit_activity.EmailFindPwActivity">
         </activity>
         <activity android:name=".makekit_activity.ReviewListActivity">
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
         </activity>
         <activity android:name=".makekit_activity.LikeSellerActivity" />
         <activity android:name=".makekit_activity.BuyListActivity" />
-        <activity android:name=".makekit_activity.ChatcontentActivity" />
+        <activity android:name=".makekit_activity.ChatcontentActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".makekit_activity.MapActivity" />
         <activity
             android:name=".makekit_activity.LoginActivity"
@@ -94,12 +105,14 @@
                     android:scheme="kakaof2d8fb4aeb0237f82647add92f60e987" />
             </intent-filter>
         </activity>
-
         <activity android:name=".makekit_activity.UserModifyActivity"></activity>
-        <activity android:name=".makekit_activity.JoinActivity" >
+        <activity android:name=".makekit_activity.JoinActivity" />
+
+
+
+        <activity android:name=".makekit_activity.OrderActivity" >
 
         </activity>
-        <activity android:name=".makekit_activity.OrderActivity" />
 
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />

@@ -74,18 +74,18 @@ public class RegisterReviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_review);
 
-
         // 쉐어 변수 값 받아오기
-        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
-        macIP = sf.getString("macIP","");
-        email = sf.getString("useremail","");
+//        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+//        macIP = sf.getString("macIP","");
+//        email = sf.getString("useremail","");
+
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
+        macIP = intent.getStringExtra("macIP");
+        orderDetailNo = intent.getStringExtra("orderDetailNo");
+        productNo = intent.getStringExtra("productNo");
 
 
-
-        macIP = "192.168.43.244";
-        email = "jordy@naver.com";
-        orderDetailNo = "1";
-        productNo = "42";
 
         // url
         urlJsp = "http://"+macIP+":8080/makeKit/jsp/";
