@@ -32,6 +32,7 @@ public class ReviewListActivity extends AppCompatActivity {
 //        macIP = sf.getString("macIP","");
 //        email = sf.getString("useremail","");
 
+
         macIP = "192.168.43.244";
         email = "jordy@naver.com";
 
