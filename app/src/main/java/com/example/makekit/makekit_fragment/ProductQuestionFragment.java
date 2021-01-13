@@ -83,7 +83,7 @@ public class ProductQuestionFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_product_question,container,false);
         Log.v(TAG, "onCreate QUESTION" + getArguments());
 
-        urlAddr =  "http://" + macIP + ":8080/makeKit/jsp/product_productview_content.jsp?productno=" + productNo;
+        urlAddr =  "http://" + macIP + ":8080/makekit/jsp/product_productview_content.jsp?productno=" + productNo;
 
         Button btnQuestion = v.findViewById(R.id.btnChattingQuestion_productview);
         Log.v(TAG, "ONCREATE QUESTION" + mParam1 + mParam2 );

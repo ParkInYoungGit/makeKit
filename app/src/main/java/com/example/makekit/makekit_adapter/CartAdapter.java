@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_activity.OnChangedPrice;
 import com.example.makekit.makekit_activity.ProdutctViewActivity;
 import com.example.makekit.makekit_asynctask.CartNetworkTask;
 import com.example.makekit.makekit_bean.Cart;
@@ -30,7 +31,9 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
 
-    final static String TAG = "ProductAdapter";
+    private OnChangedPrice onChangedPrice;
+
+    final static String TAG = "CartAdapter";
 
     String result = null;
     String urlAddr, macIP;
@@ -46,13 +49,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     private int count = 1;
     private AdapterView.OnItemClickListener mListener = null;
     List<CheckBox> checkboxsList = new ArrayList<>();
+    List<TextView> textviewList = new ArrayList<>();
 
-    public CartAdapter(Context mContext, int layout, ArrayList<Cart> data, String urlImage, String macIP) {
+
+    public CartAdapter(Context mContext, int layout, ArrayList<Cart> data, String urlImage, String macIP, OnChangedPrice onChangedPrice) {
         this.mContext = mContext;
         this.layout = layout;
         this.data = data;
         this.urlImage = urlImage;
         this.macIP = macIP;
+        this.onChangedPrice = onChangedPrice;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -114,17 +120,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.tv_productPrice.setText(formattedStringPrice + "원");
         //holder.tv_productPrice.setText(Integer.toString(total));
         holder.tv_purchaseNum.setText(data.get(position).getCartQuantity());
-        holder.cb_productName.setText(data.get(position).getProductName());
+        holder.tv_productName.setText(data.get(position).getProductName());
         holder.tv_productDeliveryPrice.setText("2,500원");
 
-        // 체크박스 체크되어 있는 상태 설정
-        holder.cb_productName.setChecked(true);
+//        // 체크박스 체크되어 있는 상태 설정
+//        holder.cb_productName.setChecked(true);
 
         // 체크박스 리스트에 전부 추가하기
         checkboxsList.add(holder.cb_productName);
 
+        // 구매 수량 리스트에 전부 추가하기
+        textviewList.add(holder.tv_purchaseNum);
+
         // 제목 클릭 시 상세페이지 이동
-        holder.cb_productName.setOnClickListener(new View.OnClickListener() {
+        holder.tv_productName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ProdutctViewActivity.class);
@@ -164,7 +173,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 //                    notifyItemChanged(position);
 
                 }
-
+                updateTotalPrice();
             }
         });
 
@@ -186,7 +195,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
                    // notifyItemChanged(position);
 
-                    Toast.makeText(v.getContext(), "추가", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(v.getContext(), "추가", Toast.LENGTH_SHORT).show();
+                updateTotalPrice();
+                data.get(position).setCartQuantity(textviewList.get(position).getText().toString());
+                Log.v(TAG, "변경된 값 : " + data.get(position).getCartQuantity());
             }
         });
 
@@ -202,7 +214,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         WebView img_productImage;
-        TextView tv_productPrice, tv_purchaseNum, tv_productDeliveryPrice, tv_price;
+        TextView tv_productPrice, tv_purchaseNum, tv_productDeliveryPrice, tv_price, tv_productName;
         Button btn_MinusProudct, btn_PlusProudct;
         CheckBox cb_productName;
 
@@ -211,6 +223,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
             img_productImage = itemView.findViewById(R.id.productImage_cart);
             tv_productPrice = itemView.findViewById(R.id.productPrice_cart);
+            tv_productName = itemView.findViewById(R.id.tv_productName_cart);
             btn_MinusProudct = itemView.findViewById(R.id.btnMinusProudct_cart);
             tv_purchaseNum = itemView.findViewById(R.id.purchaseNum_cart);
             btn_PlusProudct = itemView.findViewById(R.id.btnPlusProudct_cart);
@@ -245,6 +258,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     for (int i = 0; i < checkBoxChecked.size(); i ++) {
                         Log.v(TAG, i + "번째 : " + checkBoxChecked.get(i).getProductNo());
                     }
+                    updateTotalPrice();
                 }
             });
 
@@ -331,5 +345,25 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
         }
     }
+
+    public void updateTotalPrice(){
+        Log.v(TAG, "**viewholder 안 updateTotalPrice 들어옴 **");
+        int price_each;
+        int price_total = 0;
+
+
+        for (int i = 0; i < checkboxsList.size(); i++) {
+            if (checkboxsList.get(i).isChecked() == true) {
+                price_each = Integer.parseInt(textviewList.get(i).getText().toString()) * Integer.parseInt(data.get(i).getProductPrice());
+                price_total += price_each;
+            }
+        }
+        if (onChangedPrice != null){
+            Log.v(TAG, "**onChangeCheckedPrice != null **");
+            Log.v(TAG, "**전체 가격은 **" + price_total);
+            onChangedPrice.changedPrice(price_total);
+        }
+    }
+
 
 }

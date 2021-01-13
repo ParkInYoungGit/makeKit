@@ -22,7 +22,7 @@ import com.example.makekit.makekit_bean.Cart;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements OnChangedPrice{
 
     TextView orderTotalNext, productTotalPrice, productDeliveryTotalPrice, allProductTotalPrice;
     CheckBox selectAll, itemSelect;
@@ -51,7 +51,7 @@ public class CartActivity extends AppCompatActivity {
         allProductTotalPrice = findViewById(R.id.allProductTotalPrice_cart);
         recyclerView = findViewById(R.id.recyclerViewCartList);
         selectAll = findViewById(R.id.cb_cart_selectall);
-        selectAll.setChecked(true);
+        //selectAll.setChecked(true);
 
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
@@ -60,7 +60,7 @@ public class CartActivity extends AppCompatActivity {
         //productQuantity = intent.getStringExtra("productQuantity");
         //totalPrice = intent.getStringExtra("totalPrice");
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = "http://" + macIP + ":8080/makekit/";
         urlAddr = urlAddrBase + "jsp/select_usercart_all.jsp?cartno=" + cartNo;
         Log.v(TAG, "주소" + urlAddr);
         connectSelectData(urlAddr);
@@ -125,7 +125,7 @@ public class CartActivity extends AppCompatActivity {
             Object object = cartNetworkTask.execute().get();
             carts = (ArrayList<Cart>) object;
 
-            cartAdapter = new CartAdapter(CartActivity.this, R.layout.custom_cart_layout, carts, urlAddrBase, macIP);
+            cartAdapter = new CartAdapter(CartActivity.this, R.layout.custom_cart_layout, carts, urlAddrBase, macIP, this);
             recyclerView.setAdapter(cartAdapter);
             recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
             layoutManager = new LinearLayoutManager(CartActivity.this);
@@ -159,11 +159,11 @@ public class CartActivity extends AppCompatActivity {
         String formattedStringPrice1 = myFormatter.format(carts.size() * 2500);
         String formattedStringPrice2 = myFormatter.format(carts.size() * 2500 + price);
 
-        productTotalPrice.setText(formattedStringPrice + "원");
-        productDeliveryTotalPrice.setText(formattedStringPrice1 + "원");
-        allProductTotalPrice.setText(formattedStringPrice2 + "원");
+        productTotalPrice.setText("0원");
+        productDeliveryTotalPrice.setText("0원");
+        allProductTotalPrice.setText("0원");
 
-        orderTotalNext.setText(formattedStringPrice2 + "원 구매하기");
+        orderTotalNext.setText("0원 구매하기");
 
 
 
@@ -178,4 +178,11 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void changedPrice(int totalPrice) {
+        myFormatter = new DecimalFormat("###,###");
+        String formattedStringPrice = myFormatter.format(totalPrice);
+        Log.v(TAG, "메인 가격변경 리스너 들어옴!!!");
+        orderTotalNext.setText("총 " + formattedStringPrice + "원 주문금액");
+    }
 }
