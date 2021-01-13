@@ -110,14 +110,10 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     parserRealSalesList2(stringBuffer.toString());
 
                     parserRealSalesList(stringBuffer.toString());
-<<<<<<< HEAD
                 }else if (where.equals("writeReviewList")){
                     parserWriteReviewList(stringBuffer.toString());
-=======
                 }else if (where.equals("getProductHome")){
                     parserProductHome(stringBuffer.toString());
-
->>>>>>> 60869292bd21e73a9bbf53b13a61d2d5473a02f0
                 }
             }
         }catch (Exception e){
@@ -151,18 +147,12 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return salesList;
         }else if (where.equals("purchaseList")){
             return purchaseList;
-<<<<<<< HEAD
         }else if (where.equals("writeReviewList")){
             return reviewList;
-
-
-        }else {
-=======
         }else if (where.equals("getProductHome")){
             return products;
         }
         else {
->>>>>>> 60869292bd21e73a9bbf53b13a61d2d5473a02f0
             return result;
         }
 
