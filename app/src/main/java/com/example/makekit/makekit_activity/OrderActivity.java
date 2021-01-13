@@ -14,6 +14,8 @@ import android.nfc.Tag;
 
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,10 +42,17 @@ import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Payment;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class OrderActivity extends AppCompatActivity {
 
     final static String TAG = "OderActivity";
+    //  이메일을 위한 확인
+    private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
+    //  전화번호를 위한 선언
+    public static final String pattern2 = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
+    private int _beforeLenght = 0;
+    private int _afterLenght = 0;
 
     //  아이피, url, 기본 세팅 설정
     String macIP, email, productNo, count, totalPrice, urlAddrBase, urlJsp, urlImage, url, urlAddrSelect_Resume, cartNo, urlAddrSelect_Resume1, urlAddrBase11;
@@ -51,6 +60,7 @@ public class OrderActivity extends AppCompatActivity {
 
     //  주문자 기본 정보
     EditText order_userName, order_userTel, order_userAddress, order_userAddressDetail;
+//    TextView order_userName, order_userTel, order_userAddress, order_userAddressDetail;
     String orderUserName, orderUserTel, orderUserAddress, orderUserAddressDetail;
 
     //  수령자 정보
@@ -69,7 +79,7 @@ public class OrderActivity extends AppCompatActivity {
 
     //  배송 요청사항 목록
     String[] orderRequest = {
-                "배송시 요청사항을 선택해주세요", "부재 시 경비실에 맡겨주세요", "부재 시 택배함에 넣어주세요", "부재 시 집 앞에 놔주세요", "배송 전 연락 바랍니다", "파손의 위험이 있는 상품입니다. 배송 시 주의해주세요", "직접 입력"
+            "배송시 요청사항을 선택해주세요", "부재 시 경비실에 맡겨주세요", "부재 시 택배함에 넣어주세요", "부재 시 집 앞에 놔주세요", "배송 전 연락 바랍니다", "파손의 위험이 있는 상품입니다. 배송 시 주의해주세요", "직접 입력"
     };
 
     // 유저 기본 정보
@@ -97,7 +107,6 @@ public class OrderActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-
         // Thread 사용
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .permitDiskReads()
@@ -121,7 +130,7 @@ public class OrderActivity extends AppCompatActivity {
         totalPrice = intent.getStringExtra("totalPrice");
         carts = (ArrayList<Cart>) intent.getSerializableExtra("productno");
 
-        for(int i=0; i<carts.size(); i++) {
+        for (int i = 0; i < carts.size(); i++) {
             String no = carts.get(i).getProductNo();
             product1.add(no);
             Log.v(TAG, "번호 : " + no);
@@ -147,7 +156,7 @@ public class OrderActivity extends AppCompatActivity {
         urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";  // jsp 폴더
         urlImage = "http://" + macIP + ":8080/makeKit/image/";  // image 폴더
         urlAddrSelect_Resume = urlJsp + "order_user_info.jsp?email=" + email;
-        urlAddrBase11 =urlAddrBase+ "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44";
+        urlAddrBase11 = urlAddrBase + "jsp/order_product_select.jsp?cartNo=" + "69" + "&productNo=" + "44";
 
         // ==================================================   findIdView
 
@@ -181,7 +190,8 @@ public class OrderActivity extends AppCompatActivity {
         // 구매버튼 액션
 //        order_payment_btn.setOnClickListener(onClickListener);
         order_info_checkBox.setOnClickListener(onClickListener);
-
+        order_userTel.addTextChangedListener(changeListener_userTel);
+        order_receiverTel.addTextChangedListener(changeListener_receiverTel);
 
         // ========================================================== 제품 카테고리 스피너 목록 설정
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -211,53 +221,47 @@ public class OrderActivity extends AppCompatActivity {
         order_userTel.setText(orderUserTel);
         order_userAddress.setText(orderUserAddress);
         order_userAddressDetail.setText(orderUserAddressDetail);
-//
-//        // order_info_checkBox
-//        order_info_checkBox.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                order_userName.getText().toString();
-//                order_userTel.getText().toString();
-//                order_userAddress.getText().toString();
-//                order_userAddressDetail.getText().toString();
-//
-//                order_userName.setText(orderUserName);
-//                order_userTel.setText(orderUserTel);
-//                order_userAddress.setText(orderUserAddress);
-//                order_userAddressDetail.setText(orderUserAddressDetail);
-//            }
-//        })
 
+        order_userAddress.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {//클릭했을 경우 발생할 이벤트 작성
+                    Intent intent = new Intent(OrderActivity.this, WebViewActivity.class);
+                    intent.putExtra("macIP", macIP);
+                    startActivityForResult(intent, SEARCH_ADDRESS_ACTIVITY);
+                }
+                return false;
+            }
+        });
 
     } // ------------ End onCreat
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.order_info_checkBox:      // CheckBox 기본 정보 적용
-                        order_userName.getText().toString();
-                        order_userTel.getText().toString();
-                        order_userAddress.getText().toString();
-                        order_userAddressDetail.getText().toString();
-                        if (order_info_checkBox.isChecked()) {
-                            order_receiverName.setText(orderUserName);
-                            order_receiverTel.setText(orderUserTel);
-                            order_receiverAddress.setText(orderUserAddress);
-                            order_receiverAddressDetail.setText(orderUserAddressDetail);
-                        } else {
-                            order_receiverName.setText("");
-                            order_receiverTel.setText("");
-                            order_receiverAddress.setText("");
-                            order_receiverAddressDetail.setText("");
-                        }
+
+    // CheckBox를 사용해서 주문자정보와 배송지 정보가 같을경우 체크로 값 넣어주는 온클릭
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.order_info_checkBox:      // CheckBox 기본 정보 적용
+                    order_userName.getText().toString();
+                    order_userTel.getText().toString();
+                    order_userAddress.getText().toString();
+                    order_userAddressDetail.getText().toString();
+                    if (order_info_checkBox.isChecked()) {
+                        order_receiverName.setText(orderUserName);
+                        order_receiverTel.setText(orderUserTel);
+                        order_receiverAddress.setText(orderUserAddress);
+                        order_receiverAddressDetail.setText(orderUserAddressDetail);
+                    } else {
+                        order_receiverName.setText("");
+                        order_receiverTel.setText("");
+                        order_receiverAddress.setText("");
+                        order_receiverAddressDetail.setText("");
+                    }
 
 
-                }
             }
-        };
-
-    // 제품 정보를 가져오는 Select
-
+        }
+    };
 
 
     // ============================================================================================ 선택 제품 기본정보 가져오는 Select
@@ -271,67 +275,50 @@ public class OrderActivity extends AppCompatActivity {
 //
 //    }
 
-    private void connectProductSelectGetData(){
+    private void connectProductSelectGetData() {
 
-
-//            try {
-//
-//                Log.v(TAG, "connectProductSelectGetData in");
-//                Log.v(TAG, product1.get(i));
-//                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +product1.get(i), "selectProductOrder");        // 불러오는게 똑같아서
-////                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44");        // 불러오는게 똑같아서
-//                Object obj = orderNetworkTask.execute().get();
-//                Payment = (ArrayList<Payment>) obj;
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//            mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, Payment, urlAddrBase+"image/");
-//            rv_product_order.setAdapter(mAdapter);
-
-            try {
-             payments = new ArrayList<Payment>();
-                //payment.clear();
-                for(int i=0; i<product1.size() ;i++) {
+        try {
+            payments = new ArrayList<Payment>();
+            //payment.clear();
+            for (int i = 0; i < product1.size(); i++) {
 
                 Log.v(TAG, "connectProductSelectGetData in");
-                Log.v(TAG, "11111"+product1.size());
-                    OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" + cartNo + "&productNo=" + product1.get(i), "selectProductOrder");        // 불러오는게 똑같아서
+                Log.v(TAG, "11111" + product1.size());
+                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" + cartNo + "&productNo=" + product1.get(i), "selectProductOrder");        // 불러오는게 똑같아서
 //                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44", "selectProductOrder");        // 불러오는게 똑같아서
-                    Object obj = orderNetworkTask.execute().get();
-                    payment = (ArrayList<Payment>) obj;
-                    String productImage = payment.get(i).getImage();
-                    String productName = payment.get(i).getProductName();
+                Object obj = orderNetworkTask.execute().get();
+                payment = (ArrayList<Payment>) obj;
+                String productImage = payment.get(i).getImage();
+                String productName = payment.get(i).getProductName();
 //                Log.v(TAG, "order1 : " + payment.get(1).getProductName());
-                    String productPrice = payment.get(i).getProductPrice();
-                    String cartQuantity = payment.get(i).getCartQuantity();
-                    Log.v(TAG, "order0 : " + payment.get(0).getImage());
-                    Log.v(TAG, "order0 : " + payment.get(0).getProductName());
-                    Log.v(TAG, "order0 : " + payment.get(0).getProductPrice());
-                    Log.v(TAG, "order0 : " + payment.get(0).getCartQuantity());
+                String productPrice = payment.get(i).getProductPrice();
+                String cartQuantity = payment.get(i).getCartQuantity();
+                Log.v(TAG, "order0 : " + payment.get(0).getImage());
+                Log.v(TAG, "order0 : " + payment.get(0).getProductName());
+                Log.v(TAG, "order0 : " + payment.get(0).getProductPrice());
+                Log.v(TAG, "order0 : " + payment.get(0).getCartQuantity());
 //                    Log.v(TAG, "order0 : " + payment.get(1).getCartQuantity());
 
-                    Payment data = new Payment(productImage, productName, productPrice, cartQuantity);
+                Payment data = new Payment(productImage, productName, productPrice, cartQuantity);
 
-                    payments.add(data);
-                    Log.v(TAG, "orderdata : " + payments.get(0).getProductName());
-                    Log.v(TAG, "orderdata : " + payments.get(1).getProductName());
+                payments.add(data);
+                Log.v(TAG, "orderdata : " + payments.get(0).getProductName());
+                Log.v(TAG, "orderdata : " + payments.get(1).getProductName());
 
-                }
-                mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, payments, urlAddrBase+"image/");
-                rv_product_order.setAdapter(mAdapter);
+            }
+            mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, payments, urlAddrBase + "image/");
+            rv_product_order.setAdapter(mAdapter);
 
 //
-                Log.v(TAG, "connectProductSelectGetData urlAddrBase" + urlAddrBase);
+            Log.v(TAG, "connectProductSelectGetData urlAddrBase" + urlAddrBase);
 
 
-                Log.v(TAG, "mAdapter mAdapter : " + mAdapter);
-                Log.v(TAG, "mAdapter rv_product_order : " + mAdapter);
+            Log.v(TAG, "mAdapter mAdapter : " + mAdapter);
+            Log.v(TAG, "mAdapter rv_product_order : " + mAdapter);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -342,13 +329,8 @@ public class OrderActivity extends AppCompatActivity {
         super.onResume();
         // Select
         urlAddrSelect_Resume = urlJsp + "order_user_info.jsp?email=" + email;
-        urlAddrSelect_Resume1 = urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44";
         connectSelectGetData(urlAddrSelect_Resume);
-
-                  connectProductSelectGetData();
-
-
-
+        connectProductSelectGetData();
 
         Log.v(TAG, "onResume()");
     }
@@ -365,6 +347,8 @@ public class OrderActivity extends AppCompatActivity {
         }
         return Order;
     }
+
+    // 아무 곳이나 터치시 키보드 접기
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View focusView = getCurrentFocus();
         if (focusView != null) {
@@ -380,4 +364,144 @@ public class OrderActivity extends AppCompatActivity {
         }
         return super.dispatchTouchEvent(ev);
     }
-}
+
+    // phone text
+    TextWatcher changeListener_userTel = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            fieldCheck.setText("");
+//            fieldCheck.setText("");
+            _beforeLenght = s.length();
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //fieldCheck.setText("");
+            _afterLenght = s.length();
+            // 삭제 중
+            if (_beforeLenght > _afterLenght) {
+                // 삭제 중에 마지막에 -는 자동으로 지우기
+                if (s.toString().endsWith("-")) {
+                    order_userTel.setText(s.toString().substring(0, s.length() - 1));
+                }
+            }
+            // 입력 중
+            else if (_beforeLenght < _afterLenght) {
+                if (_afterLenght == 4 && s.toString().indexOf("-") < 0) {
+                    order_userTel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
+                } else if (_afterLenght == 9) {
+                    order_userTel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
+                } else if (_afterLenght == 14) {
+                    order_userTel.setText(s.toString().subSequence(0, 13) + "-" + s.toString().substring(13, s.length()));
+                }
+            }
+            order_userTel.setSelection(order_userTel.length());
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String phoneCheck = order_userTel.getText().toString().trim();
+            boolean flag = Pattern.matches(pattern2, phoneCheck);
+
+            if (phoneCheck.length() == 0) {
+                order_userTel.setError(null);
+            } else {
+                if (flag == false) {
+                    order_userTel.setError("휴대폰 번호를 다시 입력해주세요.");
+                }
+
+            }
+        }
+    };
+    // phone text
+    TextWatcher changeListener_receiverTel = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            fieldCheck.setText("");
+//            fieldCheck.setText("");
+            _beforeLenght = s.length();
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //fieldCheck.setText("");
+            _afterLenght = s.length();
+            // 삭제 중
+            if (_beforeLenght > _afterLenght) {
+                // 삭제 중에 마지막에 -는 자동으로 지우기
+                if (s.toString().endsWith("-")) {
+                    order_receiverTel.setText(s.toString().substring(0, s.length() - 1));
+                }
+            }
+            // 입력 중
+            else if (_beforeLenght < _afterLenght) {
+                if (_afterLenght == 4 && s.toString().indexOf("-") < 0) {
+                    order_receiverTel.setText(s.toString().subSequence(0, 3) + "-" + s.toString().substring(3, s.length()));
+                } else if (_afterLenght == 9) {
+                    order_receiverTel.setText(s.toString().subSequence(0, 8) + "-" + s.toString().substring(8, s.length()));
+                } else if (_afterLenght == 14) {
+                    order_receiverTel.setText(s.toString().subSequence(0, 13) + "-" + s.toString().substring(13, s.length()));
+                }
+            }
+            order_receiverTel.setSelection(order_receiverTel.length());
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String phoneCheck = order_receiverTel.getText().toString().trim();
+            boolean flag = Pattern.matches(pattern2, phoneCheck);
+
+
+                if (phoneCheck.length() == 0) {
+                    order_receiverTel.setError(null);
+                } else {
+                    if (flag == false) {
+                        order_receiverTel.setError("휴대폰 번호를 다시 입력해주세요.");
+                    }
+                }
+            }
+        };
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch (requestCode) {
+            case SEARCH_ADDRESS_ACTIVITY:
+                if (resultCode == RESULT_OK) {
+                    String data = intent.getExtras().getString("data");
+                    if (data != null) {
+                        order_userAddress.setText(data);
+                    }
+                }
+                break;
+        }
+    }
+
+    // email 입력란 text 변경 시 listener
+    TextWatcher changeListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) { // email 입력 시 DB 드가기 전에 정리
+            if (order_userAddress.getText().toString().trim().length() != 0) {
+                validateEdit(s);
+            }
+        }
+    };
+    // email 형식 일치 확인
+    private void validateEdit(Editable s) {
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
+            order_userAddress.setError("이메일 형식으로 입력해주세요!");
+        } else {
+            order_userAddress.setError(null);
+        }
+    }
+
+    }//===================
