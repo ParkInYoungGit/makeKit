@@ -1,8 +1,5 @@
 package com.example.makekit.makekit_activity;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
 import com.example.makekit.makekit_fragment.ReviewListFragment;
@@ -28,7 +28,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import okhttp3.MediaType;
@@ -75,18 +74,18 @@ public class RegisterReviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_review);
 
-
         // 쉐어 변수 값 받아오기
-        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
-        macIP = sf.getString("macIP","");
-        email = sf.getString("useremail","");
+//        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+//        macIP = sf.getString("macIP","");
+//        email = sf.getString("useremail","");
+
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
+        macIP = intent.getStringExtra("macIP");
+        orderDetailNo = intent.getStringExtra("orderDetailNo");
+        productNo = intent.getStringExtra("productNo");
 
 
-
-        macIP = "192.168.0.81";
-        email = "jordy@naver.com";
-        orderDetailNo = "2";
-        productNo = "43";
 
         // url
         urlJsp = "http://"+macIP+":8080/makeKit/jsp/";

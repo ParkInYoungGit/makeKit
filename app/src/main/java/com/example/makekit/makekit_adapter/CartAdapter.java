@@ -3,7 +3,6 @@ package com.example.makekit.makekit_adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,19 +14,15 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_activity.CartActivity;
 import com.example.makekit.makekit_activity.ProdutctViewActivity;
 import com.example.makekit.makekit_asynctask.CartNetworkTask;
 import com.example.makekit.makekit_bean.Cart;
-import com.example.makekit.makekit_bean.Review;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -38,7 +33,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     final static String TAG = "ProductAdapter";
 
     String result = null;
-    String urlAddr, urlAddrBase;
+    String urlAddr, macIP;
     private Context mContext = null;
     private int layout = 0;
     private ArrayList<Cart> data = null;
@@ -52,13 +47,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     private AdapterView.OnItemClickListener mListener = null;
     List<CheckBox> checkboxsList = new ArrayList<>();
 
-    public CartAdapter(Context mContext, int layout, ArrayList<Cart> data, String urlImage) {
+    public CartAdapter(Context mContext, int layout, ArrayList<Cart> data, String urlImage, String macIP) {
         this.mContext = mContext;
         this.layout = layout;
         this.data = data;
         this.urlImage = urlImage;
+        this.macIP = macIP;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
+
+
 
     @Override
     public CartAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -71,6 +70,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(CartAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
+
+
+
 
         //urlAddr = urlAddrBase + "jsp/update_cart_change.jsp?cartno=" + data.get(position).getCartNo() + "&productno=" + data.get(position).getProductNo() + "&cartquantity=" + data.get(position).getCartQuantity();
         Log.v(TAG, "주소" + urlAddr);
@@ -105,6 +107,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
         // url은 알아서 설정 예) http://m.naver.com/
         holder.img_productImage.loadUrl(urlImageReal); // 접속 URL
+
         int total = Integer.parseInt(data.get(position).getProductPrice()) * Integer.parseInt(data.get(position).getCartQuantity());
         myFormatter = new DecimalFormat("###,###");
         String formattedStringPrice = myFormatter.format(total);
@@ -114,9 +117,23 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.cb_productName.setText(data.get(position).getProductName());
         holder.tv_productDeliveryPrice.setText("2,500원");
 
+        // 체크박스 체크되어 있는 상태 설정
+        holder.cb_productName.setChecked(true);
 
         // 체크박스 리스트에 전부 추가하기
         checkboxsList.add(holder.cb_productName);
+
+        // 제목 클릭 시 상세페이지 이동
+        holder.cb_productName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ProdutctViewActivity.class);
+//                            intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("productNo", data.get(position).getProductNo());
+                intent.putExtra("macIP", macIP);
+                v.getContext().startActivity(intent);
+            }
+        });
 
 
         holder.btn_MinusProudct.setOnClickListener(new View.OnClickListener() {
@@ -222,6 +239,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                         for (int i = 0; i < checkboxsList.size(); i ++){
                             if (checkboxsList.get(i).isChecked() == true){
                                 checkBoxChecked.add(data.get(i));
+
                             }
                         }
                     for (int i = 0; i < checkBoxChecked.size(); i ++) {
@@ -286,6 +304,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         return checkBoxChecked;
 
     }
+
 
 
     // 장바구니 선택 제품 삭제

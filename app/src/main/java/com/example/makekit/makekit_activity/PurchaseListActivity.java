@@ -46,7 +46,6 @@ public class PurchaseListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
-        url2 = urlAddrBase + "jsp/purchase_list.jsp?userEmail="+email;
         connectGetData();
         mAdapter = new PurchaseListAdapter(PurchaseListActivity.this, R.layout.purchase_list_layout, orders, urlAddrBase+"image/", email, macIP);
         recyclerView.setAdapter(mAdapter);
@@ -57,7 +56,6 @@ public class PurchaseListActivity extends AppCompatActivity {
             NetworkTask_DH networkTask = new NetworkTask_DH(PurchaseListActivity.this, urlAddrBase + "jsp/purchase_list.jsp?userEmail="+email, "purchaseList");
             Object obj = networkTask.execute().get();
             orders = (ArrayList<Order>) obj;
-            Log.v(TAG, orders.get(0).getOrderCardPw());
         } catch (Exception e) {
             e.printStackTrace();
         }

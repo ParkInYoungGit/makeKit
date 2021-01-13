@@ -73,14 +73,15 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
-//        productNo = intent.getStringExtra("productNo");
+        productNo = intent.getStringExtra("productNo");
 
 
-        macIP = "172.20.10.7";
+        macIP = "192.168.219.164";
+
         productNo = "44";
         userEmail = "qkr@naver.com";
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = "http://" + macIP + ":8080/makekit/";
         urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
         urlAddr1 = urlAddrBase + "jsp/cartno_productview_check.jsp?useremail=" + userEmail;
 
