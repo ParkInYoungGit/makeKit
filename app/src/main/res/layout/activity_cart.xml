@@ -158,7 +158,6 @@
         android:id="@+id/tv_total_payment_cart"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="총 0개 000,000원 구매하기"
         android:textStyle="bold"
         android:textSize="20dp"
         android:gravity="center"

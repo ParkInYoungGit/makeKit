@@ -350,18 +350,25 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         Log.v(TAG, "**viewholder 안 updateTotalPrice 들어옴 **");
         int price_each;
         int price_total = 0;
+        int delivery_price = 0;
+        int productTotalPrice = 0;
+
 
 
         for (int i = 0; i < checkboxsList.size(); i++) {
             if (checkboxsList.get(i).isChecked() == true) {
                 price_each = Integer.parseInt(textviewList.get(i).getText().toString()) * Integer.parseInt(data.get(i).getProductPrice());
                 price_total += price_each;
+
             }
         }
         if (onChangedPrice != null){
             Log.v(TAG, "**onChangeCheckedPrice != null **");
             Log.v(TAG, "**전체 가격은 **" + price_total);
-            onChangedPrice.changedPrice(price_total);
+
+            delivery_price = checkBoxChecked.size() * 2500;
+            productTotalPrice = price_total + delivery_price;
+            onChangedPrice.changedPrice(price_total, delivery_price, productTotalPrice);
         }
     }
 

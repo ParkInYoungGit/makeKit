@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class CartActivity extends AppCompatActivity implements OnChangedPrice{
 
-    TextView orderTotalNext, productTotalPrice, productDeliveryTotalPrice, allProductTotalPrice;
+    TextView orderTotalNext, productTotal, productDeliveryTotalPrice, allProductTotalPrice;
     CheckBox selectAll, itemSelect;
     String macIP, productNo, productQuantity, totalPrice, cartNo, urlAddrBase, urlAddr;
     DecimalFormat myFormatter;
@@ -46,7 +46,7 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
 
         orderTotalNext = findViewById(R.id.tv_total_payment_cart);
         btnDelete = findViewById(R.id.btn_cart_delete);
-        productTotalPrice = findViewById(R.id.productTotalPrice_cart);
+        productTotal = findViewById(R.id.productTotalPrice_cart);
         productDeliveryTotalPrice = findViewById(R.id.productDeliveryTotalPrice_cart);
         allProductTotalPrice = findViewById(R.id.allProductTotalPrice_cart);
         recyclerView = findViewById(R.id.recyclerViewCartList);
@@ -60,13 +60,17 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
         //productQuantity = intent.getStringExtra("productQuantity");
         //totalPrice = intent.getStringExtra("totalPrice");
 
-        urlAddrBase = "http://" + macIP + ":8080/makekit/";
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddr = urlAddrBase + "jsp/select_usercart_all.jsp?cartno=" + cartNo;
         Log.v(TAG, "주소" + urlAddr);
         connectSelectData(urlAddr);
 //        Log.v(TAG, "총금액" + carts.get(0).getTotalPrice());
 
         Log.v(TAG, "선택값 : " + cartAdapter.checkBoxCheckedReturn());
+
+        if(carts.size() == 0){
+            orderTotalNext.setClickable(false);
+        }
 
         orderTotalNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,15 +80,23 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
 //                    Log.v(TAG, "번호 : " + no);
 ////                    productNums.add(no);
 //                }
-                if(cartAdapter.checkBoxCheckedReturn().size() == 0){
-                    Toast.makeText(CartActivity.this, "구매하실 상품을 선택해주세요.", Toast.LENGTH_SHORT).show();
-                } else {
+                if(carts.size() != 0) {
+                    Log.v(TAG, "체크박스 : " + cartAdapter.checkBoxCheckedReturn().size());
+                    Log.v(TAG, "카트 사이즈 : " + carts.size());
+                    if (cartAdapter.checkBoxCheckedReturn().size() == 0) {
+                        Toast.makeText(CartActivity.this, "구매하실 상품을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(CartActivity.this, "구매 시작해주세요.", Toast.LENGTH_SHORT).show();
 
-                    Intent intent1 = new Intent(CartActivity.this, OrderActivity.class);
-                    intent1.putExtra("macIP", macIP);
-                    intent1.putExtra("cartNo", cartNo);
-                    intent1.putExtra("productno", cartAdapter.checkBoxCheckedReturn());
-                    startActivity(intent1);
+//                    Intent intent1 = new Intent(CartActivity.this, OrderActivity.class);
+//                    intent1.putExtra("macIP", macIP);
+//                    intent1.putExtra("cartNo", cartNo);
+//                    intent1.putExtra("productno", cartAdapter.checkBoxCheckedReturn());
+//                    startActivity(intent1);
+                    }
+                } else {
+                    Toast.makeText(CartActivity.this, "장바구니가 비어있습니다.", Toast.LENGTH_SHORT).show();
+                    orderTotalNext.setClickable(false);
                 }
             }
         });
@@ -106,8 +118,18 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cartAdapter.connectDeleteData();
-                connectSelectData(urlAddr);
+                if(carts.size() != 0) {
+                    cartAdapter.connectDeleteData();
+                    connectSelectData(urlAddr);
+                    productTotal.setText("0원");
+                    productDeliveryTotalPrice.setText("0원");
+                    allProductTotalPrice.setText("0원");
+
+                    orderTotalNext.setText("구매하기");
+                    selectAll.setChecked(false);
+                } else {
+                    btnDelete.setClickable(false);
+                }
 
 
 //                cartAdapter.checkBoxCheckedReturn();
@@ -159,11 +181,11 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
         String formattedStringPrice1 = myFormatter.format(carts.size() * 2500);
         String formattedStringPrice2 = myFormatter.format(carts.size() * 2500 + price);
 
-        productTotalPrice.setText("0원");
+        productTotal.setText("0원");
         productDeliveryTotalPrice.setText("0원");
         allProductTotalPrice.setText("0원");
 
-        orderTotalNext.setText("0원 구매하기");
+        orderTotalNext.setText("구매하기");
 
 
 
@@ -179,10 +201,15 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
     }
 
     @Override
-    public void changedPrice(int totalPrice) {
+    public void changedPrice(int productTotalPrice, int deliveryPrice, int totalPrice) {
         myFormatter = new DecimalFormat("###,###");
-        String formattedStringPrice = myFormatter.format(totalPrice);
+        String formattedStringPrice = myFormatter.format(productTotalPrice);
+        String formattedStringPrice1 = myFormatter.format(deliveryPrice);
+        String formattedStringPrice2 = myFormatter.format(totalPrice);
         Log.v(TAG, "메인 가격변경 리스너 들어옴!!!");
-        orderTotalNext.setText("총 " + formattedStringPrice + "원 주문금액");
+        productTotal.setText(formattedStringPrice + "원");
+        productDeliveryTotalPrice.setText(formattedStringPrice1 + "원");
+        allProductTotalPrice.setText(formattedStringPrice2 + "원");
+        orderTotalNext.setText("총 " + formattedStringPrice2 + "원 주문하기");
     }
 }
