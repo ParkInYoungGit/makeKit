@@ -8,12 +8,23 @@
     android:orientation="vertical"
     android:background="#B2C7DA"
     >
+    <TextView
+        android:id="@+id/receiverID"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:gravity="center_vertical"
+        android:text="id"
+        android:layout_marginLeft="25dp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chattingContents_LV"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="12"
+        android:layout_weight="11"
         android:layout_margin="10dp"
         />
     <LinearLayout
