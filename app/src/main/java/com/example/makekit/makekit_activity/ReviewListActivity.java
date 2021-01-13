@@ -33,8 +33,8 @@ public class ReviewListActivity extends AppCompatActivity {
 //        macIP = sf.getString("macIP","");
 //        email = sf.getString("useremail","");
 
-        macIP = "192.168.0.81";
-        email = "jordy@naver.com";
+        macIP = "192.168.0.4";
+        email = "son@naver.com";
 
         // 화면 구성
         linearLayout = findViewById(R.id.linearlayout_reviewList);

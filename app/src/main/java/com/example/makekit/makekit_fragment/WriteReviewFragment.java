@@ -108,7 +108,6 @@ public class WriteReviewFragment extends Fragment {
         urlAddr = urlAddrBase + "jsp/write_reviewlist_all.jsp?email=" + email;
         Log.v(TAG, "주소" + urlAddr);
         // 초기 init
-        connectSelectData();
 
 //        // 넘겨줄 값 지정
 //        productNo = reviewList.get(0).getGoods_productNo();
@@ -124,6 +123,10 @@ public class WriteReviewFragment extends Fragment {
         super.onResume();
         Log.v(TAG, "onResume REVIEW");
         connectSelectData();
+        recyclerView.setAdapter(writeReviewAdapter);
+        recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     // select review
@@ -135,10 +138,7 @@ public class WriteReviewFragment extends Fragment {
             reviewList = (ArrayList<Order>) object;
 
             writeReviewAdapter = new WriteReviewAdapter(getActivity(), R.layout.custom_write_review, reviewList, urlAddrBase, email, macIP);
-            recyclerView.setAdapter(writeReviewAdapter);
-            recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
-            layoutManager = new LinearLayoutManager(getContext());
-            recyclerView.setLayoutManager(layoutManager);
+
 
         } catch (Exception e) {
             e.printStackTrace();
