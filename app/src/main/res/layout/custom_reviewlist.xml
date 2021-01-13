@@ -17,13 +17,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:background="@drawable/layout_outline"
+            android:padding="10dp"
             >
 
             <WebView
                 android:id="@+id/imgReview_reviewlist"
                 android:layout_width="0dp"
                 android:layout_weight="4"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 />
 
@@ -89,6 +91,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:background="@drawable/layout_outline"
+            android:padding="10dp"
             >
 
             <LinearLayout

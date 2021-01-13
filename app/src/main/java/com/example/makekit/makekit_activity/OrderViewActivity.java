@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.makekit.R;
@@ -24,6 +25,7 @@ public class OrderViewActivity extends AppCompatActivity {
     //  상품 정보
     WebView order_productImage;
     TextView order_productName, order_productQuantity, order_productTotalPrice;
+    ListView listView;
 
     //  결제 정보
     TextView orderView_orderBank, orderView_orderCardNo, orderView_orderDate, orderView_orderTotalPrice;
@@ -69,6 +71,7 @@ public class OrderViewActivity extends AppCompatActivity {
         orderView_orderCardNo= findViewById(R.id.orderView_orderCardNo);
         orderView_orderDate= findViewById(R.id.orderView_orderDate);
         orderView_orderTotalPrice= findViewById(R.id.orderView_orderTotalPrice);
+        listView = findViewById(R.id.orderView_ListView);
 
         orderView_Date_TV.setText(srt_orderView_Date_TV);
         orderView_Number_TV.setText(str_orderView_Number_TV);
@@ -76,7 +79,6 @@ public class OrderViewActivity extends AppCompatActivity {
         order_userTel.setText(str_order_userTel);
         order_userAddress.setText(str_order_userAddress);
         order_userAddressDetail.setText(str_order_userAddressDetail);
-        order_productImage.loadUrl(str_order_productImage);
         order_productName.setText(str_order_productName);
         order_productQuantity.setText(str_order_productQuantity);
         order_productTotalPrice.setText(str_order_productTotalPrice);
@@ -102,6 +104,7 @@ public class OrderViewActivity extends AppCompatActivity {
         order_productImage.getSettings().setUseWideViewPort(true);
         order_productImage.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
         order_productImage.setInitialScale(15);
+        order_productImage.loadUrl(str_order_productImage);
 
 
     }

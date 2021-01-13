@@ -48,6 +48,18 @@ public class Product {
         this.productDeleteDate = productDeleteDate;
     }
 
+    ///////// Ria 추가 //////////////////////////////////
+
+
+
+
+
+
+
+
+    //getter setter /////////////////////////////////
+
+
     public String getSellerEmail() {
         return sellerEmail;
     }

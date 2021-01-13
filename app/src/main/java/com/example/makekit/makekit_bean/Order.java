@@ -93,8 +93,21 @@ public class Order {
     String productPrice;
     String productStock;
     String productAFilename;
+    String productFilename;
 
     // constructor는 원하는 만큼 생성
+
+
+    // Ria 추가 // Write review List에 들어가는 product관련 변수
+    public Order(String orderDetailNo, String goods_productNo , String productFilename, String productName, String orderQuantity, String orderConfirm) {
+        this.orderDetailNo = orderDetailNo;
+        this.goods_productNo = goods_productNo;
+        this.productFilename = productFilename;
+        this.productName = productName;
+        this.orderQuantity = orderQuantity;
+        this.orderConfirm = orderConfirm;
+    }
+
 
     //  order에 들어가는 productInfo
 
@@ -148,6 +161,18 @@ public class Order {
         this.productAFilename = productAFilename;
     }
 
+
+
+    // getter setter
+
+
+    public String getProductFilename() {
+        return productFilename;
+    }
+
+    public void setProductFilename(String productFilename) {
+        this.productFilename = productFilename;
+    }
 
     public String getUserName() {
         return userName;

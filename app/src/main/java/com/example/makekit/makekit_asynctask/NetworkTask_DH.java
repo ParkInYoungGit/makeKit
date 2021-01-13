@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.makekit.makekit_bean.ChattingBean;
 import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Product;
+import com.example.makekit.makekit_bean.Review;
 import com.example.makekit.makekit_bean.User;
 
 import org.json.JSONArray;
@@ -33,6 +34,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     ArrayList<Order> orders;
     ArrayList<Order> salesList;
     ArrayList<Order> purchaseList;
+    ArrayList<Order> reviewList;
+
     String chattingNumber;
     String where = null;
 
@@ -47,6 +50,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
         this.orders = new ArrayList<Order>();
         this.salesList = new ArrayList<Order>();
         this.purchaseList = new ArrayList<Order>();
+        this.reviewList = new ArrayList<Order>();
         this.where = where;
     }
 
@@ -106,12 +110,11 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     parserRealSalesList2(stringBuffer.toString());
 
                     parserRealSalesList(stringBuffer.toString());
+                }else if (where.equals("writeReviewList")){
+                    parserWriteReviewList(stringBuffer.toString());
                 }else if (where.equals("getProductHome")){
                     parserProductHome(stringBuffer.toString());
-
                 }
-
-
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -144,6 +147,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return salesList;
         }else if (where.equals("purchaseList")){
             return purchaseList;
+        }else if (where.equals("writeReviewList")){
+            return reviewList;
         }else if (where.equals("getProductHome")){
             return products;
         }
@@ -435,4 +440,29 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
         }
     }
 
-}
+    private void parserWriteReviewList(String s){
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+            reviewList.clear();
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String orderDetailNo = jsonObject1.getString("orderDetailNo");
+                String goods_productNo = jsonObject1.getString("goods_productNo");
+                String productFilename = jsonObject1.getString("productFilename");
+                String productName = jsonObject1.getString("productName");
+                String orderQuantity = jsonObject1.getString("orderQuantity");
+                String orderConfirm = jsonObject1.getString("orderConfirm");
+
+                Order order = new Order(orderDetailNo, goods_productNo , productFilename, productName, orderQuantity, orderConfirm);
+                reviewList.add(order);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+} // end

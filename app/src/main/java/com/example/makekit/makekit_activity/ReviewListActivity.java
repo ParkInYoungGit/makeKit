@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_adapter.ViewPagerProductAdapter;
 import com.example.makekit.makekit_adapter.ViewPagerReviewAdapter;
 import com.example.makekit.makekit_fragment.ReviewListFragment;
 import com.example.makekit.makekit_fragment.WriteReviewFragment;
@@ -33,7 +32,8 @@ public class ReviewListActivity extends AppCompatActivity {
 //        macIP = sf.getString("macIP","");
 //        email = sf.getString("useremail","");
 
-        macIP = "192.168.0.81";
+
+        macIP = "192.168.43.244";
         email = "jordy@naver.com";
 
         // 화면 구성
