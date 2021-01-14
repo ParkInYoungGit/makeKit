@@ -76,7 +76,8 @@ dependencies {
 
     implementation 'com.google.maps.android:android-maps-utils:0.5'
 
-    // 카카오
+    // Ria _ 카카오
+//    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
     implementation "com.kakao.sdk:v2-user:2.2.0" // 카카오 로그인
     implementation "com.kakao.sdk:v2-talk:2.2.0" // 친구, 메시지(카카오톡)
     implementation "com.kakao.sdk:v2-link:2.2.0" // 메시지(카카오링크)

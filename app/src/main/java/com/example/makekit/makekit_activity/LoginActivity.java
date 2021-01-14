@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 
     final static String TAG = "LoginActivity";
     private View btnLogin, btnLogout, login_google;
-    private TextView nickName;
+    private TextView nickName, tv1, tv2;
     private ImageView profileIMG, logoIMG;
     SignInButton google;
     Button login_join_btn, GotoMain;
@@ -81,6 +81,8 @@ public class LoginActivity extends AppCompatActivity {
         non_members = findViewById(R.id.non_members);
         login_members = findViewById(R.id.login_members);
 
+        tv1 = findViewById(R.id.tv1);
+        tv2 = findViewById(R.id.tv2);
 
         login_join_btn.setOnClickListener(mOnclickListener);
         GotoMain.setOnClickListener(mOnclickListener);
@@ -104,7 +106,6 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplication(), MainActivity.class);
 
             startActivity(intent);
-            finish();
         }
 
 
@@ -115,6 +116,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (oAuthToken != null) {
                     // 로그인 성공시 처리해야하는 것들 요기에
+
+//                    Intent intentk = new Intent(getApplicationContext(), JoinActivity.class);
+//                    intentk.putExtra("useremail", user.getKakaoAccount().getEmail().toString());
+//                    intentk.putExtra("username", result.getNickname().toString());
+//                    if(result.getKakaoAccount().getPhoneNumber()!=null) intentk.putExtra("userTel", result.getKakaoAccount().getPhoneNumber().toString());
+//                    startActivity(intentk);
+//                    finish();
                 }
                 if (throwable != null) {
                     // 오류값을 핸들링 해주는 곳
@@ -229,6 +237,9 @@ public class LoginActivity extends AppCompatActivity {
                useremail = account.getEmail();
                userid = account.getId();
                userphoto = account.getPhotoUrl();
+
+                updateUI(useremail);
+
 //                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                intent.putExtra("useremail",useremail);//유저 이메일 주소 넘기기
 //                intent.putExtra("userid",userid);//유저 이메일 주소 넘기기
@@ -266,7 +277,8 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Snackbar.make(findViewById(R.id.layout_main), "Authentication Successed.", Snackbar.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            updateUI(userid);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Snackbar.make(findViewById(R.id.layout_main), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
@@ -276,11 +288,11 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void updateUI(FirebaseUser user) { //update ui code here
-        if (user != null) {
+    private void updateUI(String userid) { //update ui code here
+        if (userid != null) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("macIP", macIP);
-            intent.putExtra("useremail", useremail);
+            intent.putExtra("useremail", userid);
             startActivity(intent);
             finish();
         }
@@ -340,6 +352,13 @@ public class LoginActivity extends AppCompatActivity {
                     login_google.setVisibility(View.GONE);
                     btnLogout.setVisibility(View.VISIBLE);
                     GotoMain.setVisibility(View.VISIBLE);
+                    logoIMG.setVisibility(View.INVISIBLE);
+                    non_members.setVisibility(View.INVISIBLE);
+                    login_members.setVisibility(View.INVISIBLE);
+                    login_join_btn.setVisibility(View.INVISIBLE);
+                    tv1.setVisibility(View.INVISIBLE);
+                    tv2.setVisibility(View.INVISIBLE);
+
                 } else {
                     nickName.setText(null);
                     profileIMG.setImageBitmap(null);
@@ -348,13 +367,23 @@ public class LoginActivity extends AppCompatActivity {
                     btnLogin.setVisibility(View.VISIBLE);
                     btnLogout.setVisibility(View.GONE);
                     GotoMain.setVisibility(View.GONE);
+                    logoIMG.setVisibility(View.VISIBLE);
+                    logoIMG.setVisibility(View.INVISIBLE);
+                    non_members.setVisibility(View.VISIBLE);
+                    login_members.setVisibility(View.VISIBLE);
+                    login_join_btn.setVisibility(View.VISIBLE);
+                    tv1.setVisibility(View.VISIBLE);
+                    tv2.setVisibility(View.VISIBLE);
                 }
                 return null;
             }
         });
     }
 
-    private void signOut() {
+
+
+
+        private void signOut() {
         FirebaseAuth.getInstance().signOut();
     }
 
