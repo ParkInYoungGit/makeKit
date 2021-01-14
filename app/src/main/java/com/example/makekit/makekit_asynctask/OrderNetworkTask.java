@@ -89,6 +89,9 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
                 } else if(where.equals("select")){
                     result = parserOrderNoSelect(stringBuffer.toString());
 
+                } else if (where.equals("selectProduct")){
+                    parserOrderProduct(stringBuffer.toString());
+
                 } else {
                     result = parserInsert(stringBuffer.toString());
 
@@ -117,6 +120,9 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
 
         } else if(where.equals("select")) {
             return result;
+
+        } else if (where.equals("selectProduct")) {
+            return payment;
 
         } else {
             return result;
@@ -170,6 +176,34 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
         }
     }
 
+    // OrderProductSelect
+    private void parserOrderProduct(String s) {
+        Log.v(TAG, "Parser in()");
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("orderdetail_info"));
+            Log.v(TAG, "Parser : ");
+            payment.clear();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String productName = jsonObject1.getString("productName");
+                String productImage = jsonObject1.getString("productImage");
+                String productPrice = jsonObject1.getString("productPrice");
+                String orderQuantity = jsonObject1.getString("orderQuantity");
+                String orderDate = jsonObject1.getString("orderDate");
+
+                Payment payments = new Payment(productImage, productName, productPrice, orderQuantity, orderDate);
+
+                payment.add(payments);
+                Log.v(TAG, "payment : " + payments);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // OrderActivity 제품 정보
     private void parserOrderProductSelect(String s) {
         Log.v(TAG, "Parser in()");
@@ -200,6 +234,8 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
             e.printStackTrace();
         }
     }
+
+
     // OrderNo select
     private String parserOrderNoSelect(String s) {
         Log.v(TAG, "Parser in()");

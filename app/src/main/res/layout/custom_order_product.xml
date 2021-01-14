@@ -3,7 +3,8 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,8 +16,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_user"
-            android:layout_marginRight="10dp"
-            />
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center_vertical"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +29,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="상품명"
+                android:textSize="15dp"
                 android:textColor="@color/black"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="상품금액"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -36,10 +43,9 @@
                 android:text="배송비"
                 />
             <TextView
-                android:id="@+id/order_productCount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="수량1개"
+                android:text="구매수량"
                 />
         </LinearLayout>
 
@@ -49,6 +55,11 @@
             android:orientation="vertical"
             android:layout_weight="1"
             >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                />
             <TextView
                 android:id="@+id/order_productPrice"
                 android:layout_width="match_parent"
@@ -64,6 +75,7 @@
                 />
 
             <TextView
+                android:id="@+id/order_productQnt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""

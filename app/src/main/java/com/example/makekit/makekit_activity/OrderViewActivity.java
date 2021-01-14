@@ -12,13 +12,15 @@ import android.widget.TextView;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.OrderViewAdapter;
+import com.example.makekit.makekit_asynctask.OrderNetworkTask;
 import com.example.makekit.makekit_bean.Order;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
 public class OrderViewActivity extends AppCompatActivity {
 
-    String email, macIP, urlAddrBase;
+    String email, macIP, urlAddrBase, urlAddr;
 
     //  주문 정보
     TextView orderView_Date_TV, orderView_Number_TV;
@@ -35,11 +37,12 @@ public class OrderViewActivity extends AppCompatActivity {
     TextView orderView_orderBank, orderView_orderCardNo, orderView_orderDate, orderView_orderTotalPrice;
 
     // setText String
-    String srt_orderView_Date_TV, str_orderView_Number_TV, str_order_userName, str_order_userTel, str_order_userAddress, str_order_userAddressDetail, str_order_productImage;
+    String srt_orderView_Date_TV, str_orderView_Number_TV, str_order_userName, str_order_userTel, str_order_userAddress, str_order_userAddressDetail, str_order_productImage, str_orderView_orderTotalNo;
     String str_order_productName, str_order_productQuantity, str_order_productTotalPrice, str_orderView_orderBank, str_orderView_orderCardNo, str_orderView_orderDate, str_orderView_orderTotalPrice;
 
     OrderViewAdapter adapter;
     ArrayList<Order> orders;
+    ArrayList<Order> orderdetail;
     Order order;
 
     @Override
@@ -50,23 +53,32 @@ public class OrderViewActivity extends AppCompatActivity {
 
         orders = new ArrayList<Order>();
 
+
         Intent intent = getIntent();
         email = intent.getStringExtra("useremail");
         macIP = intent.getStringExtra("macIP");
-        srt_orderView_Date_TV = intent.getStringExtra("orderView_Date_TV");
+
+        // 값 확인 후 변경
+        //srt_orderView_Date_TV = intent.getStringExtra("orderView_Date_TV");
         str_orderView_Number_TV = intent.getStringExtra("orderView_Number_TV");
         str_order_userName = intent.getStringExtra("order_userName");
         str_order_userTel = intent.getStringExtra("order_userTel");
         str_order_userAddress = intent.getStringExtra("order_userAddress");
         str_order_userAddressDetail = intent.getStringExtra("order_userAddressDetail");
-        str_order_productImage = intent.getStringExtra("order_productImage");
-        str_order_productName = intent.getStringExtra("order_productName");
-        str_order_productQuantity = intent.getStringExtra("order_productQuantity");
-        str_order_productTotalPrice = intent.getStringExtra("order_productTotalPrice");
+        //str_order_productImage = intent.getStringExtra("order_productImage");
+        //str_order_productName = intent.getStringExtra("order_productName");
+        //str_order_productQuantity = intent.getStringExtra("order_productQuantity");
+        //str_order_productTotalPrice = intent.getStringExtra("order_productTotalPrice");
         str_orderView_orderBank = intent.getStringExtra("orderView_orderBank");
         str_orderView_orderCardNo = intent.getStringExtra("orderView_orderCardNo");
         str_orderView_orderDate = intent.getStringExtra("orderView_orderDate");
         str_orderView_orderTotalPrice = intent.getStringExtra("orderView_orderTotalPrice");
+
+
+        // product select
+        urlAddr = SharVar.urlAddrBase + "jsp/select_orderdetail_all.jsp?orderno=" + str_orderView_Number_TV;
+        connectSelectData(urlAddr);
+
 
         orderView_Date_TV= findViewById(R.id.orderView_Date_TV);
         orderView_Number_TV= findViewById(R.id.orderView_Number_TV);
@@ -118,6 +130,7 @@ public class OrderViewActivity extends AppCompatActivity {
         order_productImage.setInitialScale(15);
         order_productImage.loadUrl(str_order_productImage);
 
+
     }
 
     @Override
@@ -126,4 +139,20 @@ public class OrderViewActivity extends AppCompatActivity {
         urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp";
         adapter = new OrderViewAdapter(OrderViewActivity.this, R.layout.custom_order_view, orders, urlAddrBase);
     }
+
+
+    // select OrderNo
+    private void connectSelectData(String urlAddr) {
+        try {
+            OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderViewActivity.this, urlAddr, "selectProduct");
+
+            Object object = orderNetworkTask.execute().get();
+            orderdetail = (ArrayList<Order>) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /////////////////////////////////////////////////////
+
 }

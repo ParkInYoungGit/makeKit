@@ -87,7 +87,7 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
                     if (cartAdapter.checkBoxCheckedReturn().size() == 0) {
                         Toast.makeText(CartActivity.this, "구매하실 상품을 선택해주세요.", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(CartActivity.this, "구매 시작해주세요.", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(CartActivity.this, "구매 시작해주세요.", Toast.LENGTH_SHORT).show();
 
                     Intent intent1 = new Intent(CartActivity.this, OrderActivity.class);
                     intent1.putExtra("macIP", macIP);

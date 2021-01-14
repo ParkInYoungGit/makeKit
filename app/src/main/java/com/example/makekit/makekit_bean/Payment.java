@@ -6,12 +6,21 @@ public class Payment {
     String productName;
     String productPrice;
     String cartQuantity;
+    String orderDate;
 
     public Payment(String image, String productName, String productPrice, String cartQuantity) {
         this.image = image;
         this.productName = productName;
         this.productPrice = productPrice;
         this.cartQuantity = cartQuantity;
+    }
+
+    public Payment(String image, String productName, String productPrice, String cartQuantity, String orderDate) {
+        this.image = image;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.cartQuantity = cartQuantity;
+        this.orderDate = orderDate;
     }
 
     public String getImage() {
@@ -45,4 +54,13 @@ public class Payment {
     public void setCartQuantity(String cartQuantity) {
         this.cartQuantity = cartQuantity;
     }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
 }
+

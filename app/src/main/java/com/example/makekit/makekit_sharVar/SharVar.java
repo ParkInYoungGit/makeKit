@@ -3,9 +3,6 @@ package com.example.makekit.makekit_sharVar;
 public class SharVar {
 
 
- 
-
-
 
 
     public static final String macIP = "192.168.219.164";
@@ -16,6 +13,5 @@ public class SharVar {
 
 
 //    public static String userEmail="";
-
 
 }

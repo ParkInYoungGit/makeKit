@@ -21,7 +21,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 
-public class GMailSender extends javax.mail.Authenticator {
+public class GmailSender extends javax.mail.Authenticator {
     private String mailhost = "smtp.gmail.com";
     private String user;
     private String password;
@@ -29,7 +29,7 @@ public class GMailSender extends javax.mail.Authenticator {
     private String emailCode; // 변경된 비밀번호
     private String emailCode2; // 이메일 인증코드
 
-    public GMailSender(String user, String password) {
+    public GmailSender(String user, String password) {
         Log.v("여기","GmailSenderClass1");
         this.user = user;
         this.password = password;
