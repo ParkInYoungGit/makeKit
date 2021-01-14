@@ -6,8 +6,10 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
@@ -18,6 +20,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -25,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,7 +83,8 @@ public class UserModifyActivity extends AppCompatActivity {
 
     String urlAddrBase = null;
     String urlAddr1 = null;
-    String urlAddr2 = null;
+    String urlJsp = null;
+//    String urlAddr3 = null;
 //    String urlAddr3 = null;
 
     ArrayList<User> members;   // 빈, 어댑터
@@ -89,6 +94,7 @@ public class UserModifyActivity extends AppCompatActivity {
     String macIP;
     String email;
     String urlImage;
+    String urlImage1;
     Matcher match;
 
     EditText user_pwcheck, user_tel, user_addressdetail;
@@ -97,6 +103,7 @@ public class UserModifyActivity extends AppCompatActivity {
     Button update_btn;
     TextView fieldCheck;
     WebView user_image;
+    ImageView user_image1;
     TextView tv_editPeopleImage;
 
     @Override
@@ -122,7 +129,8 @@ public class UserModifyActivity extends AppCompatActivity {
 
         // jsp 사용할 폴더 지정
         urlAddr1 = urlAddrBase + "jsp/user_info_all.jsp?email=" + email;
-
+        urlJsp = urlAddrBase + "jsp/";
+        url =   urlJsp +"multipartRequest.jsp";
 
         // ========================================== 이메일 + 아이디값 셀렉트에 보내주기
         connectSelectGetData(urlAddr1);   // urlAddr1을  connectSelectGetData의 urlAddr2로 보내준다
@@ -131,6 +139,7 @@ public class UserModifyActivity extends AppCompatActivity {
 
         // ========================================== 텍스트뷰 가져오기
         user_image = findViewById(R.id.user_image);
+        user_image1 = findViewById(R.id.user_image1);
         user_email = findViewById(R.id.user_email);
         user_name = findViewById(R.id.user_name);
         user_pw = findViewById(R.id.user_pw);
@@ -147,7 +156,7 @@ public class UserModifyActivity extends AppCompatActivity {
 
         //  --------------------------------------------- Select DB에서 받아오기
 
-//        String userimage = members.get(0).getImage();
+        String userimage = members.get(0).getImage();
         if (members.get(0).getImage().equals("null")) {
             urlImage = urlAddrBase + "image/ic_defaultpeople.jpg";
             user_image.loadUrl(urlImage);
@@ -182,6 +191,25 @@ public class UserModifyActivity extends AppCompatActivity {
 
 
         }
+
+//        if (members.get(0).getImage() == null) {
+////            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
+////            String result = connectCheckData(urlAddr1);
+//            urlImage = urlImage+"ic_defaultpeople.jpg";
+//            user_image.loadUrl(urlImage);
+//            user_image.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
+//            user_image.setWebViewClient(new ViewPeopleActivity.WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
+//
+////        } else if(peopleimage.length() != 0) {
+//            // } else if(peopleimage.equals("!=null")) {
+//        } else if(members.get(0).getImage() != null) {
+////            urlAddr1 = urlAddr + "people_query_all.jsp?peopleimage=" + peopleimage;
+////            String result = connectCheckData(urlAddr1);
+//            urlImage = urlImage + members.get(0).getImage();
+//            user_image.loadUrl(urlImage);
+//            user_image.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
+//            user_image.setWebViewClient(new ViewPeopleActivity.WebViewClientClass());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
+//        }
         String useremail = members.get(0).getEmail();
         user_email.setText(useremail);
 
@@ -304,10 +332,14 @@ public class UserModifyActivity extends AppCompatActivity {
                     break;
 
                 case R.id.tv_editPeopleImage:
+
+
                     intent = new Intent(Intent.ACTION_PICK);
                     intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                     intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+                    user_image.setVisibility(View.GONE);
+                    user_image1.setVisibility(View.VISIBLE);
 
                     break;
 
@@ -319,7 +351,7 @@ public class UserModifyActivity extends AppCompatActivity {
     // people Update data 송부
     private void updatePeople() {
         String urlAddr3 = "";
-        urlAddr3 = urlAddrBase + "jsp/user_update.jsp?userEmail=" + useremail + "&userPw=" + userpw + "&userName=" + username + "&userAddress=" + useraddress + "&userAddressDetail=" + useraddressdetail + "&userTel=" + usertel + "&userBirth=" + userbirth;
+        urlAddr3 = urlAddrBase + "jsp/user_update.jsp?userEmail=" + useremail + "&userPw=" + userpw + "&userName=" + username + "&userAddress=" + useraddress + "&userAddressDetail=" + useraddressdetail + "&userTel=" + usertel + "&userBirth=" + userbirth + "&userImage=" + userimage;
         Log.v(TAG, urlAddr3);
 
         connectUpdateData(urlAddr3);
@@ -372,53 +404,88 @@ public class UserModifyActivity extends AppCompatActivity {
                 case 100:
 
                     try {
-
-                        // Initial webview
-                        user_image.setWebViewClient(new WebViewClient());
-
-                        // Enable JavaScript
-                        user_image.getSettings().setJavaScriptEnabled(true);
-                        user_image.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-
-                        // WebView 세팅
-                        WebSettings webSettings = user_image.getSettings();
-                        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
-                        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
-                        //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-
-                        user_image.setBackgroundColor(0); //배경색
-                        user_image.setHorizontalScrollBarEnabled(false); //가로 스크롤
-                        user_image.setVerticalScrollBarEnabled(false);   //세로 스크롤
-                        user_image.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
-                        user_image.setScrollbarFadingEnabled(false);
-                        user_image.setInitialScale(25);
-
-                        // 웹뷰 멀티 터치 가능하게 (줌기능)
-                        webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
-                        webSettings.setSupportZoom(false);
-
-                        user_image.loadUrl(urlImage);
-                        Log.v("here", "urlImage : " + urlImage);// 접속 URL
-//                    imageCheck=1;
-//                    img_path = getImagePathToUri(intent.getData()); //이미지의 URI를 얻어 경로값으로 반환.
-//                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();
-//                    Log.v("test", String.valueOf(intent.getData()));
-//                    //이미지를 비트맵형식으로 반환
-//                    image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), intent.getData());
+//                        urlImage = urlAddrBase + "image/";
 //
-//                    //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
-//                    image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
+//                        img_path = getImagePathToUri(intent.getData()); //이미지의 URI를 얻어 경로값으로 반환.
+//                        user_image.loadUrl(urlImage);
+//                        Toast.makeText(getBaseContext(), "urlImage1 : " + urlImage, Toast.LENGTH_SHORT).show();
+//                        Log.v("test", String.valueOf(intent.getData()));
+//                        // Initial webview
+//
+//                        // Initial webview
+//                        user_image.setWebViewClient(new WebViewClient());
+//
+//                        // Enable JavaScript
+//                        user_image.getSettings().setJavaScriptEnabled(true);
+//                        user_image.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//
+//                        // WebView 세팅
+//                        WebSettings webSettings = user_image.getSettings();
+//                        webSettings.setUseWideViewPort(true);       // wide viewport를 사용하도록 설정
+//                        webSettings.setLoadWithOverviewMode(true);  // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
+//                        //iv_viewPeople.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//
+//                        user_image.setBackgroundColor(0); //배경색
+//                        user_image.setBackgroundResource(R.drawable.layout_outline);
+//                        user_image.setHorizontalScrollBarEnabled(false); //가로 스크롤
+//                        user_image.setVerticalScrollBarEnabled(false);   //세로 스크롤
+//                        user_image.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
+//                        user_image.setScrollbarFadingEnabled(false);
+//                        user_image.setInitialScale(10);
+//
+//                        // 웹뷰 멀티 터치 가능하게 (줌기능)
+//                        webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
+//                        webSettings.setSupportZoom(false);
+//
+//                        user_image.loadUrl(urlImage);
+//
+//                        Log.v("here", "urlImage1 : " + urlImage);// 접속 URL
+////                    imageCheck=1;
+////                    img_path = getImagePathToUri(intent.getData()); //이미지의 URI를 얻어 경로값으로 반환.
+////                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();
+////                    Log.v("test", String.valueOf(intent.getData()));
+////                    //이미지를 비트맵형식으로 반환
+////                    image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), intent.getData());
+////
+////                    //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
+////                    image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
+//                        //editImage.setImageBitmap(image_bitmap_copy);
+//
+//                        // 파일 이름 및 경로 바꾸기(임시 저장)
+//                        String date = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
+//                        imageName = date + "." + f_ext;
+//                        tempSelectFile = new File("/data/data/com.example.makekit/", imageName);
+//                        OutputStream out = new FileOutputStream(tempSelectFile);
+//                        image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+//
+//                        // 임시 파일 경로로 위의 img_path 재정의
+//                        img_path = "/data/data/com.example.makekit/" + imageName;
+//
+                        imageCheck=1;
+                        img_path = getImagePathToUri(intent.getData()); //이미지의 URI를 얻어 경로값으로 반환.
+                        Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();
+                        Log.v("test", String.valueOf(intent.getData()));
+                        //이미지를 비트맵형식으로 반환
+                        image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), intent.getData());
+
+                        //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
+                        image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
                         //editImage.setImageBitmap(image_bitmap_copy);
 
                         // 파일 이름 및 경로 바꾸기(임시 저장)
                         String date = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
-                        imageName = date + "." + f_ext;
-                        tempSelectFile = new File("/data/data/com.example.makekit/", imageName);
-                        OutputStream out = new FileOutputStream(tempSelectFile);
-                        image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
 
-                        // 임시 파일 경로로 위의 img_path 재정의
-                        img_path = "/data/data/com.example.makekit/" + imageName;
+
+                            user_image1.setImageBitmap(image_bitmap_copy);
+                            imageName = date+"."+f_ext;
+                            tempSelectFile = new File("/data/data/com.example.makekit/", imageName);    // 경로는 자기가 원하는 곳으로 바꿀 수 있음
+                            img_path = "/data/data/com.example.makekit/"+imageName;
+
+
+
+                        OutputStream out = new FileOutputStream(tempSelectFile);
+                        image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);                        // 지정 경로로 임시 파일 보내기
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -618,27 +685,29 @@ public class UserModifyActivity extends AppCompatActivity {
         }
     };
 
-    // user 정보 확인
-//    private void userInfoCheck() {
-//
-//        String userName = user_name.getText().toString().trim();
-//        String userPhone = user_tel.getText().toString().trim();
-//
-//        if (userName.length() == 0) {
-//            fieldCheck.setText("이름을 입력해주세요");
-//            user_name.setFocusableInTouchMode(true);
-//            user_name.requestFocus();
-//
-//        } else if (userPhone.length() == 0) {
-//            fieldCheck.setText("휴대폰 번호을 입력해주세요");
-//            user_tel.setFocusableInTouchMode(true);
-//            user_tel.requestFocus();
-//
-//        }
-//
-//    }
 
+    public String getImagePathToUri(Uri data) {
+        //사용자가 선택한 이미지의 정보를 받아옴
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(data, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
 
+        //이미지의 경로 값
+        String imgPath = cursor.getString(column_index);
+        Log.d("test", imgPath);
+
+        //이미지의 이름 값
+        String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
+
+        // 확장자 명 저장
+        f_ext = imgPath.substring(imgPath.length()-3, imgPath.length());
+        Toast.makeText(UserModifyActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
+//        this.imageName = imgName;
+
+        return imgPath;
+    }//end of getImagePathToUri()
+    //파일 변환
     private void doMultiPartRequest() {
 
         File f = new File(img_path);
@@ -665,6 +734,27 @@ public class UserModifyActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
+    // user 정보 확인
+//    private void userInfoCheck() {
+//
+//        String userName = user_name.getText().toString().trim();
+//        String userPhone = user_tel.getText().toString().trim();
+//
+//        if (userName.length() == 0) {
+//            fieldCheck.setText("이름을 입력해주세요");
+//            user_name.setFocusableInTouchMode(true);
+//            user_name.requestFocus();
+//
+//        } else if (userPhone.length() == 0) {
+//            fieldCheck.setText("휴대폰 번호을 입력해주세요");
+//            user_tel.setFocusableInTouchMode(true);
+//            user_tel.requestFocus();
+//
+//        }
+//
+//    }
 //    // user pw 수 data 송부
 //    private void updateUser(String userPW) {
 //        String urlAddr1 = "";
