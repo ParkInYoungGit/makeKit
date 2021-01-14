@@ -1,6 +1,8 @@
 package com.example.makekit.makekit_adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -14,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_activity.ProdutctViewActivity;
 import com.example.makekit.makekit_activity.SaleProductListActivity;
 import com.example.makekit.makekit_bean.Order;
 
@@ -99,6 +102,16 @@ public class SaleProductListAdapter extends RecyclerView.Adapter<SaleProductList
 
         // url은 알아서 설정 예) http://m.naver.com/
         holder.webView.loadUrl(urlImageReal); // 접속 URL
+
+        holder.webView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent = new Intent(v.getContext(), ProdutctViewActivity.class);
+                intent.putExtra("productNo", mDataset.get(position).getProductNo());
+                v.getContext().startActivity(intent);
+                return false;
+            }
+        });
     }
 
     @Override
