@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        macIP = "192.168.2.2";
-        email = "son@naver.com";
+        macIP = "192.168.2.23";
+        email = "qkr@naver.com";
 
 
 

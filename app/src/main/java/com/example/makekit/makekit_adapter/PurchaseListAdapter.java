@@ -51,6 +51,7 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
             productQuantity = itemView.findViewById(R.id.purchaselist_orderQuantity_TV);
             productPrice = itemView.findViewById(R.id.purchaselist_orderPrice_TV);
             webView = itemView.findViewById(R.id.purchaselist_WebView);
+            orderView = itemView.findViewById(R.id.purchaseLists_Btn);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
