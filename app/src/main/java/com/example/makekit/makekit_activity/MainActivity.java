@@ -66,9 +66,17 @@ public class MainActivity extends AppCompatActivity {
         email = sf.getString("useremail","");
         // -------------------------------------------------------------------------------------
 
+
+
+
+        macIP = "192.168.2.2";
+        email = "son@naver.com";
+
+
         macIP = SharVar.macIP;
         email = SharVar.userEmail;
         urlAddrBase = SharVar.urlAddrBase;
+
 
 
         // 검색 페이지로 이동

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
 
-    final static String TAG = "UserNetWorkTask";
+    final static String TAG = "OrderNetworkTask";
     Context context = null;
     String mAddr = null;
     String where = null;
@@ -82,9 +82,16 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
 
                 if (where.equals("selectOrder")) {
                     parserOrderSelect(stringBuffer.toString());
-                }
-                if (where.equals("selectProductOrder")){
+
+                } else if (where.equals("selectProductOrder")){
                     parserOrderProductSelect(stringBuffer.toString());
+
+                } else if(where.equals("select")){
+                    result = parserOrderNoSelect(stringBuffer.toString());
+
+                } else {
+                    result = parserInsert(stringBuffer.toString());
+
                 }
 
 
@@ -104,11 +111,17 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
 
         if (where.equals("selectOrder")) {
             return order;
-        }
-        if (where.equals("selectProductOrder")){
+
+        } else if (where.equals("selectProductOrder")){
             return payment;
+
+        } else if(where.equals("select")) {
+            return result;
+
+        } else {
+            return result;
+
         }
-        return payment;
     }
 
 
@@ -187,4 +200,43 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
             e.printStackTrace();
         }
     }
+    // OrderNo select
+    private String parserOrderNoSelect(String s) {
+        Log.v(TAG, "Parser in()");
+        String orderNo ="";
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("order_info"));
+            Log.v(TAG, "Parser : ");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                orderNo = jsonObject1.getString("orderNo");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orderNo;
+    }
+
+    // insert/update action
+    private String parserInsert(String s) {
+        Log.v(TAG, "parserInsert()");
+        String returnResult = null;
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            returnResult = jsonObject.getString("result");
+            Log.v(TAG, returnResult);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return returnResult;
+    }
+
+
 }

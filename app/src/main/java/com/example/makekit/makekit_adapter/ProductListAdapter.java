@@ -1,4 +1,4 @@
-package com.example.makekit.makekit_activity;
+package com.example.makekit.makekit_adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,15 +10,14 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_bean.User;
+import com.example.makekit.makekit_activity.ProdutctViewActivity;
+import com.example.makekit.makekit_bean.ProductData;
 
 import java.util.ArrayList;
 

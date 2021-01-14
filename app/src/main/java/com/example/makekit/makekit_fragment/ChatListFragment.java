@@ -64,6 +64,7 @@ public class ChatListFragment extends Fragment {
                     intent.putExtra("receiver", chattingBeanArrayList.get(position).getUserinfo_userEmail_receiver());
                 }
                 intent.putExtra("chattingNumber", chattingBeanArrayList.get(position).getChattingNumber());
+                intent.putExtra("searchAddress", "");
                 startActivity(intent);
             }
         });

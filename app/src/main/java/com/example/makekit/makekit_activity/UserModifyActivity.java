@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -13,7 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.scroll.pickertest.DatePickerFragment;
+import com.example.makekit.makekit_fragment.DatePickerFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,12 +23,11 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +37,6 @@ import com.example.makekit.makekit_asynctask.CUDNetworkTask;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
 import com.example.makekit.makekit_sharVar.SharVar;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
 import java.io.FileOutputStream;

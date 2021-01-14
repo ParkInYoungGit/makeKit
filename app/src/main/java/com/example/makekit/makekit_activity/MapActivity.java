@@ -25,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.makekit.makekit_asynctask.SellerNetworkTask;
-import com.example.makekit.makekit_bean.MyClustItem;
 import com.example.makekit.makekit_bean.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
