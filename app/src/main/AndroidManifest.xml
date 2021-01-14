@@ -34,11 +34,7 @@
 
         <activity android:name=".makekit_activity.RegisterReviewActivity"></activity>
         <activity android:name=".makekit_activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".makekit_activity.TempLogin" />
@@ -58,7 +54,13 @@
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
         <activity android:name=".makekit_activity.FindIdActivity" />
-        <activity android:name=".makekit_activity.SplashActivity" />
+        <activity android:name=".makekit_activity.SplashActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".makekit_activity.OrderViewActivity" />
         <activity android:name=".makekit_activity.PaymentActivity" />
         <activity android:name=".makekit_activity.PurchaseListActivity" />
