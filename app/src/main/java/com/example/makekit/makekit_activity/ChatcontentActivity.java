@@ -20,6 +20,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ChattingContentsAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.ChattingBean;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 
@@ -32,9 +33,10 @@ public class ChatcontentActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
     RecyclerView.Adapter mAdapter = null;
     RecyclerView.LayoutManager layoutManager = null;
+    SlidingUpPanelLayout slidingUpPanelLayout;
     TextView IDTextView;
     EditText editText;
-    Button insertButton;
+    Button insertButton, plusButton;
     Handler handler;
     Thread thread;
     ArrayList<ChattingBean> chattingJudge;
@@ -48,7 +50,9 @@ public class ChatcontentActivity extends AppCompatActivity {
         IDTextView = findViewById(R.id.receiverID);
         editText = findViewById(R.id.chattingContents_ET);
         insertButton = findViewById(R.id.chattingContents_Btn);
+        plusButton = findViewById(R.id.plusButton_chat);
         recyclerView = findViewById(R.id.chattingContents_LV);
+
         Intent intent = getIntent();
         email = intent.getStringExtra("useremail");
         macIP = intent.getStringExtra("macIP");
@@ -128,6 +132,7 @@ public class ChatcontentActivity extends AppCompatActivity {
             }
         });
 
+        setContentViews();
     }
 
     @Override
@@ -187,5 +192,20 @@ public class ChatcontentActivity extends AppCompatActivity {
         return j;
     }
 
+    public void setContentViews(){
+        slidingUpPanelLayout = findViewById(R.id.chatContent_slidingup);
+        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+
+            }
+
+            @Override
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+
+            }
+        });
+    }
 
 }

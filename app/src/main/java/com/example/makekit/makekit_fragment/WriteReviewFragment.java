@@ -1,11 +1,18 @@
 package com.example.makekit.makekit_fragment;
 
+import android.content.Intent;
+import android.graphics.Rect;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,10 +35,12 @@ public class WriteReviewFragment extends Fragment {
 
     final static String TAG = "WriteReviewFragment";
     View v;
-    String urlAddr;
+    String urlAddr, urlJsp;
     String urlAddrBase = null;
     String macIP, productNo, email, orderDetailNo, orderConfirm;
     TextView btn_Register_Review;
+    String reviewCheck = null;
+    LinearLayout you,meiyou;
 
     ArrayList<Order> reviewList;
     WriteReviewAdapter writeReviewAdapter;
@@ -93,6 +102,8 @@ public class WriteReviewFragment extends Fragment {
         Log.v(TAG, "onCreateView WRITE REVIEW >>>>>>>" + getArguments());
 
         recyclerView = v.findViewById(R.id.recyclerView_writeReview);
+        you = v.findViewById(R.id.you);
+        meiyou = v.findViewById(R.id.meiyou);
 
         urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddr = urlAddrBase + "jsp/write_reviewlist_all.jsp?email=" + email;
@@ -113,6 +124,7 @@ public class WriteReviewFragment extends Fragment {
         super.onResume();
         Log.v(TAG, "onResume REVIEW");
         connectSelectData();
+        check();
         recyclerView.setAdapter(writeReviewAdapter);
         recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
         layoutManager = new LinearLayoutManager(getContext());
@@ -139,11 +151,36 @@ public class WriteReviewFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    private void check(){
+        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/reviewlist_empty_check.jsp?";
+        urlAddr = urlJsp + "email=" + email;
 
+        reviewCheck = reviewListCheck();
 
+        if (reviewCheck.equals("0")){
+            meiyou.setVisibility(View.VISIBLE);
+            you.setVisibility(View.INVISIBLE);
+
+        }else {
+            meiyou.setVisibility(View.INVISIBLE);
+            you.setVisibility(View.VISIBLE);
+        }
     }
 
 
+    private String reviewListCheck() {
+        try {
+            NetworkTask_DH checkTask = new NetworkTask_DH(getActivity(), urlAddr, "reviewCheck");
+            Object obj = checkTask.execute().get();
+
+            reviewCheck = (String) obj;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return reviewCheck;
+    }
 
 }  // END ------------------------------------------------------------------------------

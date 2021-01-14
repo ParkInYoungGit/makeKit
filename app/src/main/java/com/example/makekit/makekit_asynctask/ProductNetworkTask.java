@@ -70,6 +70,7 @@ public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
 
         StringBuffer stringBuffer = new StringBuffer();
         String result = null;
+        String resultAddr = null;
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
 
@@ -168,4 +169,5 @@ public class ProductNetworkTask extends AsyncTask<Integer, String, Object> {
 
         return returnResult;
     }
+
 }

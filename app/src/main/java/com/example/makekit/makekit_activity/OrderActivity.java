@@ -261,6 +261,7 @@ public class OrderActivity extends AppCompatActivity {
         order_userAddress.setText(orderUserAddress);
         order_userAddressDetail.setText(orderUserAddressDetail);
 
+        // 주소록 선택을 위한 이벤트 클릭 리스너
         order_userAddress.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -427,14 +428,11 @@ public class OrderActivity extends AppCompatActivity {
     TextWatcher changeListener_userTel = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//            fieldCheck.setText("");
-//            fieldCheck.setText("");
             _beforeLenght = s.length();
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //fieldCheck.setText("");
             _afterLenght = s.length();
             // 삭제 중
             if (_beforeLenght > _afterLenght) {
@@ -522,19 +520,7 @@ public class OrderActivity extends AppCompatActivity {
             }
         };
 
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        switch (requestCode) {
-            case SEARCH_ADDRESS_ACTIVITY:
-                if (resultCode == RESULT_OK) {
-                    String data = intent.getExtras().getString("data");
-                    if (data != null) {
-                        order_userAddress.setText(data);
-                    }
-                }
-                break;
-        }
-    }
+
 
     // email 입력란 text 변경 시 listener
     TextWatcher changeListener = new TextWatcher() {
@@ -579,4 +565,20 @@ public class OrderActivity extends AppCompatActivity {
     }
 
 
-    }//===================
+
+    // ======================= 주소록 선택 이벤트
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch (requestCode) {
+            case SEARCH_ADDRESS_ACTIVITY:
+                if (resultCode == RESULT_OK) {
+                    String data = intent.getExtras().getString("data");
+                    if (data != null) {
+                        order_userAddress.setText(data);
+                    }
+                }
+                break;
+        }
+    }
+
+}//===================

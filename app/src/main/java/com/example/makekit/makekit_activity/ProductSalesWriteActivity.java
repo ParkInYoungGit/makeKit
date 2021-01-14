@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.ProductNetworkTask;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -60,7 +61,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
     ImageView product_thumbnail, product_detail, product_detailsecond;
 
     // 아이피, url 설정
-    String macIP, urlJsp, urlImage, url, urlAddr;
+    String macIP, urlJsp, urlImage, url, urlAddr, email, urlAddrBase;
 
     // DB에서 받아오는 변수
     String peopleNo, productInsertResult, phoneInsert, statusInsert, registerInsert;
@@ -94,12 +95,14 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_sales_write);
         ActivityCompat.requestPermissions(ProductSalesWriteActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
-        macIP = "192.168.200.193";
-        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
-        urlImage = "http://" + macIP + ":8080/makeKit/image/";
-        urlAddr = "http://"+macIP+":8080/makeKit/jsp/ProductInsert.jsp?";
+        macIP = SharVar.macIP;
+        email = SharVar.userEmail;
+        urlAddrBase = SharVar.urlAddrBase;
+        urlJsp = urlAddrBase + "jsp/";  // jsp 폴더
+        urlImage = urlAddrBase + "image/";  // image 폴더
+        urlAddr = urlJsp+"ProductInsert.jsp?";
         // 사진 연결
-        url = "http://"+macIP+":8080/makeKit/jsp/multipartRequest.jsp";
+        url =   urlJsp +"multipartRequest.jsp";
 
         // Thread 사용
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -147,19 +150,12 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-//            String productname = product_name.getText().toString().trim();
-//            String productprice = product_price.getText().toString().trim();
-//            String producttype = product_type.getSelectedItem().toString().trim();
-//            String productstock = product_stock.getText().toString().trim();
-//            String productcontent = product_content.getText().toString().trim();
             productname = product_name.getText().toString().trim();
             productprice = product_price.getText().toString().trim();
             producttype = product_type.getSelectedItem().toString().trim();
             productstock = product_stock.getText().toString().trim();
             productcontent = product_content.getText().toString().trim();
-//            String productthumbnail = imageName1.getText().toString().trim();
-//            String productdetail = product_detail.getText().toString().trim();
-//            String productdetailsecond = product_detail_second.getText().toString().trim();
+
             Intent intent;
 
             switch (v.getId()) {
@@ -213,41 +209,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         }
     };
 
-//    // user 입력 data 송부
-//    private void insertUser(String productname, String productprice, String producttype,String productstock, String productcontent, String productthumbnail, String productdetail, String productdetailsecond){
-//        String urlAddr1 = "";
-//        urlAddr1 = urlJsp + "ProductInsert.jsp?name=" + productname + "&price=" + productprice + "&type=" + producttype + "&stock=" + productstock + "&content=" + productcontent + "&thumnail=" + productthumbnail + "&detail=" + productdetail + "&detailsecond=" + productdetailsecond;
-//
-//        String result = connectInsertData(urlAddr1);
-//
-//        if(result.equals("1")){
-//            Toast.makeText(ProductSalesWriteActivity.this, productname + " 등록 성공", Toast.LENGTH_SHORT).show();
-//
-//        } else{
-//            Toast.makeText(ProductSalesWriteActivity.this, productname + " 등록 실패", Toast.LENGTH_SHORT).show();
-//
-//        }
-//
-//        finish();
-//
-//    }
-
-//    //connection Insert
-//    private String connectInsertData(String urlAddr){
-//        String result = null;
-//
-//        try{
-//            ProductNetworkTask insertNetworkTask = new ProductNetworkTask(ProductSalesWriteActivity.this, urlAddr);
-//            Object obj = insertNetworkTask.execute().get();
-//            result = (String) obj;
-//
-//        } catch (Exception e){
-//            e.printStackTrace();
-//
-//        }
-//        return result;
-//    }
-
+    // 제품 등록 데이터 전달
     private String connectInsertData() {
         try {
             ProductNetworkTask insnetworkTask = new ProductNetworkTask(ProductSalesWriteActivity.this, urlAddr);
@@ -259,6 +221,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         return productInsertResult;
     }
 
+    // 이미지 처리 해주는 이벤트
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         // 겔러리 가기
@@ -278,8 +241,6 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
                     // 파일 이름 및 경로 바꾸기(임시 저장)
                     String date = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
 
-
-
                     if (check_image == 1) {
                         product_thumbnail.setImageBitmap(image_bitmap_copy);
                         imageName = date+"."+f_ext;
@@ -298,14 +259,8 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
                     }
 
 
-
-
-
                      OutputStream out = new FileOutputStream(tempSelectFile);
                     image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);                        // 지정 경로로 임시 파일 보내기
-
-                    // 임시 파일 경로로 위의 img_path 재정의
-
 
 
                 } catch (Exception e) {
@@ -316,39 +271,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        if (requestCode == REQ_CODE_SELECT_IMAGE) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                try {
-//                    imageCheck=1;
-//                    img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
-//                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();
-//                    Log.v("test", String.valueOf(data.getData()));
-//                    //이미지를 비트맵형식으로 반환
-//                    image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-//
-//                    //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
-//                    image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
-//                    //editImage.setImageBitmap(image_bitmap_copy);
-//
-//                    // 파일 이름 및 경로 바꾸기(임시 저장)
-//                    String date = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
-//                    imageName = date+"."+f_ext;
-//                    tempSelectFile = new File("/data/data/com.android.address_book/", imageName);
-//                    OutputStream out = new FileOutputStream(tempSelectFile);
-//                    image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-//
-//                    // 임시 파일 경로로 위의 img_path 재정의
-//                    img_path = "/data/data/com.android.address_book/"+imageName;
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
-
+    // 이미지 경로 저장
     public String getImagePathToUri(Uri data) {
         //사용자가 선택한 이미지의 정보를 받아옴
         String[] proj = {MediaStore.Images.Media.DATA};
@@ -365,7 +288,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         return imgPath;
     }//end of getImagePathToUri()
 
-    //파일 변환
+    //  이미지 파일 변환
     private void doMultiPartRequest() {
 
         ArrayList<String> file = new ArrayList<String>();
@@ -379,7 +302,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         }
     }
 
-    //서버 보내기
+    //  이미지 서버 보내기
     private void DoActualRequest(File file) {
         Log.v("DoActualRequest", "DoActualRequest() in ");
         Log.v("DoActualRequest", "file1()" + file);
@@ -405,7 +328,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
 
                 .build();
                 Log.v("urlllll","urslllll" + url);
-//
+
         try {
             Response response1 = client.newCall(request).execute();
 

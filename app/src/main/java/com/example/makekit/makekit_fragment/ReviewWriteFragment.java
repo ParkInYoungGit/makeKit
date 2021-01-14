@@ -63,4 +63,6 @@ public class ReviewWriteFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_review_write, container, false);
     }
-}
+
+
+} // end

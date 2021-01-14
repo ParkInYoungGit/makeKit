@@ -26,6 +26,7 @@ import com.example.makekit.makekit_fragment.CategoryFragment;
 import com.example.makekit.makekit_fragment.ChatListFragment;
 import com.example.makekit.makekit_fragment.HomeFragment;
 import com.example.makekit.makekit_fragment.MypageFragment;
+import com.example.makekit.makekit_sharVar.SharVar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     String macIP;
     String email;
+    String urlAddrBase;
 
 
     @Override
@@ -64,11 +66,9 @@ public class MainActivity extends AppCompatActivity {
         email = sf.getString("useremail","");
         // -------------------------------------------------------------------------------------
 
-
-
-        macIP = "192.168.2.23";
-        email = "qkr@naver.com";
-
+        macIP = SharVar.macIP;
+        email = SharVar.userEmail;
+        urlAddrBase = SharVar.urlAddrBase;
 
 
         // 검색 페이지로 이동
@@ -202,6 +202,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         //return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
+
+            case R.id.menu_product:
+
+                // 제품 구매로 가는 버튼
+                Intent  productIntent = new Intent(MainActivity.this, ProductSalesWriteActivity.class);
+                startActivity(productIntent);
+                return true;
+
             case R.id.menu_gps:
 
                 // GPS로 가는 버튼
