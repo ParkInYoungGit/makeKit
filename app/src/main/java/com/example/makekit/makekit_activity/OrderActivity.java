@@ -121,11 +121,11 @@ public class OrderActivity extends AppCompatActivity {
 
         // 앞에서 넘겨준 값 받기
         Intent intent = getIntent();
-        macIP = intent.getStringExtra("macIP");
-        productNo = intent.getStringExtra("productNo");
+//        macIP = intent.getStringExtra("macIP");
 //        email = intent.getStringExtra("userEmail");
-        email = "qkr@naver.com";
+//        email = "qkr@naver.com";
 //        product1 = intent.getStringArrayListExtra("productNo");
+        productNo = intent.getStringExtra("productNo");
         cartNo = intent.getStringExtra("cartNo");
         count = intent.getStringExtra("productQuantity");
         totalPrice = intent.getStringExtra("totalPrice");
@@ -154,11 +154,13 @@ public class OrderActivity extends AppCompatActivity {
         /////////////////////////////////////////////////////
         // 1/14 Kyeongmi 추가
         /////////////////////////////////////////////////////
-        urlAddrBase = SharVar.urlAddrBase;
         macIP = SharVar.macIP;
+        email = SharVar.userEmail;
+        urlAddrBase = SharVar.urlAddrBase;
         urlJsp = urlAddrBase + "jsp/";  // jsp 폴더
         urlImage = urlAddrBase + "image/";  // image 폴더
 
+        
         /////////////////////////////////////////////////////
         // 기존 사용 변수
         /////////////////////////////////////////////////////
