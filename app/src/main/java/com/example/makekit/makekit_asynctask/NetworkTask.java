@@ -5,8 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.makekit.makekit_activity.ProductData;
-import com.example.makekit.makekit_bean.User;
+import com.example.makekit.makekit_bean.ProductData;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

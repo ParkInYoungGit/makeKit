@@ -37,11 +37,13 @@ import com.example.makekit.makekit_adapter.OrderProductListAdapter;
 import com.example.makekit.makekit_asynctask.CartNetworkTask;
 import com.example.makekit.makekit_asynctask.OrderNetworkTask;
 
+import com.example.makekit.makekit_asynctask.ProductNetworkTask;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.Cart;
 
 import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Payment;
+import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.text.DecimalFormat;
@@ -60,7 +62,7 @@ public class OrderActivity extends AppCompatActivity {
 
     DecimalFormat myFormatter;
     //  아이피, url, 기본 세팅 설정
-    String macIP, result, email, productNo, count, totalPrice, urlAddrBase, urlJsp, urlImage, url, urlAddrSelect_Resume, cartNo, urlAddrSelect_Resume1, urlAddrBase11;
+    String macIP, result, email, productNo, count, totalPrice, urlAddrBase, urlJsp, urlImage, url, urlAddrSelect_Resume, cartNo, urlAddrSelect_Resume1, urlAddrBase11, orderNo;
     int orderCount, orderTotalPrice;
     int total = 0;
 
@@ -301,6 +303,7 @@ public class OrderActivity extends AppCompatActivity {
                     break;
 
                 case R.id.order_payment_btn:
+                    int count = 0;
 
                     String orderreceiver = order_receiverName.getText().toString();
                     String orderrcvaddress = order_receiverAddress.getText().toString();
@@ -321,7 +324,28 @@ public class OrderActivity extends AppCompatActivity {
                     String urlAddr1 = urlAddrBase + "jsp/insert_order_orderinfo.jsp?useremail=" + email + "&orderreceiver=" + orderreceiver + "&orderrcvaddress=" + orderrcvaddress;
                     String urlAddr2 = "&orderrcvaddressdetail=" + orderrcvaddressdetail + "&orderrcvphone=" + orderrcvphone + "&ordertotalprice=" + (total + carts.size()*2500) + "&orderbank=" + orderbank + "&ordercardno=" + ordercardno + "&ordercardpw=" + ordercardpw;
                     connectInsertData(urlAddr1+urlAddr2);
+                    String urlAddr3 = urlAddrBase + "jsp/select_orderno_orderdetail.jsp?useremail=" + email;
+                    connectSelectData(urlAddr3);
 
+
+                    /////////////////////////////////////////////////////
+                    // 1/14 Kyeongmi 추가
+                    /////////////////////////////////////////////////////
+                    // 선택된 주문 상품 orderdetail table 추가
+                    String urlAddr4 = urlAddrBase + "jsp/insert_order_orderdetail.jsp?useremail=" + email + "&orderno=" + orderNo;
+                    for(int i=0; i<carts.size();i++) {
+                        String urlAddr5 = "&productno=" + carts.get(i).getProductNo() + "&orderquantity=" + carts.get(i).getCartQuantity();
+                        count += Integer.parseInt(connectInsertData(urlAddr4 + urlAddr5));
+                        Log.v(TAG, "count : " + count);
+                        Log.v(TAG, "urlAddr5 : " + urlAddr5);
+                    }
+                    if(count == carts.size()) {
+                        Toast.makeText(OrderActivity.this, "입력 성공하였습니다.", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(OrderActivity.this, "입력 실패하였습니다.", Toast.LENGTH_SHORT).show();
+
+                    }
                     if(result.equals("1")) {
                         Toast.makeText(OrderActivity.this, "주문 정보 입력 성공하였습니다.", Toast.LENGTH_SHORT).show();
 
@@ -549,12 +573,12 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     // insert orderinfo
-    private void connectInsertData(String urlAddr) {
+    private String connectInsertData(String urlAddr) {
         result = "";
         try {
-            CartNetworkTask cartNetworkTask = new CartNetworkTask(OrderActivity.this, urlAddr, "insert");
+            OrderNetworkTask productNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddr, "insert");
 
-            Object object = cartNetworkTask.execute().get();
+            Object object = productNetworkTask.execute().get();
             result = (String) object;
             Log.v(TAG, "입력 결과값 : " + result);
 
@@ -562,8 +586,23 @@ public class OrderActivity extends AppCompatActivity {
             e.printStackTrace();
 
         }
+        return result;
     }
 
+
+    // select OrderNo
+    private void connectSelectData(String urlAddr) {
+        orderNo = "";
+        try {
+            OrderNetworkTask productNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddr, "select");
+
+            Object object = productNetworkTask.execute().get();
+            orderNo = (String) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     // ======================= 주소록 선택 이벤트
