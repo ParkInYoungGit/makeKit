@@ -152,7 +152,7 @@ public class TempLogin extends AppCompatActivity {
         Log.v("TempLogin", "login : " + useremail + userpw);
 
         if (count.equals("1")) {
-            SharVar.userEmail = useremail;
+//            SharVar.userEmail = useremail;
             Log.v("TempLogin", "ShareVar>>>>>>>>>" + SharVar.userEmail);
             save();
             Toast.makeText(TempLogin.this, "로그인 완료!", Toast.LENGTH_SHORT).show();
