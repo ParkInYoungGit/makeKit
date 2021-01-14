@@ -79,6 +79,7 @@ public class ChatcontentActivity extends AppCompatActivity {
 
         plusButton.setOnClickListener(mClickListener);
         editText.setOnClickListener(mClickListener);
+        gpsButton_chat.setOnClickListener(mClickListener);
 
         handler = new Handler(){
             @Override
@@ -148,7 +149,7 @@ public class ChatcontentActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(searchAddress.equals(null)){
+        if(searchAddress.equals("")){
 
         }else{
             NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/insertChatting.jsp?chattingNumber="+chattingNumber+"&userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver+"&chattingContents="+searchAddress, "inputChatting");
