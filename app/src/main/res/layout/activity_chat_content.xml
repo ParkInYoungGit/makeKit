@@ -8,10 +8,11 @@
     tools:context=".makekit_activity.ChatcontentActivity"
     android:gravity="bottom"
     app:umanoDragView="@id/chatting_LL"
-    app:umanoPanelHeight="80dp"
+    app:umanoPanelHeight="50dp"
     app:umanoOverlay="true"
-    app:umanoParallaxOffset="160dp"
+    app:umanoParallaxOffset="150dp"
     app:umanoShadowHeight="0dp"
+    android:background="#B2C7DA"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,24 +38,21 @@
             android:layout_weight="11"
             android:layout_margin="10dp"
             />
-        <LinearLayout
-            android:id="@+id/chatting_LL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="false"
-            android:orientation="vertical"
-            >
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:orientation="horizontal"
+                android:background="#FFFFFF"
                 >
-                    <Button
+                    <ImageButton
                         android:id="@+id/plusButton_chat"
                         android:layout_width="0dp"
                         android:layout_weight="1"
+                        android:layout_margin="15dp"
+                        android:layout_gravity="center"
                         android:layout_height="match_parent"
                         android:background="@drawable/add"
                         />
@@ -69,25 +67,52 @@
                         android:scrollbars="vertical"
                         android:cursorVisible="true"
                         />
-                    <Button
+                    <ImageButton
                         android:id="@+id/chattingContents_Btn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:layout_gravity="center"
                         android:padding="10dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/paperplane"
                         />
                 </LinearLayout>
-
-                <Button
+    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/chatting_LL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:orientation="horizontal"
+            >
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="80dp"
+                android:orientation="vertical"
+                android:layout_margin="30dp"
+                >
+                <ImageButton
                     android:id="@+id/gpsButton_chat"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/kakaotalk_gps"
+                    android:layout_gravity="center"
+                    android:visibility="invisible"
+                    />
+                <TextView
+                    android:id="@+id/gpsTextView_chat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_gps"
+                    android:layout_gravity="center"
+                    android:text="지도"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:visibility="invisible"
                     />
+            </LinearLayout>
 
-        </LinearLayout>
     </LinearLayout>
 
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

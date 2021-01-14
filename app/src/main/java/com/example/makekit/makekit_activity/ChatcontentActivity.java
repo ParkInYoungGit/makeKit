@@ -1,6 +1,7 @@
 package com.example.makekit.makekit_activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,11 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +23,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ChattingContentsAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.ChattingBean;
+import com.example.makekit.makekit_sharVar.SharVar;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
@@ -34,9 +38,9 @@ public class ChatcontentActivity extends AppCompatActivity {
     RecyclerView.Adapter mAdapter = null;
     RecyclerView.LayoutManager layoutManager = null;
     SlidingUpPanelLayout slidingUpPanelLayout;
-    TextView IDTextView;
+    TextView IDTextView, gpsTextView_chat;
     EditText editText;
-    Button insertButton, plusButton;
+    ImageButton insertButton, plusButton, gpsButton_chat;
     Handler handler;
     Thread thread;
     ArrayList<ChattingBean> chattingJudge;
@@ -52,10 +56,12 @@ public class ChatcontentActivity extends AppCompatActivity {
         insertButton = findViewById(R.id.chattingContents_Btn);
         plusButton = findViewById(R.id.plusButton_chat);
         recyclerView = findViewById(R.id.chattingContents_LV);
+        gpsButton_chat = findViewById(R.id.gpsButton_chat);
+        gpsTextView_chat = findViewById(R.id.gpsTextView_chat);
 
         Intent intent = getIntent();
-        email = intent.getStringExtra("useremail");
-        macIP = intent.getStringExtra("macIP");
+        macIP = SharVar.macIP;
+        email = SharVar.userEmail;
         chattingNumber = intent.getStringExtra("chattingNumber");
         receiver = intent.getStringExtra("receiver");
 
@@ -69,6 +75,9 @@ public class ChatcontentActivity extends AppCompatActivity {
 
         chattingJudge = new ArrayList<ChattingBean>();
         chattingContents = new ArrayList<ChattingBean>();
+
+        plusButton.setOnClickListener(mClickListener);
+        editText.setOnClickListener(mClickListener);
 
         handler = new Handler(){
             @Override
@@ -203,9 +212,33 @@ public class ChatcontentActivity extends AppCompatActivity {
 
             @Override
             public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-
+                if(newState.name().toString().equalsIgnoreCase("Collapsed")){
+                    plusButton.setBackground(ContextCompat.getDrawable(ChatcontentActivity.this, R.drawable.add));
+                    gpsButton_chat.setVisibility(View.INVISIBLE);
+                    gpsTextView_chat.setVisibility(View.INVISIBLE);
+                }else if(newState.name().equalsIgnoreCase("Expanded")){
+                    plusButton.setBackground(ContextCompat.getDrawable(ChatcontentActivity.this, R.drawable.minus_chat));
+                    gpsButton_chat.setVisibility(View.VISIBLE);
+                    gpsTextView_chat.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
+
+    View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.plusButton_chat:
+                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                    gpsButton_chat.setVisibility(View.INVISIBLE);
+                    break;
+                case R.id.chattingContents_ET:
+                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                    gpsButton_chat.setVisibility(View.INVISIBLE);
+                    break;
+            }
+        }
+    };
 
 }
