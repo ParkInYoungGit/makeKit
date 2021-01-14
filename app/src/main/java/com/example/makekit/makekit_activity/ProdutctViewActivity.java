@@ -76,11 +76,13 @@ public class ProdutctViewActivity extends AppCompatActivity {
 //        macIP = intent.getStringExtra("macIP");
         productNo = intent.getStringExtra("productNo");
 
-
+        macIP = SharVar.macIP;
+        userEmail = SharVar.userEmail;
+        urlAddrBase = SharVar.urlAddrBase;
         //macIP = "192.168.219.164";
 
-        productNo = "44";
-        userEmail = "qkr@naver.com";
+//        productNo = "44";
+//        userEmail = "qkr@naver.com";
 
 //        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddrBase = SharVar.urlAddrBase;

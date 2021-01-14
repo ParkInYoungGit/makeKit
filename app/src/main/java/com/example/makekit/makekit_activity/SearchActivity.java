@@ -55,7 +55,6 @@ public class SearchActivity extends AppCompatActivity {
 
         products = new ArrayList<Product>();
         layoutManager = new GridLayoutManager(this,2);
-        searchAdapter = new SearchAdapter(urlAddrBase);
 
         search_Iv.setOnClickListener(mClickListener);
 
@@ -65,7 +64,7 @@ public class SearchActivity extends AppCompatActivity {
         public void onClick(View v) {
             Log.v(TAG, "onClick");
             connectGetSearchData();
-            searchAdapter.addItem(products);
+            searchAdapter = new SearchAdapter(urlAddrBase, products);
 
             recyclerView.setLayoutManager(layoutManager);
 
