@@ -29,15 +29,17 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".makekit_activity.SalesListActivity"></activity>
         <activity android:name=".makekit_activity.SaleProductListActivity"></activity>
-        <activity android:name=".makekit_activity.ProductSalesWriteActivity"></activity>
-
-        <activity android:name=".makekit_activity.RegisterReviewActivity"></activity>
-        <activity android:name=".makekit_activity.MainActivity">
+        <activity android:name=".makekit_activity.ProductSalesWriteActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".makekit_activity.RegisterReviewActivity"></activity>
+        <activity android:name=".makekit_activity.MainActivity">
+
         </activity>
 
         <activity android:name=".makekit_activity.TempLogin" />
