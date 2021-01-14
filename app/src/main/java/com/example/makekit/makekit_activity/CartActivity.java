@@ -18,6 +18,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.CartAdapter;
 import com.example.makekit.makekit_asynctask.CartNetworkTask;
 import com.example.makekit.makekit_bean.Cart;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -60,7 +61,8 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
         //productQuantity = intent.getStringExtra("productQuantity");
         //totalPrice = intent.getStringExtra("totalPrice");
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
+//        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddr = urlAddrBase + "jsp/select_usercart_all.jsp?cartno=" + cartNo;
         Log.v(TAG, "주소" + urlAddr);
         connectSelectData(urlAddr);
@@ -88,11 +90,11 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
                     } else {
                         Toast.makeText(CartActivity.this, "구매 시작해주세요.", Toast.LENGTH_SHORT).show();
 
-//                    Intent intent1 = new Intent(CartActivity.this, OrderActivity.class);
-//                    intent1.putExtra("macIP", macIP);
-//                    intent1.putExtra("cartNo", cartNo);
-//                    intent1.putExtra("productno", cartAdapter.checkBoxCheckedReturn());
-//                    startActivity(intent1);
+                    Intent intent1 = new Intent(CartActivity.this, OrderActivity.class);
+                    intent1.putExtra("macIP", macIP);
+                    intent1.putExtra("cartNo", cartNo);
+                    intent1.putExtra("productno", cartAdapter.checkBoxCheckedReturn());
+                    startActivity(intent1);
                     }
                 } else {
                     Toast.makeText(CartActivity.this, "장바구니가 비어있습니다.", Toast.LENGTH_SHORT).show();

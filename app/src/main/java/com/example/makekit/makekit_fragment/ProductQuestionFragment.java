@@ -17,6 +17,7 @@ import com.example.makekit.makekit_activity.ChatcontentActivity;
 import com.example.makekit.makekit_activity.MapActivity;
 import com.example.makekit.makekit_asynctask.ProductNetworkTask;
 import com.example.makekit.makekit_bean.Product;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 public class ProductQuestionFragment extends Fragment {
 
     View v;
-    String sellerEmail, macIP, productNo, urlAddr;
+    String sellerEmail, macIP, productNo, urlAddr, urlAddrBase;
     ArrayList<Product> products;
 
     final static String TAG = "ProductQuestionFragment";
@@ -82,8 +83,9 @@ public class ProductQuestionFragment extends Fragment {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_product_question,container,false);
         Log.v(TAG, "onCreate QUESTION" + getArguments());
+        urlAddrBase = SharVar.urlAddrBase;
 
-        urlAddr =  "http://" + macIP + ":8080/makeKit/jsp/product_productview_content.jsp?productno=" + productNo;
+        urlAddr =  urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
 
         Button btnQuestion = v.findViewById(R.id.btnChattingQuestion_productview);
         Log.v(TAG, "ONCREATE QUESTION" + mParam1 + mParam2 );
