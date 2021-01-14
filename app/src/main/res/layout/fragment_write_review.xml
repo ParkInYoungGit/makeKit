@@ -5,11 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".makekit_fragment.WriteReviewFragment">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
     <LinearLayout
+        android:id="@+id/you"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#EDE8E6E6"
+        android:visibility="visible"
         >
 
         <androidx.recyclerview.widget.RecyclerView
@@ -20,6 +26,26 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/meiyou"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#EDE8E6E6"
+        android:gravity="center"
+        android:visibility="visible"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="작성할 리뷰가 존재하지 않습니다."
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+
+    </FrameLayout>
 
 
 </LinearLayout>

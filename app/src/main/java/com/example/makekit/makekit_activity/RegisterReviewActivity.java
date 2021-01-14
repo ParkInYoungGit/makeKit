@@ -157,8 +157,10 @@ public class RegisterReviewActivity extends AppCompatActivity {
 
                     // 리스트로 돌아가기
                     intent = new Intent(RegisterReviewActivity.this, ReviewListFragment.class);
+                    intent.putExtra("macIP",macIP);
+                    intent.putExtra("email",email);
                     startActivity(intent);
-//                    finish();
+                    finish();
                     break;
             }
         }

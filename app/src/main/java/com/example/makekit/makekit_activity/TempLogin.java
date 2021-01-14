@@ -79,7 +79,7 @@ public class TempLogin extends AppCompatActivity {
         join.setOnClickListener(mOnClickListener);
 
 
-        TextInputLayout inputLayoutPW = findViewById(R.id.login_id);
+        TextInputLayout inputLayoutPW = findViewById(R.id.InputLayoutPw_login);
         inputLayoutPW.setPasswordVisibilityToggleEnabled(true);
 
 
