@@ -18,6 +18,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.CartAdapter;
 import com.example.makekit.makekit_asynctask.CartNetworkTask;
 import com.example.makekit.makekit_bean.Cart;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -60,7 +61,8 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
         //productQuantity = intent.getStringExtra("productQuantity");
         //totalPrice = intent.getStringExtra("totalPrice");
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
+//        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddr = urlAddrBase + "jsp/select_usercart_all.jsp?cartno=" + cartNo;
         Log.v(TAG, "주소" + urlAddr);
         connectSelectData(urlAddr);

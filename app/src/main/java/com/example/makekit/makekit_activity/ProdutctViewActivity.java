@@ -28,6 +28,7 @@ import com.example.makekit.makekit_fragment.ProductContentFragment;
 import com.example.makekit.makekit_fragment.ProductDetailFragment;
 import com.example.makekit.makekit_fragment.ProductQuestionFragment;
 import com.example.makekit.makekit_fragment.ProductReviewFragment;
+import com.example.makekit.makekit_sharVar.SharVar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.tabs.TabLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -78,10 +79,11 @@ public class ProdutctViewActivity extends AppCompatActivity {
 
         //macIP = "192.168.219.164";
 
-//        productNo = "44";
-//        userEmail = "qkr@naver.com";
+        productNo = "44";
+        userEmail = "qkr@naver.com";
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+//        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
         urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
         urlAddr1 = urlAddrBase + "jsp/cartno_productview_check.jsp?useremail=" + userEmail;
 

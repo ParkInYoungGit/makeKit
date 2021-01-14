@@ -40,6 +40,7 @@ import com.example.makekit.makekit_bean.Cart;
 
 import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Payment;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -150,9 +151,10 @@ public class OrderActivity extends AppCompatActivity {
 //        Log.v(TAG, "orderCount : " + orderCount);
 //        Log.v(TAG, "orderTotalPrice : " + orderTotalPrice);
 
+        urlAddrBase = SharVar.urlAddrBase;
 
         // 사용할 폴더 지정
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";  // 기본 폴더
+        //urlAddrBase = "http://" + macIP + ":8080/makeKit/";  // 기본 폴더
         urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";  // jsp 폴더
         urlImage = "http://" + macIP + ":8080/makeKit/image/";  // image 폴더
         urlAddrSelect_Resume = urlJsp + "order_user_info.jsp?email=" + email;

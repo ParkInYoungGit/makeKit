@@ -14,6 +14,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ProductReviewAdapter;
 import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
 import com.example.makekit.makekit_bean.Review;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -102,8 +103,8 @@ public class ProductReviewFragment extends Fragment {
 //        }
 //        mParam1 = "192.168.219.164";
 //        mParam2 = "44";
-
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
+        //urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddr = urlAddrBase + "jsp/review_productview_all.jsp?productno=" + productNo;
         Log.v(TAG, "주소" + urlAddr);
         connectSelectData();

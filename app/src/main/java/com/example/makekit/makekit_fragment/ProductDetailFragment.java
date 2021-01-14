@@ -24,6 +24,7 @@ import com.example.makekit.makekit_asynctask.ProductNetworkTask;
 import com.example.makekit.makekit_asynctask.WishlistNetworkTask;
 import com.example.makekit.makekit_bean.Favorite;
 import com.example.makekit.makekit_bean.Product;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -91,7 +92,8 @@ public class ProductDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_product_detail, container, false);
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
+//        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddr = urlAddrBase + "jsp/sellerfavorite_productview_check.jsp?useremail=" + userEmail + "&productno=" + productNo;
         urlAddr4 = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
 

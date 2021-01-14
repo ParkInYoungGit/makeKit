@@ -30,6 +30,7 @@ import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
 import com.example.makekit.makekit_asynctask.WishlistNetworkTask;
 import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_bean.Review;
+import com.example.makekit.makekit_sharVar.SharVar;
 import com.sun.mail.imap.protocol.INTERNALDATE;
 
 import org.w3c.dom.Text;
@@ -122,8 +123,8 @@ public class ProductContentFragment extends Fragment {
 //        mParam1 = "192.168.219.164";
 //        mParam2 = "44";
 
-
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
+//        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
         Log.v(TAG, "주소" + urlAddr);
         urlAddr1 = urlAddrBase + "jsp/wishlist_productview_check.jsp?productno=" + productNo + "&useremail=" + userEmail;
