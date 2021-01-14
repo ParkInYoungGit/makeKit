@@ -21,6 +21,7 @@ import com.example.makekit.makekit_adapter.OnSearchItemClickListener;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_adapter.SearchAdapter;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -48,10 +49,9 @@ public class SearchActivity extends AppCompatActivity {
         search_Iv = findViewById(R.id.search_Iv);
         recyclerView = findViewById(R.id.searchRecyclerView);
 
-        Intent intent = getIntent();
-        email = intent.getStringExtra("useremail");
-        macIP = intent.getStringExtra("macIP");
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        macIP = SharVar.macIP;
+        email = SharVar.userEmail;
+        urlAddrBase = SharVar.urlAddrBase;
 
         products = new ArrayList<Product>();
         layoutManager = new GridLayoutManager(this,2);
