@@ -90,11 +90,11 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
                     } else {
                         Toast.makeText(CartActivity.this, "구매 시작해주세요.", Toast.LENGTH_SHORT).show();
 
-//                    Intent intent1 = new Intent(CartActivity.this, OrderActivity.class);
-//                    intent1.putExtra("macIP", macIP);
-//                    intent1.putExtra("cartNo", cartNo);
-//                    intent1.putExtra("productno", cartAdapter.checkBoxCheckedReturn());
-//                    startActivity(intent1);
+                    Intent intent1 = new Intent(CartActivity.this, OrderActivity.class);
+                    intent1.putExtra("macIP", macIP);
+                    intent1.putExtra("cartNo", cartNo);
+                    intent1.putExtra("productno", cartAdapter.checkBoxCheckedReturn());
+                    startActivity(intent1);
                     }
                 } else {
                     Toast.makeText(CartActivity.this, "장바구니가 비어있습니다.", Toast.LENGTH_SHORT).show();

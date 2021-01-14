@@ -151,12 +151,21 @@ public class OrderActivity extends AppCompatActivity {
 //        Log.v(TAG, "orderCount : " + orderCount);
 //        Log.v(TAG, "orderTotalPrice : " + orderTotalPrice);
 
+        /////////////////////////////////////////////////////
+        // 1/14 Kyeongmi 추가
+        /////////////////////////////////////////////////////
         urlAddrBase = SharVar.urlAddrBase;
+        macIP = SharVar.macIP;
+        urlJsp = urlAddrBase + "jsp/";  // jsp 폴더
+        urlImage = urlAddrBase + "image/";  // image 폴더
 
-        // 사용할 폴더 지정
-        //urlAddrBase = "http://" + macIP + ":8080/makeKit/";  // 기본 폴더
-        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";  // jsp 폴더
-        urlImage = "http://" + macIP + ":8080/makeKit/image/";  // image 폴더
+        /////////////////////////////////////////////////////
+        // 기존 사용 변수
+        /////////////////////////////////////////////////////
+//        // 사용할 폴더 지정
+//        urlAddrBase = "http://" + macIP + ":8080/makeKit/";  // 기본 폴더
+//        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";  // jsp 폴더
+//        urlImage = "http://" + macIP + ":8080/makeKit/image/";  // image 폴더
         urlAddrSelect_Resume = urlJsp + "order_user_info.jsp?email=" + email;
         urlAddrBase11 = urlAddrBase + "jsp/order_product_select.jsp?cartNo=" + "69" + "&productNo=" + "44";
 
@@ -277,53 +286,68 @@ public class OrderActivity extends AppCompatActivity {
 //
 //    }
 
+    /////////////////////////////////////////////////////
+    // 1/14 Kyeongmi 추가
+    /////////////////////////////////////////////////////
     private void connectProductSelectGetData() {
 
-        try {
-            payments = new ArrayList<Payment>();
-            //payment.clear();
-            for (int i = 0; i < product1.size(); i++) {
+        mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, carts, urlAddrBase + "image/");
+        rv_product_order.setAdapter(mAdapter);
 
-                Log.v(TAG, "connectProductSelectGetData in");
-                Log.v(TAG, "11111" + product1.size());
-                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" + cartNo + "&productNo=" + product1.get(i), "selectProductOrder");        // 불러오는게 똑같아서
-//                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44", "selectProductOrder");        // 불러오는게 똑같아서
-                Object obj = orderNetworkTask.execute().get();
-                payment = (ArrayList<Payment>) obj;
-                String productImage = payment.get(i).getImage();
-                String productName = payment.get(i).getProductName();
-//                Log.v(TAG, "order1 : " + payment.get(1).getProductName());
-                String productPrice = payment.get(i).getProductPrice();
-                String cartQuantity = payment.get(i).getCartQuantity();
-                Log.v(TAG, "order0 : " + payment.get(0).getImage());
-                Log.v(TAG, "order0 : " + payment.get(0).getProductName());
-                Log.v(TAG, "order0 : " + payment.get(0).getProductPrice());
-                Log.v(TAG, "order0 : " + payment.get(0).getCartQuantity());
-//                    Log.v(TAG, "order0 : " + payment.get(1).getCartQuantity());
-
-                Payment data = new Payment(productImage, productName, productPrice, cartQuantity);
-
-                payments.add(data);
-                Log.v(TAG, "orderdata : " + payments.get(0).getProductName());
-                Log.v(TAG, "orderdata : " + payments.get(1).getProductName());
-
-            }
-            mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, payments, urlAddrBase + "image/");
-            rv_product_order.setAdapter(mAdapter);
-
-//
-            Log.v(TAG, "connectProductSelectGetData urlAddrBase" + urlAddrBase);
-
-
-            Log.v(TAG, "mAdapter mAdapter : " + mAdapter);
-            Log.v(TAG, "mAdapter rv_product_order : " + mAdapter);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Log.v(TAG, "mAdapter mAdapter : " + mAdapter);
+        Log.v(TAG, "mAdapter rv_product_order : " + mAdapter);
 
     }
 
+    /////////////////////////////////////////////////////
+    // 기존 사용 메소드
+    /////////////////////////////////////////////////////
+//    private void connectProductSelectGetData() {
+//
+//        try {
+//            payments = new ArrayList<Payment>();
+//            //payment.clear();
+//            for (int i = 0; i < product1.size(); i++) {
+//
+//                Log.v(TAG, "connectProductSelectGetData in");
+//                Log.v(TAG, "11111" + product1.size());
+//                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" + cartNo + "&productNo=" + product1.get(i), "selectProductOrder");        // 불러오는게 똑같아서
+////                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44", "selectProductOrder");        // 불러오는게 똑같아서
+//                Object obj = orderNetworkTask.execute().get();
+//                payment = (ArrayList<Payment>) obj;
+//                String productImage = payment.get(i).getImage();
+//                String productName = payment.get(i).getProductName();
+////                Log.v(TAG, "order1 : " + payment.get(1).getProductName());
+//                String productPrice = payment.get(i).getProductPrice();
+//                String cartQuantity = payment.get(i).getCartQuantity();
+//                Log.v(TAG, "order0 : " + payment.get(0).getImage());
+//                Log.v(TAG, "order0 : " + payment.get(0).getProductName());
+//                Log.v(TAG, "order0 : " + payment.get(0).getProductPrice());
+//                Log.v(TAG, "order0 : " + payment.get(0).getCartQuantity());
+////                    Log.v(TAG, "order0 : " + payment.get(1).getCartQuantity());
+//
+//                Payment data = new Payment(productImage, productName, productPrice, cartQuantity);
+//
+//                payments.add(data);
+//                Log.v(TAG, "orderdata : " + payments.get(0).getProductName());
+//                Log.v(TAG, "orderdata : " + payments.get(1).getProductName());
+//
+//            }
+//            mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, payments, urlAddrBase + "image/");
+//            rv_product_order.setAdapter(mAdapter);
+//
+////
+//            Log.v(TAG, "connectProductSelectGetData urlAddrBase" + urlAddrBase);
+//
+//
+//            Log.v(TAG, "mAdapter mAdapter : " + mAdapter);
+//            Log.v(TAG, "mAdapter rv_product_order : " + mAdapter);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     // ============================================================================================  유저 기본정보 가져오는 Select
     @Override
