@@ -34,7 +34,11 @@
 
         <activity android:name=".makekit_activity.RegisterReviewActivity"></activity>
         <activity android:name=".makekit_activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".makekit_activity.TempLogin" />
