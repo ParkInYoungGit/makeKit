@@ -172,7 +172,7 @@ public class UserModifyActivity extends AppCompatActivity {
             user_image.setVerticalScrollBarEnabled(false);   //세로 스크롤
             user_image.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
             user_image.setScrollbarFadingEnabled(false);
-            user_image.setInitialScale(25);
+            user_image.setInitialScale(10);
 
             // 웹뷰 멀티 터치 가능하게 (줌기능)
             webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
