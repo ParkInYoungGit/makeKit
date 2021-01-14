@@ -27,7 +27,7 @@ public class PurchaseListActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
     RecyclerView.Adapter mAdapter = null;
     RecyclerView.LayoutManager layoutManager = null;
-    String email, macIP, urlAddrBase, url2;
+    String email, macIP, urlAddrBase, url2,result;
     String urlAddr, orderNo;
     Button buyCheck_btn;
 
@@ -40,7 +40,8 @@ public class PurchaseListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 //        orderNo = intent.getStringExtra("orderNo");
-        email = intent.getStringExtra("useremail");
+
+        result = intent.getStringExtra("result");
         macIP = intent.getStringExtra("macIP");
         macIP = SharVar.macIP;
         email = SharVar.userEmail;
@@ -97,7 +98,7 @@ public class PurchaseListActivity extends AppCompatActivity {
     private void connectGetData() {
         try {
             Log.v(TAG, "test");
-            NetworkTask_DH networkTask = new NetworkTask_DH(PurchaseListActivity.this, urlAddrBase + "jsp/getSalesRealList.jsp?userEmail=" + email, "purchaseList");
+            NetworkTask_DH networkTask = new NetworkTask_DH(PurchaseListActivity.this, urlAddrBase + "jsp/getSalesRealList.jsp?userEmail=" + email, "getRealSalesList");
             Object obj = networkTask.execute().get();
             orders = (ArrayList<Order>) obj;
         } catch (Exception e) {
