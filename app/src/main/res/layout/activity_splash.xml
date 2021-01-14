@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,10 +8,17 @@
     tools:context=".makekit_activity.SplashActivity">
 
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_bounce"
+        android:layout_gravity="center|center_vertical"
+        />
+
+    <ImageView
         android:id="@+id/MakeKit_Logo"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_gravity="center"
+        android:layout_gravity="center|center_vertical"
         android:src="@drawable/makekit_side_logo"
         />
 
