@@ -21,7 +21,7 @@
             android:adjustViewBounds="true"
             android:src="@drawable/mainicon"
             android:layout_gravity="center"
-            android:visibility="visible"/>
+            />
 
         <ImageView
             android:id="@+id/profile"

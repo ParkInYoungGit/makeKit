@@ -368,7 +368,6 @@ public class LoginActivity extends AppCompatActivity {
                     btnLogout.setVisibility(View.GONE);
                     GotoMain.setVisibility(View.GONE);
                     logoIMG.setVisibility(View.VISIBLE);
-                    logoIMG.setVisibility(View.INVISIBLE);
                     non_members.setVisibility(View.VISIBLE);
                     login_members.setVisibility(View.VISIBLE);
                     login_join_btn.setVisibility(View.VISIBLE);
