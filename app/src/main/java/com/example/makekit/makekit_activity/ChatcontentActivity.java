@@ -152,7 +152,7 @@ public class ChatcontentActivity extends AppCompatActivity {
         if(searchAddress.equals("")){
 
         }else{
-            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/insertChatting.jsp?chattingNumber="+chattingNumber+"&userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver+"&chattingContents="+searchAddress, "inputChatting");
+            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/insertChatting.jsp?chattingNumber="+chattingNumber+"&userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver+"&chattingContents=여기서 만나요~ : "+searchAddress, "inputChatting");
             networkTask.execute();
         }
         isRun = true;
