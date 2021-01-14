@@ -69,14 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        macIP = "192.168.2.2";
-        email = "son@naver.com";
 
 
         macIP = SharVar.macIP;
         email = SharVar.userEmail;
         urlAddrBase = SharVar.urlAddrBase;
-
 
 
         // 검색 페이지로 이동
@@ -159,18 +156,20 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("useremail", email);
                 bundle.putString("macIP", macIP);
                 fragment.setArguments(bundle);
+
             } else if (id == R.id.navigation_4) {
 //                Log.v("email", "email:"+email);
                 if(email.equals(null)){
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(R.drawable.alert)
                             .setTitle("MakeKit 서비스 안내")
-                            .setMessage("채팅 목록입니다.\n채팅 목록은 로그인을 하셔야만 들어가실 수 있습니다.")
+                            .setMessage("채팅 목록입니다.\n채팅 목록은 로그인 후 이용 가능합니다.")
                             // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
                             .setCancelable(false)
                             // 이제 닫기 눌러야만 꺼짐!
                             .setPositiveButton("닫기", null)
                             .show();
+
                 }else {
                     fragment = new ChatListFragment();
                     Bundle bundle = new Bundle(2);
@@ -179,13 +178,24 @@ public class MainActivity extends AppCompatActivity {
                     fragment.setArguments(bundle);
                 }
             } else if (id == R.id.navigation_5) {
+                if(email.equals(null)) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setIcon(R.drawable.alert)
+                            .setTitle("MakeKit 서비스 안내")
+                            .setMessage("마이 페이지입니다.\n마이페이지는 로그인 후 이용 가능합니다.")
+                            // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
+                            .setCancelable(false)
+                            // 이제 닫기 눌러야만 꺼짐!
+                            .setPositiveButton("닫기", null)
+                            .show();
 
-                fragment = new MypageFragment();
-                Bundle bundle = new Bundle(2);
-                bundle.putString("useremail", email);
-                bundle.putString("macIP", macIP);
-                fragment.setArguments(bundle);
-
+                }else {
+                        fragment = new MypageFragment();
+                        Bundle bundle = new Bundle(2);
+                        bundle.putString("useremail", email);
+                        bundle.putString("macIP", macIP);
+                        fragment.setArguments(bundle);
+                    }
             }
 
             fragmentTransaction.add(R.id.content_layout, fragment, tag);
