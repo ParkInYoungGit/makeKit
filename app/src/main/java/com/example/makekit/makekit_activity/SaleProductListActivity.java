@@ -11,6 +11,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.SaleProductListAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.Order;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -28,8 +29,8 @@ public class SaleProductListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sale_product_list);
 
         Intent intent = getIntent();
-        email = intent.getStringExtra("useremail");
-        macIP = intent.getStringExtra("macIP");
+        email = intent.getStringExtra("seller");
+        macIP = SharVar.macIP;
 
         recyclerView = findViewById(R.id.recyclerViewSaleList);
         recyclerView.setHasFixedSize(true);

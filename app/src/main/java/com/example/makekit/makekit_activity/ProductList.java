@@ -16,6 +16,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.ProductListAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask;
 import com.example.makekit.makekit_bean.ProductData;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -55,8 +56,8 @@ public class ProductList extends AppCompatActivity {
         // 아이피와 이메일 받기
         Intent intent = getIntent();
         pType = intent.getStringExtra("pType");
-        macIP = intent.getStringExtra("macIP");
-        email = intent.getStringExtra("useremail");
+        macIP = SharVar.macIP;
+        email = SharVar.userEmail;
 //        macIP = "192.168.2.14";
 
 
