@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.makekit.makekit_asynctask.SellerNetworkTask;
 import com.example.makekit.makekit_bean.User;
+import com.example.makekit.makekit_sharVar.SharVar;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -124,8 +125,8 @@ public class MapActivity extends AppCompatActivity
         /////////////////////////////
         //macIP="192.168.219.164";
 
-
-        urlAddr = "http://" + macIP + ":8080/makekit/jsp/";
+        urlAddr = SharVar.urlAddrBase;
+        //urlAddr = "http://" + macIP + ":8080/makekit/jsp/";
 
         locationRequest = new LocationRequest()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -197,8 +198,8 @@ public class MapActivity extends AppCompatActivity
 
         Toast.makeText(this, "주소는 " + markerSnippet.substring(4),
                 Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(MapActivity.this, LikeSellerActivity.class);
-        intent.putExtra("sellerEmail", sellerEmail);
+        Intent intent = new Intent(MapActivity.this, SaleProductListActivity.class);
+        intent.putExtra("seller", sellerEmail);
         startActivity(intent);
 
     }

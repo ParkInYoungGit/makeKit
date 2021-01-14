@@ -85,7 +85,6 @@ public class ProdutctViewActivity extends AppCompatActivity {
 //        userEmail = "qkr@naver.com";
 
 //        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
-        urlAddrBase = SharVar.urlAddrBase;
         urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
         urlAddr1 = urlAddrBase + "jsp/cartno_productview_check.jsp?useremail=" + userEmail;
 

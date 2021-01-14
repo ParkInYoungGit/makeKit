@@ -349,7 +349,8 @@ public class OrderActivity extends AppCompatActivity {
                     // 1/14 Kyeongmi 추가
                     // 수정하기
                     /////////////////////////////////////////////////////
-                    int count = 0;
+                    int count1 = 0;
+                    int count2 = 0;
 
                     String orderreceiver = order_receiverName.getText().toString();
                     String orderrcvaddress = order_receiverAddress.getText().toString();
@@ -359,7 +360,8 @@ public class OrderActivity extends AppCompatActivity {
                     String orderbank = (String) order_cardSelect.getSelectedItem();
                     String ordercardno = order_cardNumber.getText().toString();
                     String ordercardpw = order_cardPW.getText().toString();
-                    
+
+
                     if(orderreceiver.trim().length()==0){
                         Toast.makeText(OrderActivity.this, "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
 
@@ -395,12 +397,19 @@ public class OrderActivity extends AppCompatActivity {
                         String urlAddr4 = urlAddrBase + "jsp/insert_order_orderdetail.jsp?useremail=" + email + "&orderno=" + orderNo;
                         for (int i = 0; i < carts.size(); i++) {
                             String urlAddr5 = "&productno=" + carts.get(i).getProductNo() + "&orderquantity=" + carts.get(i).getCartQuantity();
-                            count += Integer.parseInt(connectInsertData(urlAddr4 + urlAddr5));
+                            count1 += Integer.parseInt(connectInsertData(urlAddr4 + urlAddr5));
                             Log.v(TAG, "count : " + count);
                             Log.v(TAG, "urlAddr5 : " + urlAddr5);
                         }
+                        // 선택된 주문 상품 cartdetail table 삭제
+                        String urlAddr6 = urlAddrBase + "jsp/delete_cartdetail.jsp?useremail=" + email;
+                        for (int i = 0; i < carts.size(); i++) {
+                            String urlAddr7 = "&productno=" + carts.get(i).getProductNo();
+                            count2 += Integer.parseInt(connectInsertData(urlAddr6 + urlAddr7));
+                            Log.v(TAG, "count : " + count);
+                        }
 
-                        if (count == carts.size() && result.equals("1")) {
+                        if (count1 == carts.size() && result.equals("1") && count2 == carts.size()) {
                             Toast.makeText(OrderActivity.this, "입력 성공하였습니다.", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(OrderActivity.this, OrderViewActivity.class);
