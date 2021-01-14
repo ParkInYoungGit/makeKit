@@ -1,7 +1,9 @@
 package com.example.makekit.makekit_adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.makekit.makekit_activity.OrderViewActivity;
 import com.example.makekit.makekit_activity.PurchaseListActivity;
 import com.example.makekit.R;
+import com.example.makekit.makekit_activity.RegisterReviewActivity;
+import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.Order;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -31,8 +37,10 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
     private Context mContext;
     private String email;
     private String macIP;
+    String orderNo, urlAddrBase, urlAddr;
 
-    public PurchaseListAdapter(PurchaseListActivity purchaseListActivity, int layout, ArrayList<Order> orders,  String urlImage, String email, String macIP) {
+    public PurchaseListAdapter(Context context, int layout, ArrayList<Order> orders,  String urlImage, String email, String macIP) {
+        this.mContext = context;
         this.mDataset = orders;
         this.urlImage = urlImage;
         this.email = email;
@@ -41,8 +49,10 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView orderDate, productName, productQuantity, productPrice;
-        Button orderView;
+        Button orderView, buy_check;
         WebView webView;
+
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -52,13 +62,8 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
             productPrice = itemView.findViewById(R.id.purchaselist_orderPrice_TV);
             webView = itemView.findViewById(R.id.purchaselist_WebView);
             orderView = itemView.findViewById(R.id.purchaseLists_Btn);
+            buy_check = itemView.findViewById(R.id.buycheck_btn);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
         }
     }
     @NonNull
@@ -108,6 +113,31 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
         // url은 알아서 설정 예) http://m.naver.com/
         holder.webView.loadUrl(urlImageReal); // 접속 URL
 
+        holder.buy_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("here","test");
+                macIP = "192.168.35.251";
+                email = SharVar.userEmail;
+
+
+                orderNo = mDataset.get(position).getOrderNo();
+                Log.v("adapter", orderNo);
+
+                urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+                urlAddr = urlAddrBase + "jsp/buy_check.jsp?orderNo=" + orderNo;
+
+                Log.v("adapter", urlAddr);
+
+                String result = connectUpdateData();
+
+                if (result.equals("1")) {
+                    Toast.makeText(mContext, "구매확정완료 !", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, "구매확정실패 !", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         holder.orderView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,6 +163,8 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
             }
         });
     }
+
+
     @Override
     public int getItemCount() {
         return mDataset.size();
@@ -142,6 +174,41 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
     public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
         this.mListener = listener ;
     }
+    private String connectUpdateData() {
+
+        String result = null;
+        try {
+            ///////////////////////////////////////////////////////////////////////////////////////
+            // Date : 2020.12.25
+            //
+            // Description:
+            //  - NetworkTask를 한곳에서 관리하기 위해 기존 CUDNetworkTask 삭제
+            //  - NetworkTask의 생성자 추가 : where <- "update"
+            //
+            ///////////////////////////////////////////////////////////////////////////////////////
+            Log.v("dd","dddddd");
+            NetworkTask_DH networkTask2 = new NetworkTask_DH(mContext, urlAddr, "updatebuy");
+            ///////////////////////////////////////////////////////////////////////////////////////
+
+            //CUDNetworkTask updnetworkTask = new CUDNetworkTask(UpdateActivity.this, urlAddr);
+            ///////////////////////////////////////////////////////////////////////////////////////
+            // Date : 2020.12.24
+            //
+            // Description:
+            // - 수정 결과 값을 받기 위해 Object로 return후에 String으로 변환 하여 사용
+            //
+            ///////////////////////////////////////////////////////////////////////////////////////
+
+            Object obj = networkTask2.execute().get();
+            result = (String) obj;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
 
 }
 
