@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         actionBar = getSupportActionBar();
-        actionBar.setLogo(R.drawable.img_logo);
+        actionBar.setLogo(R.drawable.makekit_side_logo);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
 
 
