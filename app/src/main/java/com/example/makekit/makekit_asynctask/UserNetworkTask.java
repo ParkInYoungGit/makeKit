@@ -27,7 +27,7 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
     ArrayList<User> members;
     ArrayList<User> user = null;
     ArrayList<Order> order = null;
-    int loginCheck = 0;
+    String loginCheck = null;
 
 
     public UserNetworkTask(Context context, String mAddr) {
@@ -246,7 +246,10 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
         return returnResult;
     }
 
-    private void parserLoginCheck(String s) {
+    private String parserLoginCheck(String s) {
+
+        String count = null;
+
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
@@ -254,7 +257,7 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
-                int count = jsonObject1.getInt("count");
+                count = jsonObject1.getString("count");
 
                 loginCheck = count;
                 Log.v("여기", "parserLoginCheck : " + count);
@@ -264,8 +267,7 @@ public class UserNetworkTask extends AsyncTask<Integer, String, Object> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
+        return count;
     }
 
     // OrderActivity 주문자 기본 정보

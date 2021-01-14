@@ -17,14 +17,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.OrderActivity;
 import com.example.makekit.makekit_activity.SaleProductListActivity;
+import com.example.makekit.makekit_bean.Cart;
 import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Payment;
 
 import java.util.ArrayList;
 
 public class OrderProductListAdapter extends RecyclerView.Adapter<OrderProductListAdapter.MyViewHolder> {
+    /////////////////////////////////////////////////////
+    // 1/14 Kyeongmi 추가
+    /////////////////////////////////////////////////////
+    private ArrayList<Cart> mDataset;
 
-    private ArrayList<Payment> mDataset;
+    /////////////////////////////////////////////////////
+    // 기존 사용 메소드
+    /////////////////////////////////////////////////////
+    //private ArrayList<Payment> mDataset;
+
     private AdapterView.OnItemClickListener mListener = null;
     private String urlImage;
     private String urlImageReal;
@@ -33,7 +42,7 @@ public class OrderProductListAdapter extends RecyclerView.Adapter<OrderProductLi
     private Context mContext = null;
     private LayoutInflater inflater = null;
 
-    public OrderProductListAdapter(OrderActivity orderActivity, int layout, ArrayList<Payment> payments, String urlimage){
+    public OrderProductListAdapter(OrderActivity orderActivity, int layout, ArrayList<Cart> payments, String urlimage){
         this.orderActivity = orderActivity;
         this.layout = layout;
         this.mDataset = payments;
@@ -55,10 +64,10 @@ public class OrderProductListAdapter extends RecyclerView.Adapter<OrderProductLi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         // 빈에서 이미지를 가져옴 getImage
-        if(mDataset.get(position).getImage().equals("null")){           // getImage가 Null 일 경우 ic_default.jpg 넣어줌
+        if(mDataset.get(position).getProductImage().equals("null")){           // getImage가 Null 일 경우 ic_default.jpg 넣어줌
             urlImageReal = urlImage+"ic_default.jpg";
         }else {
-            urlImageReal = urlImage+mDataset.get(position).getImage();  // getImage가 Null 아닐 경우 가져온 이미지 이름 넣어줌
+            urlImageReal = urlImage+mDataset.get(position).getProductImage();  // getImage가 Null 아닐 경우 가져온 이미지 이름 넣어줌
         }
         holder.order_productImage.loadUrl(urlImageReal);                // 이미지 주소를 업로드해줌 urlImageReal(http://192.168.200.193:8080/makeKit/image/)+getImage(ic_default or 이미지명)
         holder.order_productName.setText(mDataset.get(position).getProductName());      // 빈에 담긴 정보를 넣어줌

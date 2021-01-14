@@ -26,6 +26,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.SectionPageAdapter;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 public class TempLogin extends AppCompatActivity {
 
@@ -40,8 +41,8 @@ public class TempLogin extends AppCompatActivity {
     String useremail, userpw, macIP, urlAddr;
     String urlJspLoginCheck = null;
     CheckBox savechb;
-    int count = 0;
-    private SharedPreferences appData;
+    String count = null;
+    private SharedPreferences sf;
     SharedPreferences setting;
     SharedPreferences.Editor editor;
     private Context mContext;
@@ -57,17 +58,15 @@ public class TempLogin extends AppCompatActivity {
         Intent intent = getIntent(); /*데이터 수신*/
         macIP = intent.getStringExtra("macIP");
 
-        appData = getSharedPreferences("appData", MODE_PRIVATE);
+        sf = getSharedPreferences("sf", MODE_PRIVATE);
         load();
         ActivityCompat.requestPermissions(TempLogin.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
 
 
-        if (saveLoginData) {
-            loginId.setText(useremail);
-            loginPw.setText(userpw);
-            savechb.setChecked(saveLoginData);
-        }
 
+        loginId = findViewById(R.id.login_id);
+        loginPw = findViewById(R.id.login_pw);
+        savechb = findViewById(R.id.save_chb);
 
         login = findViewById(R.id.templogin_btn);
         join = findViewById(R.id.tempjoin_btn);
@@ -77,6 +76,13 @@ public class TempLogin extends AppCompatActivity {
         findidpw.setOnClickListener(mOnClickListener);
         login.setOnClickListener(mOnClickListener);
         join.setOnClickListener(mOnClickListener);
+
+
+        if (saveLoginData) {
+            loginId.setText(useremail);
+            loginPw.setText(userpw);
+            savechb.setChecked(saveLoginData);
+        }
 
     }  // onCrearte End  -----------------------------------------------------------------------------
 
@@ -137,10 +143,12 @@ public class TempLogin extends AppCompatActivity {
 
         count = loginCount();
 
-        Log.v("여기 >>>>>>>>>>", "" + loginCount());
-        Log.v("아이디 >>>>>>>>>", "login : " + useremail + userpw);
+        Log.v("TempLogin", "여기>>>>>>>>>>>>" + loginCount());
+        Log.v("TempLogin", "login : " + useremail + userpw);
 
-        if (count == 1) {
+        if (count.equals("1")) {
+            SharVar.userEmail = useremail;
+            Log.v("TempLogin", "ShareVar>>>>>>>>>" + SharVar.userEmail);
             save();
             Toast.makeText(TempLogin.this, "로그인 완료!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(TempLogin.this, MainActivity.class);
@@ -152,13 +160,13 @@ public class TempLogin extends AppCompatActivity {
     }
 
 
-    private int loginCount() {
+    private String loginCount() {
         try {
             UserNetworkTask networkTask = new UserNetworkTask(TempLogin.this, urlAddr, "loginCount");
             Object obj = networkTask.execute().get();
 
-            count = (int) obj;
-            Log.v("여기", "loginCount : " + count);
+            count = (String) obj;
+            Log.v("TempLogin", "count>>>>>>>>>>> : " + count);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -170,7 +178,7 @@ public class TempLogin extends AppCompatActivity {
     // 설정값을 저장하는 함수
     private void save() {
         // SharedPreferences 객체만으론 저장 불가능 Editor 사용
-        SharedPreferences.Editor editor = appData.edit();
+        SharedPreferences.Editor editor = sf.edit();
         Log.v(TAG, loginId.getText().toString().trim());
         // 에디터객체.put타입( 저장시킬 이름, 저장시킬 값 )
         // 저장시킬 이름이 이미 존재하면 덮어씌움
@@ -189,9 +197,9 @@ public class TempLogin extends AppCompatActivity {
     private void load() {
         // SharedPreferences 객체.get타입( 저장된 이름, 기본값 )
         // 저장된 이름이 존재하지 않을 시 기본값
-        saveLoginData = appData.getBoolean("SAVE_LOGIN_DATA", false);
-        useremail = appData.getString("useremail", "");
-        userpw = appData.getString("userpw", "");
+        saveLoginData = sf.getBoolean("SAVE_LOGIN_DATA", false);
+        useremail = sf.getString("useremail", "");
+        userpw = sf.getString("userpw", "");
 
 
     }
