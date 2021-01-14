@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class ChatcontentActivity extends AppCompatActivity {
 
     String TAG = "ChatContents";
-    String macIP, email, chattingNumber, receiver, urlAddrBase;
+    String macIP, email, chattingNumber, receiver, urlAddrBase, searchAddress;
     int intChattingNumber = 0;
     ArrayList<ChattingBean> chattingContents;
     RecyclerView recyclerView = null;
@@ -50,7 +50,7 @@ public class ChatcontentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_content);
-
+        searchAddress = null;
         IDTextView = findViewById(R.id.receiverID);
         editText = findViewById(R.id.chattingContents_ET);
         insertButton = findViewById(R.id.chattingContents_Btn);
@@ -60,10 +60,11 @@ public class ChatcontentActivity extends AppCompatActivity {
         gpsTextView_chat = findViewById(R.id.gpsTextView_chat);
 
         Intent intent = getIntent();
-        macIP = SharVar.macIP;
-        email = SharVar.userEmail;
+        macIP = intent.getStringExtra("macIP");
+        email = intent.getStringExtra("useremail");
         chattingNumber = intent.getStringExtra("chattingNumber");
         receiver = intent.getStringExtra("receiver");
+        searchAddress = intent.getStringExtra("searchAddress");
 
         IDTextView.setText(receiver);
 
@@ -147,6 +148,12 @@ public class ChatcontentActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(searchAddress.equals(null)){
+
+        }else{
+            NetworkTask_DH networkTask = new NetworkTask_DH(ChatcontentActivity.this, urlAddrBase+"jsp/insertChatting.jsp?chattingNumber="+chattingNumber+"&userinfo_userEmail_sender="+email+"&userinfo_userEmail_receiver="+receiver+"&chattingContents="+searchAddress, "inputChatting");
+            networkTask.execute();
+        }
         isRun = true;
         // 첫 대화이면 가장 큰 채팅 번호를 불러와서 1 증가 시켜 채팅 방을 만든다.
         if(chattingNumber.equals(null)){
@@ -236,6 +243,14 @@ public class ChatcontentActivity extends AppCompatActivity {
                 case R.id.chattingContents_ET:
                     slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                     gpsButton_chat.setVisibility(View.INVISIBLE);
+                    break;
+                case R.id.gpsButton_chat:
+                    Intent intent = new Intent(ChatcontentActivity.this, MapChattingActivity.class);
+                    intent.putExtra("useremail", email);
+                    intent.putExtra("macIP", macIP);
+                    intent.putExtra("receiver", receiver);
+                    intent.putExtra("chattingNumber", chattingNumber);
+                    startActivity(intent);
                     break;
             }
         }
