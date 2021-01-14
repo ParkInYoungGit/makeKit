@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.makekit.makekit_activity.AboutMakeKitActivity;
 import com.example.makekit.makekit_activity.LoginActivity;
 import com.example.makekit.makekit_activity.PurchaseListActivity;
 import com.example.makekit.R;
@@ -110,8 +111,8 @@ public class MypageFragment extends Fragment {
                     startActivity(intent5);
                     break;
                 case R.id.aboutMakeKit_btn:         // 브랜드 설명 버튼
-//                    Intent intent7 = new Intent(getActivity(), ReviewListActivity.class);
-//                    startActivity(intent7);
+                    Intent intent7 = new Intent(getActivity(), AboutMakeKitActivity.class);
+                    startActivity(intent7);
                     break;
                 case R.id.Alarm_btn:                // 알람설정 버튼
 //                    Intent intent8 = new Intent(getActivity(), ReviewListActivity.class);

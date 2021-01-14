@@ -15,4 +15,18 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="aboutMakeKit">‘집밥’이라는 단어에는
+                                가족을 이어주는 특별한 힘이 있습니다.
+                                하지만 바쁘게 살고 있는 현대인들에게 매일 정성스럽게 집밥을 준비하는 것은 결코 쉽지 않은 일이죠.
+                                그래서 우리는 생각했습니다. “사람들이 요리하고 식사하는 방식이 바뀐다면 집밥이 조금 더 행복해지지 않을까? ”
+                                힘 안들이고 직접 요리할 수 있도록, 맛있는 음식으로 가족을 식탁으로 부르도록,
+                                제철 재료로 맛을 낸 특별식을 집밥으로 즐길 수 있도록, 가족과의 행복한 시간만 남도록
+                                모든 사람들이 셰프가 아니더라도 셰프처럼. 정성스럽게 준비된 식재료로 만든 요리키트로 쉽고 즐겁게
+                                매일, 가족의 식탁에 특별한 집밥을 올려놓을 수 있게
+                                그래서 시작합니다.
+    </string><string name="aboutMakeKit2">키트가 있다면 재료를 찾는 수고를 덜고 양에 대한 부담도 없애고,
+                                            요알못도 쉽게 따라하면서 요리를 해볼 수 있지 않을까?
+                                            상온 보관이 가능하다면 해외 나갈 때도 좋지 않을까?
+    </string>
+
 </resources>
