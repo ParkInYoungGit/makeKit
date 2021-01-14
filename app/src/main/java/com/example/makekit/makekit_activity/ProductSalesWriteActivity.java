@@ -18,9 +18,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,11 +47,8 @@ import okhttp3.Response;
 
 public class ProductSalesWriteActivity extends AppCompatActivity {
 
-    //  이메일을 위한 확인
-    private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
-
     // 제품 설명
-    EditText product_name, product_price, product_stock, product_content, product_address;
+    EditText product_name, product_price, product_stock, product_content;
     Spinner product_type = null;
 
     // 제품 이미지 업로드 버튼
@@ -72,7 +66,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
     // DB에서 받아오는 변수
     String peopleNo, productInsertResult, phoneInsert, statusInsert, registerInsert;
 
-    String productname, productprice, producttype, productstock, productcontent, productaddress;
+    String productname, productprice, producttype, productstock, productcontent;
 
     // 제품 카테고리 목록
     String[] productCategory = {
@@ -124,7 +118,6 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         product_type = findViewById(R.id.product_type);
         product_stock = findViewById(R.id.product_stock);
         product_content = findViewById(R.id.product_content);
-        product_address = findViewById(R.id.product_address);
         // button
         product_thumbnail_btn = findViewById(R.id.product_thumbnail_btn);
         product_detail_btn = findViewById(R.id.product_detail_btn);
@@ -150,19 +143,6 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         product_type.setAdapter(adapter);
         product_type.setSelection(0);
 
-        // 주소록 선택을 위한 이벤트 클릭 리스너
-        product_address.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {//클릭했을 경우 발생할 이벤트 작성
-                    Intent intent = new Intent(ProductSalesWriteActivity.this, WebViewActivity.class);
-                    intent.putExtra("macIP", macIP);
-                    startActivityForResult(intent, SEARCH_ADDRESS_ACTIVITY);
-                }
-                return false;
-            }
-        });
-
     } //------------ End onCreat
 
     // 이미지 등록 버튼
@@ -170,20 +150,12 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-//            String productname = product_name.getText().toString().trim();
-//            String productprice = product_price.getText().toString().trim();
-//            String producttype = product_type.getSelectedItem().toString().trim();
-//            String productstock = product_stock.getText().toString().trim();
-//            String productcontent = product_content.getText().toString().trim();
             productname = product_name.getText().toString().trim();
             productprice = product_price.getText().toString().trim();
             producttype = product_type.getSelectedItem().toString().trim();
             productstock = product_stock.getText().toString().trim();
             productcontent = product_content.getText().toString().trim();
-            productaddress = product_address.getText().toString().trim();
-//            String productthumbnail = imageName1.getText().toString().trim();
-//            String productdetail = product_detail.getText().toString().trim();
-//            String productdetailsecond = product_detail_second.getText().toString().trim();
+
             Intent intent;
 
             switch (v.getId()) {
@@ -223,7 +195,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
                         }).start();
                     }
 //                    insertUser(productname, productprice, producttype, productstock, productcontent, productthumbnail, productdetail, productdetailsecond);
-                    urlAddr = urlAddr + "name=" + productname + "&price=" + productprice + "&type=" + producttype + "&stock=" + productstock + "&content=" + productcontent + "&address=" + productaddress + "&thumnail=" + imageName + "&detail=" + imageName2 + "&detailsecond=" + imageName3;
+                    urlAddr = urlAddr + "name=" + productname + "&price=" + productprice + "&type=" + producttype + "&stock=" + productstock + "&content=" + productcontent + "&thumnail=" + imageName + "&detail=" + imageName2 + "&detailsecond=" + imageName3;
                     connectInsertData();
 
                     Intent intentMain = new Intent(ProductSalesWriteActivity.this, MainActivity.class);
@@ -237,41 +209,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         }
     };
 
-//    // user 입력 data 송부
-//    private void insertUser(String productname, String productprice, String producttype,String productstock, String productcontent, String productthumbnail, String productdetail, String productdetailsecond){
-//        String urlAddr1 = "";
-//        urlAddr1 = urlJsp + "ProductInsert.jsp?name=" + productname + "&price=" + productprice + "&type=" + producttype + "&stock=" + productstock + "&content=" + productcontent + "&thumnail=" + productthumbnail + "&detail=" + productdetail + "&detailsecond=" + productdetailsecond;
-//
-//        String result = connectInsertData(urlAddr1);
-//
-//        if(result.equals("1")){
-//            Toast.makeText(ProductSalesWriteActivity.this, productname + " 등록 성공", Toast.LENGTH_SHORT).show();
-//
-//        } else{
-//            Toast.makeText(ProductSalesWriteActivity.this, productname + " 등록 실패", Toast.LENGTH_SHORT).show();
-//
-//        }
-//
-//        finish();
-//
-//    }
-
-//    //connection Insert
-//    private String connectInsertData(String urlAddr){
-//        String result = null;
-//
-//        try{
-//            ProductNetworkTask insertNetworkTask = new ProductNetworkTask(ProductSalesWriteActivity.this, urlAddr);
-//            Object obj = insertNetworkTask.execute().get();
-//            result = (String) obj;
-//
-//        } catch (Exception e){
-//            e.printStackTrace();
-//
-//        }
-//        return result;
-//    }
-
+    // 제품 등록 데이터 전달
     private String connectInsertData() {
         try {
             ProductNetworkTask insnetworkTask = new ProductNetworkTask(ProductSalesWriteActivity.this, urlAddr);
@@ -283,41 +221,57 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         return productInsertResult;
     }
 
+    // 이미지 처리 해주는 이벤트
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        // 겔러리 가기
+        if (requestCode == REQ_CODE_SELECT_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {                     // 겔러리에 들어왔는지 확인
+                try {
+                    imageCheck=1;                                       // 겔러리에 들어왔는지 자바에서 확인하기 위한 변수
+                    img_path = getImagePathToUri(data.getData());       //이미지의 URI를 얻어 경로값으로 반환.(method 확인 필요)
+
+                    //이미지를 비트맵형식으로 반환
+                    image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+
+                    //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
+                    image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
 
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        if (requestCode == REQ_CODE_SELECT_IMAGE) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                try {
-//                    imageCheck=1;
-//                    img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
-//                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();
-//                    Log.v("test", String.valueOf(data.getData()));
-//                    //이미지를 비트맵형식으로 반환
-//                    image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-//
-//                    //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
-//                    image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
-//                    //editImage.setImageBitmap(image_bitmap_copy);
-//
-//                    // 파일 이름 및 경로 바꾸기(임시 저장)
-//                    String date = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
-//                    imageName = date+"."+f_ext;
-//                    tempSelectFile = new File("/data/data/com.android.address_book/", imageName);
-//                    OutputStream out = new FileOutputStream(tempSelectFile);
-//                    image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-//
-//                    // 임시 파일 경로로 위의 img_path 재정의
-//                    img_path = "/data/data/com.android.address_book/"+imageName;
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
+                    // 파일 이름 및 경로 바꾸기(임시 저장)
+                    String date = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
 
+                    if (check_image == 1) {
+                        product_thumbnail.setImageBitmap(image_bitmap_copy);
+                        imageName = date+"."+f_ext;
+                        tempSelectFile = new File("/data/data/com.example.makekit/", imageName);    // 경로는 자기가 원하는 곳으로 바꿀 수 있음
+                        img_path1 = "/data/data/com.example.makekit/"+imageName;
+                    } else if (check_image == 2) {
+                        product_detail.setImageBitmap(image_bitmap_copy);
+                        imageName2 = date+"detail."+f_ext;
+                        tempSelectFile = new File("/data/data/com.example.makekit/", imageName2);       // 경로는 자기가 원하는 곳으로 바꿀 수 있음
+                        img_path2 = "/data/data/com.example.makekit/"+imageName2;
+                    } else if (check_image == 3) {
+                        product_detailsecond.setImageBitmap(image_bitmap_copy);
+                        imageName3 = date+"detailsecond."+f_ext;
+                        tempSelectFile = new File("/data/data/com.example.makekit/", imageName3);       // 경로는 자기가 원하는 곳으로 바꿀 수 있음
+                        img_path3 = "/data/data/com.example.makekit/"+imageName3;
+                    }
+
+
+                     OutputStream out = new FileOutputStream(tempSelectFile);
+                    image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);                        // 지정 경로로 임시 파일 보내기
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    // 이미지 경로 저장
     public String getImagePathToUri(Uri data) {
         //사용자가 선택한 이미지의 정보를 받아옴
         String[] proj = {MediaStore.Images.Media.DATA};
@@ -334,7 +288,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         return imgPath;
     }//end of getImagePathToUri()
 
-    //파일 변환
+    //  이미지 파일 변환
     private void doMultiPartRequest() {
 
         ArrayList<String> file = new ArrayList<String>();
@@ -348,7 +302,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         }
     }
 
-    //서버 보내기
+    //  이미지 서버 보내기
     private void DoActualRequest(File file) {
         Log.v("DoActualRequest", "DoActualRequest() in ");
         Log.v("DoActualRequest", "file1()" + file);
@@ -374,7 +328,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
 
                 .build();
                 Log.v("urlllll","urslllll" + url);
-//
+
         try {
             Response response1 = client.newCall(request).execute();
 
@@ -400,131 +354,5 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
         }
         return super.dispatchTouchEvent(ev);
     }
-
-    // ======================= 주소록 선택 이벤트
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case 10000:
-
-                    String data = intent.getExtras().getString("data");
-                    if (data != null) {
-                        product_address.setText(data);
-                    }
-                    break;
-
-                case 100:
-
-                    try {
-                        imageCheck=1;                                       // 겔러리에 들어왔는지 자바에서 확인하기 위한 변수
-                        img_path = getImagePathToUri(intent.getData());       //이미지의 URI를 얻어 경로값으로 반환.(method 확인 필요)
-
-                        //이미지를 비트맵형식으로 반환
-                        image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), intent.getData());
-
-                        //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
-                        image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
-
-
-                        // 파일 이름 및 경로 바꾸기(임시 저장)
-                        String date = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
-
-
-
-                        if (check_image == 1) {
-                            product_thumbnail.setImageBitmap(image_bitmap_copy);
-                            imageName = date+"."+f_ext;
-                            tempSelectFile = new File("/data/data/com.example.makekit/", imageName);    // 경로는 자기가 원하는 곳으로 바꿀 수 있음
-                            img_path1 = "/data/data/com.example.makekit/"+imageName;
-                        } else if (check_image == 2) {
-                            product_detail.setImageBitmap(image_bitmap_copy);
-                            imageName2 = date+"detail."+f_ext;
-                            tempSelectFile = new File("/data/data/com.example.makekit/", imageName2);       // 경로는 자기가 원하는 곳으로 바꿀 수 있음
-                            img_path2 = "/data/data/com.example.makekit/"+imageName2;
-                        } else if (check_image == 3) {
-                            product_detailsecond.setImageBitmap(image_bitmap_copy);
-                            imageName3 = date+"detailsecond."+f_ext;
-                            tempSelectFile = new File("/data/data/com.example.makekit/", imageName3);       // 경로는 자기가 원하는 곳으로 바꿀 수 있음
-                            img_path3 = "/data/data/com.example.makekit/"+imageName3;
-                        }
-
-
-
-
-
-                        OutputStream out = new FileOutputStream(tempSelectFile);
-                        image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);                        // 지정 경로로 임시 파일 보내기
-
-                        // 임시 파일 경로로 위의 img_path 재정의
-
-
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, intent);
-    }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        // 겔러리 가기
-//        if (requestCode == REQ_CODE_SELECT_IMAGE) {
-//            if (resultCode == Activity.RESULT_OK) {                     // 겔러리에 들어왔는지 확인
-//                try {
-//                    imageCheck=1;                                       // 겔러리에 들어왔는지 자바에서 확인하기 위한 변수
-//                    img_path = getImagePathToUri(data.getData());       //이미지의 URI를 얻어 경로값으로 반환.(method 확인 필요)
-//
-//                    //이미지를 비트맵형식으로 반환
-//                    image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-//
-//                    //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
-//                    image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
-//
-//
-//                    // 파일 이름 및 경로 바꾸기(임시 저장)
-//                    String date = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
-//
-//
-//
-//                    if (check_image == 1) {
-//                        product_thumbnail.setImageBitmap(image_bitmap_copy);
-//                        imageName = date+"."+f_ext;
-//                        tempSelectFile = new File("/data/data/com.example.makekit/", imageName);    // 경로는 자기가 원하는 곳으로 바꿀 수 있음
-//                        img_path1 = "/data/data/com.example.makekit/"+imageName;
-//                    } else if (check_image == 2) {
-//                        product_detail.setImageBitmap(image_bitmap_copy);
-//                        imageName2 = date+"detail."+f_ext;
-//                        tempSelectFile = new File("/data/data/com.example.makekit/", imageName2);       // 경로는 자기가 원하는 곳으로 바꿀 수 있음
-//                        img_path2 = "/data/data/com.example.makekit/"+imageName2;
-//                    } else if (check_image == 3) {
-//                        product_detailsecond.setImageBitmap(image_bitmap_copy);
-//                        imageName3 = date+"detailsecond."+f_ext;
-//                        tempSelectFile = new File("/data/data/com.example.makekit/", imageName3);       // 경로는 자기가 원하는 곳으로 바꿀 수 있음
-//                        img_path3 = "/data/data/com.example.makekit/"+imageName3;
-//                    }
-//
-//
-//
-//
-//
-//                    OutputStream out = new FileOutputStream(tempSelectFile);
-//                    image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);                        // 지정 경로로 임시 파일 보내기
-//
-//                    // 임시 파일 경로로 위의 img_path 재정의
-//
-//
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
 
 } // ==============================
