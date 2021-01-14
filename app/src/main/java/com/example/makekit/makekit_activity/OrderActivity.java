@@ -235,6 +235,7 @@ public class OrderActivity extends AppCompatActivity {
         order_userAddress.setText(orderUserAddress);
         order_userAddressDetail.setText(orderUserAddressDetail);
 
+        // 주소록 선택을 위한 이벤트 클릭 리스너
         order_userAddress.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -492,19 +493,7 @@ public class OrderActivity extends AppCompatActivity {
             }
         };
 
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        switch (requestCode) {
-            case SEARCH_ADDRESS_ACTIVITY:
-                if (resultCode == RESULT_OK) {
-                    String data = intent.getExtras().getString("data");
-                    if (data != null) {
-                        order_userAddress.setText(data);
-                    }
-                }
-                break;
-        }
-    }
+
 
     // email 입력란 text 변경 시 listener
     TextWatcher changeListener = new TextWatcher() {
@@ -529,6 +518,21 @@ public class OrderActivity extends AppCompatActivity {
             order_userAddress.setError("이메일 형식으로 입력해주세요!");
         } else {
             order_userAddress.setError(null);
+        }
+    }
+
+    // ======================= 주소록 선택 이벤트
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch (requestCode) {
+            case SEARCH_ADDRESS_ACTIVITY:
+                if (resultCode == RESULT_OK) {
+                    String data = intent.getExtras().getString("data");
+                    if (data != null) {
+                        order_userAddress.setText(data);
+                    }
+                }
+                break;
         }
     }
 
