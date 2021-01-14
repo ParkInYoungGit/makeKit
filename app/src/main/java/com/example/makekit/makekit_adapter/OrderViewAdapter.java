@@ -56,11 +56,11 @@ public class OrderViewAdapter extends BaseAdapter {
         TextView order_productQuantity = convertView.findViewById(R.id.order_productQuantity);
         TextView order_productTotalPrice = convertView.findViewById(R.id.order_productTotalPrice);
 
-        int divTotalPrice = Integer.parseInt(data.get(position).getOrderQuantity())*Integer.parseInt(data.get(position).getProductPrice());
+        //int divTotalPrice = Integer.parseInt(data.get(position).getOrderQuantity())*Integer.parseInt(data.get(position).getProductPrice());
 
-        order_productName.setText(data.get(position).getProductName());
-        order_productQuantity.setText(data.get(position).getOrderQuantity());
-        order_productTotalPrice.setText(Integer.toString(divTotalPrice));
+        order_productName.setText(data.get(position).getUserName());
+        order_productQuantity.setText(data.get(position).getUserTel());
+        order_productTotalPrice.setText(data.get(position).getUserAddress());
 
         order_productImage.setWebViewClient(new WebViewClient());
 
@@ -84,7 +84,7 @@ public class OrderViewAdapter extends BaseAdapter {
         order_productImage.setInitialScale(15);
 
         // url은 알아서 설정 예) http://m.naver.com/
-        realImage = image+"image/"+data.get(position).getProductFilename();
+        realImage = image+"image/"+data.get(position).getUserAddressDetail();
         order_productImage.loadUrl(realImage); // 접속 URL
 
 
