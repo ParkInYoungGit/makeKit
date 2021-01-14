@@ -1,60 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chatContent_slidingup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".makekit_activity.ChatcontentActivity"
-    android:orientation="vertical"
-    android:background="#B2C7DA"
+    android:gravity="bottom"
+    app:umanoDragView="@id/chatting_LL"
+    app:umanoPanelHeight="80dp"
+    app:umanoOverlay="false"
+    app:umanoParallaxOffset="200dp"
+    app:umanoShadowHeight="10dp"
     >
-    <TextView
-        android:id="@+id/receiverID"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        android:gravity="center_vertical"
-        android:text="id"
-        android:layout_marginLeft="25dp"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chattingContents_LV"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="11"
-        android:layout_margin="10dp"
-        />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:background="#FFFFFF"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         >
-        <EditText
-            android:id="@+id/chattingContents_ET"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:layout_marginLeft="10dp"
-            android:inputType="textMultiLine"
-            android:lines="3"
-            android:scrollbars="vertical"
-            android:cursorVisible="true"
-            />
-        <Button
-            android:id="@+id/chattingContents_Btn"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+        <TextView
+            android:id="@+id/receiverID"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:padding="10dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/paperplane"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:gravity="center_vertical"
+            android:text="id"
+            android:layout_marginLeft="25dp"
             />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chattingContents_LV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="11"
+            android:layout_margin="10dp"
+            />
+        <LinearLayout
+            android:id="@+id/dragButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:id="@+id/chatting_LL"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+                    <Button
+                        android:id="@+id/plusButton_chat"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/add"
+                        />
+                    <EditText
+                        android:id="@+id/chattingContents_ET"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:layout_marginLeft="10dp"
+                        android:inputType="textMultiLine"
+                        android:lines="3"
+                        android:scrollbars="vertical"
+                        android:cursorVisible="true"
+                        />
+                    <Button
+                        android:id="@+id/chattingContents_Btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/paperplane"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <Button
+                        android:id="@+id/gpsButton_chat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_gps"
+                        />
+                </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
