@@ -121,11 +121,11 @@ public class OrderActivity extends AppCompatActivity {
 
         // 앞에서 넘겨준 값 받기
         Intent intent = getIntent();
-        macIP = intent.getStringExtra("macIP");
-        productNo = intent.getStringExtra("productNo");
+//        macIP = intent.getStringExtra("macIP");
 //        email = intent.getStringExtra("userEmail");
-        email = "qkr@naver.com";
+//        email = "qkr@naver.com";
 //        product1 = intent.getStringArrayListExtra("productNo");
+        productNo = intent.getStringExtra("productNo");
         cartNo = intent.getStringExtra("cartNo");
         count = intent.getStringExtra("productQuantity");
         totalPrice = intent.getStringExtra("totalPrice");
@@ -150,7 +150,8 @@ public class OrderActivity extends AppCompatActivity {
 //        orderTotalPrice = Integer.parseInt(totalPrice);
 //        Log.v(TAG, "orderCount : " + orderCount);
 //        Log.v(TAG, "orderTotalPrice : " + orderTotalPrice);
-
+        macIP = SharVar.macIP;
+        email = SharVar.userEmail;
         urlAddrBase = SharVar.urlAddrBase;
 
         // 사용할 폴더 지정

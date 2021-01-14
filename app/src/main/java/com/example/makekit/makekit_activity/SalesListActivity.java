@@ -12,6 +12,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.SalesListAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.Order;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -32,8 +33,11 @@ public class SalesListActivity extends AppCompatActivity {
         orders = new ArrayList<Order>();
 
         Intent intent = getIntent();
-        email = intent.getStringExtra("useremail");
-        macIP = intent.getStringExtra("macIP");
+//        email = intent.getStringExtra("useremail");
+//        macIP = intent.getStringExtra("macIP");
+        macIP = SharVar.macIP;
+        email = SharVar.userEmail;
+        urlAddrBase = SharVar.urlAddrBase;
 
         recyclerView = findViewById(R.id.SaleList_RecyclerView);
         recyclerView.setHasFixedSize(true);

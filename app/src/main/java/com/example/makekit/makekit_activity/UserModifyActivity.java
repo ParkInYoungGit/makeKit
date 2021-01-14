@@ -34,6 +34,7 @@ import com.example.makekit.makekit_adapter.UserAdapter;
 import com.example.makekit.makekit_asynctask.CUDNetworkTask;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -110,15 +111,15 @@ public class UserModifyActivity extends AppCompatActivity {
 
         // 아이피와 이메일 받기
         Intent intent = getIntent();
-        macIP = intent.getStringExtra("macIP");
-        email = intent.getStringExtra("useremail");
+        macIP = SharVar.macIP;
+        email = SharVar.userEmail;
+        urlAddrBase = SharVar.urlAddrBase;
 
 
 //        macIP = "192.168.2.2";
 //        email = "son@naver.com";
 
         // jsp 사용할 폴더 지정
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";  // 폴더까지만 지정
         urlAddr1 = urlAddrBase + "jsp/user_info_all.jsp?email=" + email;
 
 

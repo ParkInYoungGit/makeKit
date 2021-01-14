@@ -85,7 +85,6 @@
                     android:id="@+id/user_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_background"
                     android:enabled="false"
                     android:hint="이메일"
                     android:paddingLeft="10dp"
@@ -108,7 +107,6 @@
                     android:id="@+id/user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_background"
                     android:enabled="true"
                     android:hint="이름"
                     android:paddingLeft="10dp"
@@ -131,7 +129,6 @@
                     android:id="@+id/user_pw"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_background"
                     android:hint="비밀번호 (8자 이상)"
                     android:inputType="textPassword"
                     android:paddingLeft="10dp"
@@ -153,7 +150,6 @@
                     android:id="@+id/user_pwcheck"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_background"
                     android:hint="비밀번호 확인"
                     android:inputType="textPassword"
                     android:paddingLeft="10dp"
@@ -182,7 +178,6 @@
                     android:id="@+id/user_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_background"
                     android:hint="주소입력"
                     android:paddingLeft="10dp"
                     android:textSize="18dp"
@@ -203,7 +198,6 @@
                     android:id="@+id/user_addressdetail"
                     android:layout_width="250dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/button_background"
                     android:hint="상세주소입력"
                     android:paddingLeft="10dp"
                     android:textSize="18dp" />
@@ -215,7 +209,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="40dp"
-                    android:background="@drawable/button_background"
                     android:text="주소찾기" />
 
             </LinearLayout>
@@ -237,7 +230,6 @@
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
-                    android:background="@drawable/button_background"
                     android:hint="휴대폰"
                     android:maxLength="13"
                     android:paddingLeft="10dp"
@@ -307,7 +299,6 @@
                 android:id="@+id/user_update_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_background"
                 android:layout_gravity="right"
                 android:text="수정완료"
                 android:layout_marginBottom="10dp"/>
