@@ -331,8 +331,35 @@
                         android:scrollbars="vertical"
                         android:scrollbarThumbVertical="@android:color/darker_gray"/>
 
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp">
 
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:text="구매 총 금액"
+                            android:textSize="18dp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:id="@+id/allProductTotalPrice_order"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="8"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 

@@ -38,6 +38,7 @@ public class WriteReviewAdapter extends RecyclerView.Adapter<WriteReviewAdapter.
     private String urlImageReal;
     String email, macIP;
 
+
     public WriteReviewAdapter(Context mContext, int layout, ArrayList<Order> data, String urlImage, String email, String macIP) {
         this.mContext = mContext;
         this.layout = layout;
@@ -54,7 +55,8 @@ public class WriteReviewAdapter extends RecyclerView.Adapter<WriteReviewAdapter.
         WebView img_ProductImage;
         TextView reviewlist_productName, tv_productQuantity, reviewlist_productQuantity;
         TextView Textview_RegisterReview, btn_registerReview;
-//        LinearLayout li_reviewImage, li_reviewNonImage;
+        LinearLayout you,meiyou;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -66,6 +68,7 @@ public class WriteReviewAdapter extends RecyclerView.Adapter<WriteReviewAdapter.
             tv_productQuantity = itemView.findViewById(R.id.tv_productQuantity);
             reviewlist_productQuantity = itemView.findViewById(R.id.reviewlist_productQuantity);
             Textview_RegisterReview = itemView.findViewById(R.id.Textview_RegisterReview);
+
 
             btn_registerReview = itemView.findViewById(R.id.Textview_RegisterReview);
 
@@ -136,7 +139,7 @@ public class WriteReviewAdapter extends RecyclerView.Adapter<WriteReviewAdapter.
                 Context context = v.getContext();
                 Intent intent = new Intent(context, RegisterReviewActivity.class);
                 intent.putExtra("macIP", macIP);
-                intent.putExtra("useremail", email);
+                intent.putExtra("email", email);
                 intent.putExtra("orderDetailNo", data.get(position).getOrderDetailNo());
                 intent.putExtra("productNo", data.get(position).getGoods_productNo());
                 context.startActivity(intent);
