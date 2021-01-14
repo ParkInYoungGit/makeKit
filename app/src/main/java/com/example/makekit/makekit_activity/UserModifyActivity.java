@@ -35,6 +35,7 @@ import com.example.makekit.makekit_asynctask.CUDNetworkTask;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
 import com.example.makekit.makekit_sharVar.SharVar;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -90,8 +91,8 @@ public class UserModifyActivity extends AppCompatActivity {
     String urlImage;
     Matcher match;
 
-    EditText user_pwcheck, user_tel, user_name;
-    TextView user_email, user_pw, user_address, user_addressdetail, user_birth, tv_pwCheckMsg_user, currentPW;
+    EditText user_pwcheck, user_tel, user_addressdetail;
+    TextView user_email, user_pw, user_address, user_birth, tv_pwCheckMsg_user, currentPW, user_name;
     String useremail, username, userpw, useraddress, useraddressdetail, usertel, userbirth, userimage;
     Button update_btn;
     TextView fieldCheck;
@@ -224,7 +225,7 @@ public class UserModifyActivity extends AppCompatActivity {
             }
         });
 
-        user_address = (EditText) findViewById(R.id.user_address);
+        user_address = findViewById(R.id.user_address);
 
         Button btn_update_user = (Button) findViewById(R.id.userModiAddress_button);
 
@@ -239,7 +240,13 @@ public class UserModifyActivity extends AppCompatActivity {
             });
         }
 
-    }
+//        TextInputLayout inputLayoutPW = findViewById(R.id.InputLayoutPw_join);
+//        TextInputLayout inputLayoutPWCheck = findViewById(R.id.InputLayoutPwCheck_join);
+//
+//        inputLayoutPW.setPasswordVisibilityToggleEnabled(true);
+//        inputLayoutPWCheck.setPasswordVisibilityToggleEnabled(true);
+
+    }//============================
 
 
     @Override
@@ -340,7 +347,7 @@ public class UserModifyActivity extends AppCompatActivity {
         String year_string = Integer.toString(year);
         String dateMessage = (month_string + "/" + day_string + "/" + year_string);
 
-        EditText birth = (EditText) findViewById(R.id.user_birth);
+        TextView birth = findViewById(R.id.user_birth);
 
         birth.setText(dateMessage);
 

@@ -398,14 +398,11 @@ public class OrderActivity extends AppCompatActivity {
     TextWatcher changeListener_userTel = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//            fieldCheck.setText("");
-//            fieldCheck.setText("");
             _beforeLenght = s.length();
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //fieldCheck.setText("");
             _afterLenght = s.length();
             // 삭제 중
             if (_beforeLenght > _afterLenght) {
