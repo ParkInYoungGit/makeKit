@@ -1,6 +1,8 @@
 package com.example.makekit.makekit_adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.LikeSellerActivity;
+import com.example.makekit.makekit_activity.ProdutctViewActivity;
+import com.example.makekit.makekit_activity.SaleProductListActivity;
 import com.example.makekit.makekit_bean.User;
 
 import java.util.ArrayList;
@@ -23,11 +27,12 @@ public class LikeSellerAdapter extends RecyclerView.Adapter<LikeSellerAdapter.My
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textView;
+        TextView textView, goSeller;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.likeSellerID_TV);
+            goSeller = itemView.findViewById(R.id.goLiekSeller);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -56,6 +61,15 @@ public class LikeSellerAdapter extends RecyclerView.Adapter<LikeSellerAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.textView.setText(users.get(position).getEmail());
+        holder.goSeller.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent = new Intent(v.getContext(), SaleProductListActivity.class);
+                intent.putExtra("seller", users.get(position).getEmail());
+                v.getContext().startActivity(intent);
+                return false;
+            }
+        });
     }
 
     @Override

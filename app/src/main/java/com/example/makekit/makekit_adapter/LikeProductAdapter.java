@@ -1,6 +1,8 @@
 package com.example.makekit.makekit_adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.LikeProductActivity;
+import com.example.makekit.makekit_activity.ProdutctViewActivity;
 import com.example.makekit.makekit_bean.Product;
 
 import java.util.ArrayList;
@@ -104,7 +107,15 @@ public class LikeProductAdapter extends RecyclerView.Adapter<LikeProductAdapter.
         holder.webViewLeft.getSettings().setUseWideViewPort(true);
         holder.webViewLeft.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
         holder.webViewLeft.setInitialScale(15);
-
+        holder.webViewLeft.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent = new Intent(v.getContext(), ProdutctViewActivity.class);
+                intent.putExtra("productNo", mDataset.get(position).getProductNo());
+                v.getContext().startActivity(intent);
+                return false;
+            }
+        });
     }
 
     @Override
