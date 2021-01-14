@@ -30,18 +30,23 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.OrderProductListAdapter;
+import com.example.makekit.makekit_asynctask.CartNetworkTask;
 import com.example.makekit.makekit_asynctask.OrderNetworkTask;
 
+import com.example.makekit.makekit_asynctask.ProductNetworkTask;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.Cart;
 
 import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Payment;
+import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_sharVar.SharVar;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -55,9 +60,11 @@ public class OrderActivity extends AppCompatActivity {
     private int _beforeLenght = 0;
     private int _afterLenght = 0;
 
+    DecimalFormat myFormatter;
     //  아이피, url, 기본 세팅 설정
-    String macIP, email, productNo, count, totalPrice, urlAddrBase, urlJsp, urlImage, url, urlAddrSelect_Resume, cartNo, urlAddrSelect_Resume1, urlAddrBase11;
+    String macIP, result, email, productNo, count, totalPrice, urlAddrBase, urlJsp, urlImage, url, urlAddrSelect_Resume, cartNo, urlAddrSelect_Resume1, urlAddrBase11, orderNo;
     int orderCount, orderTotalPrice;
+    int total = 0;
 
     //  주문자 기본 정보
     EditText order_userName, order_userTel, order_userAddress, order_userAddressDetail;
@@ -131,13 +138,22 @@ public class OrderActivity extends AppCompatActivity {
         totalPrice = intent.getStringExtra("totalPrice");
         carts = (ArrayList<Cart>) intent.getSerializableExtra("productno");
 
+
+        /////////////////////////////////////////////////////
+        // 1/14 Kyeongmi 추가
+        /////////////////////////////////////////////////////
         for (int i = 0; i < carts.size(); i++) {
             String no = carts.get(i).getProductNo();
+            String price = carts.get(i).getProductPrice();
+            String quantity = carts.get(i).getCartQuantity();
+            total += Integer.parseInt(price) *  Integer.parseInt(quantity);
             product1.add(no);
             Log.v(TAG, "번호 : " + no);
-            Log.v(TAG, "상품명 : " + no);
-            Log.v(TAG, "번호2 : " + product1.get(i));
+            Log.v(TAG, "상품 금액 : " + price);
+            Log.v(TAG, "수량 : " + quantity);
+            Log.v(TAG, "총 금액 : " + total);
         }
+        /////////////////////////////////////////////////////
 
 //        Log.v(TAG, macIP);
 ////        Log.v(TAG, productNo);
@@ -160,7 +176,7 @@ public class OrderActivity extends AppCompatActivity {
         urlJsp = urlAddrBase + "jsp/";  // jsp 폴더
         urlImage = urlAddrBase + "image/";  // image 폴더
 
-        
+
         /////////////////////////////////////////////////////
         // 기존 사용 변수
         /////////////////////////////////////////////////////
@@ -193,15 +209,27 @@ public class OrderActivity extends AppCompatActivity {
         order_productName = findViewById(R.id.order_productName);
         order_productCount = findViewById(R.id.order_productCount);
         order_productPrice = findViewById(R.id.order_productPrice);
-        order_productTotalPrice = findViewById(R.id.order_productTotalPrice);
+        order_productTotalPrice = findViewById(R.id.allProductTotalPrice_order);
 
         //  구매 버튼
         order_payment_btn = findViewById(R.id.order_payment_btn);
 
+        ////////////////////////////////////////
+        // 1/14 경미 추가
+        ////////////////////////////////////////
+        myFormatter = new DecimalFormat("###,###");
+        String formattedStringPrice = myFormatter.format(total + carts.size()*2500);
+        order_productTotalPrice.setText("" + formattedStringPrice + "원");
+
         // ========================================================== onClickListener
 
         // 구매버튼 액션
-//        order_payment_btn.setOnClickListener(onClickListener);
+        ////////////////////////////////////////
+        // 1/14 경미 추가
+        ////////////////////////////////////////
+        order_payment_btn.setOnClickListener(onClickListener);
+        ////////////////////////////////////////
+
         order_info_checkBox.setOnClickListener(onClickListener);
         order_userTel.addTextChangedListener(changeListener_userTel);
         order_receiverTel.addTextChangedListener(changeListener_receiverTel);
@@ -235,6 +263,7 @@ public class OrderActivity extends AppCompatActivity {
         order_userAddress.setText(orderUserAddress);
         order_userAddressDetail.setText(orderUserAddressDetail);
 
+        // 주소록 선택을 위한 이벤트 클릭 리스너
         order_userAddress.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -271,6 +300,81 @@ public class OrderActivity extends AppCompatActivity {
                         order_receiverAddressDetail.setText("");
                     }
 
+                    break;
+
+                case R.id.order_payment_btn:
+                    int count = 0;
+
+                    String orderreceiver = order_receiverName.getText().toString();
+                    String orderrcvaddress = order_receiverAddress.getText().toString();
+                    String orderrcvaddressdetail = order_receiverAddressDetail.getText().toString();
+                    String orderrcvphone = order_receiverTel.getText().toString();
+                    String ordertotalprice = order_productTotalPrice.getText().toString();
+                    /////////////////////////////////////////////////////
+                    // 1/14 Kyeongmi 추가
+                    // 수정하기
+                    /////////////////////////////////////////////////////
+                    String orderbank = "신한";
+                    String ordercardno = "1111111";
+                    String ordercardpw = "1234";
+//                    String orderbank = order_receiverName.getText().toString();
+//                    String ordercardno = order_receiverName.getText().toString();
+//                    String ordercardpw = order_receiverName.getText().toString();
+
+                    String urlAddr1 = urlAddrBase + "jsp/insert_order_orderinfo.jsp?useremail=" + email + "&orderreceiver=" + orderreceiver + "&orderrcvaddress=" + orderrcvaddress;
+                    String urlAddr2 = "&orderrcvaddressdetail=" + orderrcvaddressdetail + "&orderrcvphone=" + orderrcvphone + "&ordertotalprice=" + (total + carts.size()*2500) + "&orderbank=" + orderbank + "&ordercardno=" + ordercardno + "&ordercardpw=" + ordercardpw;
+                    connectInsertData(urlAddr1+urlAddr2);
+                    String urlAddr3 = urlAddrBase + "jsp/select_orderno_orderdetail.jsp?useremail=" + email;
+                    connectSelectData(urlAddr3);
+
+
+                    /////////////////////////////////////////////////////
+                    // 1/14 Kyeongmi 추가
+                    /////////////////////////////////////////////////////
+                    // 선택된 주문 상품 orderdetail table 추가
+                    String urlAddr4 = urlAddrBase + "jsp/insert_order_orderdetail.jsp?useremail=" + email + "&orderno=" + orderNo;
+                    for(int i=0; i<carts.size();i++) {
+                        String urlAddr5 = "&productno=" + carts.get(i).getProductNo() + "&orderquantity=" + carts.get(i).getCartQuantity();
+                        count += Integer.parseInt(connectInsertData(urlAddr4 + urlAddr5));
+                        Log.v(TAG, "count : " + count);
+                        Log.v(TAG, "urlAddr5 : " + urlAddr5);
+                    }
+                    if(count == carts.size()) {
+                        Toast.makeText(OrderActivity.this, "입력 성공하였습니다.", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(OrderActivity.this, "입력 실패하였습니다.", Toast.LENGTH_SHORT).show();
+
+                    }
+                    if(result.equals("1")) {
+                        Toast.makeText(OrderActivity.this, "주문 정보 입력 성공하였습니다.", Toast.LENGTH_SHORT).show();
+
+//                        Intent intent = new Intent(OrderActivity.this, OrderViewActivity.class);
+//                        intent.putExtra("useremail", SharVar.userEmail);
+//                        intent.putExtra("macIP", SharVar.macIP);
+//                    intent.putExtra("orderView_Date_TV",);
+//                    str_orderView_Number_TV = intent.getStringExtra("orderView_Number_TV");
+//                    str_order_userName = intent.getStringExtra("order_userName");
+//                    str_order_userTel = intent.getStringExtra("order_userTel");
+//                    str_order_userAddress = intent.getStringExtra("order_userAddress");
+//                    str_order_userAddressDetail = intent.getStringExtra("order_userAddressDetail");
+//                    str_order_productImage = intent.getStringExtra("order_productImage");
+//                    str_order_productName = intent.getStringExtra("order_productName");
+//                    str_order_productQuantity = intent.getStringExtra("order_productQuantity");
+//                    str_order_productTotalPrice = intent.getStringExtra("order_productTotalPrice");
+//                    str_orderView_orderBank = intent.getStringExtra("orderView_orderBank");
+//                    str_orderView_orderCardNo = intent.getStringExtra("orderView_orderCardNo");
+//                    str_orderView_orderDate = intent.getStringExtra("orderView_orderDate");
+//                    str_orderView_orderTotalPrice = intent.getStringExtra("orderView_orderTotalPrice");
+//                        startActivity(intent);
+
+                    } else {
+                        Toast.makeText(OrderActivity.this, "주문 정보 입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    break;
+
 
             }
         }
@@ -290,6 +394,7 @@ public class OrderActivity extends AppCompatActivity {
 
     /////////////////////////////////////////////////////
     // 1/14 Kyeongmi 추가
+    // cart 상품 정보 가져오기
     /////////////////////////////////////////////////////
     private void connectProductSelectGetData() {
 
@@ -300,56 +405,6 @@ public class OrderActivity extends AppCompatActivity {
         Log.v(TAG, "mAdapter rv_product_order : " + mAdapter);
 
     }
-
-    /////////////////////////////////////////////////////
-    // 기존 사용 메소드
-    /////////////////////////////////////////////////////
-//    private void connectProductSelectGetData() {
-//
-//        try {
-//            payments = new ArrayList<Payment>();
-//            //payment.clear();
-//            for (int i = 0; i < product1.size(); i++) {
-//
-//                Log.v(TAG, "connectProductSelectGetData in");
-//                Log.v(TAG, "11111" + product1.size());
-//                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" + cartNo + "&productNo=" + product1.get(i), "selectProductOrder");        // 불러오는게 똑같아서
-////                OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddrBase + "jsp/order_product_select.jsp?cartNo=" +"69"+ "&productNo=" +"44", "selectProductOrder");        // 불러오는게 똑같아서
-//                Object obj = orderNetworkTask.execute().get();
-//                payment = (ArrayList<Payment>) obj;
-//                String productImage = payment.get(i).getImage();
-//                String productName = payment.get(i).getProductName();
-////                Log.v(TAG, "order1 : " + payment.get(1).getProductName());
-//                String productPrice = payment.get(i).getProductPrice();
-//                String cartQuantity = payment.get(i).getCartQuantity();
-//                Log.v(TAG, "order0 : " + payment.get(0).getImage());
-//                Log.v(TAG, "order0 : " + payment.get(0).getProductName());
-//                Log.v(TAG, "order0 : " + payment.get(0).getProductPrice());
-//                Log.v(TAG, "order0 : " + payment.get(0).getCartQuantity());
-////                    Log.v(TAG, "order0 : " + payment.get(1).getCartQuantity());
-//
-//                Payment data = new Payment(productImage, productName, productPrice, cartQuantity);
-//
-//                payments.add(data);
-//                Log.v(TAG, "orderdata : " + payments.get(0).getProductName());
-//                Log.v(TAG, "orderdata : " + payments.get(1).getProductName());
-//
-//            }
-//            mAdapter = new OrderProductListAdapter(OrderActivity.this, R.layout.custom_order_product, payments, urlAddrBase + "image/");
-//            rv_product_order.setAdapter(mAdapter);
-//
-////
-//            Log.v(TAG, "connectProductSelectGetData urlAddrBase" + urlAddrBase);
-//
-//
-//            Log.v(TAG, "mAdapter mAdapter : " + mAdapter);
-//            Log.v(TAG, "mAdapter rv_product_order : " + mAdapter);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
 
     // ============================================================================================  유저 기본정보 가져오는 Select
     @Override
@@ -397,14 +452,11 @@ public class OrderActivity extends AppCompatActivity {
     TextWatcher changeListener_userTel = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//            fieldCheck.setText("");
-//            fieldCheck.setText("");
             _beforeLenght = s.length();
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //fieldCheck.setText("");
             _afterLenght = s.length();
             // 삭제 중
             if (_beforeLenght > _afterLenght) {
@@ -492,19 +544,7 @@ public class OrderActivity extends AppCompatActivity {
             }
         };
 
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        switch (requestCode) {
-            case SEARCH_ADDRESS_ACTIVITY:
-                if (resultCode == RESULT_OK) {
-                    String data = intent.getExtras().getString("data");
-                    if (data != null) {
-                        order_userAddress.setText(data);
-                    }
-                }
-                break;
-        }
-    }
+
 
     // email 입력란 text 변경 시 listener
     TextWatcher changeListener = new TextWatcher() {
@@ -532,4 +572,52 @@ public class OrderActivity extends AppCompatActivity {
         }
     }
 
-    }//===================
+    // insert orderinfo
+    private String connectInsertData(String urlAddr) {
+        result = "";
+        try {
+            OrderNetworkTask productNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddr, "insert");
+
+            Object object = productNetworkTask.execute().get();
+            result = (String) object;
+            Log.v(TAG, "입력 결과값 : " + result);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return result;
+    }
+
+
+    // select OrderNo
+    private void connectSelectData(String urlAddr) {
+        orderNo = "";
+        try {
+            OrderNetworkTask productNetworkTask = new OrderNetworkTask(OrderActivity.this, urlAddr, "select");
+
+            Object object = productNetworkTask.execute().get();
+            orderNo = (String) object;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // ======================= 주소록 선택 이벤트
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch (requestCode) {
+            case SEARCH_ADDRESS_ACTIVITY:
+                if (resultCode == RESULT_OK) {
+                    String data = intent.getExtras().getString("data");
+                    if (data != null) {
+                        order_userAddress.setText(data);
+                    }
+                }
+                break;
+        }
+    }
+
+}//===================

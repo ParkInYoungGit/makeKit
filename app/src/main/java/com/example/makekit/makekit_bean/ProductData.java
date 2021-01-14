@@ -1,4 +1,4 @@
-package com.example.makekit.makekit_activity;
+package com.example.makekit.makekit_bean;
 
 
 

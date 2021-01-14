@@ -2,7 +2,6 @@ package com.example.makekit.makekit_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
@@ -11,17 +10,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_adapter.UserAdapter;
+import com.example.makekit.makekit_adapter.ProductListAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask;
-import com.example.makekit.makekit_bean.Product;
-import com.example.makekit.makekit_bean.User;
-
-import org.w3c.dom.Text;
+import com.example.makekit.makekit_bean.ProductData;
 
 import java.util.ArrayList;
 

@@ -9,6 +9,10 @@
   ifRoom (표시할 수 있는 공간이 존재하면 표시),
   withText (메뉴의 아이콘과 텍스트를 같이 표시)가 있다.
   -->
+    <item android:id="@+id/menu_product"
+        android:title="상품추가"
+        android:icon="@drawable/ic_edit"
+        app:showAsAction="always" />
     <item android:id="@+id/menu_gps"
         android:title="새로고침"
         android:icon="@drawable/ic_gps"

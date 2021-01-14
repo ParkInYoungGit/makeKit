@@ -52,7 +52,6 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
         allProductTotalPrice = findViewById(R.id.allProductTotalPrice_cart);
         recyclerView = findViewById(R.id.recyclerViewCartList);
         selectAll = findViewById(R.id.cb_cart_selectall);
-        //selectAll.setChecked(true);
 
         Intent intent = getIntent();
         macIP = intent.getStringExtra("macIP");
@@ -163,6 +162,7 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
 
     @Override
     public void onResume() {
+        selectAll.setChecked(false);
         String productprice ="";
         String productcount ="";
         String deliveryprice ="";

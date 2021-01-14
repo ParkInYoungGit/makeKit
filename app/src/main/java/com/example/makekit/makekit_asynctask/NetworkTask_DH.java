@@ -35,6 +35,8 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
     ArrayList<Order> salesList;
     ArrayList<Order> purchaseList;
     ArrayList<Order> reviewList;
+//    ArrayList<Order> reviewCheck;
+    String reviewCheck = null;
 
     String chattingNumber;
     String where = null;
@@ -117,6 +119,9 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     result = parserAction(stringBuffer.toString());
                     Log.v("NetworkTask", "result : "+result);
                 }
+                else if (where.equals("reviewCheck")){
+                    parserReviewCheck(stringBuffer.toString());
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -153,10 +158,15 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             return reviewList;
         }else if (where.equals("getProductHome")){
             return products;
+
         }else if(where.equals("update")){
             return result;
         }else if(where.equals("updatebuy")){
             return result;
+
+        }else if (where.equals("reviewCheck")){
+            return reviewCheck;
+
         }
         else {
             return result;
@@ -467,6 +477,27 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
         }
     }
 
+    private String parserReviewCheck(String s) {
+
+        String reviewCheck = null;
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                reviewCheck = jsonObject1.getString("reviewCheck");
+
+                Log.v("여기", "parserLoginCheck : " + reviewCheck);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reviewCheck;
+    }
 
 
 

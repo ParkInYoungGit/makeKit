@@ -186,10 +186,6 @@ public class ProdutctViewActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-//                case R.id.favorite_productviewcontent:
-//
-//
-//                    break;
 
                 case R.id.btnMinusProudct_productview:
                     if(purchaseNumInput.getText().toString().equals("1")){

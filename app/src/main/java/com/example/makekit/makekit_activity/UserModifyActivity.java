@@ -4,14 +4,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.scroll.pickertest.DatePickerFragment;
+import com.example.makekit.makekit_fragment.DatePickerFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,11 +20,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,8 +86,8 @@ public class UserModifyActivity extends AppCompatActivity {
     String urlImage;
     Matcher match;
 
-    EditText user_pwcheck, user_tel, user_name;
-    TextView user_email, user_pw, user_address, user_addressdetail, user_birth, tv_pwCheckMsg_user, currentPW;
+    EditText user_pwcheck, user_tel, user_addressdetail;
+    TextView user_email, user_pw, user_address, user_birth, tv_pwCheckMsg_user, currentPW, user_name;
     String useremail, username, userpw, useraddress, useraddressdetail, usertel, userbirth, userimage;
     Button update_btn;
     TextView fieldCheck;
@@ -171,7 +167,7 @@ public class UserModifyActivity extends AppCompatActivity {
             user_image.setVerticalScrollBarEnabled(false);   //세로 스크롤
             user_image.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
             user_image.setScrollbarFadingEnabled(false);
-            user_image.setInitialScale(25);
+            user_image.setInitialScale(10);
 
             // 웹뷰 멀티 터치 가능하게 (줌기능)
             webSettings.setBuiltInZoomControls(false);   // 줌 아이콘 사용
@@ -224,7 +220,7 @@ public class UserModifyActivity extends AppCompatActivity {
             }
         });
 
-        user_address = (EditText) findViewById(R.id.user_address);
+        user_address = findViewById(R.id.user_address);
 
         Button btn_update_user = (Button) findViewById(R.id.userModiAddress_button);
 
@@ -239,7 +235,13 @@ public class UserModifyActivity extends AppCompatActivity {
             });
         }
 
-    }
+//        TextInputLayout inputLayoutPW = findViewById(R.id.InputLayoutPw_join);
+//        TextInputLayout inputLayoutPWCheck = findViewById(R.id.InputLayoutPwCheck_join);
+//
+//        inputLayoutPW.setPasswordVisibilityToggleEnabled(true);
+//        inputLayoutPWCheck.setPasswordVisibilityToggleEnabled(true);
+
+    }//============================
 
 
     @Override
@@ -340,7 +342,7 @@ public class UserModifyActivity extends AppCompatActivity {
         String year_string = Integer.toString(year);
         String dateMessage = (month_string + "/" + day_string + "/" + year_string);
 
-        EditText birth = (EditText) findViewById(R.id.user_birth);
+        TextView birth = findViewById(R.id.user_birth);
 
         birth.setText(dateMessage);
 

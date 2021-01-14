@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ViewFlipper;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +21,7 @@ import com.example.makekit.makekit_adapter.SectionPageAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.ChattingBean;
 import com.example.makekit.makekit_bean.Product;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -46,25 +49,42 @@ public class HomeFragment extends Fragment {
     String email, macIP, urlAddrBase;
 
 
+    ViewFlipper v_fllipper;
+
+
+    int images[] = {
+            R.drawable.img_banner1,
+            R.drawable.img_banner2,
+            R.drawable.img_banner3
+    };
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Fragment는 Activity가 아니기때문에 리턴값과 레이아웃을 변수로 정해준다.
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         // 앱소개 뷰페이저
-        mViewPager = (ViewPager) v.findViewById(R.id.container);
-        mViewPager.setOffscreenPageLimit(3);
+//        mViewPager = (ViewPager) v.findViewById(R.id.container);
+//        mViewPager.setOffscreenPageLimit(3);
+//        setupViewPager(mViewPager);   // 뷰페이지 불러오기
+//        CircleIndicator indicator = (CircleIndicator) v.findViewById(R.id.indicator); // 인디케이터 불러오기
+//        indicator.setViewPager(mViewPager);  // 인디케이터 안에 페이저처리
 
-        setupViewPager(mViewPager);   // 뷰페이지 불러오기
-        CircleIndicator indicator = (CircleIndicator) v.findViewById(R.id.indicator); // 인디케이터 불러오기
-        indicator.setViewPager(mViewPager);  // 인디케이터 안에 페이저처리
+        // 21/1/14 Min
+        v_fllipper = v.findViewById(R.id.image_slide);
+
+        for(int image : images) {
+            fllipperImages(image);
+        }
 
         hotProduct = new ArrayList<Product>();
         recProduct = new ArrayList<Product>();
         newProduct = new ArrayList<Product>();
-
-        email = getArguments().getString("useremail");
-        macIP = getArguments().getString("macIP");
+        
+        macIP = SharVar.macIP;
+        email = SharVar.userEmail;
+        urlAddrBase = SharVar.urlAddrBase;
 
         recyclerViewHot = v.findViewById(R.id.recyclerViewHot);
         recyclerViewRec = v.findViewById(R.id.recyclerViewRec);
@@ -100,15 +120,15 @@ public class HomeFragment extends Fragment {
         return v;
     }
 
-
-    public void setupViewPager(ViewPager viewPager) {
-        SectionPageAdapter adapter = new SectionPageAdapter(getFragmentManager());
-        adapter.addFragment(new BannerViewFragmentFirst(), "1");
-        adapter.addFragment(new BannerViewFragmentSecond(), "2");
-        adapter.addFragment(new BannerViewFragmentThird(), "3");
-
-        viewPager.setAdapter(adapter);
-    }
+// 뷰페이저 사용 세팅
+//    public void setupViewPager(ViewPager viewPager) {
+//        SectionPageAdapter adapter = new SectionPageAdapter(getFragmentManager());
+//        adapter.addFragment(new BannerViewFragmentFirst(), "1");
+//        adapter.addFragment(new BannerViewFragmentSecond(), "2");
+//        adapter.addFragment(new BannerViewFragmentThird(), "3");
+//
+//        viewPager.setAdapter(adapter);
+//    }
 
     @Override
     public void onResume() {
@@ -156,4 +176,19 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+    // 이미지 슬라이더 구현 메서드
+    public void fllipperImages(int image) {
+        ImageView imageView = new ImageView(getContext());
+        imageView.setBackgroundResource(image);
+
+        v_fllipper.addView(imageView);      // 이미지 추가
+        v_fllipper.setFlipInterval(3000);       // 자동 이미지 슬라이드 딜레이시간(1000 당 1초)
+        v_fllipper.setAutoStart(true);          // 자동 시작 유무 설정
+
+        // animation
+        v_fllipper.setInAnimation(getContext(),android.R.anim.slide_in_left);
+        v_fllipper.setOutAnimation(getContext(),android.R.anim.slide_out_right);
+    }
+
 }
