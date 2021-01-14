@@ -1,6 +1,11 @@
 package com.example.makekit.makekit_activity;
 
+import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,13 +33,11 @@ public class ReviewListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reviewlist);
 
         // 나중에는 밑에 지정해놓은 거 없애고 이 세줄 사용 ----------------------------------------------
-//        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
-//        macIP = sf.getString("macIP","");
-//        email = sf.getString("useremail","");
+        SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
+        macIP = sf.getString("macIP","");
+        email = sf.getString("useremail","");
 
-
-        macIP = "192.168.0.81";
-        email = "jordy@naver.com";
+        
 
         // 화면 구성
         linearLayout = findViewById(R.id.linearlayout_reviewList);
@@ -51,6 +54,23 @@ public class ReviewListActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
     } // onCreate End -----------------------------------------------------------------
+
+    // 화면 touch 시 키보드 숨기기
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View focusView = getCurrentFocus();
+        if (focusView != null) {
+            Rect rect = new Rect();
+            focusView.getGlobalVisibleRect(rect);
+            int x = (int) ev.getX(), y = (int) ev.getY();
+            if (!rect.contains(x, y)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if (imm != null)
+                    imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
+                focusView.clearFocus();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 
 
 } // END ----------------------------------------------------------------------------

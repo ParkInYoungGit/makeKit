@@ -1,10 +1,13 @@
 package com.example.makekit.makekit_fragment;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -139,10 +142,8 @@ public class WriteReviewFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
     }
+
 
 
 

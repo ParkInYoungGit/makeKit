@@ -27,6 +27,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.SectionPageAdapter;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_sharVar.SharVar;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class TempLogin extends AppCompatActivity {
 
@@ -76,6 +77,10 @@ public class TempLogin extends AppCompatActivity {
         findidpw.setOnClickListener(mOnClickListener);
         login.setOnClickListener(mOnClickListener);
         join.setOnClickListener(mOnClickListener);
+
+
+        TextInputLayout inputLayoutPW = findViewById(R.id.login_id);
+        inputLayoutPW.setPasswordVisibilityToggleEnabled(true);
 
 
         if (saveLoginData) {
