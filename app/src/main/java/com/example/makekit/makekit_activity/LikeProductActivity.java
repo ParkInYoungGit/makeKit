@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.LikeProductAdapter;
@@ -75,6 +76,7 @@ public class LikeProductActivity extends AppCompatActivity {
         connectGetData();
         mAdapter = new LikeProductAdapter(LikeProductActivity.this, R.layout.search_layout, products, urlAddrBase+"image/");
         recyclerView.setAdapter(mAdapter);
+        Toast.makeText(this, email, Toast.LENGTH_SHORT).show();
     }
 
     private void connectGetData(){

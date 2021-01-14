@@ -16,13 +16,14 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         />
 
-    <view class="androidx.appcompat.app.AlertController$RecycleListView"
+    <ListView
         android:id="@+id/lv_notice"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"/>
+        />
 
 
 </LinearLayout>

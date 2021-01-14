@@ -117,7 +117,7 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
             @Override
             public void onClick(View v) {
                 Log.v("here","test");
-                macIP = "192.168.35.251";
+                macIP = SharVar.macIP;
                 email = SharVar.userEmail;
 
 
@@ -131,11 +131,6 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
 
                 String result = connectUpdateData();
 
-                if (result.equals("1")) {
-                    Toast.makeText(mContext, "구매확정완료 !", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(mContext, "구매확정실패 !", Toast.LENGTH_SHORT).show();
-                }
             }
         });
         holder.orderView.setOnClickListener(new View.OnClickListener() {

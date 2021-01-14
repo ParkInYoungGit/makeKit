@@ -76,7 +76,9 @@ public class ProdutctViewActivity extends AppCompatActivity {
 //        macIP = intent.getStringExtra("macIP");
         productNo = intent.getStringExtra("productNo");
 
-
+        macIP = SharVar.macIP;
+        userEmail = SharVar.userEmail;
+        urlAddrBase = SharVar.urlAddrBase;
         //macIP = "192.168.219.164";
 
 //        productNo = "44";

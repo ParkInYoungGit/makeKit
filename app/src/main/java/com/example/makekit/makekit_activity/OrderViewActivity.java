@@ -45,6 +45,8 @@ public class OrderViewActivity extends AppCompatActivity {
     ArrayList<Order> orderdetail;
     Order order;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +97,7 @@ public class OrderViewActivity extends AppCompatActivity {
         orderView_orderDate= findViewById(R.id.orderView_orderDate);
         orderView_orderTotalPrice= findViewById(R.id.orderView_orderTotalPrice);
         listView = findViewById(R.id.orderView_ListView);
-        order = new Order(str_order_productName, str_order_productQuantity, str_order_productTotalPrice);
+        order = new Order(str_order_productName, str_order_productQuantity, str_order_productTotalPrice, str_order_productImage);
         orders.add(order);
         orderView_Date_TV.setText(srt_orderView_Date_TV);
         orderView_Number_TV.setText(str_orderView_Number_TV);
@@ -103,33 +105,10 @@ public class OrderViewActivity extends AppCompatActivity {
         order_userTel.setText(str_order_userTel);
         order_userAddress.setText(str_order_userAddress);
         order_userAddressDetail.setText(str_order_userAddressDetail);
-        order_productName.setText(str_order_productName);
-        order_productQuantity.setText(str_order_productQuantity);
-        order_productTotalPrice.setText(str_order_productTotalPrice);
         orderView_orderBank.setText(str_orderView_orderBank);
         orderView_orderCardNo.setText(str_orderView_orderCardNo);
         orderView_orderDate.setText(str_orderView_orderDate);
         orderView_orderTotalPrice.setText(str_orderView_orderTotalPrice);
-
-        order_productImage.setWebViewClient(new WebViewClient());
-        // Enable JavaScript
-        order_productImage.getSettings().setJavaScriptEnabled(true);
-        order_productImage.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        // Enable Zoom
-        order_productImage.getSettings().setBuiltInZoomControls(true);
-        order_productImage.getSettings().setSupportZoom(true);
-        order_productImage.getSettings().setSupportZoom(true); //zoom mode 사용.
-        order_productImage.getSettings().setDisplayZoomControls(false); //줌 컨트롤러를 안보이게 셋팅.
-
-
-        // Adjust web display
-        order_productImage.setBackgroundColor(0);
-        order_productImage.getSettings().setLoadWithOverviewMode(true);
-        order_productImage.getSettings().setUseWideViewPort(true);
-        order_productImage.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
-        order_productImage.setInitialScale(15);
-        order_productImage.loadUrl(str_order_productImage);
-
 
     }
 
@@ -138,6 +117,7 @@ public class OrderViewActivity extends AppCompatActivity {
         super.onResume();
         urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp";
         adapter = new OrderViewAdapter(OrderViewActivity.this, R.layout.custom_order_view, orders, urlAddrBase);
+        listView.setAdapter(adapter);
     }
 
 
