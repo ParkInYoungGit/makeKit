@@ -19,6 +19,7 @@ import com.example.makekit.makekit_adapter.SectionPageAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.ChattingBean;
 import com.example.makekit.makekit_bean.Product;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -62,9 +63,10 @@ public class HomeFragment extends Fragment {
         hotProduct = new ArrayList<Product>();
         recProduct = new ArrayList<Product>();
         newProduct = new ArrayList<Product>();
-
-        email = getArguments().getString("useremail");
-        macIP = getArguments().getString("macIP");
+        
+        macIP = SharVar.macIP;
+        email = SharVar.userEmail;
+        urlAddrBase = SharVar.urlAddrBase;
 
         recyclerViewHot = v.findViewById(R.id.recyclerViewHot);
         recyclerViewRec = v.findViewById(R.id.recyclerViewRec);
