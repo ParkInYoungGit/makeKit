@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 // 하단 탭 선택시 아이템 아이디 가져온다.!
                 BottomNavigate(menuItem.getItemId());
-
                 return true;
             }
         });

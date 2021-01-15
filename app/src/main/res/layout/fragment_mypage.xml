@@ -111,21 +111,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
+                android:textStyle="bold"
                 android:text="공지사항" />
 
-            <Button
-                android:id="@+id/aboutMakeKit_btn"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                <Button
+                    android:id="@+id/aboutMakeKit_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-                android:layout_marginTop="10dp"
-                android:text="About 'makeKit'" />
+                    android:layout_marginTop="10dp"
+                    android:text="About 'makeKit'" />
 
             <Button
                 android:id="@+id/Alarm_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-
+android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:text="알림설정" />
 
@@ -145,6 +146,7 @@
                     android:layout_marginLeft="50dp"
                     android:layout_weight="1"
                     android:backgroundTint="#D7989898"
+                    android:textColor="@color/white"
                     android:text="로그아웃" />
 
                 <Button
@@ -155,6 +157,7 @@
                     android:layout_marginRight="50dp"
                     android:layout_weight="1"
                     android:backgroundTint="#D7989898"
+                    android:textColor="@color/white"
                     android:text="전화문의" />
 
 
