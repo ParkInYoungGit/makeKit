@@ -251,8 +251,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_gps:
 
                 // GPS로 가는 버튼
-//                Intent intent = new Intent(MainActivity.this, MypagePWActivity01.class);
-//                startActivity(intent);
+                Intent GPSintent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(GPSintent);
                 return true;
 
             case R.id.menu_cart:

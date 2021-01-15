@@ -68,7 +68,7 @@ public class ChatcontentActivity extends AppCompatActivity {
 
         IDTextView.setText(receiver);
 
-        urlAddrBase = "http://" + macIP + ":8080/makekit/";
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -231,6 +231,14 @@ public class ChatcontentActivity extends AppCompatActivity {
                 }
             }
         });
+
+        editText.setOnClickListener(v -> {
+            if(slidingUpPanelLayout.getPanelState()== SlidingUpPanelLayout.PanelState.COLLAPSED){
+                editText.requestFocus();
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            }
+
+        });
     }
 
     View.OnClickListener mClickListener = new View.OnClickListener() {
@@ -238,12 +246,12 @@ public class ChatcontentActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.plusButton_chat:
-                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                    gpsButton_chat.setVisibility(View.INVISIBLE);
+                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                     break;
                 case R.id.chattingContents_ET:
-                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                     gpsButton_chat.setVisibility(View.INVISIBLE);
+                    gpsTextView_chat.setVisibility(View.INVISIBLE);
                     break;
                 case R.id.gpsButton_chat:
                     Intent intent = new Intent(ChatcontentActivity.this, MapChattingActivity.class);

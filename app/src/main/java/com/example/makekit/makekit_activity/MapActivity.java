@@ -117,8 +117,7 @@ public class MapActivity extends AppCompatActivity
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_map);
 
-        Intent intent = getIntent();
-        intent.getStringExtra("macIP");
+        macIP = SharVar.macIP;
 
         /////////////////////////////
         // ip 수정하쟈!
