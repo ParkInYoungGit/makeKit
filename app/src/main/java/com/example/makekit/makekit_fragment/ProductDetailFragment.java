@@ -173,7 +173,7 @@ public class ProductDetailFragment extends Fragment {
             sellerImage.loadUrl(urlImageReal1); // 접속 URL
 
         } else {
-
+            sellerImage.loadUrl(urlImageReal); // 접속 URL
             // Initial webview
             sellerImage.setWebViewClient(new WebViewClient());
 

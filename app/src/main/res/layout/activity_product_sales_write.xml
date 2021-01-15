@@ -93,7 +93,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
                         android:hint="제품명 입력"
-                        android:text="11"
                         android:textSize="18dp"
                         />
                 </LinearLayout>

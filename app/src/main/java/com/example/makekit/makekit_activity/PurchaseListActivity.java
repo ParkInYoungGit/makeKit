@@ -42,9 +42,10 @@ public class PurchaseListActivity extends AppCompatActivity {
 //        orderNo = intent.getStringExtra("orderNo");
 
         result = intent.getStringExtra("result");
-        macIP = intent.getStringExtra("macIP");
+
         macIP = SharVar.macIP;
         email = SharVar.userEmail;
+        urlAddrBase = SharVar.urlAddrBase;
 
         recyclerView = findViewById(R.id.PurchaseList_RecyclerView);
         recyclerView.setHasFixedSize(true);
