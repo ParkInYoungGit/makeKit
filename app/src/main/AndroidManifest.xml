@@ -33,7 +33,11 @@
         <activity android:name=".makekit_activity.ProductSalesWriteActivity" />
         <activity android:name=".makekit_activity.RegisterReviewActivity" />
         <activity android:name=".makekit_activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".makekit_activity.TempLogin" />
         <activity android:name=".makekit_activity.EmailCheckActivity" />
@@ -57,11 +61,7 @@
         <activity android:name=".makekit_activity.PaymentActivity" />
         <activity android:name=".makekit_activity.PurchaseListActivity" />
         <activity android:name=".makekit_activity.ProdutctViewActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".makekit_activity.PhoneFindPwActivity" />
         <activity android:name=".makekit_activity.EmailFindPwActivity" />
