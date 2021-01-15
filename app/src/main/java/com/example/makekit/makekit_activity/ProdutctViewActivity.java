@@ -104,6 +104,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
         btnMinus= findViewById(R.id.btnMinusProudct_productview);
 
         // 슬라이드 레이어
+        // 슬라이드 레이어
         slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout_productview);
 
         imgOption = findViewById(R.id.imgOption_productview);
