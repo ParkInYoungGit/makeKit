@@ -124,7 +124,7 @@ public class MapActivity extends AppCompatActivity
         /////////////////////////////
         //macIP="192.168.219.164";
 
-        urlAddr = SharVar.urlAddrBase;
+        urlAddr = SharVar.urlAddrBase + "jsp/";
         //urlAddr = "http://" + macIP + ":8080/makekit/jsp/";
 
         locationRequest = new LocationRequest()

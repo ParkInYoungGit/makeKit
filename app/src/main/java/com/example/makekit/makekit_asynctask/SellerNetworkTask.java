@@ -122,6 +122,7 @@ public class SellerNetworkTask extends AsyncTask<Integer, String, Object> {
 
                 User seller = new User(sellerEmail, sellerName, sellerAddress, sellerAddressDetail);
                 sellers.add(seller);
+                Log.v(TAG, "parser()");
             }
 
         } catch (Exception e){
