@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         email = sf.getString("useremail","");
         // -------------------------------------------------------------------------------------
 
+        // 알람 1회만
         if (checkAlarm != 1){
             Alarm();
         }else if (checkAlarm == 1){
@@ -176,8 +178,8 @@ public class MainActivity extends AppCompatActivity {
                 fragment.setArguments(bundle);
 
             } else if (id == R.id.navigation_4) {
-//                Log.v("email", "email:"+email);
-                if(email.equals(null)){
+                Log.v("email", "email:"+email);
+                if(email.length() == 0){
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(R.drawable.alert)
                             .setTitle("MakeKit 서비스 안내")
@@ -274,11 +276,11 @@ public class MainActivity extends AppCompatActivity {
         //-----------------------------------------------------------
         }
     }
+    // 푸쉬알람 액션
     private void Alarm() {
           checkAlarm=1;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
 
 //                else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             Toast.makeText(getApplicationContext(), "오레오이상", Toast.LENGTH_SHORT).show();
