@@ -153,7 +153,9 @@ public class ProductDetailFragment extends Fragment {
             webSettings.setJavaScriptEnabled(true); // 자바 스크립트는 쓰겠다.
             webSettings.setBuiltInZoomControls(true); // 확대 축소 기능
             webSettings.setDisplayZoomControls(false); // 돋보기 없애기
-            sellerImage.setBackgroundColor(Color.TRANSPARENT);  // webview의 배경 투명으로 전환
+            //sellerImage.setBackgroundColor(Color.TRANSPARENT);  // webview의 배경 투명으로 전환
+            sellerImage.setBackgroundColor(0);  // webview의 배경 투명으로 전환
+            sellerImage.setInitialScale(5);
 
             String URL = urlImageReal1;
 
@@ -163,7 +165,7 @@ public class ProductDetailFragment extends Fragment {
                     "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
                     "</head>" +
                     "<body><center>" +
-                    "<img src = \"" + URL + "\"style=\"width: auto; height: 70%;\">" +
+                    "<img src = \"" + URL + "\"style=\"width: auto; height: 30%;\">" +
                     "</center></body>" +
                     "</html>";
             sellerImage.loadData(htmlData,"text/html", "UTF-8");
