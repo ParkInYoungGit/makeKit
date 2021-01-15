@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBar actionBar;
     BottomNavigationView bottomNavigationView;
     String macIP;
-    String email;
+    String email = null;
     String urlAddrBase;
     int checkAlarm = 0;
 
