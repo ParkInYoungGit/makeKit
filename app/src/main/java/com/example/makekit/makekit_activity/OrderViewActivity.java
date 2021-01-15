@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +23,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class OrderViewActivity extends AppCompatActivity {
+
+    Button gotoMain_orderview;
 
     String email, macIP, urlAddrBase, urlAddr;
 
@@ -98,6 +102,7 @@ public class OrderViewActivity extends AppCompatActivity {
         orderView_orderCardNo= findViewById(R.id.orderView_orderCardNo);
         orderView_orderDate= findViewById(R.id.orderView_orderDate);
         orderView_orderTotalPrice= findViewById(R.id.orderView_orderTotalPrice);
+        gotoMain_orderview= findViewById(R.id.gotoMain_orderview);
         listView = findViewById(R.id.orderView_ListView);
 //        order = new Order(str_order_productName, str_order_productQuantity, str_order_productTotalPrice, str_order_productImage);
 //        orders.add(order);
@@ -110,6 +115,15 @@ public class OrderViewActivity extends AppCompatActivity {
         orderView_orderBank.setText(str_orderView_orderBank);
         orderView_orderCardNo.setText(str_orderView_orderCardNo);
         orderView_orderDate.setText(orderdetail.get(0).getOrderDate());
+
+        gotoMain_orderview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderViewActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         DecimalFormat myFormatter = new DecimalFormat("###,###");
         String formattedStringPrice2 = myFormatter.format(Integer.parseInt(str_orderView_orderTotalPrice));
         orderView_orderTotalPrice.setText(formattedStringPrice2 + "원");
