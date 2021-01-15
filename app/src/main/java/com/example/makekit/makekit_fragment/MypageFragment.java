@@ -123,7 +123,7 @@ public class MypageFragment extends Fragment {
                     startActivity(intent9);
                     break;
                 case R.id.btn_view_dial:            // 메인 phoneNumber 기준 전화로 이동
-                    Intent intent10 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "010-1234-5678"));
+                    Intent intent10 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "03-728-2293"));
                     startActivity(intent10);
                     break;
             }

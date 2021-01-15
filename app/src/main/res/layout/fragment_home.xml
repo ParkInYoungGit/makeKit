@@ -65,16 +65,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="인기 상품"
-            android:textColor="@color/black"
-            android:textSize="23dp"
-            android:textStyle="italic" />
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="italic"
+            android:padding="10dp"
+            android:background="@color/brown"
+            />
 
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewHot"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="10dp"/>
 
 
     </LinearLayout>
@@ -90,15 +94,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="추천 상품"
-            android:textColor="@color/black"
-            android:textSize="23dp"
-            android:textStyle="italic" />
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="italic"
+            android:padding="10dp"
+            android:background="@color/brown"/>
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewRec"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="10dp"/>
 
 
     </LinearLayout>
@@ -113,9 +120,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="새로운 상품"
-            android:textColor="@color/black"
-            android:textSize="23dp"
-            android:textStyle="italic" />
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="italic"
+            android:padding="10dp"
+            android:background="@color/brown" />
 
 
 
