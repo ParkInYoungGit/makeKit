@@ -82,6 +82,9 @@ public class ProdutctViewActivity extends AppCompatActivity {
         urlAddrBase = SharVar.urlAddrBase;
         //macIP = "192.168.219.164";
 
+
+        productNo = "64";
+
 //        userEmail = "qkr@naver.com";
 
 //        urlAddrBase = "http://" + macIP + ":8080/makeKit/";

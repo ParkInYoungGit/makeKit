@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -66,8 +67,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setBackground(null);
         bottomNavigationView.getMenu().getItem(2).isEnabled();
-
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.getBackground().setAlpha(0);
@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
 //                else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            Toast.makeText(getApplicationContext(), "오레오이상", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "오레오이상", Toast.LENGTH_SHORT).show();
             /**
              * 오레오 이상 노티처리
              */
@@ -305,12 +305,12 @@ public class MainActivity extends AppCompatActivity {
             /**
              * 채널이 있는지 체크해서 없을경우 만들고 있으면 채널을 재사용합니다.
              */
-            if (notificationManager.getNotificationChannel(Noti_Channel_ID) != null) {
-                Toast.makeText(getApplicationContext(), "채널이 이미 존재합니다.", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "채널이 없어서 만듭니다.", Toast.LENGTH_SHORT).show();
-                notificationManager.createNotificationChannel(notificationChannel);
-            }
+//            if (notificationManager.getNotificationChannel(Noti_Channel_ID) != null) {
+//                Toast.makeText(getApplicationContext(), "채널이 이미 존재합니다.", Toast.LENGTH_SHORT).show();
+//            } else {
+//                Toast.makeText(getApplicationContext(), "채널이 없어서 만듭니다.", Toast.LENGTH_SHORT).show();
+//                notificationManager.createNotificationChannel(notificationChannel);
+//            }
 
             notificationManager.createNotificationChannel(notificationChannel);
 //                    Log.e("로그확인","===="+notificationManager.getNotificationChannel("testid1"));
