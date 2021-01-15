@@ -19,7 +19,7 @@ public class SendMail extends AppCompatActivity {
     public String sendSecurityCode(Context context, String sendTo) {
         String code = "";
         try {
-            GMailSender gMailSender = new GMailSender(user, password);
+            GmailSender gMailSender = new GmailSender(user, password);
             code = gMailSender.getEmailCode();
             String body = "[Make Kit 인증 메일] 인증번호는 "  + code +" 입니다." ;
             gMailSender.sendMail("이메일 인증코드 발송 메일입니다.", body, sendTo);
@@ -38,7 +38,7 @@ public class SendMail extends AppCompatActivity {
     public String sendSecurityCode2(Context context, String sendTo, String user, String password) {
         String code = "";
         try {
-            GMailSender gMailSender = new GMailSender(user, password);
+            GmailSender gMailSender = new GmailSender(user, password);
             code = gMailSender.getEmailCode();
             String body = "[Make Kit 인증 메일] 인증번호는 "  + code +" 입니다." ;
             gMailSender.sendMail("이메일 인증코드 발송 메일입니다.", body, sendTo);

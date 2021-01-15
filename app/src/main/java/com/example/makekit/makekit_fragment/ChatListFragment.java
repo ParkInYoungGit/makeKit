@@ -75,7 +75,7 @@ public class ChatListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp";
+        urlAddrBase = "http://" + macIP + ":8080/makekit/jsp";
         connectGetData();
     }
 

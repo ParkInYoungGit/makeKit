@@ -10,6 +10,15 @@ public class User {
     String tel;
     String birth;
     String image;
+    String content;
+    String date;
+
+    //========= 공지사항 추가
+
+    public User(String content, String date) {
+        this.content = content;
+        this.date = date;
+    }
 
     // 1/8 Daehwan 추가
     // email만 받아오는 constructor
@@ -35,6 +44,7 @@ public class User {
 
 
 
+
     public User(String email, String name, String pw, String address, String addressdetail, String tel, String birth) {
         this.email = email;
         this.name = name;
@@ -54,6 +64,22 @@ public class User {
         this.tel = tel;
         this.birth = birth;
         this.image = image;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getImage() { return image; }

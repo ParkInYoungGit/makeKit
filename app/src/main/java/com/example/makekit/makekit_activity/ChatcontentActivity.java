@@ -68,7 +68,7 @@ public class ChatcontentActivity extends AppCompatActivity {
 
         IDTextView.setText(receiver);
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = "http://" + macIP + ":8080/makekit/";
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

@@ -4,9 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".makekit_activity.SaleProductListActivity">
 
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="판매 상품"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:background="#FFF200"
+            android:layout_marginBottom="10dp"
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewSaleList"
             android:layout_width="match_parent"

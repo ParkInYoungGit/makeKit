@@ -1,20 +1,30 @@
 package com.example.makekit.makekit_activity;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -32,6 +42,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
     Fragment fragment = new Fragment();
     private EditText et_address;
@@ -44,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     String macIP;
     String email;
     String urlAddrBase;
+    int checkAlarm = 0;
 
 
     @Override
@@ -53,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setBackground(null);
         bottomNavigationView.getMenu().getItem(2).isEnabled();
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,17 +80,20 @@ public class MainActivity extends AppCompatActivity {
         email = sf.getString("useremail","");
         // -------------------------------------------------------------------------------------
 
+        // 알람 1회만
+        if (checkAlarm != 1){
+            Alarm();
+        }else if (checkAlarm == 1){
+            finish();
+        }
 
 
 
-        macIP = "192.168.2.2";
-        email = "son@naver.com";
 
 
         macIP = SharVar.macIP;
         email = SharVar.userEmail;
         urlAddrBase = SharVar.urlAddrBase;
-
 
 
         // 검색 페이지로 이동
@@ -159,18 +176,20 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("useremail", email);
                 bundle.putString("macIP", macIP);
                 fragment.setArguments(bundle);
+
             } else if (id == R.id.navigation_4) {
-//                Log.v("email", "email:"+email);
-                if(email.equals(null)){
+                Log.v("email", "email:"+email);
+                if(email.length() == 0){
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(R.drawable.alert)
                             .setTitle("MakeKit 서비스 안내")
-                            .setMessage("채팅 목록입니다.\n채팅 목록은 로그인을 하셔야만 들어가실 수 있습니다.")
+                            .setMessage("채팅 목록입니다.\n채팅 목록은 로그인 후 이용 가능합니다.")
                             // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
                             .setCancelable(false)
                             // 이제 닫기 눌러야만 꺼짐!
                             .setPositiveButton("닫기", null)
                             .show();
+
                 }else {
                     fragment = new ChatListFragment();
                     Bundle bundle = new Bundle(2);
@@ -179,13 +198,24 @@ public class MainActivity extends AppCompatActivity {
                     fragment.setArguments(bundle);
                 }
             } else if (id == R.id.navigation_5) {
+                if(email.equals(null)) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setIcon(R.drawable.alert)
+                            .setTitle("MakeKit 서비스 안내")
+                            .setMessage("마이 페이지입니다.\n마이페이지는 로그인 후 이용 가능합니다.")
+                            // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
+                            .setCancelable(false)
+                            // 이제 닫기 눌러야만 꺼짐!
+                            .setPositiveButton("닫기", null)
+                            .show();
 
-                fragment = new MypageFragment();
-                Bundle bundle = new Bundle(2);
-                bundle.putString("useremail", email);
-                bundle.putString("macIP", macIP);
-                fragment.setArguments(bundle);
-
+                }else {
+                        fragment = new MypageFragment();
+                        Bundle bundle = new Bundle(2);
+                        bundle.putString("useremail", email);
+                        bundle.putString("macIP", macIP);
+                        fragment.setArguments(bundle);
+                    }
             }
 
             fragmentTransaction.add(R.id.content_layout, fragment, tag);
@@ -244,6 +274,73 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 //                return true;
         //-----------------------------------------------------------
+        }
+    }
+    // 푸쉬알람 액션
+    private void Alarm() {
+          checkAlarm=1;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+//                else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            Toast.makeText(getApplicationContext(), "오레오이상", Toast.LENGTH_SHORT).show();
+            /**
+             * 오레오 이상 노티처리
+             */
+//                    BitmapDrawable bitmapDrawable = (BitmapDrawable)getResources().getDrawable(R.mipmap.ic_launcher);
+//                    Bitmap bitmap = bitmapDrawable.getBitmap();
+            /**
+             * 오레오 버전부터 노티를 처리하려면 채널이 존재해야합니다.
+             */
+
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            String Noti_Channel_ID = "Noti";
+            String Noti_Channel_Group_ID = "Noti_Group";
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel notificationChannel = new NotificationChannel(Noti_Channel_ID, Noti_Channel_Group_ID, importance);
+
+//                    notificationManager.deleteNotificationChannel("testid"); 채널삭제
+
+            /**
+             * 채널이 있는지 체크해서 없을경우 만들고 있으면 채널을 재사용합니다.
+             */
+            if (notificationManager.getNotificationChannel(Noti_Channel_ID) != null) {
+                Toast.makeText(getApplicationContext(), "채널이 이미 존재합니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "채널이 없어서 만듭니다.", Toast.LENGTH_SHORT).show();
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+
+            notificationManager.createNotificationChannel(notificationChannel);
+//                    Log.e("로그확인","===="+notificationManager.getNotificationChannel("testid1"));
+//                    notificationManager.getNotificationChannel("testid");
+            int NOTIFICATION_ID = 1;
+            Intent notificationIntent = new Intent(this, MainActivity.class);
+            PendingIntent notificationPendingIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), Noti_Channel_ID)
+                    .setLargeIcon(null).setSmallIcon(R.drawable.makekit_logo)
+                    .setWhen(System.currentTimeMillis()).setShowWhen(true).
+                            setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_MAX)
+                    .setContentTitle("오늘의 추천 상품!!")     // 제목
+                    .setContentText("횡성 한우로 만든 불고기!")  // 두번째 텍스트
+                    .setContentIntent(notificationPendingIntent)
+                    .setAutoCancel(true)   // 터치시 사라짐
+                    .setDefaults(NotificationCompat.DEFAULT_ALL)    // 진동
+                    .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+//            Intent notificationIntent = new Intent(this, MainActivity.class);
+
+//            PendingIntent notificationPendingIntent = PendingIntent.getActivity(this, NOTIFICATION_, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//            PendingIntent launchIntent = getLaunchIntent(NOTIFICATION_ID, getBaseContext());
+
+
+//                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//            notificationManager.notify(0,builder.build());
+//            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+            // Will display the notification in the notification bar
+            notificationManager.notify(NOTIFICATION_ID, builder.build());
         }
     }
 }

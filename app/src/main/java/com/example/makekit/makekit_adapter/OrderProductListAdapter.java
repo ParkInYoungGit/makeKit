@@ -21,6 +21,7 @@ import com.example.makekit.makekit_bean.Cart;
 import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_bean.Payment;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class OrderProductListAdapter extends RecyclerView.Adapter<OrderProductListAdapter.MyViewHolder> {
@@ -69,10 +70,15 @@ public class OrderProductListAdapter extends RecyclerView.Adapter<OrderProductLi
         }else {
             urlImageReal = urlImage+mDataset.get(position).getProductImage();  // getImage가 Null 아닐 경우 가져온 이미지 이름 넣어줌
         }
-        holder.order_productImage.loadUrl(urlImageReal);                // 이미지 주소를 업로드해줌 urlImageReal(http://192.168.200.193:8080/makeKit/image/)+getImage(ic_default or 이미지명)
+        holder.order_productImage.loadUrl(urlImageReal);
+        // 이미지 주소를 업로드해줌 urlImageReal(http://192.168.200.193:8080/makeKit/image/)+getImage(ic_default or 이미지명)
+
+
         holder.order_productName.setText(mDataset.get(position).getProductName());      // 빈에 담긴 정보를 넣어줌
-        holder.order_productPrice.setText(mDataset.get(position).getProductPrice()+"원");    // 빈에 담긴 정보를 넣어줌
-        holder.order_productCount.setText("수량 "+mDataset.get(position).getCartQuantity()+"개");    // 빈에 담긴 정보를 넣어줌
+        DecimalFormat myFormatter = new DecimalFormat("###,###");
+        String formattedStringPrice = myFormatter.format(Integer.parseInt(mDataset.get(position).getProductPrice()));
+        holder.order_productPrice.setText(formattedStringPrice+"원");    // 빈에 담긴 정보를 넣어줌
+        holder.order_productCount.setText(mDataset.get(position).getCartQuantity()+"개");    // 빈에 담긴 정보를 넣어줌
 
 
         holder.order_productImage.setWebViewClient(new WebViewClient());        // 이미지 세팅을 위해 클라이언트 사용
@@ -119,7 +125,7 @@ public class OrderProductListAdapter extends RecyclerView.Adapter<OrderProductLi
             order_productImage = itemView.findViewById(R.id.order_productImage);
             order_productName = itemView.findViewById(R.id.order_productName);
             order_productPrice = itemView.findViewById(R.id.order_productPrice);
-            order_productCount = itemView.findViewById(R.id.order_productCount);
+            order_productCount = itemView.findViewById(R.id.order_productQnt);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
