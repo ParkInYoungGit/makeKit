@@ -68,7 +68,7 @@ android:paddingTop="10dp"
             android:id="@+id/content_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
+
             >
             <!-- 연락처 등록 플로팅 버튼 -->
 
