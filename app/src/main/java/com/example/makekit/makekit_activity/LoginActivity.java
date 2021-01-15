@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        macIP = "192.168.0.81";
+        macIP = "192.168.35.251";
 
 
         btnLogin = findViewById(R.id.login_kakao);

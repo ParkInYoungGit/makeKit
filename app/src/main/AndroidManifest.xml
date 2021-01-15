@@ -34,11 +34,7 @@
 
         <activity android:name=".makekit_activity.RegisterReviewActivity"></activity>
         <activity android:name=".makekit_activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".makekit_activity.TempLogin" />
@@ -80,7 +76,11 @@
             android:name=".makekit_activity.LoginActivity"
             android:icon="@drawable/img_logo"
             android:theme="@style/Theme.MakeKit.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <meta-data
                 android:name="com.kakao.sdk.AppKey"
                 android:value="@string/kakao_app_key" />
