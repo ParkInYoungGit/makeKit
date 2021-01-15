@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -143,6 +145,13 @@ public class ChatcontentActivity extends AppCompatActivity {
             }
         });
 
+        editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                return false;
+            }
+        });
         setContentViews();
     }
 
@@ -220,24 +229,18 @@ public class ChatcontentActivity extends AppCompatActivity {
 
             @Override
             public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-                if(newState.name().toString().equalsIgnoreCase("Collapsed")){
+                if(newState.name().equalsIgnoreCase("Collapsed")){
                     plusButton.setBackground(ContextCompat.getDrawable(ChatcontentActivity.this, R.drawable.add));
                     gpsButton_chat.setVisibility(View.INVISIBLE);
                     gpsTextView_chat.setVisibility(View.INVISIBLE);
+                    Toast.makeText(ChatcontentActivity.this, "닫힘", Toast.LENGTH_SHORT).show();
                 }else if(newState.name().equalsIgnoreCase("Expanded")){
+                    Toast.makeText(ChatcontentActivity.this, "열림", Toast.LENGTH_SHORT).show();
                     plusButton.setBackground(ContextCompat.getDrawable(ChatcontentActivity.this, R.drawable.minus_chat));
                     gpsButton_chat.setVisibility(View.VISIBLE);
                     gpsTextView_chat.setVisibility(View.VISIBLE);
                 }
             }
-        });
-
-        editText.setOnClickListener(v -> {
-            if(slidingUpPanelLayout.getPanelState()== SlidingUpPanelLayout.PanelState.COLLAPSED){
-                editText.requestFocus();
-                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-            }
-
         });
     }
 
@@ -246,13 +249,13 @@ public class ChatcontentActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.plusButton_chat:
-                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-                    break;
-                case R.id.chattingContents_ET:
                     slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                    gpsButton_chat.setVisibility(View.INVISIBLE);
-                    gpsTextView_chat.setVisibility(View.INVISIBLE);
+
                     break;
+//                case R.id.chattingContents_ET:
+//
+//
+//                    break;
                 case R.id.gpsButton_chat:
                     Intent intent = new Intent(ChatcontentActivity.this, MapChattingActivity.class);
                     intent.putExtra("useremail", email);

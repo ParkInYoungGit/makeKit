@@ -79,11 +79,10 @@
             android:icon="@drawable/img_logo"
             android:theme="@style/Theme.MakeKit.NoActionBar">
 
-
-
             <meta-data
                 android:name="com.kakao.sdk.AppKey"
                 android:value="@string/kakao_app_key" />
+
         </activity> <!-- Ria _ KAKAO ReDirect URI -->
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
@@ -99,7 +98,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".makekit_activity.UserModifyActivity"></activity>
-        <activity android:name=".makekit_activity.JoinActivity" />
+        <activity android:name=".makekit_activity.JoinActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity android:name=".makekit_activity.OrderActivity"></activity>
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />

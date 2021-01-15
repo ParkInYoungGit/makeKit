@@ -53,7 +53,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         }else {
             urlImageReal = urlBase+"image/"+items.get(position).getProductFilename();
         }
-        Product item = new Product(items.get(position).getProductNo(), items.get(position).getProductName(), items.get(position).getProductType(), items.get(position).getProductPrice(), items.get(position).getProductStock(), items.get(position).getProductContent(), items.get(position).getProductFilename(), items.get(position).getProductDfilename(), urlImageReal, items.get(position).getProductInsertDate(), items.get(position).getProductDeleteDate());
+        Product item = new Product(items.get(position).getProductNo(), items.get(position).getProductName(), items.get(position).getProductSubTitle(), items.get(position).getProductType(), items.get(position).getProductPrice(), items.get(position).getProductStock(), items.get(position).getProductContent(), items.get(position).getProductFilename(), items.get(position).getProductDfilename(), urlImageReal, items.get(position).getProductInsertDate(), items.get(position).getProductDeleteDate());
         holder.setItem(item);
         holder.iv_productLeft.setOnTouchListener(new View.OnTouchListener() {
             @Override
