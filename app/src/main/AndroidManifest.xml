@@ -57,11 +57,6 @@
         <activity android:name=".makekit_activity.PaymentActivity" />
         <activity android:name=".makekit_activity.PurchaseListActivity" />
         <activity android:name=".makekit_activity.ProdutctViewActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".makekit_activity.PhoneFindPwActivity" />
         <activity android:name=".makekit_activity.EmailFindPwActivity" />
@@ -79,6 +74,11 @@
             <meta-data
                 android:name="com.kakao.sdk.AppKey"
                 android:value="@string/kakao_app_key" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity> <!-- Ria _ KAKAO ReDirect URI -->
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
@@ -94,7 +94,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".makekit_activity.UserModifyActivity"></activity>
-        <activity android:name=".makekit_activity.JoinActivity" />
+        <activity android:name=".makekit_activity.JoinActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity android:name=".makekit_activity.OrderActivity"></activity>
         <activity android:name=".makekit_activity.CartActivity" />
         <activity android:name=".makekit_activity.LikeProductActivity" />

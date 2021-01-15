@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.makekit.R;
+import com.example.makekit.makekit_sharVar.SharVar;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -66,7 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        macIP = "192.168.0.81";
+        //macIP = "192.168.0.81";
+        macIP = SharVar.macIP;
 
 
         btnLogin = findViewById(R.id.login_kakao);
