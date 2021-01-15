@@ -12,8 +12,10 @@
             android:layout_height="wrap_content"
             android:text="판매 상품"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textStyle="bold"
             android:background="#FFF200"
+            android:padding="10dp"
+            android:textSize="20dp"
             android:layout_marginBottom="10dp"
             />
         <androidx.recyclerview.widget.RecyclerView
