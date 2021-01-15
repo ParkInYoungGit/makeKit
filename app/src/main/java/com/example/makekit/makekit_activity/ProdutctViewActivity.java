@@ -76,6 +76,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
         Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
         productNo = intent.getStringExtra("productNo");
+        Log.v(TAG, "productNo" + productNo);
 
         macIP = SharVar.macIP;
         userEmail = SharVar.userEmail;
@@ -83,7 +84,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
         //macIP = "192.168.219.164";
 
 
-        productNo = "64";
+//        productNo = "64";
 
 //        userEmail = "qkr@naver.com";
 
@@ -302,7 +303,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
                                 intent.putExtra("userEmail", userEmail);
                                 //intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
                                 startActivity(intent);
-
+                                finish();
                             } else {
                                 Toast.makeText(ProdutctViewActivity.this, "장바구니 수량 변경 실패하였습니다.", Toast.LENGTH_SHORT).show();
 
@@ -335,6 +336,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
 //                        intent.putExtra("productQuantity", count);
                         intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
                         startActivity(intent);
+                        finish();
                     }
             }
         }
