@@ -21,12 +21,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_margin="5dp"
         >
     <Button
         android:id="@+id/likeProduct_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
         android:text="상품"
 
         />
@@ -35,6 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
             android:text="판매자"
             />
     </LinearLayout>
