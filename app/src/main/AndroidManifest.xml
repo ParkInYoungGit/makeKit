@@ -52,11 +52,18 @@
         <activity android:name=".makekit_activity.IntroViewActivity" />
         <activity android:name=".makekit_activity.FindPwActivity" />
         <activity android:name=".makekit_activity.FindIdActivity" />
-        <activity android:name=".makekit_activity.SplashActivity"></activity>
+        <activity android:name=".makekit_activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".makekit_activity.OrderViewActivity" />
         <activity android:name=".makekit_activity.PaymentActivity" />
         <activity android:name=".makekit_activity.PurchaseListActivity" />
         <activity android:name=".makekit_activity.ProdutctViewActivity">
+
         </activity>
         <activity android:name=".makekit_activity.PhoneFindPwActivity" />
         <activity android:name=".makekit_activity.EmailFindPwActivity" />
@@ -71,6 +78,7 @@
             android:name=".makekit_activity.LoginActivity"
             android:icon="@drawable/img_logo"
             android:theme="@style/Theme.MakeKit.NoActionBar">
+
             <meta-data
                 android:name="com.kakao.sdk.AppKey"
                 android:value="@string/kakao_app_key" />

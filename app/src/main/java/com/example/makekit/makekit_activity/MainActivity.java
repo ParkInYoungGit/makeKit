@@ -10,10 +10,12 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -65,8 +67,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setBackground(null);
         bottomNavigationView.getMenu().getItem(2).isEnabled();
-
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.getBackground().setAlpha(0);
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         email = sf.getString("useremail","");
         // -------------------------------------------------------------------------------------
 
+        // 알람 1회만
         if (checkAlarm != 1){
             Alarm();
         }else if (checkAlarm == 1){
@@ -176,8 +178,8 @@ public class MainActivity extends AppCompatActivity {
                 fragment.setArguments(bundle);
 
             } else if (id == R.id.navigation_4) {
-//                Log.v("email", "email:"+email);
-                if(email.equals(null)){
+                Log.v("email", "email:"+email);
+                if(email.length() == 0){
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(R.drawable.alert)
                             .setTitle("MakeKit 서비스 안내")
@@ -251,8 +253,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_gps:
 
                 // GPS로 가는 버튼
-//                Intent intent = new Intent(MainActivity.this, MypagePWActivity01.class);
-//                startActivity(intent);
+                Intent GPSintent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(GPSintent);
                 return true;
 
             case R.id.menu_cart:
@@ -274,14 +276,14 @@ public class MainActivity extends AppCompatActivity {
         //-----------------------------------------------------------
         }
     }
+    // 푸쉬알람 액션
     private void Alarm() {
           checkAlarm=1;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-
 //                else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            Toast.makeText(getApplicationContext(), "오레오이상", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "오레오이상", Toast.LENGTH_SHORT).show();
             /**
              * 오레오 이상 노티처리
              */
@@ -303,12 +305,12 @@ public class MainActivity extends AppCompatActivity {
             /**
              * 채널이 있는지 체크해서 없을경우 만들고 있으면 채널을 재사용합니다.
              */
-            if (notificationManager.getNotificationChannel(Noti_Channel_ID) != null) {
-                Toast.makeText(getApplicationContext(), "채널이 이미 존재합니다.", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "채널이 없어서 만듭니다.", Toast.LENGTH_SHORT).show();
-                notificationManager.createNotificationChannel(notificationChannel);
-            }
+//            if (notificationManager.getNotificationChannel(Noti_Channel_ID) != null) {
+//                Toast.makeText(getApplicationContext(), "채널이 이미 존재합니다.", Toast.LENGTH_SHORT).show();
+//            } else {
+//                Toast.makeText(getApplicationContext(), "채널이 없어서 만듭니다.", Toast.LENGTH_SHORT).show();
+//                notificationManager.createNotificationChannel(notificationChannel);
+//            }
 
             notificationManager.createNotificationChannel(notificationChannel);
 //                    Log.e("로그확인","===="+notificationManager.getNotificationChannel("testid1"));

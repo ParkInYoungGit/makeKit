@@ -151,7 +151,7 @@ public class HomeFragment extends Fragment {
 
     private void connectGetHotData(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(getContext(), urlAddrBase+"jsp/hotProduct.jsp", "getProductHome");
+            NetworkTask_DH networkTask = new NetworkTask_DH(getContext(), urlAddrBase+"jsp/hotProduct.jsp", "search");
             Object obj = networkTask.execute().get();
             hotProduct = (ArrayList<Product>) obj;
         }catch (Exception e){
@@ -160,7 +160,7 @@ public class HomeFragment extends Fragment {
     }
     private void connectGetRecData(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(getContext(), urlAddrBase+"jsp/recProduct.jsp", "getProductHome");
+            NetworkTask_DH networkTask = new NetworkTask_DH(getContext(), urlAddrBase+"jsp/recProduct.jsp", "search");
             Object obj = networkTask.execute().get();
             recProduct = (ArrayList<Product>) obj;
         }catch (Exception e){
@@ -169,7 +169,7 @@ public class HomeFragment extends Fragment {
     }
     private void connectGetNewData(){
         try {
-            NetworkTask_DH networkTask = new NetworkTask_DH(getContext(), urlAddrBase+"jsp/newProduct.jsp", "getProductHome");
+            NetworkTask_DH networkTask = new NetworkTask_DH(getContext(), urlAddrBase+"jsp/newProduct.jsp", "search");
             Object obj = networkTask.execute().get();
             newProduct = (ArrayList<Product>) obj;
         }catch (Exception e){

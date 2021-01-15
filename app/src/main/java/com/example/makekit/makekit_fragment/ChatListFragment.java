@@ -75,7 +75,7 @@ public class ChatListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        urlAddrBase = "http://" + macIP + ":8080/makekit/jsp";
+        urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp";
         connectGetData();
     }
 
@@ -86,8 +86,6 @@ public class ChatListFragment extends Fragment {
             NetworkTask_DH networkTask_dh = new NetworkTask_DH(getContext(), urlGetData, "getChattingList");
             Object obj = networkTask_dh.execute().get();
             chattingBeanArrayList = (ArrayList<ChattingBean>) obj;
-            Log.v(TAG, chattingBeanArrayList.get(0).getChattingContents());
-            Log.v(TAG, chattingBeanArrayList.get(0).getUserinfo_userEmail_receiver());
             adapter = new ChattingListAdapter(getContext(), R.layout.chatting_list_layout, chattingBeanArrayList, email);
             listView.setAdapter(adapter);
         }catch (Exception e){
