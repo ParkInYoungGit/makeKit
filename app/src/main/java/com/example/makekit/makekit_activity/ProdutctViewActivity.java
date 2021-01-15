@@ -53,6 +53,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
     Button btnPlus, btnMinus;
     ArrayList<String> cartNumber;
     int count = 1;
+    ArrayList<Cart> carts;
 
     String sellerEmail ,productNo, macIP, urlAddr, urlAddrBase, userEmail, urlAddr1, cartNo, result, urlAddr2,urlAddr3, urlAddr4, urlAddr5;
     //FrameLayout framelayout;
@@ -311,12 +312,21 @@ public class ProdutctViewActivity extends AppCompatActivity {
                 case R.id.btnPurchaseOpen_productview:
 
                     if(loginCheck() == true) {
+                        ////////////////////////////
+                        // 1/15 경미 추가
+                        ///////////////////////////
+                        carts = new ArrayList<>();
+                        Cart cart = new Cart("", productNo, purchaseNumInput.getText().toString(), products.get(0).getProductName(), products.get(0).getProductFilename(), products.get(0).getProductPrice());
+                        carts.add(cart);
+                        Log.v(TAG, "cart : " + String.valueOf(cart));
                         Intent intent = new Intent(ProdutctViewActivity.this, OrderActivity.class);
+                        intent.putExtra("productno", carts);
                         intent.putExtra("productNo", productNo);
-                        intent.putExtra("macIP", macIP);
-                        intent.putExtra("userEmail", userEmail);
+                        intent.putExtra("cartNo", "");
                         intent.putExtra("productPrice", products.get(0).getProductPrice());
                         intent.putExtra("productQuantity", purchaseNumInput.getText().toString());
+
+
                         Log.v(TAG, purchaseNumInput.getText().toString());
                         Log.v(TAG, String.valueOf(count));
 //                        intent.putExtra("productQuantity", count);
