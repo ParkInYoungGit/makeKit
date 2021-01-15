@@ -572,6 +572,7 @@
                                 android:layout_weight="1"
                                 android:textSize="18dp"
                                 android:inputType="numberPassword"
+                                android:maxLength="4"
                                 />
                         </LinearLayout>
                    </LinearLayout>

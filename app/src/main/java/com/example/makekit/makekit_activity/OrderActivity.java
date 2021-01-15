@@ -143,7 +143,7 @@ public class OrderActivity extends AppCompatActivity {
         productNo = intent.getStringExtra("productNo");
         cartNo = intent.getStringExtra("cartNo");
         count = intent.getStringExtra("productQuantity");
-        totalPrice = intent.getStringExtra("totalPrice");
+        //totalPrice = intent.getStringExtra("totalPrice");
         carts = (ArrayList<Cart>) intent.getSerializableExtra("productno");
 
 
@@ -409,7 +409,7 @@ public class OrderActivity extends AppCompatActivity {
                             Log.v(TAG, "count : " + count);
                         }
 
-                        if (count1 == carts.size() && result.equals("1") && count2 == carts.size()) {
+                        if (count1 == carts.size() && result.equals("1")) {
                             Toast.makeText(OrderActivity.this, "입력 성공하였습니다.", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(OrderActivity.this, OrderViewActivity.class);
@@ -735,7 +735,7 @@ public class OrderActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     String data = intent.getExtras().getString("data");
                     if (data != null) {
-                        order_userAddress.setText(data);
+                        order_receiverAddress.setText(data);
                     }
                 }
                 break;
