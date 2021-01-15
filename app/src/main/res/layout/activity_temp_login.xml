@@ -100,17 +100,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:buttonTint="#000000"
+                android:buttonTint="#F2D53F"
                 android:text="로그인정보 기억하기"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp" />
 
 
             <Button
                 android:id="@+id/templogin_btn"
                 android:layout_gravity="center"
                 android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:background="@drawable/button_background"
+                android:layout_height="50dp"
                 android:textStyle="bold"
                 android:text="로그인"
                 android:textColor="@color/white"
@@ -120,12 +119,12 @@
                 android:id="@+id/tempjoin_btn"
                 android:layout_gravity="center"
                 android:layout_width="170dp"
-                android:layout_height="40dp"
-                android:background="@drawable/button_background"
+                android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:text="회원가입" />
+                android:text="회원가입"
+               />
 
 
         </LinearLayout>

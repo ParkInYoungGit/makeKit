@@ -13,6 +13,7 @@
         android:title="상품추가"
         android:icon="@drawable/ic_edit"
         app:showAsAction="always"
+
         />
     <item android:id="@+id/menu_gps"
         android:title="새로고침"
