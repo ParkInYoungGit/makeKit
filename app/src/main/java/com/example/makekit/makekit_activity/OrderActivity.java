@@ -735,7 +735,7 @@ public class OrderActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     String data = intent.getExtras().getString("data");
                     if (data != null) {
-                        order_userAddress.setText(data);
+                        order_receiverAddress.setText(data);
                     }
                 }
                 break;
