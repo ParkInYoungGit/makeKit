@@ -149,6 +149,7 @@ public class ChatcontentActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                editText.requestFocus();
                 return false;
             }
         });
@@ -233,9 +234,7 @@ public class ChatcontentActivity extends AppCompatActivity {
                     plusButton.setBackground(ContextCompat.getDrawable(ChatcontentActivity.this, R.drawable.add));
                     gpsButton_chat.setVisibility(View.INVISIBLE);
                     gpsTextView_chat.setVisibility(View.INVISIBLE);
-                    Toast.makeText(ChatcontentActivity.this, "닫힘", Toast.LENGTH_SHORT).show();
                 }else if(newState.name().equalsIgnoreCase("Expanded")){
-                    Toast.makeText(ChatcontentActivity.this, "열림", Toast.LENGTH_SHORT).show();
                     plusButton.setBackground(ContextCompat.getDrawable(ChatcontentActivity.this, R.drawable.minus_chat));
                     gpsButton_chat.setVisibility(View.VISIBLE);
                     gpsTextView_chat.setVisibility(View.VISIBLE);
