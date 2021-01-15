@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.makekit.makekit_activity.ProductList">
+    tools:context="com.example.makekit.makekit_activity.ProductList"
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_product"
@@ -13,7 +14,8 @@
         android:scrollbarFadeDuration="0"
         android:scrollbarSize="5dp"
         android:scrollbars="vertical"
-        android:scrollbarThumbVertical="@android:color/darker_gray">
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        >
 
 
     </androidx.recyclerview.widget.RecyclerView>
