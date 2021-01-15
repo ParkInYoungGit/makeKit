@@ -14,8 +14,10 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.OrderViewAdapter;
 import com.example.makekit.makekit_asynctask.OrderNetworkTask;
 import com.example.makekit.makekit_bean.Order;
+import com.example.makekit.makekit_bean.Payment;
 import com.example.makekit.makekit_sharVar.SharVar;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class OrderViewActivity extends AppCompatActivity {
@@ -42,7 +44,7 @@ public class OrderViewActivity extends AppCompatActivity {
 
     OrderViewAdapter adapter;
     ArrayList<Order> orders;
-    ArrayList<Order> orderdetail;
+    ArrayList<Payment> orderdetail;
     Order order;
 
 
@@ -97,8 +99,8 @@ public class OrderViewActivity extends AppCompatActivity {
         orderView_orderDate= findViewById(R.id.orderView_orderDate);
         orderView_orderTotalPrice= findViewById(R.id.orderView_orderTotalPrice);
         listView = findViewById(R.id.orderView_ListView);
-        order = new Order(str_order_productName, str_order_productQuantity, str_order_productTotalPrice, str_order_productImage);
-        orders.add(order);
+//        order = new Order(str_order_productName, str_order_productQuantity, str_order_productTotalPrice, str_order_productImage);
+//        orders.add(order);
         orderView_Date_TV.setText(srt_orderView_Date_TV);
         orderView_Number_TV.setText(str_orderView_Number_TV);
         order_userName.setText(str_order_userName);
@@ -107,8 +109,10 @@ public class OrderViewActivity extends AppCompatActivity {
         order_userAddressDetail.setText(str_order_userAddressDetail);
         orderView_orderBank.setText(str_orderView_orderBank);
         orderView_orderCardNo.setText(str_orderView_orderCardNo);
-        orderView_orderDate.setText(str_orderView_orderDate);
-        orderView_orderTotalPrice.setText(str_orderView_orderTotalPrice);
+        orderView_orderDate.setText(orderdetail.get(0).getOrderDate());
+        DecimalFormat myFormatter = new DecimalFormat("###,###");
+        String formattedStringPrice2 = myFormatter.format(Integer.parseInt(str_orderView_orderTotalPrice));
+        orderView_orderTotalPrice.setText(formattedStringPrice2 + "원");
 
     }
 
@@ -116,7 +120,7 @@ public class OrderViewActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp";
-        adapter = new OrderViewAdapter(OrderViewActivity.this, R.layout.custom_order_view, orders, urlAddrBase);
+        adapter = new OrderViewAdapter(OrderViewActivity.this, R.layout.custom_order_view, orderdetail, urlAddrBase);
         listView.setAdapter(adapter);
     }
 
@@ -127,7 +131,7 @@ public class OrderViewActivity extends AppCompatActivity {
             OrderNetworkTask orderNetworkTask = new OrderNetworkTask(OrderViewActivity.this, urlAddr, "selectProduct");
 
             Object object = orderNetworkTask.execute().get();
-            orderdetail = (ArrayList<Order>) object;
+            orderdetail = (ArrayList<Payment>) object;
 
         } catch (Exception e) {
             e.printStackTrace();

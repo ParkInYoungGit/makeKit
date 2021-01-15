@@ -81,7 +81,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
         urlAddrBase = SharVar.urlAddrBase;
         //macIP = "192.168.219.164";
 
-//        productNo = "44";
+        productNo = "44";
 //        userEmail = "qkr@naver.com";
 
 //        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
@@ -315,6 +315,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
                         intent.putExtra("productNo", productNo);
                         intent.putExtra("macIP", macIP);
                         intent.putExtra("userEmail", userEmail);
+                        intent.putExtra("productPrice", products.get(0).getProductPrice());
                         intent.putExtra("productQuantity", purchaseNumInput.getText().toString());
                         Log.v(TAG, purchaseNumInput.getText().toString());
                         Log.v(TAG, String.valueOf(count));
