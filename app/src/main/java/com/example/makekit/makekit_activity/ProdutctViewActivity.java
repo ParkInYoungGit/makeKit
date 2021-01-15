@@ -82,7 +82,9 @@ public class ProdutctViewActivity extends AppCompatActivity {
         urlAddrBase = SharVar.urlAddrBase;
         //macIP = "192.168.219.164";
 
+
         productNo = "64";
+
 //        userEmail = "qkr@naver.com";
 
 //        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
@@ -105,6 +107,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
         btnPlus = findViewById(R.id.btnPlusProudct_productview);
         btnMinus= findViewById(R.id.btnMinusProudct_productview);
 
+        // 슬라이드 레이어
         // 슬라이드 레이어
         slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout_productview);
 
