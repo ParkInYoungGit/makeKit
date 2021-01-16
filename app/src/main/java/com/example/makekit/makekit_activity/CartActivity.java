@@ -54,8 +54,13 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
         selectAll = findViewById(R.id.cb_cart_selectall);
 
         Intent intent = getIntent();
-        macIP = intent.getStringExtra("macIP");
-        productNo = intent.getStringExtra("productNo");
+        //macIP = intent.getStringExtra("macIP");
+
+        /////////////////////////////////////////
+        // 1/17 kyeongmi productNo 주석처리
+        /////////////////////////////////////////
+        //productNo = intent.getStringExtra("productNo");
+
         cartNo = intent.getStringExtra("cartNo");
         //productQuantity = intent.getStringExtra("productQuantity");
         //totalPrice = intent.getStringExtra("totalPrice");

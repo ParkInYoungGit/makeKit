@@ -27,6 +27,7 @@ public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
     ProgressDialog progressDialog = null;
     ArrayList<Cart> carts;
     ArrayList<String> cartNumber;
+    String cartNum = null;
 
     public CartNetworkTask(Context context, String mAddr, String where) {
         this.context = context;
@@ -94,7 +95,7 @@ public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
                 Log.v(TAG, "StringBuffer : "+stringBuffer.toString());
 
                 if(where.equals("selectCartNo")){
-                    cartNoParser(stringBuffer.toString());
+                    cartNum = cartNoParser(stringBuffer.toString());
 
                 } else if(where.equals("select")){
                     cartParser(stringBuffer.toString());
@@ -124,7 +125,7 @@ public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
         }
 
         if(where.equals("selectCartNo")) {
-            return cartNumber;
+            return cartNum;
 
         } else if(where.equals("select")){
             return carts;
@@ -141,24 +142,26 @@ public class CartNetworkTask extends AsyncTask<Integer, String, Object> {
 
     }
 
-    private void cartNoParser(String s){
+    private String cartNoParser(String s){
+        String cartNo = null;
         Log.v(TAG, "parser()");
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("cart_info"));
             Log.v(TAG, "parser() in");
-            cartNumber.clear();
+            //cartNumber.clear();
             for(int i = 0 ; i<jsonArray.length() ; i++){
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
-                String cartNo = jsonObject1.getString("cartNo");
+               cartNo = jsonObject1.getString("cartNo");
 
-                cartNumber.add(cartNo);
+               //cartNumber.add(cartNo);
             }
 
         } catch (Exception e){
             e.printStackTrace();
         }
+        return cartNo;
     }
 
     private void cartParser(String s){
