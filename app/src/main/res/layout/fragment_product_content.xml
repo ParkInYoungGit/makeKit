@@ -26,7 +26,7 @@
                 <WebView
                     android:id="@+id/productImage_productviewcontent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="600px"
                     android:layout_gravity="center"
                     />
 

@@ -21,7 +21,7 @@ android:orientation="vertical">
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:layout_margin="5dp"
-            android:text="구매확"
+            android:text="구매확정"
             />
         <Button
             android:id="@+id/purchaseLists_Btn"
