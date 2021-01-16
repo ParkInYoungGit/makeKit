@@ -39,7 +39,7 @@ public class TempLogin extends AppCompatActivity {
     String urlJsp;
     EditText loginId;
     EditText loginPw;
-    String useremail, userpw, macIP, urlAddr;
+    String useremail, userpw, macIP, urlAddr,urlAddrBase;
     String urlJspLoginCheck = null;
     CheckBox savechb;
     String count = null;
@@ -63,6 +63,10 @@ public class TempLogin extends AppCompatActivity {
         load();
         ActivityCompat.requestPermissions(TempLogin.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
 
+        macIP = SharVar.macIP;
+
+        urlAddrBase = SharVar.urlAddrBase;
+        urlJsp = urlAddrBase + "jsp/";
 
 
         loginId = findViewById(R.id.login_id);
@@ -140,11 +144,11 @@ public class TempLogin extends AppCompatActivity {
     };
 
     private void loginCheck(){
-        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/logincheck.jsp?";
+        urlAddrBase= urlAddrBase + "jsp/logincheck.jsp?";
         useremail = loginId.getText().toString();
         userpw = loginPw.getText().toString();
 
-        urlAddr = urlJsp + "useremail=" + useremail + "&userpw=" + userpw;
+        urlAddr = urlAddrBase + "useremail=" + useremail + "&userpw=" + userpw;
 
         count = loginCount();
 
