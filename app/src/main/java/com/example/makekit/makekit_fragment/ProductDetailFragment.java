@@ -294,7 +294,7 @@ public class ProductDetailFragment extends Fragment {
 
                 case R.id.btnSellerStory_productdetail:
                     Intent intent = new Intent(getActivity(), SaleProductListActivity.class);
-                    intent.putExtra("sellerEmail", sellerEmail);
+                    intent.putExtra("seller", sellerEmail);
                     intent.putExtra("macIP", macIP);
                     intent.putExtra("userEmail", userEmail);
                     startActivity(intent);

@@ -89,7 +89,6 @@ public class PurchaseListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         connectUpdateData();
         connectGetData();
         mAdapter = new PurchaseListAdapter(PurchaseListActivity.this, R.layout.purchase_list_layout, orders, urlAddrBase + "image/", email, macIP);
