@@ -178,7 +178,9 @@ public class MainActivity extends AppCompatActivity {
 
             } else if (id == R.id.navigation_4) {
                 Log.v("email", "email:"+email);
-                if(email.length() == 0){
+
+                if(email.equals("")){
+                fragment = new HomeFragment();
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(R.drawable.alert)
                             .setTitle("MakeKit 서비스 안내")
@@ -191,13 +193,15 @@ public class MainActivity extends AppCompatActivity {
 
                 }else {
                     fragment = new ChatListFragment();
-                    Bundle bundle = new Bundle(2);
-                    bundle.putString("useremail", email);
-                    bundle.putString("macIP", macIP);
-                    fragment.setArguments(bundle);
+                    Bundle bundle2 = new Bundle(2);
+                    bundle2.putString("useremail", email);
+                    bundle2.putString("macIP", macIP);
+                    fragment.setArguments(bundle2);
                 }
             } else if (id == R.id.navigation_5) {
-                if(email.equals(null)) {
+
+                if(email.equals("")){
+                    fragment = new HomeFragment();
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(R.drawable.alert)
                             .setTitle("MakeKit 서비스 안내")
@@ -242,26 +246,65 @@ public class MainActivity extends AppCompatActivity {
         //return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
 
-            case R.id.menu_product:
+            case R.id.menu_product: // 제품 등록으로 가는 버튼
+                if(email.equals("")){
+                    fragment = new HomeFragment();
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setIcon(R.drawable.alert)
+                            .setTitle("MakeKit 서비스 안내")
+                            .setMessage("로그인 후 이용 가능합니다.")
+                            // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
+                            .setCancelable(false)
+                            // 이제 닫기 눌러야만 꺼짐!
+                            .setPositiveButton("닫기", null)
+                            .show();
 
-                // 제품 구매로 가는 버튼
-                Intent  productIntent = new Intent(MainActivity.this, ProductSalesWriteActivity.class);
-                startActivity(productIntent);
-                return true;
+                }else {
+                    Intent productIntent = new Intent(MainActivity.this, ProductSalesWriteActivity.class);
+                    startActivity(productIntent);
+                    return true;
+                }
 
-            case R.id.menu_gps:
+            case R.id.menu_gps: // GPS로 가는 버튼
 
-                // GPS로 가는 버튼
-                Intent GPSintent = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(GPSintent);
-                return true;
+                if(email.equals("")){
+                    fragment = new HomeFragment();
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setIcon(R.drawable.alert)
+                            .setTitle("MakeKit 서비스 안내")
+                            .setMessage("로그인 후 이용 가능합니다.")
+                            // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
+                            .setCancelable(false)
+                            // 이제 닫기 눌러야만 꺼짐!
+                            .setPositiveButton("닫기", null)
+                            .show();
 
-            case R.id.menu_cart:
+                }else {
+                    Intent GPSintent = new Intent(MainActivity.this, MapActivity.class);
+                    startActivity(GPSintent);
+                    return true;
+                }
 
-                // 장바구니로 가는 버튼
-                Intent intent = new Intent(MainActivity.this, CartActivity.class);
-                startActivity(intent);
-                return true;
+
+            case R.id.menu_cart: // 장바구니로 가는 버튼
+
+                if(email.equals("")){
+                    fragment = new HomeFragment();
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setIcon(R.drawable.alert)
+                            .setTitle("MakeKit 서비스 안내")
+                            .setMessage("로그인 후 이용 가능합니다.")
+                            // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
+                            .setCancelable(false)
+                            // 이제 닫기 눌러야만 꺼짐!
+                            .setPositiveButton("닫기", null)
+                            .show();
+
+                }else {
+                    Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
 
 
             default:

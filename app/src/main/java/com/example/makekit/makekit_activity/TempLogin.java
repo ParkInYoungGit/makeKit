@@ -161,6 +161,7 @@ public class TempLogin extends AppCompatActivity {
             save();
             Toast.makeText(TempLogin.this, "로그인 완료!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(TempLogin.this, MainActivity.class);
+            SharVar.userEmail = useremail;
             startActivity(intent);
             finish();
         } else {
