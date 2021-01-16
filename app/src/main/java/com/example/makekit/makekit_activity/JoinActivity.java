@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -41,8 +42,8 @@ public class JoinActivity extends AppCompatActivity {
     public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자
     public static final String pattern2 = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
 
-    String user = "2bbeen@gmail.com"; // 보내는 계정의 id
-    String password = "93elsl211!"; // 보내는 계정의 pw
+    String user = ""; // 보내는 계정의 id
+    String password = ""; // 보내는 계정의 pw
 
     String macIP, urlJsp, urlImage, urlAddr, cartInsert, urlAddrBase;
     EditText email, name, pw, pwCheck, phone, address, addressDetail;
@@ -59,6 +60,7 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_join);
 
         // intent 및 받아오는 변수 정리
