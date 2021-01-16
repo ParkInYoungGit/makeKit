@@ -83,6 +83,8 @@ public class ChatcontentActivity extends AppCompatActivity {
         editText.setOnClickListener(mClickListener);
         gpsButton_chat.setOnClickListener(mClickListener);
 
+        slidingUpPanelLayout = findViewById(R.id.chatContent_slidingup);
+
         handler = new Handler(){
             @Override
             public void handleMessage(@NonNull Message msg) {
@@ -153,7 +155,6 @@ public class ChatcontentActivity extends AppCompatActivity {
                 return false;
             }
         });
-        setContentViews();
     }
 
     @Override
@@ -219,36 +220,24 @@ public class ChatcontentActivity extends AppCompatActivity {
         return j;
     }
 
-    public void setContentViews(){
-        slidingUpPanelLayout = findViewById(R.id.chatContent_slidingup);
-        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-        slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
-            @Override
-            public void onPanelSlide(View panel, float slideOffset) {
-
-            }
-
-            @Override
-            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-                if(newState.name().equalsIgnoreCase("Collapsed")){
-                    plusButton.setBackground(ContextCompat.getDrawable(ChatcontentActivity.this, R.drawable.add));
-                    gpsButton_chat.setVisibility(View.INVISIBLE);
-                    gpsTextView_chat.setVisibility(View.INVISIBLE);
-                }else if(newState.name().equalsIgnoreCase("Expanded")){
-                    plusButton.setBackground(ContextCompat.getDrawable(ChatcontentActivity.this, R.drawable.minus_chat));
-                    gpsButton_chat.setVisibility(View.VISIBLE);
-                    gpsTextView_chat.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-    }
-
     View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.plusButton_chat:
-                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                    if(slidingUpPanelLayout.getPanelState().toString().equalsIgnoreCase("COLLAPSED")) {
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                        plusButton.setBackground(ContextCompat.getDrawable(ChatcontentActivity.this, R.drawable.minus_chat));
+                        gpsButton_chat.setVisibility(View.VISIBLE);
+                        gpsTextView_chat.setVisibility(View.VISIBLE);
+                    }else{
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+                        plusButton.setBackground(ContextCompat.getDrawable(ChatcontentActivity.this, R.drawable.add));
+                        gpsButton_chat.setVisibility(View.INVISIBLE);
+                        gpsTextView_chat.setVisibility(View.INVISIBLE);
+
+                    }
 
                     break;
 //                case R.id.chattingContents_ET:
