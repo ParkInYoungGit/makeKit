@@ -22,6 +22,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.WriteReviewAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.Order;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -105,7 +106,7 @@ public class WriteReviewFragment extends Fragment {
         you = v.findViewById(R.id.you);
         meiyou = v.findViewById(R.id.meiyou);
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
         urlAddr = urlAddrBase + "jsp/write_reviewlist_all.jsp?email=" + email;
         Log.v(TAG, "주소 >>>>>>>>>> " + urlAddr);
         // 초기 init
@@ -154,7 +155,7 @@ public class WriteReviewFragment extends Fragment {
     }
 
     private void check(){
-        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/reviewlist_empty_check.jsp?";
+        urlJsp =  SharVar.urlAddrBase + "jsp/reviewlist_empty_check.jsp?";
         urlAddr = urlJsp + "email=" + email;
 
         reviewCheck = reviewListCheck();

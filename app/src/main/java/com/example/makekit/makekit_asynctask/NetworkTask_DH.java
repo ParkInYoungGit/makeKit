@@ -118,7 +118,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
                     Log.v("NetworkTask", "result : "+result);
                 }
                 else if (where.equals("reviewCheck")){
-                    parserReviewCheck(stringBuffer.toString());
+                    reviewCheck = parserReviewCheck(stringBuffer.toString());
                 }
             }
         }catch (Exception e){
@@ -458,7 +458,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
-                reviewCheck = jsonObject1.getString("reviewCheck");
+                reviewCheck = jsonObject1.getString("check");
 
                 Log.v("여기", "parserLoginCheck : " + reviewCheck);
 

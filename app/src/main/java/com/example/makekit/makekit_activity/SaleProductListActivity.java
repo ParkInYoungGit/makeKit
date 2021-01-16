@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.SaleProductListAdapter;
@@ -32,6 +33,7 @@ public class SaleProductListActivity extends AppCompatActivity {
         email = intent.getStringExtra("seller");
         macIP = SharVar.macIP;
 
+        Toast.makeText(this, "seller email : "+ email, Toast.LENGTH_SHORT).show();
         recyclerView = findViewById(R.id.recyclerViewSaleList);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

@@ -15,6 +15,7 @@ import com.example.makekit.makekit_adapter.LikeSellerAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.Product;
 import com.example.makekit.makekit_bean.User;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -74,7 +75,8 @@ public class LikeSellerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
+//        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         connectGetData();
         mAdapter = new LikeSellerAdapter(LikeSellerActivity.this, R.layout.likeseller_layout, users);
         recyclerView.setAdapter(mAdapter);

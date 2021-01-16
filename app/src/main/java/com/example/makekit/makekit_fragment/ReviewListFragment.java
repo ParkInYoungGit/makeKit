@@ -15,6 +15,7 @@ import com.example.makekit.makekit_adapter.ProductReviewAdapter;
 import com.example.makekit.makekit_adapter.ReviewAdapter;
 import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
 import com.example.makekit.makekit_bean.Review;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -93,7 +94,7 @@ public class ReviewListFragment extends Fragment {
 
         recyclerView = v.findViewById(R.id.recyclerView_Reviewlist);
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
         urlAddr = urlAddrBase + "jsp/review_list_all.jsp?email=" + email;
         Log.v(TAG, "주소" + urlAddr);
         connectSelectData();

@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.ReviewNetworkTask;
 import com.example.makekit.makekit_fragment.ReviewListFragment;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -46,7 +47,7 @@ public class RegisterReviewActivity extends AppCompatActivity {
 
     RatingBar ratingBar_star;
     EditText input_review;
-    String macIP, email, urlJsp, url, urlRegister;
+    String macIP, email, urlJsp, url, urlRegister, urlAddrBase;
     String orderDetailNo, productNo;
     String strRating = null;
     ImageView camera;
@@ -89,11 +90,11 @@ public class RegisterReviewActivity extends AppCompatActivity {
         productNo = intent.getStringExtra("productNo");
 
 
-
+        urlAddrBase = SharVar.urlAddrBase;
         // url
-        urlJsp = "http://"+macIP+":8080/makeKit/jsp/";
-        url = "http://"+macIP+":8080/makeKit/jsp/multipartRequest.jsp";
-        urlRegister = "http://"+macIP+":8080/makeKit/jsp/register_Review.jsp?";
+        urlJsp = urlAddrBase + "jsp/";
+        url = urlAddrBase + "jsp/multipartRequest.jsp";
+        urlRegister = urlAddrBase + "jsp/register_Review.jsp?";
 
         // 화면 구성
         ratingBar_star = findViewById(R.id.review_ratingBar);

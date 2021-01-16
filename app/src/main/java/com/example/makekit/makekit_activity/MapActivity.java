@@ -75,6 +75,9 @@ public class MapActivity extends AppCompatActivity
     private ImageView infoMove;
 
 
+    ArrayList<User> result1 = null;
+
+
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
 //    private static final int UPDATE_INTERVAL_MS = 10000;  // 10초 단위 시간 갱신
@@ -198,7 +201,8 @@ public class MapActivity extends AppCompatActivity
         Toast.makeText(this, "주소는 " + markerSnippet.substring(4),
                 Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MapActivity.this, SaleProductListActivity.class);
-        intent.putExtra("seller", sellerEmail);
+//        intent.putExtra("seller", sellerEmail);
+        intent.putExtra("seller", result1.get(0).getEmail());
         startActivity(intent);
 
     }
@@ -759,7 +763,6 @@ public class MapActivity extends AppCompatActivity
 
     //connection Select
     private ArrayList<User> connectSelectData(String urlAddr){
-        ArrayList<User> result1 = null;
 
         try{
             SellerNetworkTask selectNetworkTask = new SellerNetworkTask(MapActivity.this, urlAddr);
