@@ -27,6 +27,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
 import com.example.makekit.makekit_method.SendMail;
+import com.example.makekit.makekit_sharVar.SharVar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class JoinActivity extends AppCompatActivity {
     String user = "2bbeen@gmail.com"; // 보내는 계정의 id
     String password = "93elsl211!"; // 보내는 계정의 pw
 
-    String macIP, urlJsp, urlImage, urlAddr, cartInsert;
+    String macIP, urlJsp, urlImage, urlAddr, cartInsert, urlAddrBase;
     EditText email, name, pw, pwCheck, phone, address, addressDetail;
     String emailInput = null;
     TextView pwCheckMsg, termsOfService;
@@ -64,11 +65,11 @@ public class JoinActivity extends AppCompatActivity {
         // SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         //macIP = sf.getString("macIP","");
 
-        Intent intent = getIntent(); /*데이터 수신*/
-        macIP = intent.getStringExtra("macIP");
+        macIP = SharVar.macIP;
 
-        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
-        urlImage = "http://" + macIP + ":8080/makeKit/image/";
+        urlAddrBase = SharVar.urlAddrBase;
+        urlJsp = urlAddrBase + "jsp/";
+        urlImage = urlAddrBase + "image/";
 
 
 

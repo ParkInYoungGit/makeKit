@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         //macIP = "192.168.0.81";
         macIP = SharVar.macIP;
 
+
         btnLogin = findViewById(R.id.login_kakao);
         btnLogout = findViewById(R.id.btn_logout);
         nickName = findViewById(R.id.nickname);
