@@ -133,10 +133,13 @@ public class ProdutctViewActivity extends AppCompatActivity {
         openDeliveryMethod.setVisibility(View.INVISIBLE);
 
         connectSelectData();
-        connectSelectCartData(urlAddr1);
-        // user cart 번호
-        cartNo = cartNumber.get(0);
+        if(SharVar.userEmail.equals("")) {
 
+        } else {
+            connectSelectCartData(urlAddr1);
+            // user cart 번호
+            cartNo = cartNumber.get(0);
+        }
         int total = Integer.parseInt(products.get(0).getProductPrice()) + 2500;
         Log.v(TAG, String.valueOf(total));
         myFormatter = new DecimalFormat("###,###");

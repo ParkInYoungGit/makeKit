@@ -207,7 +207,7 @@ public class ProductContentFragment extends Fragment {
         productDfilename.getSettings().setUseWideViewPort(true);
         productDfilename.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
         productDfilename.setBackgroundColor(0);
-        productDfilename.setInitialScale(30);
+        productDfilename.setInitialScale(5);
 //
 //            // url은 알아서 설정 예) http://m.naver.com/
         productDfilename.loadUrl(urlImageReal2); // 접속 URL

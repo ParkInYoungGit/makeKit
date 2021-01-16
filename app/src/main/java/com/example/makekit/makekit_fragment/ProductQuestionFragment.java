@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.QuickContactBadge;
+import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.ChatcontentActivity;
@@ -101,13 +102,17 @@ public class ProductQuestionFragment extends Fragment {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-
                 // 1:1 문의 클릭 시 판매자 대화창 이동
                 case R.id.btnChattingQuestion_productview:
-                    Intent intent = new Intent(getActivity(), ChatcontentActivity.class );
-                    intent.putExtra("sellerEmail", products.get(0).getSellerEmail());
-                    intent.putExtra("productNo", productNo);
-                    startActivity(intent);
+                    if(SharVar.userEmail.equals("")){
+                        Toast.makeText(getActivity(), "회원만 이용 가능합니다. \n로그인 후 이용해주세요.", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Intent intent = new Intent(getActivity(), ChatcontentActivity.class );
+                        intent.putExtra("seller", products.get(0).getSellerEmail());
+                        intent.putExtra("productNo", productNo);
+                        startActivity(intent);
+                    }
                     break;
 
             }
