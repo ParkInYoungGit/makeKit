@@ -49,7 +49,9 @@ public class ChatListFragment extends Fragment {
 
         email = getArguments().getString("useremail");
         macIP = getArguments().getString("macIP");
-        Log.v(TAG, email);
+//        email = getArguments().getString("useremail");
+//        macIP = getArguments().getString("macIP");
+//        Log.v(TAG, email);
         Log.v(TAG, macIP);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -120,6 +120,7 @@ public class MypageFragment extends Fragment {
                     break;
                 case R.id.btn_logout:               // 메인 phoneNumber 기준 전화로 이동
                     Intent intent9 = new Intent(getActivity(), LoginActivity.class);
+                    SharVar.userEmail ="";
                     startActivity(intent9);
                     break;
                 case R.id.btn_view_dial:            // 메인 phoneNumber 기준 전화로 이동

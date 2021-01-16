@@ -178,7 +178,9 @@ public class MainActivity extends AppCompatActivity {
 
             } else if (id == R.id.navigation_4) {
                 Log.v("email", "email:"+email);
-                if(email.length() == 0){
+
+                if(email.equals("")){
+                fragment = new HomeFragment();
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(R.drawable.alert)
                             .setTitle("MakeKit 서비스 안내")
@@ -191,13 +193,15 @@ public class MainActivity extends AppCompatActivity {
 
                 }else {
                     fragment = new ChatListFragment();
-                    Bundle bundle = new Bundle(2);
-                    bundle.putString("useremail", email);
-                    bundle.putString("macIP", macIP);
-                    fragment.setArguments(bundle);
+                    Bundle bundle2 = new Bundle(2);
+                    bundle2.putString("useremail", email);
+                    bundle2.putString("macIP", macIP);
+                    fragment.setArguments(bundle2);
                 }
             } else if (id == R.id.navigation_5) {
-                if(email.equals(null)) {
+
+                if(email.equals("")){
+                    fragment = new HomeFragment();
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(R.drawable.alert)
                             .setTitle("MakeKit 서비스 안내")
