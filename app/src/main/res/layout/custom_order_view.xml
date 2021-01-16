@@ -5,11 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<!--    <WebView-->
+<!--        android:id="@+id/order_productImage"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:layout_margin="10dp" />-->
+
     <WebView
         android:id="@+id/order_productImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/white"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,9 +27,15 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/order_productName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="상품명"
+            android:textColor="@color/black" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="금액"
             android:textColor="@color/black" />
 
         <TextView
@@ -42,8 +56,15 @@
         android:layout_margin="10dp"
         android:orientation="vertical">
 
+
         <TextView
-            android:id="@+id/order_productName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/order_productPrice_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -60,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="" />
+            android:text="개" />
 
         <TextView
             android:id="@+id/order_productTotalPrice"

@@ -8,141 +8,177 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        android:layout_marginTop="50dp"
-        android:gravity="right"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:text="사용자 이름"
-            android:textSize="20dp" />
-
-        <Button
-            android:id="@+id/setting_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="20dp"
-            android:backgroundTint="#000000"
-            android:background="@drawable/settings" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/buylist_btn"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:text="구매내역" />
-
-        <Button
-            android:id="@+id/salelist_btn"
-            android:layout_marginLeft="10dp"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:text="판매내역" />
-
-        <Button
-            android:id="@+id/likelist_btn"
-            android:layout_marginLeft="10dp"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:text="찜" />
-
-        <Button
-            android:id="@+id/reviewlist_btn"
-            android:layout_marginLeft="10dp"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:text="후기" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="5">
+        >
 
-        <Button
-            android:id="@+id/notice_btn"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
+            android:layout_marginTop="50dp"
             android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:text="공지사항"/>
-        <Button
-            android:id="@+id/chatlist_btn"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/user_mypage_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:text="사용자 이름"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/setting_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/settings"
+                android:backgroundTint="#000000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/line_layout"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/buylist_btn"
+                android:layout_width="0px"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout_outline"
+                android:text="구매내역"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/salelist_btn"
+                android:layout_width="0px"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout_outline"
+                android:text="판매내역"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/likelist_btn"
+                android:layout_width="0px"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout_outline"
+                android:text="찜"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/reviewlist_btn"
+                android:layout_width="0px"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout_outline"
+                android:text="후기"
+                android:layout_marginRight="20dp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:text="1:1 채팅목록"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:text="About 'makeKit'"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:text="알림설정"/>
+            android:layout_marginTop="20dp"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                android:gravity="center"
+                >
+
+            <Button
+                android:id="@+id/notice_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="공지사항" />
+
+                <Button
+                    android:id="@+id/aboutMakeKit_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="10dp"
+                    android:text="About 'makeKit'" />
+
+            <Button
+                android:id="@+id/Alarm_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:text="알림설정" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_logout"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#D7989898"
+                    android:textColor="@color/white"
+                    android:text="로그아웃" />
+
+                <Button
+                    android:id="@+id/btn_view_dial"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#D7989898"
+                    android:textColor="@color/white"
+                    android:text="전화문의" />
+
+
+            </LinearLayout>
+
 <LinearLayout
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="0px"
+    android:layout_height="50dp"
+    android:layout_gravity="bottom"
+    android:layout_marginBottom="50dp"
     android:gravity="center"
-    android:layout_weight="2">
-
-    <Button
-        android:layout_width="0px"
+    >
+    <ImageView
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="로그아웃"
-        android:layout_marginLeft="50dp"
-        android:backgroundTint="#D7989898"/>
-
-    <Button
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_width="0px"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:backgroundTint="#D7989898"
-        android:text="전화문의"/>
-
-
-
+        android:layout_gravity="center"
+        android:src="@drawable/makekit_side_logo"/>
 </LinearLayout>
-
+        </LinearLayout>
 
     </LinearLayout>
-
-
-
-
-
 
 
 </LinearLayout>

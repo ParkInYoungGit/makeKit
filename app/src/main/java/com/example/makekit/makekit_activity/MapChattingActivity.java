@@ -99,6 +99,7 @@ public class MapChattingActivity extends AppCompatActivity
     double lng;
     ArrayList<Address> data;
 
+    String macIP, email, chattingNumber, receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +107,12 @@ public class MapChattingActivity extends AppCompatActivity
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        Intent intent = getIntent();
+        macIP = intent.getStringExtra("macIP");
+        email = intent.getStringExtra("useremail");
+        chattingNumber = intent.getStringExtra("chattingNumber");
+        receiver = intent.getStringExtra("receiver");
 
         setContentView(R.layout.activity_map_chatting);
 
@@ -228,8 +235,12 @@ public class MapChattingActivity extends AppCompatActivity
 
         Intent intent = new Intent(MapChattingActivity.this, ChatcontentActivity.class);
         intent.putExtra("searchAddress", markerSnippet.substring(4));
+        intent.putExtra("useremail", email);
+        intent.putExtra("macIP", macIP);
+        intent.putExtra("receiver", receiver);
+        intent.putExtra("chattingNumber", chattingNumber);
         startActivity(intent);
-
+        finish();
     }
 
     @Override

@@ -1,0 +1,26 @@
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<!--    <translate-->
+<!--    android:fromXDelta="0"-->
+<!--    android:toXDelta="-100%p"-->
+<!--    android:repeatCount="1"-->
+<!--    android:repeatMode="reverse"/>-->
+<!-- 첫번째 이미지 -->
+<!-- 1.5초간 x = -800 ~ 0 까지 repeatCount 0번-->
+    <translate
+        android:duration="1500"
+        android:fromXDelta="-800"
+        android:fromYDelta="0"
+        android:interpolator="@anim/cycle_5"
+        android:toXDelta="0"
+        android:toYDelta="0"
+        android:repeatCount="0"
+        />
+
+<!--    <alpha-->
+<!--    android:duration="500"-->
+<!--    android:fromAlpha="1.0"-->
+<!--    android:toAlpha="0.0" />-->
+
+</set>

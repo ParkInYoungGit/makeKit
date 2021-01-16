@@ -25,8 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.makekit.makekit_asynctask.SellerNetworkTask;
-import com.example.makekit.makekit_bean.MyClustItem;
 import com.example.makekit.makekit_bean.User;
+import com.example.makekit.makekit_sharVar.SharVar;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -75,6 +75,9 @@ public class MapActivity extends AppCompatActivity
     private ImageView infoMove;
 
 
+    ArrayList<User> result1 = null;
+
+
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
 //    private static final int UPDATE_INTERVAL_MS = 10000;  // 10초 단위 시간 갱신
@@ -117,16 +120,15 @@ public class MapActivity extends AppCompatActivity
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_map);
 
-        Intent intent = getIntent();
-        intent.getStringExtra("macIP");
+        macIP = SharVar.macIP;
 
         /////////////////////////////
         // ip 수정하쟈!
         /////////////////////////////
         //macIP="192.168.219.164";
 
-
-        urlAddr = "http://" + macIP + ":8080/makekit/jsp/";
+        urlAddr = SharVar.urlAddrBase + "jsp/";
+        //urlAddr = "http://" + macIP + ":8080/makekit/jsp/";
 
         locationRequest = new LocationRequest()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -198,8 +200,9 @@ public class MapActivity extends AppCompatActivity
 
         Toast.makeText(this, "주소는 " + markerSnippet.substring(4),
                 Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(MapActivity.this, LikeSellerActivity.class);
-        intent.putExtra("sellerEmail", sellerEmail);
+        Intent intent = new Intent(MapActivity.this, SaleProductListActivity.class);
+//        intent.putExtra("seller", sellerEmail);
+        intent.putExtra("seller", result1.get(0).getEmail());
         startActivity(intent);
 
     }
@@ -760,7 +763,6 @@ public class MapActivity extends AppCompatActivity
 
     //connection Select
     private ArrayList<User> connectSelectData(String urlAddr){
-        ArrayList<User> result1 = null;
 
         try{
             SellerNetworkTask selectNetworkTask = new SellerNetworkTask(MapActivity.this, urlAddr);

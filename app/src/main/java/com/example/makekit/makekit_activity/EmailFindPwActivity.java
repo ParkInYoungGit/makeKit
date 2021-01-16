@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.makekit.R;
-import com.example.makekit.makekit_method.GMailSender;
+import com.example.makekit.makekit_method.GmailSender;
 
 public class EmailFindPwActivity extends AppCompatActivity {
 
@@ -71,7 +71,7 @@ public class EmailFindPwActivity extends AppCompatActivity {
 
     // 코드 일치 여부 확인
     private void authCheck(String num){
-        GMailSender gMailSender = new GMailSender(user, password);
+        GmailSender gMailSender = new GmailSender(user, password);
 
         if(code.equals(num)){
             Toast.makeText(this, "인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();

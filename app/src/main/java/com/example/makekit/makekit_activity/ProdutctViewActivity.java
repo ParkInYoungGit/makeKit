@@ -53,6 +53,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
     Button btnPlus, btnMinus;
     ArrayList<String> cartNumber;
     int count = 1;
+    ArrayList<Cart> carts;
 
     String sellerEmail ,productNo, macIP, urlAddr, urlAddrBase, userEmail, urlAddr1, cartNo, result, urlAddr2,urlAddr3, urlAddr4, urlAddr5;
     //FrameLayout framelayout;
@@ -75,15 +76,19 @@ public class ProdutctViewActivity extends AppCompatActivity {
         Intent intent = getIntent();
 //        macIP = intent.getStringExtra("macIP");
         productNo = intent.getStringExtra("productNo");
+        Log.v(TAG, "productNo" + productNo);
 
-
+        macIP = SharVar.macIP;
+        userEmail = SharVar.userEmail;
+        urlAddrBase = SharVar.urlAddrBase;
         //macIP = "192.168.219.164";
 
-        productNo = "44";
-        userEmail = "qkr@naver.com";
+
+//        productNo = "64";
+
+//        userEmail = "qkr@naver.com";
 
 //        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
-        urlAddrBase = SharVar.urlAddrBase;
         urlAddr = urlAddrBase + "jsp/product_productview_content.jsp?productno=" + productNo;
         urlAddr1 = urlAddrBase + "jsp/cartno_productview_check.jsp?useremail=" + userEmail;
 
@@ -103,6 +108,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
         btnPlus = findViewById(R.id.btnPlusProudct_productview);
         btnMinus= findViewById(R.id.btnMinusProudct_productview);
 
+        // 슬라이드 레이어
         // 슬라이드 레이어
         slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout_productview);
 
@@ -186,10 +192,6 @@ public class ProdutctViewActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-//                case R.id.favorite_productviewcontent:
-//
-//
-//                    break;
 
                 case R.id.btnMinusProudct_productview:
                     if(purchaseNumInput.getText().toString().equals("1")){
@@ -301,7 +303,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
                                 intent.putExtra("userEmail", userEmail);
                                 //intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
                                 startActivity(intent);
-
+                                finish();
                             } else {
                                 Toast.makeText(ProdutctViewActivity.this, "장바구니 수량 변경 실패하였습니다.", Toast.LENGTH_SHORT).show();
 
@@ -314,16 +316,27 @@ public class ProdutctViewActivity extends AppCompatActivity {
                 case R.id.btnPurchaseOpen_productview:
 
                     if(loginCheck() == true) {
+                        ////////////////////////////
+                        // 1/15 경미 추가
+                        ///////////////////////////
+                        carts = new ArrayList<>();
+                        Cart cart = new Cart("", productNo, purchaseNumInput.getText().toString(), products.get(0).getProductName(), products.get(0).getProductFilename(), products.get(0).getProductPrice());
+                        carts.add(cart);
+                        Log.v(TAG, "cart : " + String.valueOf(cart));
                         Intent intent = new Intent(ProdutctViewActivity.this, OrderActivity.class);
+                        intent.putExtra("productno", carts);
                         intent.putExtra("productNo", productNo);
-                        intent.putExtra("macIP", macIP);
-                        intent.putExtra("userEmail", userEmail);
+                        intent.putExtra("cartNo", "");
+                        intent.putExtra("productPrice", products.get(0).getProductPrice());
                         intent.putExtra("productQuantity", purchaseNumInput.getText().toString());
+
+
                         Log.v(TAG, purchaseNumInput.getText().toString());
                         Log.v(TAG, String.valueOf(count));
 //                        intent.putExtra("productQuantity", count);
                         intent.putExtra("totalPrice", Integer.toString((Integer.parseInt(products.get(0).getProductPrice()) * count) + 2500));
                         startActivity(intent);
+                        finish();
                     }
             }
         }

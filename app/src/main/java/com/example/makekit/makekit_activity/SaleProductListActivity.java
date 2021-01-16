@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.SaleProductListAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.Order;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -28,9 +30,10 @@ public class SaleProductListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sale_product_list);
 
         Intent intent = getIntent();
-        email = intent.getStringExtra("useremail");
-        macIP = intent.getStringExtra("macIP");
+        email = intent.getStringExtra("seller");
+        macIP = SharVar.macIP;
 
+        Toast.makeText(this, "seller email : "+ email, Toast.LENGTH_SHORT).show();
         recyclerView = findViewById(R.id.recyclerViewSaleList);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -43,7 +46,7 @@ public class SaleProductListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
         connectGetData();
         mAdapter = new SaleProductListAdapter(SaleProductListActivity.this, R.layout.sales_product_list_layout, orders, urlAddrBase+"image/");
         recyclerView.setAdapter(mAdapter);

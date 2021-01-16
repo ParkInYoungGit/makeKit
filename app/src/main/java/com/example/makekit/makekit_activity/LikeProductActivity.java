@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_adapter.LikeProductAdapter;
 import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.Product;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -31,7 +33,8 @@ public class LikeProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_like);
 
         Intent intent = getIntent();
-        email = intent.getStringExtra("useremail");
+        email = SharVar.userEmail;
+        //email = intent.getStringExtra("useremail");
         macIP = intent.getStringExtra("macIP");
 
         recyclerView = findViewById(R.id.recyclerViewLike);
@@ -71,10 +74,12 @@ public class LikeProductActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
+        // urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         connectGetData();
         mAdapter = new LikeProductAdapter(LikeProductActivity.this, R.layout.search_layout, products, urlAddrBase+"image/");
         recyclerView.setAdapter(mAdapter);
+
     }
 
     private void connectGetData(){

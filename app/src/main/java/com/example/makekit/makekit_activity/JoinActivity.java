@@ -1,7 +1,11 @@
 package com.example.makekit.makekit_activity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
@@ -17,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
@@ -545,6 +550,8 @@ public class JoinActivity extends AppCompatActivity {
         }
         return cartInsert;
     }
+
+
 
 
 } // End  ——————————————————————————————————————

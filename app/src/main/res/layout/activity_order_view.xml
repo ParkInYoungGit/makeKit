@@ -13,8 +13,10 @@
         android:layout_height="wrap_content"
         android:text="상세 주문 정보"
         android:gravity="center"
-        android:textSize="20dp"
+        android:textStyle="bold"
         android:background="#FFF200"
+        android:padding="10dp"
+        android:textSize="20dp"
         />
 
     <ScrollView
@@ -223,6 +225,7 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -232,7 +235,6 @@
                         android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -327,6 +329,22 @@
                     </LinearLayout>
 
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp">
+
+                <Button
+                    android:id="@+id/gotoMain_orderview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_margin="10dp"
+                    android:text="메인으로"
+                    />
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>

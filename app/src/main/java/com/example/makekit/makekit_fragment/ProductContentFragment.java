@@ -318,6 +318,7 @@ public class ProductContentFragment extends Fragment {
                     if(loginCheck() == true) {
                         if (favoriteCheck.equals("0")) {
                             urlAddr2 = urlAddrBase + "jsp/insert_wishlistproduct_productview.jsp?productno=" + productNo + "&useremail=" + userEmail;
+                            Log.v(TAG, "urlAddr2" + urlAddr2);
                             insertFavorite(urlAddr2);
                             favoriteCheck = "1";;
                             if (result.equals("1")) {

@@ -26,11 +26,16 @@ public class Order {
     String orderinfo_orderNo;
     String orderReviewInsertDate;
 
+
+    public Order(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
     public Order(String userName, String orderNo, String userinfo_userEmail, String orderDate, String orderReceiver, String orderRcvAddress,
                  String orderRcvAddressDetail, String orderRcvPhone, String orderTotalPrice, String orderBank, String orderCardNo, String orderCardPw,
-                 String orderDelivery, String orderDeliveryDate, String orderDetailNo, String orderinfo_orderNo,String goods_productNo,
+                 String orderDelivery, String orderDeliveryDate, String orderDetailNo, String orderinfo_orderNo, String goods_productNo,
                  String orderQuantity, String orderConfirm, String orderReviewInsertDate,
-                   String orderRefund, String orderStar, String orderReview,
+                 String orderRefund, String orderStar, String orderReview,
                  String orderReviewImg, String productName, String productPrice, String productAFilename) {
         this.userName = userName;
         this.orderNo = orderNo;

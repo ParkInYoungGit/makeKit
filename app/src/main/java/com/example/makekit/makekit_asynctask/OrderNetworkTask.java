@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
 
-    final static String TAG = "UserNetWorkTask";
+    final static String TAG = "OrderNetworkTask";
     Context context = null;
     String mAddr = null;
     String where = null;
@@ -82,9 +82,19 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
 
                 if (where.equals("selectOrder")) {
                     parserOrderSelect(stringBuffer.toString());
-                }
-                if (where.equals("selectProductOrder")){
+
+                } else if (where.equals("selectProductOrder")){
                     parserOrderProductSelect(stringBuffer.toString());
+
+                } else if(where.equals("select")){
+                    result = parserOrderNoSelect(stringBuffer.toString());
+
+                } else if (where.equals("selectProduct")){
+                    parserOrderProduct(stringBuffer.toString());
+
+                } else {
+                    result = parserInsert(stringBuffer.toString());
+
                 }
 
 
@@ -104,11 +114,20 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
 
         if (where.equals("selectOrder")) {
             return order;
-        }
-        if (where.equals("selectProductOrder")){
+
+        } else if (where.equals("selectProductOrder")){
             return payment;
+
+        } else if(where.equals("select")) {
+            return result;
+
+        } else if (where.equals("selectProduct")) {
+            return payment;
+
+        } else {
+            return result;
+
         }
-        return payment;
     }
 
 
@@ -157,6 +176,35 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
         }
     }
 
+    // OrderProductSelect
+    private void parserOrderProduct(String s) {
+        Log.v(TAG, "Parser in()");
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("orderdetail_info"));
+            Log.v(TAG, "Parser : ");
+            payment.clear();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                String productNo = jsonObject1.getString("productNo");
+                String productName = jsonObject1.getString("productName");
+                String productImage = jsonObject1.getString("productImage");
+                String productPrice = jsonObject1.getString("productPrice");
+                String orderQuantity = jsonObject1.getString("orderQuantity");
+                String orderDate = jsonObject1.getString("orderDate");
+
+                Payment payments = new Payment(productImage, productName, productPrice, orderQuantity, orderDate);
+
+                payment.add(payments);
+                Log.v(TAG, "payment : " + payments);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // OrderActivity 제품 정보
     private void parserOrderProductSelect(String s) {
         Log.v(TAG, "Parser in()");
@@ -187,4 +235,45 @@ public class OrderNetworkTask extends AsyncTask<Integer, String, Object> {
             e.printStackTrace();
         }
     }
+
+
+    // OrderNo select
+    private String parserOrderNoSelect(String s) {
+        Log.v(TAG, "Parser in()");
+        String orderNo ="";
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("order_info"));
+            Log.v(TAG, "Parser : ");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                orderNo = jsonObject1.getString("orderNo");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orderNo;
+    }
+
+    // insert/update action
+    private String parserInsert(String s) {
+        Log.v(TAG, "parserInsert()");
+        String returnResult = null;
+
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            returnResult = jsonObject.getString("result");
+            Log.v(TAG, returnResult);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return returnResult;
+    }
+
+
 }

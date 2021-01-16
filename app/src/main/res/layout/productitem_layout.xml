@@ -10,7 +10,7 @@
         android:layout_height="300dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="20dp">
 
         <WebView
             android:id="@+id/product_image"

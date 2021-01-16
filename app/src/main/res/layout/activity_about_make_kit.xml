@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".makekit_activity.AboutMakeKitActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="10"
+        android:gravity="center">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="310dp"
+            android:src="@drawable/aboutus_01"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/aboutMakeKit"
+            android:textSize="18dp"
+            android:padding="20dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/aboutus_02"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/aboutMakeKit2"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:padding="20dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="@drawable/line_layout"
+                android:text="그래서 직접 만든 것이 \n바로 MakeKit플랫폼입니다."
+                android:textSize="24dp"
+                android:textStyle="bold|italic"
+                android:textColor="@color/black"
+                android:padding="20dp"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:src="@drawable/aboutus"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:text="보다 많은 사람들이 직접 만들어보고 \n다른 사람과 맛을 공유할 수 있도록 \n열심히 노력하겠습니다."
+            android:textColor="@color/black"
+            android:textStyle="bold|italic"
+            android:textSize="20dp"
+            android:layout_marginTop="50dp"
+            android:padding="20dp"
+            android:background="@drawable/line_layout"
+            android:gravity="center"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/makekit_logo"
+                />
+
+        </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
