@@ -20,8 +20,8 @@
     </style>
 
     <style name ="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">#F8DA19</item>
-        <item name="colorPrimaryVariant">#FFDE06</item>
+        <item name="colorPrimary">#9A1E0405</item>
+        <item name="colorPrimaryVariant">#9A1E0405</item>
         <item name="colorOnPrimary">@color/black</item>
     </style>
 
