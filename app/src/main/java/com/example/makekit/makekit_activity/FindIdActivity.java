@@ -29,6 +29,7 @@ import androidx.core.content.ContextCompat;
 import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -72,7 +73,8 @@ public class FindIdActivity extends AppCompatActivity {
        macIP = intent.getStringExtra("macIP");
        useremail = intent.getStringExtra("useremail");
 
-        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
+       urlJsp = SharVar.urlAddrBase + "jsp/";
+//        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
 
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
