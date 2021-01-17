@@ -214,7 +214,7 @@ public class ProductSalesWriteActivity extends AppCompatActivity {
     // 제품 등록 데이터 전달
     private String connectInsertData() {
         try {
-            ProductNetworkTask insnetworkTask = new ProductNetworkTask(ProductSalesWriteActivity.this, urlAddr);
+            ProductNetworkTask insnetworkTask = new ProductNetworkTask(ProductSalesWriteActivity.this, urlAddr, "");
             Object object = insnetworkTask.execute().get();
             productInsertResult = (String) object;
         } catch (Exception e) {
