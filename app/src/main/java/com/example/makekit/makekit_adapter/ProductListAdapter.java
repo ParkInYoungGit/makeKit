@@ -21,6 +21,7 @@ import com.example.makekit.makekit_activity.ProdutctViewActivity;
 import com.example.makekit.makekit_bean.ProductData;
 import com.example.makekit.makekit_sharVar.SharVar;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.CustomViewHolder> {
@@ -32,6 +33,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     ArrayList<ProductData> data = null;
     LayoutInflater inflater = null;
     String urlImage;
+    private DecimalFormat myFormatter;
 
     private String urlImageReal;
 
@@ -109,7 +111,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         holder.product_title.setText(data.get(position).getProduct_title());
         holder.product_subtitle.setText(data.get(position).getSub_title());
-        holder.product_price.setText(data.get(position).getProduct_price());
+        myFormatter = new DecimalFormat("###,###");
+        String formattedStringPrice = myFormatter.format(Integer.parseInt(data.get(position).getProduct_price()));
+        holder.product_price.setText(formattedStringPrice+" 원");
 
 
         holder.itemView.setTag(position);//클릭했을때
