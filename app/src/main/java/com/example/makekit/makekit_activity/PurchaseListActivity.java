@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class PurchaseListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_purchase_list);
         Log.v(TAG, "onCreat");
         orders = new ArrayList<Order>();
@@ -98,7 +100,7 @@ public class PurchaseListActivity extends AppCompatActivity {
     private void connectGetData() {
         try {
             Log.v(TAG, "test");
-            NetworkTask_DH networkTask = new NetworkTask_DH(PurchaseListActivity.this, urlAddrBase + "jsp/getSalesRealList.jsp?userEmail=" + email, "getRealSalesList");
+            NetworkTask_DH networkTask = new NetworkTask_DH(PurchaseListActivity.this, urlAddrBase + "jsp/purchase_list.jsp?userEmail=" + email, "getRealSalesList");
             Object obj = networkTask.execute().get();
             orders = (ArrayList<Order>) obj;
         } catch (Exception e) {

@@ -125,6 +125,7 @@ public class WriteReviewFragment extends Fragment {
         super.onResume();
         Log.v(TAG, "onResume REVIEW");
         check();
+        urlAddr = urlAddrBase + "jsp/write_reviewlist_all.jsp?email=" + email;
         connectSelectData();
         recyclerView.setAdapter(writeReviewAdapter);
         recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화

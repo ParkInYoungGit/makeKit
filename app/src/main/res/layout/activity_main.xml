@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#9A1E0405"
+        android:background="@color/brown"
         android:textColor="@color/white"
         >
 

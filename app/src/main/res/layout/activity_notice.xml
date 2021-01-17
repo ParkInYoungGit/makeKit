@@ -17,7 +17,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:layout_marginBottom="20dp"
-        android:background="#DF170202"
+        android:background="@color/brown"
         android:textColor="@color/white"
         />
 

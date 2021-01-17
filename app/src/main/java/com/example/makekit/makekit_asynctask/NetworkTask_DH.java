@@ -74,7 +74,7 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
 
         try {
             URL url = new URL(mAddr);
-            Log.v("NetworkTask", "doInBackground, try");
+            Log.v("NetworkTask", mAddr);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
             Log.v("NetworkTask", "Accept : "+httpURLConnection.getResponseCode());
@@ -379,13 +379,13 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
         }
     }
     private void parserRealSalesList2(String r){
-        Log.v("NetworkTask", "parserselecthere");
+
         try {
             JSONObject jsonObject2 = new JSONObject(r);
             JSONArray jsonArray2 = new JSONArray(jsonObject2.getString("makekit_info"));
             purchaseList.clear();
             for(int i = 0; i < jsonArray2.length(); i++){
-                Log.v("NetworkTask", "parserselect2, for");
+
                 JSONObject jsonObject3 = (JSONObject) jsonArray2.get(i);
                 String userName = jsonObject3.getString("userName");
                 String orderNo = jsonObject3.getString("orderNo");
@@ -426,11 +426,13 @@ public class NetworkTask_DH extends AsyncTask<Integer, String, Object> {
 
 
     private void parserWriteReviewList(String s){
+        Log.v("NetworkTask", "parserWriteReviewList");
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("makekit_info"));
             reviewList.clear();
             for(int i = 0; i < jsonArray.length(); i++) {
+                Log.v("NetworkTask", "parserWriteReviewList, for");
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
                 String orderDetailNo = jsonObject1.getString("orderDetailNo");
                 String goods_productNo = jsonObject1.getString("goods_productNo");
