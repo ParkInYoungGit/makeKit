@@ -76,7 +76,8 @@ public class ProductList extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp/";
+        urlAddrBase = SharVar.urlAddrBase;
+        //urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp/";
         urlAddr1 = urlAddrBase + "product_category.jsp?pType="+pType;
         connectGetData(urlAddr1);
 
@@ -87,7 +88,7 @@ public class ProductList extends AppCompatActivity {
     // NetworkTask에서 값을 가져오는 메소드
     private void connectGetData(String urlAddr) {
         try {
-            urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+            urlAddrBase = SharVar.urlAddrBase;
             urlAddr1 = urlAddrBase + "jsp/product_category.jsp?pType="+pType;
 
             NetworkTask NetworkTask = new NetworkTask(ProductList.this, urlAddr1, "productSelect");

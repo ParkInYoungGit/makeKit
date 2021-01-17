@@ -15,12 +15,13 @@
         android:orientation="vertical"
         android:background="@android:color/transparent"
         >
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/Theme.MakeKit"
-            android:background="@color/white"
-android:paddingTop="10dp"
+            android:background="#9A1E0405"
+            android:paddingTop="10dp"
             android:gravity="center"
             >
 
