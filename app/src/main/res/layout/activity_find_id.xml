@@ -87,6 +87,7 @@
         android:textStyle="bold"
         android:textColor="@color/white"
         android:text="인증번호 전송"
+        android:stateListAnimator="@null"
         android:background="@drawable/button_background"/>
 
     <LinearLayout

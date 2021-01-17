@@ -32,7 +32,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginLeft="20dp"
         android:text="상품"
-
+        android:stateListAnimator="@null"
         />
         <Button
             android:id="@+id/likeSeller_btn"
@@ -42,6 +42,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"
             android:text="판매자"
+            android:stateListAnimator="@null"
             />
     </LinearLayout>
     <LinearLayout

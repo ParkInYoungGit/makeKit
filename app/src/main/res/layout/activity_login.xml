@@ -102,7 +102,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="다른 방법으로 회원가입하기"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:stateListAnimator="@null"/>
 
         <TextView
             android:id="@+id/login_members"

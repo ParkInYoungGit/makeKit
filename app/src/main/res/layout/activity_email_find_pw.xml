@@ -82,5 +82,6 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:text="확인"
+        android:stateListAnimator="@null"
         android:background="@drawable/button_background"/>
 </LinearLayout>

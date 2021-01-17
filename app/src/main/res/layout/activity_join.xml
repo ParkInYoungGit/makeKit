@@ -90,6 +90,7 @@
                 android:layout_weight="1"
                 android:text="이메일 인증"
                 android:textColor="@color/white"
+                android:stateListAnimator="@null"
                 android:textSize="13dp"
                 android:textStyle="bold" />
 
@@ -282,9 +283,9 @@
             android:layout_width="120dp"
             android:layout_height="46dp"
             android:layout_gravity="center"
-            android:background="@drawable/button_background"
             android:text="가입"
             android:textColor="@color/white"
+            android:stateListAnimator="@null"
             android:textStyle="bold" />
     </LinearLayout>
 

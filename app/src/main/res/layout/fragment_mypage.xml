@@ -112,13 +112,14 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
-                android:text="공지사항" />
+                android:text="공지사항"
+                android:stateListAnimator="@null"/>
 
                 <Button
                     android:id="@+id/aboutMakeKit_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:stateListAnimator="@null"
                     android:layout_marginTop="10dp"
                     android:text="About 'makeKit'" />
 
@@ -126,7 +127,8 @@
                 android:id="@+id/Alarm_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-android:textStyle="bold"
+                android:textStyle="bold"
+                android:stateListAnimator="@null"
                 android:layout_marginTop="10dp"
                 android:text="알림설정" />
 

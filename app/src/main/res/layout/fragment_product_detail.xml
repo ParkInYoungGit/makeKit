@@ -63,7 +63,8 @@
             android:id="@+id/btnSellerStory_productdetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="스토어 구경하기" />
+            android:text="스토어 구경하기"
+            android:stateListAnimator="@null"/>
 
     </LinearLayout>
 
