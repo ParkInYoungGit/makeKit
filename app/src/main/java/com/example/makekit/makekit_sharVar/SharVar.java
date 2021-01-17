@@ -5,7 +5,7 @@ public class SharVar {
 
 
 
-    public static final String macIP = "192.168.0.81";
+    public static final String macIP = "192.168.2.8";
 
 
 
