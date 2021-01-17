@@ -230,8 +230,6 @@ public class MapChattingActivity extends AppCompatActivity
 
 
         //search.setText(markerSnippet.substring(4));
-        Toast.makeText(this, "주소는 " + markerSnippet.substring(4),
-                Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(MapChattingActivity.this, ChatcontentActivity.class);
         intent.putExtra("searchAddress", markerSnippet.substring(4));

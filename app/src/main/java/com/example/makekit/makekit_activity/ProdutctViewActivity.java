@@ -51,7 +51,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
     ImageView imgOption;
     TextView productTotalPrice, purchaseNumInput;
     Button btnPlus, btnMinus;
-    ArrayList<String> cartNumber;
+    String cartNumber;
     int count = 1;
     ArrayList<Cart> carts;
 
@@ -133,10 +133,13 @@ public class ProdutctViewActivity extends AppCompatActivity {
         openDeliveryMethod.setVisibility(View.INVISIBLE);
 
         connectSelectData();
-        connectSelectCartData(urlAddr1);
-        // user cart 번호
-        cartNo = cartNumber.get(0);
+        if(SharVar.userEmail.equals("")) {
 
+        } else {
+            connectSelectCartData(urlAddr1);
+            // user cart 번호
+            cartNo = cartNumber;
+        }
         int total = Integer.parseInt(products.get(0).getProductPrice()) + 2500;
         Log.v(TAG, String.valueOf(total));
         myFormatter = new DecimalFormat("###,###");
@@ -379,7 +382,7 @@ public class ProdutctViewActivity extends AppCompatActivity {
             CartNetworkTask cartNetworkTask = new CartNetworkTask(ProdutctViewActivity.this, urlAddr, "selectCartNo");
 
             Object object = cartNetworkTask.execute().get();
-            cartNumber = (ArrayList<String>) object;
+            cartNumber = (String) object;
 
         } catch (Exception e) {
             e.printStackTrace();

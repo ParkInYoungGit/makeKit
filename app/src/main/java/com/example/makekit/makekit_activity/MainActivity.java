@@ -29,10 +29,14 @@ import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.makekit.R;
+import com.example.makekit.makekit_adapter.CartAdapter;
 import com.example.makekit.makekit_adapter.SectionPageAdapter;
+import com.example.makekit.makekit_asynctask.CartNetworkTask;
+import com.example.makekit.makekit_bean.Cart;
 import com.example.makekit.makekit_fragment.CategoryFragment;
 import com.example.makekit.makekit_fragment.ChatListFragment;
 import com.example.makekit.makekit_fragment.HomeFragment;
@@ -41,8 +45,10 @@ import com.example.makekit.makekit_sharVar.SharVar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class MainActivity extends AppCompatActivity {
+    final static String TAG = "MainActivity";
 
 
     private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
@@ -54,10 +60,11 @@ public class MainActivity extends AppCompatActivity {
     Button btnStart;
     ActionBar actionBar;
     BottomNavigationView bottomNavigationView;
-    String macIP;
+    String macIP, cartNo;
     String email = null;
-    String urlAddrBase;
+    String urlAddrBase, urlAddr;
     int checkAlarm = 0;
+    String cartNumber;
 
 
     @Override
@@ -94,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         macIP = SharVar.macIP;
         email = SharVar.userEmail;
         urlAddrBase = SharVar.urlAddrBase;
-
+        urlAddr = urlAddrBase + "jsp/cartno_productview_check.jsp?useremail=" + email;
 
         // 검색 페이지로 이동
         FloatingActionButton fab = findViewById(R.id.fab_search);
@@ -113,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setLogo(R.drawable.makekit_side_logo);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
-
 
 
 
@@ -178,7 +184,9 @@ public class MainActivity extends AppCompatActivity {
 
             } else if (id == R.id.navigation_4) {
                 Log.v("email", "email:"+email);
-                if(email.length() == 0){
+
+                if(email.equals("")){
+                fragment = new HomeFragment();
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(R.drawable.alert)
                             .setTitle("MakeKit 서비스 안내")
@@ -191,13 +199,15 @@ public class MainActivity extends AppCompatActivity {
 
                 }else {
                     fragment = new ChatListFragment();
-                    Bundle bundle = new Bundle(2);
-                    bundle.putString("useremail", email);
-                    bundle.putString("macIP", macIP);
-                    fragment.setArguments(bundle);
+                    Bundle bundle2 = new Bundle(2);
+                    bundle2.putString("useremail", email);
+                    bundle2.putString("macIP", macIP);
+                    fragment.setArguments(bundle2);
                 }
             } else if (id == R.id.navigation_5) {
-                if(email.equals(null)) {
+
+                if(email.equals("")){
+                    fragment = new HomeFragment();
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(R.drawable.alert)
                             .setTitle("MakeKit 서비스 안내")
@@ -242,26 +252,67 @@ public class MainActivity extends AppCompatActivity {
         //return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
 
-            case R.id.menu_product:
+            case R.id.menu_product: // 제품 등록으로 가는 버튼
+                if(email.equals("")){
+                    fragment = new HomeFragment();
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setIcon(R.drawable.alert)
+                            .setTitle("MakeKit 서비스 안내")
+                            .setMessage("로그인 후 이용 가능합니다.")
+                            // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
+                            .setCancelable(false)
+                            // 이제 닫기 눌러야만 꺼짐!
+                            .setPositiveButton("닫기", null)
+                            .show();
 
-                // 제품 구매로 가는 버튼
-                Intent  productIntent = new Intent(MainActivity.this, ProductSalesWriteActivity.class);
-                startActivity(productIntent);
-                return true;
+                }else {
+                    Intent productIntent = new Intent(MainActivity.this, ProductSalesWriteActivity.class);
+                    startActivity(productIntent);
+                    return true;
+                }
 
-            case R.id.menu_gps:
+            case R.id.menu_gps: // GPS로 가는 버튼
 
-                // GPS로 가는 버튼
-                Intent GPSintent = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(GPSintent);
-                return true;
+                if(email.equals("")){
+                    fragment = new HomeFragment();
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setIcon(R.drawable.alert)
+                            .setTitle("MakeKit 서비스 안내")
+                            .setMessage("로그인 후 이용 가능합니다.")
+                            // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
+                            .setCancelable(false)
+                            // 이제 닫기 눌러야만 꺼짐!
+                            .setPositiveButton("닫기", null)
+                            .show();
 
-            case R.id.menu_cart:
+                }else {
+                    Intent GPSintent = new Intent(MainActivity.this, MapActivity.class);
+                    startActivity(GPSintent);
+                    return true;
+                }
 
-                // 장바구니로 가는 버튼
-                Intent intent = new Intent(MainActivity.this, CartActivity.class);
-                startActivity(intent);
-                return true;
+
+            case R.id.menu_cart: // 장바구니로 가는 버튼
+
+                if(email.equals("")){
+                    fragment = new HomeFragment();
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setIcon(R.drawable.alert)
+                            .setTitle("MakeKit 서비스 안내")
+                            .setMessage("로그인 후 이용 가능합니다.")
+                            // 아무곳이나 터치했을 때 alert 꺼지는 것을 막기 위해서
+                            .setCancelable(false)
+                            // 이제 닫기 눌러야만 꺼짐!
+                            .setPositiveButton("닫기", null)
+                            .show();
+
+                }else {
+                    connectSelectCartData(urlAddr);
+                    Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                    intent.putExtra("cartNo", cartNumber);
+                    startActivity(intent);
+                    return true;
+                }
 
 
             default:
@@ -340,6 +391,21 @@ public class MainActivity extends AppCompatActivity {
 
             // Will display the notification in the notification bar
             notificationManager.notify(NOTIFICATION_ID, builder.build());
+        }
+    }
+
+
+    // select cartNo
+    private void connectSelectCartData(String urlAddr) {
+        try {
+            CartNetworkTask cartNetworkTask = new CartNetworkTask(MainActivity.this, urlAddr, "selectCartNo");
+
+            Object object = cartNetworkTask.execute().get();
+            cartNumber = (String) object;
+            Log.v(TAG, "Cart mp : " + cartNumber);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

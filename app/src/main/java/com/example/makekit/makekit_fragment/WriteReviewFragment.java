@@ -124,8 +124,8 @@ public class WriteReviewFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.v(TAG, "onResume REVIEW");
-        connectSelectData();
         check();
+        connectSelectData();
         recyclerView.setAdapter(writeReviewAdapter);
         recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
         layoutManager = new LinearLayoutManager(getContext());

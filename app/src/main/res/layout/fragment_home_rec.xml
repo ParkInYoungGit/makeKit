@@ -22,8 +22,8 @@
         >
             <WebView
                 android:id="@+id/home_Product_WebView"
-                android:layout_width="180dp"
-                android:layout_height="125dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 card_view:srcCompat="@drawable/abc_vector_test"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="2dp"

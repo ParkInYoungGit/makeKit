@@ -49,7 +49,6 @@ public class SalesListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
         connectGetData();
         mAdapter = new SalesListAdapter(SalesListActivity.this, R.layout.sales_list_layout, orders, urlAddrBase+"image/", email, macIP);
         recyclerView.setAdapter(mAdapter);

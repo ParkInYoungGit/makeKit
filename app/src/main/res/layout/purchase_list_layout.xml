@@ -19,9 +19,9 @@ android:orientation="vertical">
             android:id="@+id/buycheck_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:layout_margin="5dp"
-            android:text="구매확"
+            android:text="구매확정"
             />
         <Button
             android:id="@+id/purchaseLists_Btn"

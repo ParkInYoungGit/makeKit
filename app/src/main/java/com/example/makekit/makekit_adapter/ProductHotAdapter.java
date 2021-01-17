@@ -107,7 +107,7 @@ public class ProductHotAdapter extends RecyclerView.Adapter<ProductHotAdapter.Vi
         viewHolder.webView.getSettings().setLoadWithOverviewMode(true);
         viewHolder.webView.getSettings().setUseWideViewPort(true);
         viewHolder.webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
-        viewHolder.webView.setInitialScale(15);
+        viewHolder.webView.setInitialScale(1);
         viewHolder.webView.loadUrl(urlImageReal);
 
         viewHolder.webView.setOnTouchListener(new View.OnTouchListener() {

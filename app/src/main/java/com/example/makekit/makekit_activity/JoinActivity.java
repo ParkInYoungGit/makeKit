@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
 import com.example.makekit.makekit_method.SendMail;
+import com.example.makekit.makekit_sharVar.SharVar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -40,10 +42,10 @@ public class JoinActivity extends AppCompatActivity {
     public static final String pattern1 = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자
     public static final String pattern2 = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
 
-    String user = "2bbeen@gmail.com"; // 보내는 계정의 id
-    String password = "93elsl211!"; // 보내는 계정의 pw
+    String user = ""; // 보내는 계정의 id
+    String password = ""; // 보내는 계정의 pw
 
-    String macIP, urlJsp, urlImage, urlAddr, cartInsert;
+    String macIP, urlJsp, urlImage, urlAddr, cartInsert, urlAddrBase;
     EditText email, name, pw, pwCheck, phone, address, addressDetail;
     String emailInput = null;
     TextView pwCheckMsg, termsOfService;
@@ -58,17 +60,18 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_join);
 
         // intent 및 받아오는 변수 정리
         // SharedPreferences sf = getSharedPreferences("appData", MODE_PRIVATE);
         //macIP = sf.getString("macIP","");
 
-        Intent intent = getIntent(); /*데이터 수신*/
-        macIP = intent.getStringExtra("macIP");
+        macIP = SharVar.macIP;
 
-        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
-        urlImage = "http://" + macIP + ":8080/makeKit/image/";
+        urlAddrBase = SharVar.urlAddrBase;
+        urlJsp = urlAddrBase + "jsp/";
+        urlImage = urlAddrBase + "image/";
 
 
 
