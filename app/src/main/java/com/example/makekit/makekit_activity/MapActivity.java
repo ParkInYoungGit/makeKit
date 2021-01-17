@@ -198,8 +198,8 @@ public class MapActivity extends AppCompatActivity
         previous_marker.add(item);
 
 
-        Toast.makeText(this, "주소는 " + markerSnippet.substring(4),
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "주소는 " + markerSnippet.substring(4),
+//                Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MapActivity.this, SaleProductListActivity.class);
 //        intent.putExtra("seller", sellerEmail);
         intent.putExtra("seller", result1.get(0).getEmail());

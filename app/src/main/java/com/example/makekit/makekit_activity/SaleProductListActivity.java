@@ -35,7 +35,7 @@ public class SaleProductListActivity extends AppCompatActivity {
         email = intent.getStringExtra("seller");
         macIP = SharVar.macIP;
 
-        Toast.makeText(this, "seller email : "+ email, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, "seller email : "+ email, Toast.LENGTH_SHORT).show();
         recyclerView = findViewById(R.id.recyclerViewSaleList);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

@@ -4,9 +4,8 @@ public class SharVar {
 
 
 
+    public static final String macIP = "192.168.219.164";
 
-
-    public static final String macIP = "192.168.200.157";
 
 
     public static final String urlAddrBase = "http://" + macIP + ":8080/makeKit/";
