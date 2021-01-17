@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,16 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.makekit.R;
 import com.example.makekit.makekit_activity.ProdutctViewActivity;
 import com.example.makekit.makekit_bean.ProductData;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.CustomViewHolder> {
-    ArrayList<ProductData> product;
 
-    private String email;
-    private String macIP;
     String pNo;
-    final static String TAG = "ProductListAdapter";
 
     Context mContext = null;
     int layout = 0;
@@ -54,16 +52,17 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.productitem_layout, parent, false);
+        //     반복할 xml 파일
+        ProductListAdapter.CustomViewHolder vh = new ProductListAdapter.CustomViewHolder(v);
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.productitem_layout, parent, false);
-        CustomViewHolder holder = new CustomViewHolder(view);
 
-        return holder;
+        return vh;
     }
 
-    @SuppressLint("ResourceAsColor")
     @Override
-    public void onBindViewHolder(ProductListAdapter.CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
 //실제 추가될때 생명주기
 
 
@@ -71,7 +70,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             holder.product_image.setVisibility(View.INVISIBLE);
         } else {
 
-            Log.v(TAG, urlImage + "image/" + data.get(position).getProduct_image());
             urlImageReal = urlImage + "image/" + data.get(position).getProduct_image();
             holder.product_image.loadUrl(urlImageReal);
 
@@ -123,8 +121,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                 pNo = data.get(position).getProductNo();
                 Log.v("pNo",pNo);
-                intent.putExtra("macIP", macIP);
-                intent.putExtra("useremail", email);
+                intent.putExtra("macIP", SharVar.macIP);
+                intent.putExtra("useremail", SharVar.userEmail);
                 intent.putExtra("productNo",pNo);
 
                 context.startActivity(intent);
@@ -145,7 +143,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public int getItemCount() {
-        return (null != data ? data.size() : 0);
+        return data.size();
     }
 
     public static class CustomViewHolder extends RecyclerView.ViewHolder {

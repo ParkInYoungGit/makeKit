@@ -27,6 +27,7 @@ import com.example.makekit.makekit_asynctask.NetworkTask_DH;
 import com.example.makekit.makekit_bean.Order;
 import com.example.makekit.makekit_sharVar.SharVar;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapter.MyViewHolder> {
@@ -38,6 +39,7 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
     private String email;
     private String macIP;
     String orderNo, urlAddrBase, urlAddr;
+    DecimalFormat myFormatter;
 
     public PurchaseListAdapter(Context context, int layout, ArrayList<Order> orders,  String urlImage, String email, String macIP) {
         this.mContext = context;

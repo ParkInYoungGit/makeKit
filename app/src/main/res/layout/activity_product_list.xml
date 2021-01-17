@@ -9,17 +9,6 @@
     tools:context="com.example.makekit.makekit_activity.ProductList"
     >
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="판매내역"-->
-<!--        android:textSize="20dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:gravity="center"-->
-<!--        android:padding="10dp"-->
-<!--        android:layout_marginBottom="30dp"-->
-<!--        />-->
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -30,8 +19,7 @@
         android:scrollbarSize="5dp"
         android:scrollbars="vertical"
         android:scrollbarThumbVertical="@android:color/darker_gray"
-        >
+        />
 
 
-    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
