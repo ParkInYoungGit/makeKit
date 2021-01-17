@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/Theme.MakeKit"
-        android:background="#DF170202"
+        android:background="#9A1E0405"
         android:textColor="@color/white"
         android:paddingTop="10dp"
         android:gravity="center"

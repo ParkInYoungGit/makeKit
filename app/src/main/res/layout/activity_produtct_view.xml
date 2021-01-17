@@ -29,7 +29,7 @@
             android:id="@+id/tabLayout_productview"
             android:layout_alignParentBottom="true"
             app:tabTextColor="@color/black"
-            app:tabSelectedTextColor="#F8DA19"
+            app:tabSelectedTextColor="#9A1E0405"
             app:tabGravity="fill"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorGravity="bottom"
@@ -78,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
+
                 <Button
                     android:id="@+id/btnCart_productview"
                     android:layout_width="0dp"
@@ -245,6 +246,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="장바구니"
+                    android:stateListAnimator="@null"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     />
@@ -255,6 +257,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="구매하기"
+                    android:stateListAnimator="@null"
                     android:layout_marginRight="10dp"
                     />
 

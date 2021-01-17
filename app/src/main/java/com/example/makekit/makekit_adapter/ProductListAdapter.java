@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,6 +38,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     private DecimalFormat myFormatter;
 
     private String urlImageReal;
+    private AdapterView.OnItemClickListener mListener = null;
 
     public ProductListAdapter(Context mContext, int layout, ArrayList<ProductData> data, String urlImage) {
         this.mContext = mContext;
@@ -88,6 +91,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
             // WebView 세팅
 //            holder.product_image.setBackgroundColor(R.color.white); //배경
+            holder.product_image.setBackgroundColor(0);
             holder.product_image.setHorizontalScrollBarEnabled(false); //가로 스크롤
             holder.product_image.setVerticalScrollBarEnabled(false);   //세로 스크롤
             holder.product_image.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY); // 스크롤 노출 타입
@@ -116,12 +120,27 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.product_price.setText(formattedStringPrice+" 원");
 
 
-        holder.itemView.setTag(position);//클릭했을때
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.product_image.setTag(position);//클릭했을때
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Context context = v.getContext();
+////                Intent intent = new Intent(v.getContext(), ProdutctViewActivity.class);
+////
+////                pNo = data.get(position).getProductNo();
+////                Log.v("pNo",pNo);
+////                intent.putExtra("macIP", SharVar.macIP);
+////                intent.putExtra("useremail", SharVar.userEmail);
+////                intent.putExtra("productNo",pNo);
+////
+////                v.getContext().startActivity(intent);
+//            }
+//        });
+
+        holder.product_image.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, ProdutctViewActivity.class);
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent = new Intent(v.getContext(), ProdutctViewActivity.class);
 
                 pNo = data.get(position).getProductNo();
                 Log.v("pNo",pNo);
@@ -129,16 +148,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 intent.putExtra("useremail", SharVar.userEmail);
                 intent.putExtra("productNo",pNo);
 
-                context.startActivity(intent);
-            }
-        });
+                v.getContext().startActivity(intent);
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-
-                return true;
+                return false;
             }
         });
 
@@ -166,4 +178,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             this.product_price = itemView.findViewById(R.id.product_price);
         }
     }
+
+    //클릭리스너관련
+    public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
+        this.mListener = listener ;
+    }
+
 }

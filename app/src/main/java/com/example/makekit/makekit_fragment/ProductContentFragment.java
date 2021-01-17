@@ -62,7 +62,7 @@ public class ProductContentFragment extends Fragment {
     View v;
     String urlAddr, urlAddrBase, urlImageReal1, urlImageReal2, urlImageReal3, price, macIP, productNo, urlAddr1, userEmail, result, urlAddr2, urlAddr3;
     ArrayList<Product> products;
-    String favoriteCheck;
+    String favoriteCheck = null;
 
     final static String TAG = "ProductContentFragment";
 
@@ -141,7 +141,7 @@ public class ProductContentFragment extends Fragment {
         connectSelectData();
         connectSelectFavoriteData();
 
-        if(favoriteCheck != null){
+        if(favoriteCheck.equals("1")){
             favoriteStatus.setImageResource(R.drawable.ic_favorite);
         } else {
             favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
@@ -304,6 +304,7 @@ public class ProductContentFragment extends Fragment {
 
             Object object = wishlistNetworkTask.execute().get();
             favoriteCheck = (String) object;
+            Log.v(TAG, "favoriteCheck : " + favoriteCheck);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -323,6 +324,7 @@ public class ProductContentFragment extends Fragment {
                             favoriteCheck = "1";;
                             if (result.equals("1")) {
                                 favoriteStatus.setImageResource(R.drawable.ic_favorite);
+                                Toast.makeText(getContext(), "상품 찜 하셨습니다.", Toast.LENGTH_SHORT).show();
                             } else {
                                 favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
                                 Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
@@ -334,6 +336,7 @@ public class ProductContentFragment extends Fragment {
                             favoriteCheck = "0";;
                             if (result.equals("1")) {
                                 favoriteStatus.setImageResource(R.drawable.ic_nonfavorite);
+                                Toast.makeText(getContext(), "상품 찜 취소되었습니다.", Toast.LENGTH_SHORT).show();
                             } else {
                                 favoriteStatus.setImageResource(R.drawable.ic_favorite);
                             }

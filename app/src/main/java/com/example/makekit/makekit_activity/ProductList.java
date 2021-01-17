@@ -69,7 +69,7 @@ public class ProductList extends AppCompatActivity {
         arrayList = new ArrayList<>();
 
         // productListAdapter = new ProductListAdapter(arrayList);
-        recyclerView.setAdapter(productListAdapter);
+        //recyclerView.setAdapter(productListAdapter);
     }
 
 

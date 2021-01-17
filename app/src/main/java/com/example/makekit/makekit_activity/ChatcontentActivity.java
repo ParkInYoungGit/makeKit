@@ -52,7 +52,7 @@ public class ChatcontentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_content);
-        searchAddress = null;
+        searchAddress = "";
         IDTextView = findViewById(R.id.receiverID);
         editText = findViewById(R.id.chattingContents_ET);
         insertButton = findViewById(R.id.chattingContents_Btn);
@@ -70,7 +70,8 @@ public class ChatcontentActivity extends AppCompatActivity {
 
         IDTextView.setText(receiver);
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
+        //urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

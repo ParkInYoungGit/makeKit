@@ -14,7 +14,7 @@
         android:text="상세 주문 정보"
         android:gravity="center"
         android:textStyle="bold"
-        android:background="#DF170202"
+        android:background="#9A1E0405"
         android:textColor="@color/white"
         android:padding="10dp"
         android:textSize="20dp"
@@ -39,32 +39,38 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    >
 
-                    <TextView
-                        android:id="@+id/orderView_Date_TV"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:background="#00000000"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/orderView_Date_TV"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_weight="4"-->
+<!--                        android:textSize="13dp"-->
+<!--                        android:gravity="right"-->
+<!--                        android:background="#00000000"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textStyle="bold" />-->
 
                     <TextView
                         android:id="@+id/orderView_Number_TV"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="15dp"
+                        android:gravity="center"
                         android:background="#00000000"
+                        android:textStyle="bold"
                         android:textColor="@color/black" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -86,6 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="30dp"
                         android:text="배송 정보"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -101,7 +108,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="받는 사람"
-                            android:textSize="18dp" />
+                            android:textSize="15dp" />
 
                         <TextView
                             android:id="@+id/order_userName"
@@ -109,7 +116,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="사용자 이름"
-                            android:textSize="18dp" />
+                            android:textSize="15dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -124,7 +131,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="연락처"
-                            android:textSize="18dp" />
+                            android:textSize="15dp" />
 
                         <TextView
                             android:id="@+id/order_userTel"
@@ -132,7 +139,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="전화번호"
-                            android:textSize="18dp" />
+                            android:textSize="15dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -147,7 +154,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="받는 주소"
-                            android:textSize="18dp" />
+                            android:textSize="15dp" />
 
                         <TextView
                             android:id="@+id/order_userAddress"
@@ -155,7 +162,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="주소"
-                            android:textSize="18dp" />
+                            android:textSize="15dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -169,7 +176,7 @@
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="18dp" />
+                            android:textSize="15dp" />
 
                         <TextView
                             android:id="@+id/order_userAddressDetail"
@@ -177,7 +184,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="상세 주소"
-                            android:textSize="18dp" />
+                            android:textSize="15dp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -185,12 +192,12 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -207,7 +214,7 @@
                     <ListView
                         android:id="@+id/orderView_ListView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         />
 
                 </LinearLayout>
@@ -272,7 +279,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.5"
                             android:text="카드번호"
-                            android:textSize="18dp" />
+                            android:textSize="15dp" />
 
                         <TextView
                             android:id="@+id/orderView_orderCardNo"
@@ -343,6 +350,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:stateListAnimator="@null"
                     android:layout_margin="10dp"
                     android:text="메인으로"
                     />

@@ -269,7 +269,7 @@ public class ProductDetailFragment extends Fragment {
 
                             if (result.equals("1")) {
                                 sellerFavorite.setImageResource(R.drawable.seller_favorite);
-                                Toast.makeText(getContext(), "입력에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "판매자 찜 하였습니다.", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getContext(), "입력에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                                 //sellerFavorite.setImageResource(R.drawable.seller_nonfavorite);
@@ -283,7 +283,7 @@ public class ProductDetailFragment extends Fragment {
                                 //sellerFavorite.setImageResource(R.drawable.seller_nonfavorite);
                                 sellerFavorite.setImageResource(R.drawable.seller_nonfavorite);
 
-                                Toast.makeText(getContext(), "삭제에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "판매자 찜 취소되었습니다.", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getContext(), "삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                                 sellerFavorite.setImageResource(R.drawable.seller_favorite);

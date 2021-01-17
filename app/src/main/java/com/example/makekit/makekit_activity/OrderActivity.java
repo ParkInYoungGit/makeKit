@@ -401,16 +401,17 @@ public class OrderActivity extends AppCompatActivity {
                             Log.v(TAG, "count : " + count);
                             Log.v(TAG, "urlAddr5 : " + urlAddr5);
                         }
-                        // 선택된 주문 상품 cartdetail table 삭제
-                        String urlAddr6 = urlAddrBase + "jsp/delete_cartdetail.jsp?useremail=" + email;
-                        for (int i = 0; i < carts.size(); i++) {
-                            String urlAddr7 = "&productno=" + carts.get(i).getProductNo();
-                            count2 += Integer.parseInt(connectInsertData(urlAddr6 + urlAddr7));
-                            Log.v(TAG, "count : " + count);
-                        }
 
-                        if (count1 == carts.size() && result.equals("1")) {
-                            Toast.makeText(OrderActivity.this, "입력 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                            // 선택된 주문 상품 cartdetail table 삭제
+                            String urlAddr6 = urlAddrBase + "jsp/delete_cartdetail.jsp?useremail=" + email;
+                            for (int i = 0; i < carts.size(); i++) {
+                                String urlAddr7 = "&productno=" + carts.get(i).getProductNo();
+                                count2 += Integer.parseInt(connectInsertData(urlAddr6 + urlAddr7));
+                                Log.v(TAG, "count2 : " + count2);
+                            }
+
+                        if (count1 == carts.size() && result.equals("1") ||  count1 == 1 && count2 == 0) {
+                            //Toast.makeText(OrderActivity.this, "입력 성공하였습니다.", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(OrderActivity.this, OrderViewActivity.class);
                             intent.putExtra("useremail", SharVar.userEmail);
