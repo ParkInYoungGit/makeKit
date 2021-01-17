@@ -86,6 +86,7 @@
                     android:text="장바구니"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
+                    android:stateListAnimator="@null"
                     />
 
                 <Button
@@ -95,6 +96,7 @@
                     android:layout_weight="1"
                     android:text="구매하기"
                     android:layout_marginRight="10dp"
+                    android:stateListAnimator="@null"
                     />
 
             </LinearLayout>

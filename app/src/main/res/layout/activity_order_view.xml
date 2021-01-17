@@ -14,7 +14,8 @@
         android:text="상세 주문 정보"
         android:gravity="center"
         android:textStyle="bold"
-        android:background="#FFF200"
+        android:background="#DF170202"
+        android:textColor="@color/white"
         android:padding="10dp"
         android:textSize="20dp"
         />
