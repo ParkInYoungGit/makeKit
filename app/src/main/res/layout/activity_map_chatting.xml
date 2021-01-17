@@ -23,6 +23,7 @@
             android:padding="10dp"
             android:singleLine="true"
             android:ellipsize="start"
+            android:stateListAnimator="@null"
             />
 
         <Button

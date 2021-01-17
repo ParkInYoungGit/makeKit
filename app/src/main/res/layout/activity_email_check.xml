@@ -93,5 +93,6 @@
         android:background="@drawable/button_background"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:text="확인" />
+        android:text="확인"
+        android:stateListAnimator="@null"/>
 </LinearLayout>

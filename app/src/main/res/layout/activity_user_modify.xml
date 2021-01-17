@@ -249,6 +249,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="주소찾기"
+                    android:stateListAnimator="@null"
                     />
         </LinearLayout>
      <LinearLayout
@@ -346,6 +347,7 @@ android:layout_marginBottom="20dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:text="생년월일"
+                        android:stateListAnimator="@null"
                         android:background="@drawable/calendar" />
 
   </LinearLayout>
@@ -357,6 +359,7 @@ android:layout_marginBottom="20dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:text="수정완료"
+                android:stateListAnimator="@null"
                 android:layout_marginBottom="10dp"/>
 
 

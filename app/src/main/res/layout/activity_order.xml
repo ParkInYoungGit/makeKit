@@ -591,6 +591,7 @@
         android:layout_height="wrap_content"
         android:text="결제하기"
         android:textColor="@color/black"
+        android:stateListAnimator="@null"
         android:textSize="20dp"
         />
 </LinearLayout>

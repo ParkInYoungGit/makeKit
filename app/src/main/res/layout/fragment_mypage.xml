@@ -106,19 +106,21 @@
                 android:gravity="center"
                 >
 
-                <Button
-                    android:id="@+id/notice_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:text="공지사항"
-                    android:textStyle="bold" />
+            <Button
+                android:id="@+id/notice_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="공지사항"
+                android:stateListAnimator="@null"/>
+
 
                 <Button
                     android:id="@+id/aboutMakeKit_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:elevation="0dp"
+                    android:stateListAnimator="@null"
                     android:layout_marginTop="10dp"
                     android:text="About 'makeKit'" />
 
@@ -127,6 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textStyle="bold"
+                android:stateListAnimator="@null"
                 android:layout_marginTop="10dp"
                 android:text="알림설정" />
 

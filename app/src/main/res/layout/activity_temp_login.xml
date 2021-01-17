@@ -113,6 +113,7 @@
                 android:textStyle="bold"
                 android:text="로그인"
                 android:textColor="@color/white"
+                android:stateListAnimator="@null"
                 />
 
             <Button
@@ -124,6 +125,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:text="회원가입"
+                android:stateListAnimator="@null"
                />
 
 
