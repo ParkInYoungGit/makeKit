@@ -13,7 +13,7 @@
             android:text="판매 상품"
             android:gravity="center"
             android:textStyle="bold"
-            android:background="#DF170202"
+            android:background="#9A1E0405"
             android:textColor="@color/white"
             android:padding="10dp"
             android:textSize="20dp"
