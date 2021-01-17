@@ -100,7 +100,7 @@ public class PurchaseListActivity extends AppCompatActivity {
     private void connectGetData() {
         try {
             Log.v(TAG, "test");
-            NetworkTask_DH networkTask = new NetworkTask_DH(PurchaseListActivity.this, urlAddrBase + "jsp/getSalesRealList.jsp?userEmail=" + email, "getRealSalesList");
+            NetworkTask_DH networkTask = new NetworkTask_DH(PurchaseListActivity.this, urlAddrBase + "jsp/purchase_list.jsp?userEmail=" + email, "getRealSalesList");
             Object obj = networkTask.execute().get();
             orders = (ArrayList<Order>) obj;
         } catch (Exception e) {
