@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
 
-        android:background="#DF170202"
+        android:background="@color/brown"
         android:textColor="@color/white"
         >
 
