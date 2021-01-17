@@ -3,7 +3,7 @@
     <style name="Theme.MakeKit" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#9A1E0405</item>
-        <item name="colorPrimaryVariant">#FFDE06</item>
+        <item name="colorPrimaryVariant">#9A1E0405</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
