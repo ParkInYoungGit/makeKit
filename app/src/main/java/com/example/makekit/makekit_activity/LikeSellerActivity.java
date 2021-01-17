@@ -36,8 +36,11 @@ public class LikeSellerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_like_seller);
 
         Intent intent = getIntent();
-        email = intent.getStringExtra("useremail");
-        macIP = intent.getStringExtra("macIP");
+//        email = intent.getStringExtra("useremail");
+//        macIP = intent.getStringExtra("macIP");
+
+        macIP = SharVar.macIP;
+        email = SharVar.userEmail;
 
         recyclerView = findViewById(R.id.recyclerViewLike);
         likeSeller = findViewById(R.id.likeseller_Seller_btn);

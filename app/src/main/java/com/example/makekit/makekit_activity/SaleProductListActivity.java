@@ -32,7 +32,7 @@ public class SaleProductListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sale_product_list);
 
         Intent intent = getIntent();
-        email = intent.getStringExtra("seller");
+        email = SharVar.userEmail;
         macIP = SharVar.macIP;
 
       //  Toast.makeText(this, "seller email : "+ email, Toast.LENGTH_SHORT).show();

@@ -23,13 +23,15 @@
         android:id="@+id/tabLayout_reviewList"
         android:layout_alignParentBottom="true"
         app:tabTextColor="@color/black"
-        app:tabSelectedTextColor="#F8DA19"
+        app:tabSelectedTextColor="@color/brown"
         app:tabGravity="fill"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorGravity="bottom"
         app:tabIndicatorHeight="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+
+        >
 
     </com.google.android.material.tabs.TabLayout>
 
