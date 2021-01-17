@@ -57,7 +57,7 @@ public class PhoneFindPwActivity extends AppCompatActivity {
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         pw = intent.getStringExtra("pw");
-        phone = intent.getStringExtra("phone");
+        phone = intent.getStringExtra("usertel");
 
         phoneInput = findViewById(R.id.phone_phonfindPw);
         field = findViewById(R.id.tv_fieldCheck_phonefindPw);

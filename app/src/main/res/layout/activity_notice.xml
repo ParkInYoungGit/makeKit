@@ -15,8 +15,10 @@
         android:textSize="20dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginTop="20dp"
+        android:padding="10dp"
         android:layout_marginBottom="20dp"
+        android:background="#DF170202"
+        android:textColor="@color/white"
         />
 
     <ListView
