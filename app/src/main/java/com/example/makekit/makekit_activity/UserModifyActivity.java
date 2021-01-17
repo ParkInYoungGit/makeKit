@@ -77,6 +77,7 @@ public class UserModifyActivity extends AppCompatActivity {
     private String f_ext = null;
     File tempSelectFile;
 
+    int pwcheck;
     String url;
 
     String urlAddrBase = null;
@@ -325,9 +326,12 @@ public class UserModifyActivity extends AppCompatActivity {
                     if (imageCheck == 1) {
                         userimage = imageName;
                     }
+
                     updatePeople();
                     checkField();
+
 //                    userInfoCheck();
+
                     break;
 
                 case R.id.tv_editPeopleImage:
@@ -382,7 +386,6 @@ public class UserModifyActivity extends AppCompatActivity {
 
         birth.setText(dateMessage);
 
-        Toast.makeText(this, "Date: " + dateMessage, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -602,6 +605,8 @@ public class UserModifyActivity extends AppCompatActivity {
 
                     } else if ((user_pwcheck.getText().toString().trim()).equals(user_pw.getText().toString().trim())) {
 //                        updateUser(userPW);
+                        Intent intent1 = new Intent(UserModifyActivity.this, MainActivity.class);
+                        startActivity(intent1);
 
                     } else {
                         tv_pwCheckMsg_user.setText("비밀번호가 일치하지 않습니다. \n다시 확인해주세요.");
@@ -631,7 +636,7 @@ public class UserModifyActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            fieldCheck.setText("");
+
         }
     };
 
@@ -640,7 +645,6 @@ public class UserModifyActivity extends AppCompatActivity {
     TextWatcher changeListener_tel = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            fieldCheck.setText("");
             _beforeLenght = s.length();
         }
 
@@ -701,7 +705,6 @@ public class UserModifyActivity extends AppCompatActivity {
 
         // 확장자 명 저장
         f_ext = imgPath.substring(imgPath.length()-3, imgPath.length());
-        Toast.makeText(UserModifyActivity.this, "이미지 이름 : " + imgName, Toast.LENGTH_SHORT).show();
 //        this.imageName = imgName;
 
         return imgPath;

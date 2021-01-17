@@ -217,7 +217,7 @@
                 android:id="@+id/tv_pwCheckMsg_user"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.7" />
 </LinearLayout>
 
             <LinearLayout
