@@ -21,10 +21,13 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_activity.ProdutctViewActivity;
 import com.example.makekit.makekit_bean.Product;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ProductHotAdapter extends RecyclerView.Adapter<ProductHotAdapter.ViewHolder> {
     Context context;
+    DecimalFormat myFormatter;
+
 
     //리스트뷰에서는 아이템을 위한 뷰를 보관하는데 이거는 데이터만 보관한다.
     ArrayList<Product> items = new ArrayList<Product>();
@@ -90,7 +93,9 @@ public class ProductHotAdapter extends RecyclerView.Adapter<ProductHotAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         urlImageReal = urlAddrBase+"image/"+items.get(position).getProductFilename();
         viewHolder.title.setText(items.get(position).getProductName());
-        viewHolder.content.setText(items.get(position).getProductPrice());
+        myFormatter = new DecimalFormat("###,###");
+        String formattedStringPrice = myFormatter.format(Integer.parseInt(items.get(position).getProductPrice()));
+        viewHolder.content.setText(formattedStringPrice+" 원");
         viewHolder.webView.setWebViewClient(new WebViewClient());
         // Enable JavaScript
         viewHolder.webView.getSettings().setJavaScriptEnabled(true);
