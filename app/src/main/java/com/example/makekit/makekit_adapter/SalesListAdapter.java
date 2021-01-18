@@ -22,6 +22,7 @@ import com.example.makekit.makekit_activity.OrderViewActivity;
 import com.example.makekit.makekit_activity.SalesListActivity;
 import com.example.makekit.makekit_bean.Order;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SalesListAdapter extends RecyclerView.Adapter<SalesListAdapter.MyViewHolder> {
@@ -84,7 +85,9 @@ public class SalesListAdapter extends RecyclerView.Adapter<SalesListAdapter.MyVi
         holder.webView.loadUrl(urlImageReal);
         holder.productName.setText(mDataset.get(position).getProductName());
         holder.productQuantity.setText("수량 : "+ mDataset.get(position).getOrderQuantity());
-        holder.productPrice.setText("총 가격 : "+mDataset.get(position).getOrderTotalPrice());
+        DecimalFormat myFormatter = new DecimalFormat("###,###");
+        String formattedStringPrice = myFormatter.format(Integer.parseInt(mDataset.get(position).getProductPrice()));
+        holder.productPrice.setText("총 가격 : "+formattedStringPrice+" 원");
 
         holder.webView.setWebViewClient(new WebViewClient());
         // Enable JavaScript

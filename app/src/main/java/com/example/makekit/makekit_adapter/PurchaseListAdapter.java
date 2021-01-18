@@ -90,7 +90,9 @@ public class PurchaseListAdapter extends RecyclerView.Adapter<PurchaseListAdapte
         holder.webView.loadUrl(urlImageReal);
         holder.productName.setText(mDataset.get(position).getProductName());
         holder.productQuantity.setText("수량 : " + mDataset.get(position).getOrderQuantity());
-        holder.productPrice.setText("총 가격 : " + mDataset.get(position).getOrderTotalPrice());
+        myFormatter = new DecimalFormat("###,###");
+        String formattedStringPrice = myFormatter.format(Integer.parseInt(mDataset.get(position).getProductPrice()));
+        holder.productPrice.setText("총 가격 : " + formattedStringPrice+" 원");
 
         holder.webView.setWebViewClient(new WebViewClient());
 

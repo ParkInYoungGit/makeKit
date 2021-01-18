@@ -8,6 +8,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -51,8 +52,9 @@ public class ChatcontentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_chat_content);
-        searchAddress = null;
+        searchAddress = "";
         IDTextView = findViewById(R.id.receiverID);
         editText = findViewById(R.id.chattingContents_ET);
         insertButton = findViewById(R.id.chattingContents_Btn);
@@ -70,7 +72,8 @@ public class ChatcontentActivity extends AppCompatActivity {
 
         IDTextView.setText(receiver);
 
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+        urlAddrBase = SharVar.urlAddrBase;
+        //urlAddrBase = "http://" + macIP + ":8080/makeKit/";
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

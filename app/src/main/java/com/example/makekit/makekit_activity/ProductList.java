@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.SnapHelper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -47,6 +48,7 @@ public class ProductList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_product_list);
 
 
@@ -69,14 +71,15 @@ public class ProductList extends AppCompatActivity {
         arrayList = new ArrayList<>();
 
         // productListAdapter = new ProductListAdapter(arrayList);
-        recyclerView.setAdapter(productListAdapter);
+        //recyclerView.setAdapter(productListAdapter);
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp/";
+        urlAddrBase = SharVar.urlAddrBase;
+        //urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp/";
         urlAddr1 = urlAddrBase + "product_category.jsp?pType="+pType;
         connectGetData(urlAddr1);
 
@@ -87,7 +90,7 @@ public class ProductList extends AppCompatActivity {
     // NetworkTask에서 값을 가져오는 메소드
     private void connectGetData(String urlAddr) {
         try {
-            urlAddrBase = "http://" + macIP + ":8080/makeKit/";
+            urlAddrBase = SharVar.urlAddrBase;
             urlAddr1 = urlAddrBase + "jsp/product_category.jsp?pType="+pType;
 
             NetworkTask NetworkTask = new NetworkTask(ProductList.this, urlAddr1, "productSelect");

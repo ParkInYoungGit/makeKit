@@ -1,5 +1,6 @@
 package com.example.makekit.makekit_activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.makekit.R;
@@ -68,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
-
+        ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
         //macIP = "192.168.0.81";
         macIP = SharVar.macIP;
 

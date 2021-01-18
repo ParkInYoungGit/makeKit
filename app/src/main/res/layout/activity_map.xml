@@ -28,7 +28,7 @@
         android:layout_marginRight="10dp"
         app:srcCompat="@drawable/myloaction"
         tools:ignore="VectorDrawableCompat"
-        android:backgroundTint="#F8DA19"
+        android:backgroundTint="#9A1E0405"
         />
     </FrameLayout>
 </LinearLayout>

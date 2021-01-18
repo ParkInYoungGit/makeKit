@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -56,6 +57,7 @@ public class OrderViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_order_view);
 
 
@@ -88,7 +90,7 @@ public class OrderViewActivity extends AppCompatActivity {
         connectSelectData(urlAddr);
 
 
-        orderView_Date_TV= findViewById(R.id.orderView_Date_TV);
+        //orderView_Date_TV= findViewById(R.id.orderView_Date_TV);
         orderView_Number_TV= findViewById(R.id.orderView_Number_TV);
         order_userName= findViewById(R.id.order_userName);
         order_userTel= findViewById(R.id.order_userTel);
@@ -106,8 +108,8 @@ public class OrderViewActivity extends AppCompatActivity {
         listView = findViewById(R.id.orderView_ListView);
 //        order = new Order(str_order_productName, str_order_productQuantity, str_order_productTotalPrice, str_order_productImage);
 //        orders.add(order);
-        orderView_Date_TV.setText(srt_orderView_Date_TV);
-        orderView_Number_TV.setText(str_orderView_Number_TV);
+       // orderView_Date_TV.setText("주문일자  " + orderdetail.get(0).getOrderDate());
+        orderView_Number_TV.setText("주문번호  " + str_orderView_Number_TV);
         order_userName.setText(str_order_userName);
         order_userTel.setText(str_order_userTel);
         order_userAddress.setText(str_order_userAddress);
@@ -133,7 +135,8 @@ public class OrderViewActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp";
+        urlAddrBase = SharVar.urlAddrBase + "jsp";
+        //urlAddrBase = "http://" + macIP + ":8080/makeKit/jsp";
         adapter = new OrderViewAdapter(OrderViewActivity.this, R.layout.custom_order_view, orderdetail, urlAddrBase);
         listView.setAdapter(adapter);
     }

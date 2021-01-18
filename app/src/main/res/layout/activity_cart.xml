@@ -6,8 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".makekit_activity.CartActivity"
-    android:layout_margin="20dp">
+    >
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/Theme.MakeKit"
+        android:background="#9A1E0405"
+        android:textColor="@color/white"
+        android:paddingTop="10dp"
+        android:gravity="center"
+        >
 
+    <ImageView
+        android:id="@+id/img_home_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxHeight="70px"
+        android:layout_gravity="left|center"
+        android:layout_marginLeft="30dp"
+        android:src="@drawable/ic_home"
+        />
+    </com.google.android.material.appbar.AppBarLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +36,7 @@
         android:textStyle="bold"
         android:layout_gravity="center"
         android:gravity="center"
+        android:layout_marginTop="5dp"
         android:padding="10dp"
         />
 
@@ -23,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_margin="10dp"
         >
 
 
@@ -48,6 +70,7 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:layout_weight="1"
+        android:layout_margin="10dp"
         >
 
 <!--        <LinearLayout-->
@@ -69,25 +92,25 @@
         android:layout_height="0dp"
         android:layout_weight="0.4"
         android:layout_gravity="center"
-        android:layout_marginBottom="15dp"
+        android:layout_margin="10dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_centerInParent="true"
-                android:background="#9E9D95"/>
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0.5dp"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:background="#9E9D95"/>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center">
 
                 <TextView
@@ -146,8 +169,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp">
+                android:layout_marginTop="10dp"
+               >
 
                 <TextView
                     android:layout_width="0dp"
@@ -179,6 +202,7 @@
         android:textStyle="bold"
         android:textSize="20dp"
         android:gravity="center"
+        android:layout_margin="10dp"
         android:background="#36000000"
         />
 </LinearLayout>

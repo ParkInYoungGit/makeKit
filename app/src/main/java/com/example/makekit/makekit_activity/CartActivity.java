@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
     ArrayList<Cart> carts;
     ArrayList<String> productNums;
     Button btnDelete;
+    ImageView btnHome;
 
     CartAdapter cartAdapter;
 
@@ -43,6 +46,7 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_cart);
 
         orderTotalNext = findViewById(R.id.tv_total_payment_cart);
@@ -52,6 +56,7 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
         allProductTotalPrice = findViewById(R.id.allProductTotalPrice_cart);
         recyclerView = findViewById(R.id.recyclerViewCartList);
         selectAll = findViewById(R.id.cb_cart_selectall);
+        btnHome = findViewById(R.id.img_home_cart);
 
         Intent intent = getIntent();
         //macIP = intent.getStringExtra("macIP");
@@ -103,6 +108,9 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
                 } else {
                     Toast.makeText(CartActivity.this, "장바구니가 비어있습니다.", Toast.LENGTH_SHORT).show();
                     orderTotalNext.setClickable(false);
+                    orderTotalNext.setBackgroundColor(getResources().getColor(R.color.gray));
+                    orderTotalNext.setTextColor(getResources().getColor(R.color.black));
+
                 }
             }
         });
@@ -132,6 +140,8 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
                     allProductTotalPrice.setText("0원");
 
                     orderTotalNext.setText("구매하기");
+                    orderTotalNext.setBackgroundColor(getResources().getColor(R.color.gray));
+                    orderTotalNext.setTextColor(getResources().getColor(R.color.black));
                     selectAll.setChecked(false);
                 } else {
                     btnDelete.setClickable(false);
@@ -140,6 +150,15 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
 
 //                cartAdapter.checkBoxCheckedReturn();
 //                Log.v(TAG, "번호 : " + cartAdapter.checkBoxCheckedReturn().get(0).getProductNo());
+            }
+        });
+
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(CartActivity.this, MainActivity.class);
+                startActivity(intent1);
+                finish();
             }
         });
 
@@ -193,6 +212,8 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
         allProductTotalPrice.setText("0원");
 
         orderTotalNext.setText("구매하기");
+        orderTotalNext.setBackgroundColor(getResources().getColor(R.color.gray));
+        orderTotalNext.setTextColor(getResources().getColor(R.color.black));
 
 
 
@@ -209,14 +230,25 @@ public class CartActivity extends AppCompatActivity implements OnChangedPrice{
 
     @Override
     public void changedPrice(int productTotalPrice, int deliveryPrice, int totalPrice) {
-        myFormatter = new DecimalFormat("###,###");
-        String formattedStringPrice = myFormatter.format(productTotalPrice);
-        String formattedStringPrice1 = myFormatter.format(deliveryPrice);
-        String formattedStringPrice2 = myFormatter.format(totalPrice);
-        Log.v(TAG, "메인 가격변경 리스너 들어옴!!!");
-        productTotal.setText(formattedStringPrice + "원");
-        productDeliveryTotalPrice.setText(formattedStringPrice1 + "원");
-        allProductTotalPrice.setText(formattedStringPrice2 + "원");
-        orderTotalNext.setText("총 " + formattedStringPrice2 + "원 주문하기");
+        if(productTotalPrice == 0) {
+            productTotal.setText("0원");
+            productDeliveryTotalPrice.setText("0원");
+            allProductTotalPrice.setText("0원");
+            orderTotalNext.setText("구매하기");
+            orderTotalNext.setBackgroundColor(getResources().getColor(R.color.gray));
+            orderTotalNext.setTextColor(getResources().getColor(R.color.black));
+        } else {
+            myFormatter = new DecimalFormat("###,###");
+            String formattedStringPrice = myFormatter.format(productTotalPrice);
+            String formattedStringPrice1 = myFormatter.format(deliveryPrice);
+            String formattedStringPrice2 = myFormatter.format(totalPrice);
+            Log.v(TAG, "메인 가격변경 리스너 들어옴!!!");
+            productTotal.setText(formattedStringPrice + "원");
+            productDeliveryTotalPrice.setText(formattedStringPrice1 + "원");
+            allProductTotalPrice.setText(formattedStringPrice2 + "원");
+            orderTotalNext.setText("총 " + formattedStringPrice2 + "원 주문하기");
+            orderTotalNext.setBackgroundColor(getResources().getColor(R.color.brown));
+            orderTotalNext.setTextColor(getResources().getColor(R.color.white));
+        }
     }
 }

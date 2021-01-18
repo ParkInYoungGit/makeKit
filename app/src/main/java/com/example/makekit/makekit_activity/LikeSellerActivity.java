@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.makekit.R;
@@ -31,11 +32,15 @@ public class LikeSellerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_like_seller);
 
         Intent intent = getIntent();
-        email = intent.getStringExtra("useremail");
-        macIP = intent.getStringExtra("macIP");
+//        email = intent.getStringExtra("useremail");
+//        macIP = intent.getStringExtra("macIP");
+
+        macIP = SharVar.macIP;
+        email = SharVar.userEmail;
 
         recyclerView = findViewById(R.id.recyclerViewLike);
         likeSeller = findViewById(R.id.likeseller_Seller_btn);

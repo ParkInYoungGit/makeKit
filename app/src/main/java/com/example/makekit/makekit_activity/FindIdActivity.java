@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import androidx.core.content.ContextCompat;
 import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -63,6 +65,7 @@ public class FindIdActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_find_id);
 
         Intent intent = getIntent(); /*데이터 수신*/
@@ -70,7 +73,8 @@ public class FindIdActivity extends AppCompatActivity {
        macIP = intent.getStringExtra("macIP");
        useremail = intent.getStringExtra("useremail");
 
-        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
+       urlJsp = SharVar.urlAddrBase + "jsp/";
+//        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
 
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)

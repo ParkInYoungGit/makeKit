@@ -22,6 +22,7 @@ import com.example.makekit.makekit_activity.ProdutctViewActivity;
 import com.example.makekit.makekit_activity.SearchActivity;
 import com.example.makekit.makekit_bean.Product;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> implements OnSearchItemClickListener {
@@ -98,6 +99,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         WebView iv_productLeft;
         TextView tv_productNameLeft;
         TextView tv_productPriceLeft;
+        private DecimalFormat myFormatter;
 
         public ViewHolder(@NonNull View itemView, final OnSearchItemClickListener listener) {
             super(itemView);
@@ -110,7 +112,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         public void setItem(Product item){
             iv_productLeft.loadUrl(item.getProductAFilename());
             tv_productNameLeft.setText(item.getProductName());
-            tv_productPriceLeft.setText(item.getProductPrice());
+            myFormatter = new DecimalFormat("###,###");
+            String formattedStringPrice = myFormatter.format(Integer.parseInt(item.getProductPrice()));
+            tv_productPriceLeft.setText(formattedStringPrice+" 원");
             iv_productLeft.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 alert가 뜨지 않음
             iv_productLeft.setWebViewClient(new WebViewClient());//새창열기 없이 웹뷰 내에서 다시 열기//페이지 이동 원활히 하기위해 사용
 

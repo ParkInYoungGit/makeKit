@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.example.makekit.R;
 import com.example.makekit.makekit_asynctask.UserNetworkTask;
 import com.example.makekit.makekit_bean.User;
 import com.example.makekit.makekit_method.SendMail;
+import com.example.makekit.makekit_sharVar.SharVar;
 
 import java.util.ArrayList;
 
@@ -33,8 +35,8 @@ public class FindPwActivity extends AppCompatActivity {
     ////////////////////////////////////////////
     ////////////////////////////////////////////
 
-    String user = "2bbeen@gmail.com"; // 보내는 계정의 id
-    String password = "93elsl211!"; // 보내는 계정의 pw
+    String user = ""; // 보내는 계정의 id
+    String password = ""; // 보내는 계정의 pw
 
     EditText name, email;
     TextView check;
@@ -45,6 +47,7 @@ public class FindPwActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_find_pw);
 
         // Thread 설정
@@ -61,7 +64,8 @@ public class FindPwActivity extends AppCompatActivity {
         Intent intent = getIntent(); /*데이터 수신*/
         macIP = intent.getStringExtra("macIP");
 
-        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
+        urlJsp = SharVar.urlAddrBase + "jsp/";
+//        urlJsp = "http://" + macIP + ":8080/makeKit/jsp/";
         Log.d(TAG, macIP );
 
 

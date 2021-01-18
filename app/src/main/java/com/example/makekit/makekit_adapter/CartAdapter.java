@@ -354,7 +354,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         int productTotalPrice = 0;
 
 
-
+        // 체크된 상품 값 더하기
         for (int i = 0; i < checkboxsList.size(); i++) {
             if (checkboxsList.get(i).isChecked() == true) {
                 price_each = Integer.parseInt(textviewList.get(i).getText().toString()) * Integer.parseInt(data.get(i).getProductPrice());
@@ -368,6 +368,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
             delivery_price = checkBoxChecked.size() * 2500;
             productTotalPrice = price_total + delivery_price;
+            onChangedPrice.changedPrice(price_total, delivery_price, productTotalPrice);
+        } else {
+            price_total=0;
+            delivery_price=0;
+            productTotalPrice=0;
             onChangedPrice.changedPrice(price_total, delivery_price, productTotalPrice);
         }
     }

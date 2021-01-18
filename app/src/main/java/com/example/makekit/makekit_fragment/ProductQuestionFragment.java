@@ -108,9 +108,11 @@ public class ProductQuestionFragment extends Fragment {
                         Toast.makeText(getActivity(), "회원만 이용 가능합니다. \n로그인 후 이용해주세요.", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Intent intent = new Intent(getActivity(), ChatcontentActivity.class );
-                        intent.putExtra("seller", products.get(0).getSellerEmail());
-                        intent.putExtra("productNo", productNo);
+                        Intent intent = new Intent(getActivity(), ChatcontentActivity.class);
+                        intent.putExtra("useremail", products.get(0).getSellerEmail());
+                        intent.putExtra("searchAddress", "");
+                        intent.putExtra("chattingNumber", "null");
+                        //intent.putExtra("productNo", productNo);
                         startActivity(intent);
                     }
                     break;

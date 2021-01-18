@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,13 +52,14 @@ public class PhoneFindPwActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_phone_find_pw);
 
 
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         pw = intent.getStringExtra("pw");
-        phone = intent.getStringExtra("phone");
+        phone = intent.getStringExtra("usertel");
 
         phoneInput = findViewById(R.id.phone_phonfindPw);
         field = findViewById(R.id.tv_fieldCheck_phonefindPw);

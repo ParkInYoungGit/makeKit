@@ -10,8 +10,8 @@ import javax.mail.SendFailedException;
 
 public class SendMail extends AppCompatActivity {
 
-    String user = "2bbeen@gmail.com";
-    String password = "93elsl211!";
+    String user = "";
+    String password = "";
 
     static String pwCode = null;
     static String emailCode = null;

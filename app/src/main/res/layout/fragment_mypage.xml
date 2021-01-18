@@ -115,6 +115,7 @@
                 android:text="공지사항"
                 android:stateListAnimator="@null"/>
 
+
                 <Button
                     android:id="@+id/aboutMakeKit_btn"
                     android:layout_width="match_parent"
@@ -173,10 +174,10 @@
     android:gravity="center"
     >
     <ImageView
-        android:layout_width="80dp"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/makekit_side_logo"/>
+        android:src="@drawable/makekit_logo_black"/>
 </LinearLayout>
         </LinearLayout>
 

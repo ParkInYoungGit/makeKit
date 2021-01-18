@@ -13,14 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@android:color/transparent"
+        android:background="@color/brown"
+        android:textColor="@color/white"
         >
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/Theme.MakeKit"
-            android:background="@color/white"
-android:paddingTop="10dp"
+            android:background="#4D1E0405"
+            android:paddingTop="10dp"
             android:gravity="center"
             >
 
@@ -49,7 +51,7 @@ android:paddingTop="10dp"
 
 
     <LinearLayout
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="80dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
